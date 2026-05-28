@@ -12,3 +12,4 @@ outputs/*.md
 .env
 .DS_Store
 *.zip
+.DS_Store

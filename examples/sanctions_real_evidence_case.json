@@ -1,0 +1,133 @@
+{
+  "case": {
+    "topic": "Sanctions End-Use Controls affecting trade finance",
+    "business_user": "trade_finance_lender",
+    "domain": "sanctions_trade_finance",
+    "region": "UK / EU",
+    "time_horizon": "1-3 months",
+    "concerns": [
+      "sanctions exposure",
+      "diversion through third countries",
+      "counterparty risk",
+      "payment disruption",
+      "documentation risk",
+      "collateral risk",
+      "licensing delay",
+      "regulatory penalties"
+    ]
+  },
+  "demo_search_results": [
+    {
+      "source_id": "SANCTIONS-001",
+      "requirement_id": "REQ-STF-A",
+      "requirement_name": "official_sanctions_guidance",
+      "title": "Sanctions end-use controls guidance for businesses",
+      "publisher": "GOV.UK",
+      "publication_date": "2026-04-22",
+      "url": "https://www.gov.uk/government/publications/sanctions-end-use-controls-guidance-for-businesses",
+      "source_type": "official_primary",
+      "claim_supported": "GOV.UK guidance explains sanctions end-use controls for businesses, including circumstances where end-use exposure can require notification, licensing or compliance escalation.",
+      "key_facts": ["sanctions end-use controls", "business guidance", "notification", "licensing"],
+      "commercial_relevance": "Defines the official control framework that trade finance teams should use to assess transaction approval, hold or decline decisions.",
+      "caveat": "Official guidance should be checked for updates before approving live transactions."
+    },
+    {
+      "source_id": "SANCTIONS-002",
+      "requirement_id": "REQ-STF-B",
+      "requirement_name": "sanctions_regime_context",
+      "title": "Russia sanctions: guidance",
+      "publisher": "GOV.UK",
+      "publication_date": "2026-05-14",
+      "url": "https://www.gov.uk/government/publications/russia-sanctions-guidance/russia-sanctions-guidance",
+      "source_type": "official_primary",
+      "claim_supported": "GOV.UK Russia sanctions guidance sets out restrictions, compliance obligations and regime context relevant to Russia-linked trade, services and financial exposure.",
+      "key_facts": ["Russia sanctions", "restricted trade", "financial sanctions", "compliance obligations"],
+      "commercial_relevance": "Anchors regime context for transactions involving sanctioned destinations, restricted goods, counterparties or circumvention concerns.",
+      "caveat": "Regime guidance is broad; transaction-specific legal analysis may still be required."
+    },
+    {
+      "source_id": "SANCTIONS-003",
+      "requirement_id": "REQ-STF-C",
+      "requirement_name": "export_control_and_dual_use_risk",
+      "title": "UK Trade Tariff",
+      "publisher": "HMRC / GOV.UK",
+      "publication_date": "2026-05-28",
+      "url": "https://trade-tariff.service.gov.uk/",
+      "source_type": "official_primary",
+      "claim_supported": "The UK Trade Tariff service provides commodity classification and trade measure information that can support goods classification, controls review and customs documentation checks.",
+      "key_facts": ["commodity classification", "trade measures", "customs documentation"],
+      "commercial_relevance": "Supports goods classification checks before financing exports or trade flows with end-use or sanctions sensitivity.",
+      "caveat": "Tariff classification is an input to controls review and does not replace specialist export-control advice."
+    },
+    {
+      "source_id": "SANCTIONS-004",
+      "requirement_id": "REQ-STF-D",
+      "requirement_name": "legal_practical_analysis",
+      "title": "UK Introduces Sanctions End-Use Controls",
+      "publisher": "Skadden",
+      "publication_date": "2026-05-05",
+      "url": "https://www.skadden.com/insights/publications/2026/05/uk-introduces-sanctions-end-use-controls",
+      "source_type": "specialist_analysis",
+      "claim_supported": "Skadden analysis explains the practical effect of the UK's sanctions end-use controls, including notification, licensing and compliance implications for businesses.",
+      "key_facts": ["notification", "licensing", "compliance implications"],
+      "commercial_relevance": "Helps translate official guidance into transaction controls, escalation triggers and documentation requirements.",
+      "caveat": "Legal analysis should support but not replace internal counsel or official guidance."
+    },
+    {
+      "source_id": "SANCTIONS-005",
+      "requirement_id": "REQ-STF-D",
+      "requirement_name": "legal_practical_analysis",
+      "title": "UK Introduces Sanctions End-Use Controls",
+      "publisher": "Akin Gump",
+      "publication_date": "2026-04-28",
+      "url": "https://www.akingump.com/en/insights/alerts/uk-introduces-sanctions-enduse-controls",
+      "source_type": "specialist_analysis",
+      "claim_supported": "Akin Gump describes UK sanctions end-use controls and highlights practical due diligence, notification and licensing considerations for businesses.",
+      "key_facts": ["due diligence", "notification", "licensing"],
+      "commercial_relevance": "Supports practical checklist design for transaction review and compliance escalation.",
+      "caveat": "Law-firm analysis may simplify edge cases; confirm against official guidance."
+    },
+    {
+      "source_id": "SANCTIONS-006",
+      "requirement_id": "REQ-STF-E",
+      "requirement_name": "trade_route_and_diversion_risk",
+      "title": "UK sanctions",
+      "publisher": "GOV.UK",
+      "publication_date": "2026-01-28",
+      "url": "https://www.gov.uk/guidance/uk-sanctions",
+      "source_type": "official_primary",
+      "claim_supported": "GOV.UK sanctions guidance directs businesses to UK sanctions guidance and countering Russian sanctions evasion guidance, supporting review of sanctioned destinations, restricted routes and circumvention indicators.",
+      "key_facts": ["third-country routing", "intermediaries", "circumvention"],
+      "commercial_relevance": "Supports enhanced checks where transaction routes, counterparties or goods profiles suggest diversion risk.",
+      "caveat": "News reporting is useful for typologies but should be tied back to transaction facts."
+    },
+    {
+      "source_id": "SANCTIONS-007",
+      "requirement_id": "REQ-STF-F",
+      "requirement_name": "banking_and_payment_risk",
+      "title": "OFSI Strategy 2026-29",
+      "publisher": "Office of Financial Sanctions Implementation",
+      "publication_date": "2026-04-15",
+      "url": "https://ofsi.blog.gov.uk/2026/04/15/ofsi-strategy-2026-29/",
+      "source_type": "specialist_analysis",
+      "claim_supported": "OFSI's 2026-29 strategy emphasises licensing, enforcement, suspected breach reporting, practical guidance and stronger industry controls for financial sanctions compliance.",
+      "key_facts": ["licensing", "enforcement", "suspected breach reporting", "industry controls"],
+      "commercial_relevance": "Links sanctions exposure to payment controls, licensing friction, compliance escalation and facility-control decisions.",
+      "caveat": "OFSI strategy is a control and enforcement signal rather than transaction-specific payment evidence."
+    },
+    {
+      "source_id": "SANCTIONS-008",
+      "requirement_id": "REQ-STF-G",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "title": "UK Introduces Sanctions End-Use Controls",
+      "publisher": "Baker McKenzie Global Sanctions and Export Controls Blog",
+      "publication_date": "2026-05-21",
+      "url": "https://sanctionsnews.bakermckenzie.com/uk-introduces-sanctions-end-use-controls/",
+      "source_type": "contrary_or_stabilising_evidence",
+      "claim_supported": "Baker McKenzie analysis notes that the application of sanctions end-use controls can depend on goods scope, knowledge, notification, licensing and available documentation.",
+      "key_facts": ["goods scope", "knowledge", "notification", "documentation"],
+      "commercial_relevance": "Shows that some transactions may be approvable after enhanced due diligence rather than automatically declined.",
+      "caveat": "Scope-limited evidence must be validated against official guidance and transaction-specific facts."
+    }
+  ]
+}

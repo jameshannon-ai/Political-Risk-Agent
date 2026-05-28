@@ -1,0 +1,352 @@
+from datetime import datetime
+from urllib.parse import urlparse
+
+TRUSTED_DOMAINS = [
+    "ukmto.org",
+    "imo.org",
+    "maersk.com",
+    "hapag-lloyd.com",
+    "cma-cgm.com",
+    "eia.gov",
+    "iea.org",
+    "reuters.com",
+    "apnews.com",
+    "lloydslist.com",
+    "gibsons.co.uk",
+    "kpler.com",
+    "thesignalgroup.com",
+    "howdenre.com",
+    "spglobal.com",
+    "axios.com",
+]
+
+USEFUL_TERMS = [
+    "hormuz",
+    "strait",
+    "vessel",
+    "tanker",
+    "transit",
+    "war-risk",
+    "premium",
+    "insurance",
+    "lng",
+    "oil",
+    "freight",
+    "sanctions",
+    "de-escalation",
+]
+
+REQUIREMENT_BY_SOURCE_TYPE = {
+    "official_primary": ("REQ-A", "official_maritime_security"),
+    "company_update": ("REQ-B", "carrier_operational_behaviour"),
+    "energy_chokepoint_data": ("REQ-C", "energy_chokepoint_exposure"),
+    "insurance_market_evidence": ("REQ-D", "insurance_pricing_reinsurance"),
+    "vessel_flow_or_freight_market_evidence": ("REQ-E", "vessel_flow_freight_market"),
+    "reputable_news": ("REQ-F", "sanctions_compliance"),
+    "specialist_analysis": ("REQ-E", "vessel_flow_freight_market"),
+    "sanctions_compliance": ("REQ-F", "sanctions_compliance"),
+    "contrary_or_stabilising_evidence": ("REQ-G", "contrary_de_escalation"),
+}
+
+
+def rank_candidate_sources(candidates, topic, categories=None, per_category=1):
+    scored = []
+    rejected = []
+    seen_urls = set()
+    for candidate in candidates:
+        url = candidate.get("url", "")
+        scored_candidate = _scored_candidate(candidate, topic)
+        if url and url in seen_urls:
+            rejected.append(
+                {
+                    **scored_candidate,
+                    "rejection_reason": "duplicate or near-duplicate",
+                    "lowest_scoring_dimension": "independence_score",
+                }
+            )
+            continue
+        seen_urls.add(url)
+        scored.append((scored_candidate["total_score"], scored_candidate))
+
+    scored.sort(key=lambda item: item[0], reverse=True)
+    if not categories:
+        return {
+            "selected_sources": [_selected(candidate, topic) for _, candidate in scored],
+            "rejected_sources": rejected,
+            "duplicate_urls_removed": len(rejected),
+        }
+
+    selected = []
+    selected_urls = set()
+    requirement_ids = sorted({candidate.get("requirement_id") for _, candidate in scored if candidate.get("requirement_id")})
+    if requirement_ids:
+        for requirement_id in requirement_ids:
+            matches = [
+                candidate for _, candidate in scored
+                if candidate.get("requirement_id") == requirement_id and candidate.get("url") not in selected_urls
+            ]
+            for candidate in matches[:per_category]:
+                selected.append(_selected(candidate, topic))
+                selected_urls.add(candidate.get("url"))
+    else:
+        for category in categories:
+            matches = [
+                candidate for _, candidate in scored
+                if candidate.get("source_type") == category and candidate.get("url") not in selected_urls
+            ]
+            for candidate in matches[:per_category]:
+                selected.append(_selected(candidate, topic))
+                selected_urls.add(candidate.get("url"))
+
+    selected_url_set = {source.get("url") for source in selected}
+    for _, candidate in scored:
+        if candidate.get("url") in selected_url_set:
+            continue
+        rejected.append(_rejected(candidate, topic, categories))
+
+    return {
+        "selected_sources": selected,
+        "rejected_sources": rejected,
+        "duplicate_urls_removed": sum(1 for source in rejected if source.get("rejection_reason") == "duplicate URL"),
+    }
+
+
+def _selected(candidate, topic):
+    return {
+        **candidate,
+        "selection_reason": _selection_reason(candidate, topic),
+        "evidence_value": _evidence_value(candidate),
+        "decision_use": _decision_use(candidate),
+    }
+
+
+def _rejected(candidate, topic, categories):
+    reason = "stronger source already selected for the same requirement"
+    if candidate.get("reliability_score", 1) <= 2:
+        reason = "low reliability"
+    elif candidate.get("source_type") not in categories:
+        reason = "weak source requirement fit"
+    elif candidate.get("relevance_score", 1) <= 2:
+        reason = "weak relevance"
+    elif candidate.get("recency_score", 1) <= 2:
+        reason = "stale source"
+    elif candidate.get("specificity_score", 1) <= 2:
+        reason = "low specificity"
+
+    return {
+        **candidate,
+        "rejection_reason": reason,
+        "lowest_scoring_dimension": _lowest_scoring_dimension(candidate),
+    }
+
+
+def _selection_reason(candidate, topic):
+    reasons = []
+    if _trusted_domain(candidate.get("url", "")):
+        reasons.append("trusted domain")
+    if any(token in " ".join([candidate.get("title", ""), candidate.get("snippet", "")]).lower() for token in topic.lower().split()):
+        reasons.append("direct topic match")
+    if candidate.get("source_type"):
+        reasons.append(f"fits {candidate['source_type']}")
+    if _is_recent(candidate.get("publication_date", "")):
+        reasons.append("recent source")
+    return ", ".join(reasons) or "selected as best available category match"
+
+
+def _evidence_value(candidate):
+    source_type = candidate.get("source_type", "unknown")
+    values = {
+        "official_primary": "Primary safety and security baseline.",
+        "company_update": "Operational signal from market participant.",
+        "energy_chokepoint_data": "Structural impact evidence for oil and LNG exposure.",
+        "insurance_market_evidence": "Direct pricing and underwriting signal.",
+        "vessel_flow_or_freight_market_evidence": "Market behaviour and flow signal.",
+        "reputable_news": "Corroborating current-events evidence.",
+        "specialist_analysis": "Scenario and market interpretation.",
+        "contrary_or_stabilising_evidence": "Balances downside case and confidence.",
+    }
+    return values.get(source_type, "Supporting context.")
+
+
+def _decision_use(candidate):
+    source_type = candidate.get("source_type", "unknown")
+    uses = {
+        "official_primary": "Supports enhanced referral and route-level controls.",
+        "company_update": "Informs whether transit controls should remain enhanced.",
+        "energy_chokepoint_data": "Supports severe impact scoring and accumulation stress testing.",
+        "insurance_market_evidence": "Supports pricing review, referral thresholds and capacity check.",
+        "vessel_flow_or_freight_market_evidence": "Supports immediacy scoring and relaxation triggers.",
+        "reputable_news": "Corroborates current conditions and management escalation needs.",
+        "specialist_analysis": "Supports scenario framing and market interpretation.",
+        "contrary_or_stabilising_evidence": "Informs relaxation triggers without automatically reducing controls.",
+    }
+    return uses.get(source_type, "Supports analyst judgement and review controls.")
+
+
+def _scored_candidate(candidate, topic):
+    scores = {
+        "reliability_score": _reliability_score(candidate),
+        "relevance_score": _relevance_score(candidate, topic),
+        "recency_score": _recency_score(candidate),
+        "specificity_score": _specificity_score(candidate),
+        "decision_value_score": _decision_value_score(candidate),
+        "independence_score": 5,
+        "contrary_value_score": _contrary_value_score(candidate),
+    }
+    total_score = sum(scores.values())
+    requirement_id, requirement_name = _requirement_for(candidate.get("source_type", "unknown"))
+    return {
+        **candidate,
+        **scores,
+        "requirement_id": candidate.get("requirement_id", requirement_id),
+        "requirement_name": candidate.get("requirement_name", requirement_name),
+        "total_score": total_score,
+        "ranking_score": total_score,
+        "evidence_weight": _evidence_weight(total_score),
+    }
+
+
+def _requirement_for(source_type):
+    return REQUIREMENT_BY_SOURCE_TYPE.get(source_type, ("", ""))
+
+
+def _score(candidate, topic):
+    return _scored_candidate(candidate, topic)["total_score"]
+
+
+def _reliability_score(candidate):
+    source_type = candidate.get("source_type", "unknown")
+    trusted = _trusted_domain(candidate.get("url", ""))
+    if source_type in {"official_primary", "company_update", "energy_chokepoint_data", "insurance_market_evidence"}:
+        return 5 if trusted else 4
+    if source_type in {"vessel_flow_or_freight_market_evidence", "specialist_analysis", "reputable_news", "contrary_or_stabilising_evidence"}:
+        return 4 if trusted else 3
+    if trusted:
+        return 3
+    return 2
+
+
+def _relevance_score(candidate, topic):
+    text = _candidate_text(candidate)
+    tokens = [token for token in topic.lower().split() if len(token) > 3]
+    matches = sum(1 for token in tokens if token in text)
+    if matches >= 2:
+        return 5
+    if matches == 1 or candidate.get("source_type"):
+        return 4
+    if any(term in text for term in USEFUL_TERMS):
+        return 3
+    return 2
+
+
+def _recency_score(candidate):
+    date_value = candidate.get("publication_date", "")
+    if not date_value:
+        return 3
+    try:
+        publication_date = datetime.strptime(date_value, "%Y-%m-%d").date()
+    except ValueError:
+        return 2
+    age_days = (datetime.now().date() - publication_date).days
+    if age_days <= 30:
+        return 5
+    if age_days <= 90:
+        return 4
+    if age_days <= 180:
+        return 3
+    return 2
+
+
+def _specificity_score(candidate):
+    text = _candidate_text(candidate)
+    signals = 0
+    signals += 1 if any(term in text for term in ROUTE_SIGNAL_TERMS) else 0
+    signals += 1 if any(term in text for term in INSURANCE_SIGNAL_TERMS) else 0
+    signals += 1 if any(term in text for term in VESSEL_SIGNAL_TERMS) else 0
+    signals += 1 if any(char.isdigit() for char in text) else 0
+    signals += 1 if any(term in text for term in ["premium", "rate", "percent", "%", "barrels", "lng", "cargo"]) else 0
+    return min(5, max(2, signals + 1))
+
+
+def _decision_value_score(candidate):
+    text = _candidate_text(candidate)
+    decision_terms = [
+        "stance", "pricing", "premium", "referral", "aggregation", "wording",
+        "sanctions", "reinsurance", "capacity", "route", "transit", "relax",
+        "reopen", "de-escalation", "operations",
+    ]
+    matches = sum(1 for term in decision_terms if term in text)
+    if candidate.get("source_type") in {"official_primary", "insurance_market_evidence", "company_update"}:
+        matches += 2
+    return min(5, max(2, matches))
+
+
+def _contrary_value_score(candidate):
+    if candidate.get("source_type") == "contrary_or_stabilising_evidence":
+        return 5
+    text = _candidate_text(candidate)
+    if any(term in text for term in ["de-escalation", "reopen", "restored", "normalisation", "normalization"]):
+        return 4
+    return 1
+
+
+ROUTE_SIGNAL_TERMS = ["hormuz", "strait", "gulf", "route", "waterway", "chokepoint"]
+INSURANCE_SIGNAL_TERMS = ["insurance", "war-risk", "war risk", "premium", "reinsurance", "underwriting"]
+VESSEL_SIGNAL_TERMS = ["vessel", "tanker", "traffic", "transit", "flows", "freight", "shipping"]
+
+
+def _candidate_text(candidate):
+    return " ".join([candidate.get("title", ""), candidate.get("snippet", ""), candidate.get("claim_supported", "")]).lower()
+
+
+def _evidence_weight(total_score):
+    if total_score >= 28:
+        return "high"
+    if total_score >= 20:
+        return "medium"
+    return "low"
+
+
+def _lowest_scoring_dimension(candidate):
+    dimensions = [
+        "reliability_score",
+        "relevance_score",
+        "recency_score",
+        "specificity_score",
+        "decision_value_score",
+        "independence_score",
+    ]
+    return min(dimensions, key=lambda name: candidate.get(name, 0))
+
+
+def _legacy_score(candidate, topic):
+    text = " ".join([candidate.get("title", ""), candidate.get("snippet", "")]).lower()
+    score = 0
+
+    for token in topic.lower().split():
+        if token in text:
+            score += 2
+    if _trusted_domain(candidate.get("url", "")):
+        score += 5
+    if candidate.get("source_type"):
+        score += 2
+    if _is_recent(candidate.get("publication_date", "")):
+        score += 2
+    score += sum(1 for term in USEFUL_TERMS if term in text)
+
+    return score
+
+
+def _trusted_domain(url):
+    domain = urlparse(url).netloc.lower().replace("www.", "")
+    return any(domain == trusted or domain.endswith("." + trusted) for trusted in TRUSTED_DOMAINS)
+
+
+def _is_recent(date_value):
+    if not date_value:
+        return False
+    try:
+        publication_date = datetime.strptime(date_value, "%Y-%m-%d").date()
+    except ValueError:
+        return False
+    return (datetime.now().date() - publication_date).days <= 90

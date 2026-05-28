@@ -1,0 +1,2896 @@
+{
+  "topic": "Strait of Hormuz Transit Controls",
+  "business_user": "shipping_operator",
+  "region": "Persian Gulf / UK shipping operators",
+  "time_horizon": "1-3 months",
+  "concerns": [
+    "Should a UK shipping operator transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review?",
+    "Do transit controls or detention risks make direct passage operationally unacceptable?",
+    "Does sanctions or war-risk pressure override the cheaper direct route?",
+    "What evidence would justify relaxation?",
+    "Should Hormuz-linked voyages require enhanced operational approval?",
+    "Is this a live vessel security risk or mainly a commercial-pricing issue?",
+    "Are vessels being required to coordinate passage with Iranian authorities?",
+    "Does the transit-control mechanism create operational or detention risk?",
+    "Is direct transit still operationally acceptable?",
+    "Could a transit demand create sanctions exposure?",
+    "Should the voyage be escalated to legal/compliance review?",
+    "Does sanctions risk override a cheaper direct transit option?",
+    "Is war-risk cover available?",
+    "Has premium repricing changed the voyage economics?",
+    "Are exclusions, cancellation provisions or additional premiums relevant?",
+    "Are vessel flows recovering or still abnormal?",
+    "Are AIS/transponder behaviours creating operational or compliance red flags?",
+    "Should traffic recovery be treated as evidence for relaxation?",
+    "Why does Hormuz matter commercially?",
+    "Which cargoes and vessel types create the largest exposure?",
+    "Does cargo criticality increase charter, client or delivery pressure?",
+    "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+    "What are the cost trade-offs between transit, delay and reroute?",
+    "Which option has the best risk-adjusted commercial case?",
+    "What evidence would justify relaxing controls?",
+    "Has de-escalation translated into practical vessel-flow recovery?",
+    "Are insurance, sanctions and operator confidence improving together?"
+  ],
+  "created_at": "2026-05-28T16:53:47",
+  "retrieval_timestamp": "2026-05-28T16:53:47",
+  "source_strategy": {
+    "topic": "Strait of Hormuz Transit Controls",
+    "region": "Persian Gulf / UK shipping operators",
+    "time_horizon": "1-3 months",
+    "domain": "maritime_trade",
+    "source_plan": {
+      "research_objective": "Build a governed evidence base for shipping_operator decision-making on Strait of Hormuz Transit Controls in Persian Gulf / UK shipping operators over 1-3 months, using the maritime_trade domain pack.",
+      "decision_questions": [
+        "Should a UK shipping operator transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review?",
+        "Do transit controls or detention risks make direct passage operationally unacceptable?",
+        "Does sanctions or war-risk pressure override the cheaper direct route?",
+        "What evidence would justify relaxation?",
+        "Should Hormuz-linked voyages require enhanced operational approval?",
+        "Is this a live vessel security risk or mainly a commercial-pricing issue?",
+        "Are vessels being required to coordinate passage with Iranian authorities?",
+        "Does the transit-control mechanism create operational or detention risk?",
+        "Is direct transit still operationally acceptable?",
+        "Could a transit demand create sanctions exposure?",
+        "Should the voyage be escalated to legal/compliance review?",
+        "Does sanctions risk override a cheaper direct transit option?",
+        "Is war-risk cover available?",
+        "Has premium repricing changed the voyage economics?",
+        "Are exclusions, cancellation provisions or additional premiums relevant?",
+        "Are vessel flows recovering or still abnormal?",
+        "Are AIS/transponder behaviours creating operational or compliance red flags?",
+        "Should traffic recovery be treated as evidence for relaxation?",
+        "Why does Hormuz matter commercially?",
+        "Which cargoes and vessel types create the largest exposure?",
+        "Does cargo criticality increase charter, client or delivery pressure?",
+        "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+        "What are the cost trade-offs between transit, delay and reroute?",
+        "Which option has the best risk-adjusted commercial case?",
+        "What evidence would justify relaxing controls?",
+        "Has de-escalation translated into practical vessel-flow recovery?",
+        "Are insurance, sanctions and operator confidence improving together?"
+      ],
+      "required_source_mix": [
+        "official maritime/security advisory",
+        "transit-control and detention reporting",
+        "sanctions and legal guidance",
+        "energy/freight/vessel-flow data",
+        "insurance and route-cost evidence",
+        "contrary or de-escalation evidence"
+      ],
+      "source_requirements": [
+        {
+          "requirement_id": "REQ-HSO-A",
+          "requirement_name": "official_maritime_security",
+          "why_required": "Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk.",
+          "preferred_source_types": [
+            "official_primary",
+            "official_guidance"
+          ],
+          "preferred_domains": [
+            "ukmto.org",
+            "imo.org",
+            "ics-shipping.org",
+            "bimco.org",
+            "intertanko.com",
+            "ocimf.org"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Should Hormuz-linked voyages require enhanced operational approval?",
+            "Is this a live vessel security risk or mainly a commercial-pricing issue?"
+          ],
+          "freshness_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-B",
+          "requirement_name": "transit_control_or_constabulary_actions",
+          "why_required": "Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims.",
+          "preferred_source_types": [
+            "reputable_news",
+            "official_primary"
+          ],
+          "preferred_domains": [
+            "reuters.com",
+            "apnews.com",
+            "ukmto.org",
+            "imo.org",
+            "gov.uk"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Are vessels being required to coordinate passage with Iranian authorities?",
+            "Does the transit-control mechanism create operational or detention risk?",
+            "Is direct transit still operationally acceptable?"
+          ],
+          "freshness_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-C",
+          "requirement_name": "sanctions_and_safe_passage_payment_risk",
+          "why_required": "Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure.",
+          "preferred_source_types": [
+            "official_primary",
+            "specialist_analysis",
+            "reputable_news"
+          ],
+          "preferred_domains": [
+            "ofac.treasury.gov",
+            "ofsi.gov.uk",
+            "gov.uk",
+            "reuters.com",
+            "apnews.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Could a transit demand create sanctions exposure?",
+            "Should the voyage be escalated to legal/compliance review?",
+            "Does sanctions risk override a cheaper direct transit option?"
+          ],
+          "freshness_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-D",
+          "requirement_name": "war_risk_insurance_pricing",
+          "why_required": "Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions.",
+          "preferred_source_types": [
+            "insurance_market_evidence",
+            "reputable_news"
+          ],
+          "preferred_domains": [
+            "howdenre.com",
+            "lmalloyds.com",
+            "lloydslist.com",
+            "reuters.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Is war-risk cover available?",
+            "Has premium repricing changed the voyage economics?",
+            "Are exclusions, cancellation provisions or additional premiums relevant?"
+          ],
+          "freshness_expectation": "Current insurance-market evidence, preferably within 30 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-E",
+          "requirement_name": "vessel_flow_and_AIS_behaviour",
+          "why_required": "Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening.",
+          "preferred_source_types": [
+            "vessel_flow_or_freight_market_evidence",
+            "reputable_news",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "reuters.com",
+            "kpler.com",
+            "vortexa.com",
+            "lloydslist.com",
+            "marinetraffic.com",
+            "gibsons.co.uk",
+            "apnews.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Are vessel flows recovering or still abnormal?",
+            "Are AIS/transponder behaviours creating operational or compliance red flags?",
+            "Should traffic recovery be treated as evidence for relaxation?"
+          ],
+          "freshness_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-F",
+          "requirement_name": "energy_cargo_and_chokepoint_exposure",
+          "why_required": "Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure.",
+          "preferred_source_types": [
+            "energy_chokepoint_data",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "eia.gov",
+            "iea.org",
+            "unctad.org",
+            "spglobal.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Why does Hormuz matter commercially?",
+            "Which cargoes and vessel types create the largest exposure?",
+            "Does cargo criticality increase charter, client or delivery pressure?"
+          ],
+          "freshness_expectation": "Recent structural data or current maintained chokepoint data.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-HSO-G",
+          "requirement_name": "route_cost_and_arbitrage_inputs",
+          "why_required": "Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure.",
+          "preferred_source_types": [
+            "insurance_market_evidence",
+            "specialist_analysis",
+            "reputable_news"
+          ],
+          "preferred_domains": [
+            "howdenre.com",
+            "lloydslist.com",
+            "spglobal.com",
+            "reuters.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+            "What are the cost trade-offs between transit, delay and reroute?",
+            "Which option has the best risk-adjusted commercial case?"
+          ],
+          "freshness_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-HSO-H",
+          "requirement_name": "contrary_or_de_escalation_evidence",
+          "why_required": "Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again.",
+          "preferred_source_types": [
+            "contrary_or_stabilising_evidence",
+            "reputable_news",
+            "official_primary"
+          ],
+          "preferred_domains": [
+            "reuters.com",
+            "apnews.com",
+            "gov.uk",
+            "ukmto.org",
+            "imo.org"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "What evidence would justify relaxing controls?",
+            "Has de-escalation translated into practical vessel-flow recovery?",
+            "Are insurance, sanctions and operator confidence improving together?"
+          ],
+          "freshness_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+          "strength_threshold": "medium"
+        }
+      ],
+      "search_queries": {
+        "REQ-HSO-A": [
+          "site:ukmto.org Strait of Hormuz Transit Controls official maritime security 1-3 months"
+        ],
+        "REQ-HSO-B": [
+          "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+          "AP Iran transit controls Hormuz vessel coordination detention risk",
+          "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions 1-3 months",
+          "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions"
+        ],
+        "REQ-HSO-C": [
+          "OFAC FAQ 1249 sanctions risks toll safe-passage payments Hormuz",
+          "AP US sanctions Iran Persian Gulf Strait Authority",
+          "site:ofac.treasury.gov Strait of Hormuz Transit Controls sanctions and safe passage payment risk 1-3 months",
+          "Strait of Hormuz Transit Controls sanctions and safe passage payment risk specialist analysis",
+          "site:reuters.com Strait of Hormuz Transit Controls sanctions and safe passage payment risk"
+        ],
+        "REQ-HSO-D": [
+          "Howden Re Strait of Hormuz war risk pricing",
+          "Reuters Hormuz war risk insurance premium shipping",
+          "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing 1-3 months",
+          "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing",
+          "site:reuters.com Strait of Hormuz Transit Controls war risk insurance pricing"
+        ],
+        "REQ-HSO-E": [
+          "Reuters Hormuz tanker traffic AIS transponder behaviour",
+          "AP Hormuz vessel flows AIS disruption",
+          "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour 1-3 months",
+          "site:lloydslist.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour",
+          "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour"
+        ],
+        "REQ-HSO-F": [
+          "EIA Strait of Hormuz chokepoint oil LNG exposure",
+          "IEA Strait of Hormuz oil LNG chokepoint exposure",
+          "site:eia.gov Strait of Hormuz Transit Controls energy cargo and chokepoint exposure 1-3 months",
+          "site:spglobal.com Strait of Hormuz Transit Controls energy cargo and chokepoint exposure"
+        ],
+        "REQ-HSO-G": [
+          "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs 1-3 months",
+          "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs",
+          "site:reuters.com Strait of Hormuz Transit Controls route cost and arbitrage inputs"
+        ],
+        "REQ-HSO-H": [
+          "Reuters Strait of Hormuz reopening conditions shipping de-escalation",
+          "AP Strait of Hormuz de-escalation vessel flows reopening",
+          "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence 1-3 months",
+          "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence",
+          "Strait of Hormuz Transit Controls contrary or de escalation evidence scope limited stabilising contrary evidence"
+        ]
+      },
+      "expected_evidence_types": [
+        "official_primary",
+        "company_update",
+        "energy_chokepoint_data",
+        "insurance_market_evidence",
+        "vessel_flow_or_freight_market_evidence",
+        "reputable_news",
+        "specialist_analysis",
+        "contrary_or_stabilising_evidence"
+      ],
+      "minimum_acceptable_coverage": {
+        "minimum_total_requirements": 8,
+        "minimum_high_priority_requirements": 6,
+        "high_priority_requirements": [
+          "official_maritime_security",
+          "transit_control_or_constabulary_actions",
+          "sanctions_and_safe_passage_payment_risk",
+          "war_risk_insurance_pricing",
+          "vessel_flow_and_AIS_behaviour",
+          "energy_cargo_and_chokepoint_exposure"
+        ],
+        "minimum_sources_per_requirement": {
+          "REQ-HSO-A": 1,
+          "REQ-HSO-B": 1,
+          "REQ-HSO-C": 1,
+          "REQ-HSO-D": 1,
+          "REQ-HSO-E": 1,
+          "REQ-HSO-F": 1,
+          "REQ-HSO-G": 1,
+          "REQ-HSO-H": 1
+        }
+      },
+      "refresh_priorities": [
+        {
+          "requirement_id": "REQ-HSO-A",
+          "requirement_name": "official_maritime_security",
+          "refresh_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-B",
+          "requirement_name": "transit_control_or_constabulary_actions",
+          "refresh_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-C",
+          "requirement_name": "sanctions_and_safe_passage_payment_risk",
+          "refresh_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-D",
+          "requirement_name": "war_risk_insurance_pricing",
+          "refresh_expectation": "Current insurance-market evidence, preferably within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-E",
+          "requirement_name": "vessel_flow_and_AIS_behaviour",
+          "refresh_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-F",
+          "requirement_name": "energy_cargo_and_chokepoint_exposure",
+          "refresh_expectation": "Recent structural data or current maintained chokepoint data.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-G",
+          "requirement_name": "route_cost_and_arbitrage_inputs",
+          "refresh_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        },
+        {
+          "requirement_id": "REQ-HSO-H",
+          "requirement_name": "contrary_or_de_escalation_evidence",
+          "refresh_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+          "watchlist_indicators": [
+            "official maritime advisories",
+            "transit-control demands",
+            "safe-passage payment requests",
+            "war-risk premium movement"
+          ]
+        }
+      ],
+      "domain": "maritime_trade",
+      "client_decision_outputs": [
+        "operating stance",
+        "transit / delay / reroute option",
+        "sanctions escalation",
+        "insurance and route-cost review",
+        "relaxation triggers"
+      ],
+      "risk_drivers": [
+        "transit_control_risk",
+        "sanctions_safe_passage_risk",
+        "war_risk_insurance_pressure",
+        "vessel_flow_AIS_disruption",
+        "energy_chokepoint_exposure",
+        "route_cost_arbitrage",
+        "de_escalation_monitoring"
+      ]
+    },
+    "source_requirements": [
+      {
+        "requirement_id": "REQ-HSO-A",
+        "requirement_name": "official_maritime_security",
+        "why_required": "Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk.",
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "ukmto.org",
+          "imo.org",
+          "ics-shipping.org",
+          "bimco.org",
+          "intertanko.com",
+          "ocimf.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Should Hormuz-linked voyages require enhanced operational approval?",
+          "Is this a live vessel security risk or mainly a commercial-pricing issue?"
+        ],
+        "freshness_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-B",
+        "requirement_name": "transit_control_or_constabulary_actions",
+        "why_required": "Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims.",
+        "preferred_source_types": [
+          "reputable_news",
+          "official_primary"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "ukmto.org",
+          "imo.org",
+          "gov.uk"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Are vessels being required to coordinate passage with Iranian authorities?",
+          "Does the transit-control mechanism create operational or detention risk?",
+          "Is direct transit still operationally acceptable?"
+        ],
+        "freshness_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-C",
+        "requirement_name": "sanctions_and_safe_passage_payment_risk",
+        "why_required": "Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "ofac.treasury.gov",
+          "ofsi.gov.uk",
+          "gov.uk",
+          "reuters.com",
+          "apnews.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Could a transit demand create sanctions exposure?",
+          "Should the voyage be escalated to legal/compliance review?",
+          "Does sanctions risk override a cheaper direct transit option?"
+        ],
+        "freshness_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-D",
+        "requirement_name": "war_risk_insurance_pricing",
+        "why_required": "Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions.",
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "howdenre.com",
+          "lmalloyds.com",
+          "lloydslist.com",
+          "reuters.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is war-risk cover available?",
+          "Has premium repricing changed the voyage economics?",
+          "Are exclusions, cancellation provisions or additional premiums relevant?"
+        ],
+        "freshness_expectation": "Current insurance-market evidence, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-E",
+        "requirement_name": "vessel_flow_and_AIS_behaviour",
+        "why_required": "Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening.",
+        "preferred_source_types": [
+          "vessel_flow_or_freight_market_evidence",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "kpler.com",
+          "vortexa.com",
+          "lloydslist.com",
+          "marinetraffic.com",
+          "gibsons.co.uk",
+          "apnews.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Are vessel flows recovering or still abnormal?",
+          "Are AIS/transponder behaviours creating operational or compliance red flags?",
+          "Should traffic recovery be treated as evidence for relaxation?"
+        ],
+        "freshness_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-F",
+        "requirement_name": "energy_cargo_and_chokepoint_exposure",
+        "why_required": "Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure.",
+        "preferred_source_types": [
+          "energy_chokepoint_data",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "eia.gov",
+          "iea.org",
+          "unctad.org",
+          "spglobal.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Why does Hormuz matter commercially?",
+          "Which cargoes and vessel types create the largest exposure?",
+          "Does cargo criticality increase charter, client or delivery pressure?"
+        ],
+        "freshness_expectation": "Recent structural data or current maintained chokepoint data.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-G",
+        "requirement_name": "route_cost_and_arbitrage_inputs",
+        "why_required": "Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure.",
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "howdenre.com",
+          "lloydslist.com",
+          "spglobal.com",
+          "reuters.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+          "What are the cost trade-offs between transit, delay and reroute?",
+          "Which option has the best risk-adjusted commercial case?"
+        ],
+        "freshness_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-HSO-H",
+        "requirement_name": "contrary_or_de_escalation_evidence",
+        "why_required": "Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again.",
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "reputable_news",
+          "official_primary"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "gov.uk",
+          "ukmto.org",
+          "imo.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "What evidence would justify relaxing controls?",
+          "Has de-escalation translated into practical vessel-flow recovery?",
+          "Are insurance, sanctions and operator confidence improving together?"
+        ],
+        "freshness_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+        "strength_threshold": "medium"
+      }
+    ],
+    "categories": [
+      {
+        "category": "official_primary",
+        "source_requirement": "official_maritime_security",
+        "requirement_id": "REQ-HSO-A",
+        "requirement_name": "official_maritime_security",
+        "evidence_question": "Should Hormuz-linked voyages require enhanced operational approval?",
+        "target_evidence_question": "Should Hormuz-linked voyages require enhanced operational approval?",
+        "preferred_domains": [
+          "ukmto.org",
+          "imo.org",
+          "ics-shipping.org",
+          "bimco.org",
+          "intertanko.com",
+          "ocimf.org"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "queries": [
+          "site:ukmto.org Strait of Hormuz Transit Controls official maritime security 1-3 months"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+        "refresh_expectation": "Current official maritime/security guidance, preferably checked within 30 days."
+      },
+      {
+        "category": "reputable_news",
+        "source_requirement": "transit_control_or_constabulary_actions",
+        "requirement_id": "REQ-HSO-B",
+        "requirement_name": "transit_control_or_constabulary_actions",
+        "evidence_question": "Are vessels being required to coordinate passage with Iranian authorities?",
+        "target_evidence_question": "Are vessels being required to coordinate passage with Iranian authorities?",
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "ukmto.org",
+          "imo.org",
+          "gov.uk"
+        ],
+        "preferred_source_types": [
+          "reputable_news",
+          "official_primary"
+        ],
+        "queries": [
+          "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+          "AP Iran transit controls Hormuz vessel coordination detention risk",
+          "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions 1-3 months",
+          "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "reputable_news",
+        "freshness_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+        "refresh_expectation": "Current operational reporting and advisories, preferably within 30 days."
+      },
+      {
+        "category": "official_primary",
+        "source_requirement": "sanctions_and_safe_passage_payment_risk",
+        "requirement_id": "REQ-HSO-C",
+        "requirement_name": "sanctions_and_safe_passage_payment_risk",
+        "evidence_question": "Could a transit demand create sanctions exposure?",
+        "target_evidence_question": "Could a transit demand create sanctions exposure?",
+        "preferred_domains": [
+          "ofac.treasury.gov",
+          "ofsi.gov.uk",
+          "gov.uk",
+          "reuters.com",
+          "apnews.com"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "queries": [
+          "OFAC FAQ 1249 sanctions risks toll safe-passage payments Hormuz",
+          "AP US sanctions Iran Persian Gulf Strait Authority",
+          "site:ofac.treasury.gov Strait of Hormuz Transit Controls sanctions and safe passage payment risk 1-3 months",
+          "Strait of Hormuz Transit Controls sanctions and safe passage payment risk specialist analysis",
+          "site:reuters.com Strait of Hormuz Transit Controls sanctions and safe passage payment risk"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+        "refresh_expectation": "Current sanctions guidance or reporting, preferably within 30 days."
+      },
+      {
+        "category": "insurance_market_evidence",
+        "source_requirement": "war_risk_insurance_pricing",
+        "requirement_id": "REQ-HSO-D",
+        "requirement_name": "war_risk_insurance_pricing",
+        "evidence_question": "Is war-risk cover available?",
+        "target_evidence_question": "Is war-risk cover available?",
+        "preferred_domains": [
+          "howdenre.com",
+          "lmalloyds.com",
+          "lloydslist.com",
+          "reuters.com"
+        ],
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "reputable_news"
+        ],
+        "queries": [
+          "Howden Re Strait of Hormuz war risk pricing",
+          "Reuters Hormuz war risk insurance premium shipping",
+          "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing 1-3 months",
+          "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing",
+          "site:reuters.com Strait of Hormuz Transit Controls war risk insurance pricing"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "insurance_market_evidence",
+        "freshness_expectation": "Current insurance-market evidence, preferably within 30 days.",
+        "refresh_expectation": "Current insurance-market evidence, preferably within 30 days."
+      },
+      {
+        "category": "vessel_flow_or_freight_market_evidence",
+        "source_requirement": "vessel_flow_and_AIS_behaviour",
+        "requirement_id": "REQ-HSO-E",
+        "requirement_name": "vessel_flow_and_AIS_behaviour",
+        "evidence_question": "Are vessel flows recovering or still abnormal?",
+        "target_evidence_question": "Are vessel flows recovering or still abnormal?",
+        "preferred_domains": [
+          "reuters.com",
+          "kpler.com",
+          "vortexa.com",
+          "lloydslist.com",
+          "marinetraffic.com",
+          "gibsons.co.uk",
+          "apnews.com"
+        ],
+        "preferred_source_types": [
+          "vessel_flow_or_freight_market_evidence",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "Reuters Hormuz tanker traffic AIS transponder behaviour",
+          "AP Hormuz vessel flows AIS disruption",
+          "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour 1-3 months",
+          "site:lloydslist.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour",
+          "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "vessel_flow_or_freight_market_evidence",
+        "freshness_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+        "refresh_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days."
+      },
+      {
+        "category": "energy_chokepoint_data",
+        "source_requirement": "energy_cargo_and_chokepoint_exposure",
+        "requirement_id": "REQ-HSO-F",
+        "requirement_name": "energy_cargo_and_chokepoint_exposure",
+        "evidence_question": "Why does Hormuz matter commercially?",
+        "target_evidence_question": "Why does Hormuz matter commercially?",
+        "preferred_domains": [
+          "eia.gov",
+          "iea.org",
+          "unctad.org",
+          "spglobal.com"
+        ],
+        "preferred_source_types": [
+          "energy_chokepoint_data",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "EIA Strait of Hormuz chokepoint oil LNG exposure",
+          "IEA Strait of Hormuz oil LNG chokepoint exposure",
+          "site:eia.gov Strait of Hormuz Transit Controls energy cargo and chokepoint exposure 1-3 months",
+          "site:spglobal.com Strait of Hormuz Transit Controls energy cargo and chokepoint exposure"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "energy_chokepoint_data",
+        "freshness_expectation": "Recent structural data or current maintained chokepoint data.",
+        "refresh_expectation": "Recent structural data or current maintained chokepoint data."
+      },
+      {
+        "category": "insurance_market_evidence",
+        "source_requirement": "route_cost_and_arbitrage_inputs",
+        "requirement_id": "REQ-HSO-G",
+        "requirement_name": "route_cost_and_arbitrage_inputs",
+        "evidence_question": "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+        "target_evidence_question": "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+        "preferred_domains": [
+          "howdenre.com",
+          "lloydslist.com",
+          "spglobal.com",
+          "reuters.com"
+        ],
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "queries": [
+          "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs 1-3 months",
+          "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs",
+          "site:reuters.com Strait of Hormuz Transit Controls route cost and arbitrage inputs"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "insurance_market_evidence",
+        "freshness_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+        "refresh_expectation": "Current market inputs plus operator assumptions validated for the voyage."
+      },
+      {
+        "category": "contrary_or_stabilising_evidence",
+        "source_requirement": "contrary_or_de_escalation_evidence",
+        "requirement_id": "REQ-HSO-H",
+        "requirement_name": "contrary_or_de_escalation_evidence",
+        "evidence_question": "What evidence would justify relaxing controls?",
+        "target_evidence_question": "What evidence would justify relaxing controls?",
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "gov.uk",
+          "ukmto.org",
+          "imo.org"
+        ],
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "reputable_news",
+          "official_primary"
+        ],
+        "queries": [
+          "Reuters Strait of Hormuz reopening conditions shipping de-escalation",
+          "AP Strait of Hormuz de-escalation vessel flows reopening",
+          "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence 1-3 months",
+          "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence",
+          "Strait of Hormuz Transit Controls contrary or de escalation evidence scope limited stabilising contrary evidence"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "contrary_or_stabilising_evidence",
+        "freshness_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+        "refresh_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days."
+      }
+    ]
+  },
+  "source_plan": {
+    "research_objective": "Build a governed evidence base for shipping_operator decision-making on Strait of Hormuz Transit Controls in Persian Gulf / UK shipping operators over 1-3 months, using the maritime_trade domain pack.",
+    "decision_questions": [
+      "Should a UK shipping operator transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review?",
+      "Do transit controls or detention risks make direct passage operationally unacceptable?",
+      "Does sanctions or war-risk pressure override the cheaper direct route?",
+      "What evidence would justify relaxation?",
+      "Should Hormuz-linked voyages require enhanced operational approval?",
+      "Is this a live vessel security risk or mainly a commercial-pricing issue?",
+      "Are vessels being required to coordinate passage with Iranian authorities?",
+      "Does the transit-control mechanism create operational or detention risk?",
+      "Is direct transit still operationally acceptable?",
+      "Could a transit demand create sanctions exposure?",
+      "Should the voyage be escalated to legal/compliance review?",
+      "Does sanctions risk override a cheaper direct transit option?",
+      "Is war-risk cover available?",
+      "Has premium repricing changed the voyage economics?",
+      "Are exclusions, cancellation provisions or additional premiums relevant?",
+      "Are vessel flows recovering or still abnormal?",
+      "Are AIS/transponder behaviours creating operational or compliance red flags?",
+      "Should traffic recovery be treated as evidence for relaxation?",
+      "Why does Hormuz matter commercially?",
+      "Which cargoes and vessel types create the largest exposure?",
+      "Does cargo criticality increase charter, client or delivery pressure?",
+      "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+      "What are the cost trade-offs between transit, delay and reroute?",
+      "Which option has the best risk-adjusted commercial case?",
+      "What evidence would justify relaxing controls?",
+      "Has de-escalation translated into practical vessel-flow recovery?",
+      "Are insurance, sanctions and operator confidence improving together?"
+    ],
+    "required_source_mix": [
+      "official maritime/security advisory",
+      "transit-control and detention reporting",
+      "sanctions and legal guidance",
+      "energy/freight/vessel-flow data",
+      "insurance and route-cost evidence",
+      "contrary or de-escalation evidence"
+    ],
+    "source_requirements": [
+      {
+        "requirement_id": "REQ-HSO-A",
+        "requirement_name": "official_maritime_security",
+        "why_required": "Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk.",
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "ukmto.org",
+          "imo.org",
+          "ics-shipping.org",
+          "bimco.org",
+          "intertanko.com",
+          "ocimf.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Should Hormuz-linked voyages require enhanced operational approval?",
+          "Is this a live vessel security risk or mainly a commercial-pricing issue?"
+        ],
+        "freshness_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-B",
+        "requirement_name": "transit_control_or_constabulary_actions",
+        "why_required": "Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims.",
+        "preferred_source_types": [
+          "reputable_news",
+          "official_primary"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "ukmto.org",
+          "imo.org",
+          "gov.uk"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Are vessels being required to coordinate passage with Iranian authorities?",
+          "Does the transit-control mechanism create operational or detention risk?",
+          "Is direct transit still operationally acceptable?"
+        ],
+        "freshness_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-C",
+        "requirement_name": "sanctions_and_safe_passage_payment_risk",
+        "why_required": "Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "ofac.treasury.gov",
+          "ofsi.gov.uk",
+          "gov.uk",
+          "reuters.com",
+          "apnews.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Could a transit demand create sanctions exposure?",
+          "Should the voyage be escalated to legal/compliance review?",
+          "Does sanctions risk override a cheaper direct transit option?"
+        ],
+        "freshness_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-D",
+        "requirement_name": "war_risk_insurance_pricing",
+        "why_required": "Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions.",
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "howdenre.com",
+          "lmalloyds.com",
+          "lloydslist.com",
+          "reuters.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is war-risk cover available?",
+          "Has premium repricing changed the voyage economics?",
+          "Are exclusions, cancellation provisions or additional premiums relevant?"
+        ],
+        "freshness_expectation": "Current insurance-market evidence, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-E",
+        "requirement_name": "vessel_flow_and_AIS_behaviour",
+        "why_required": "Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening.",
+        "preferred_source_types": [
+          "vessel_flow_or_freight_market_evidence",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "kpler.com",
+          "vortexa.com",
+          "lloydslist.com",
+          "marinetraffic.com",
+          "gibsons.co.uk",
+          "apnews.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Are vessel flows recovering or still abnormal?",
+          "Are AIS/transponder behaviours creating operational or compliance red flags?",
+          "Should traffic recovery be treated as evidence for relaxation?"
+        ],
+        "freshness_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-F",
+        "requirement_name": "energy_cargo_and_chokepoint_exposure",
+        "why_required": "Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure.",
+        "preferred_source_types": [
+          "energy_chokepoint_data",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "eia.gov",
+          "iea.org",
+          "unctad.org",
+          "spglobal.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Why does Hormuz matter commercially?",
+          "Which cargoes and vessel types create the largest exposure?",
+          "Does cargo criticality increase charter, client or delivery pressure?"
+        ],
+        "freshness_expectation": "Recent structural data or current maintained chokepoint data.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-HSO-G",
+        "requirement_name": "route_cost_and_arbitrage_inputs",
+        "why_required": "Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure.",
+        "preferred_source_types": [
+          "insurance_market_evidence",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "howdenre.com",
+          "lloydslist.com",
+          "spglobal.com",
+          "reuters.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+          "What are the cost trade-offs between transit, delay and reroute?",
+          "Which option has the best risk-adjusted commercial case?"
+        ],
+        "freshness_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-HSO-H",
+        "requirement_name": "contrary_or_de_escalation_evidence",
+        "why_required": "Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again.",
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "reputable_news",
+          "official_primary"
+        ],
+        "preferred_domains": [
+          "reuters.com",
+          "apnews.com",
+          "gov.uk",
+          "ukmto.org",
+          "imo.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "What evidence would justify relaxing controls?",
+          "Has de-escalation translated into practical vessel-flow recovery?",
+          "Are insurance, sanctions and operator confidence improving together?"
+        ],
+        "freshness_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+        "strength_threshold": "medium"
+      }
+    ],
+    "search_queries": {
+      "REQ-HSO-A": [
+        "site:ukmto.org Strait of Hormuz Transit Controls official maritime security 1-3 months"
+      ],
+      "REQ-HSO-B": [
+        "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+        "AP Iran transit controls Hormuz vessel coordination detention risk",
+        "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions 1-3 months",
+        "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions"
+      ],
+      "REQ-HSO-C": [
+        "OFAC FAQ 1249 sanctions risks toll safe-passage payments Hormuz",
+        "AP US sanctions Iran Persian Gulf Strait Authority",
+        "site:ofac.treasury.gov Strait of Hormuz Transit Controls sanctions and safe passage payment risk 1-3 months",
+        "Strait of Hormuz Transit Controls sanctions and safe passage payment risk specialist analysis",
+        "site:reuters.com Strait of Hormuz Transit Controls sanctions and safe passage payment risk"
+      ],
+      "REQ-HSO-D": [
+        "Howden Re Strait of Hormuz war risk pricing",
+        "Reuters Hormuz war risk insurance premium shipping",
+        "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing 1-3 months",
+        "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing",
+        "site:reuters.com Strait of Hormuz Transit Controls war risk insurance pricing"
+      ],
+      "REQ-HSO-E": [
+        "Reuters Hormuz tanker traffic AIS transponder behaviour",
+        "AP Hormuz vessel flows AIS disruption",
+        "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour 1-3 months",
+        "site:lloydslist.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour",
+        "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour"
+      ],
+      "REQ-HSO-F": [
+        "EIA Strait of Hormuz chokepoint oil LNG exposure",
+        "IEA Strait of Hormuz oil LNG chokepoint exposure",
+        "site:eia.gov Strait of Hormuz Transit Controls energy cargo and chokepoint exposure 1-3 months",
+        "site:spglobal.com Strait of Hormuz Transit Controls energy cargo and chokepoint exposure"
+      ],
+      "REQ-HSO-G": [
+        "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs 1-3 months",
+        "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs",
+        "site:reuters.com Strait of Hormuz Transit Controls route cost and arbitrage inputs"
+      ],
+      "REQ-HSO-H": [
+        "Reuters Strait of Hormuz reopening conditions shipping de-escalation",
+        "AP Strait of Hormuz de-escalation vessel flows reopening",
+        "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence 1-3 months",
+        "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence",
+        "Strait of Hormuz Transit Controls contrary or de escalation evidence scope limited stabilising contrary evidence"
+      ]
+    },
+    "expected_evidence_types": [
+      "official_primary",
+      "company_update",
+      "energy_chokepoint_data",
+      "insurance_market_evidence",
+      "vessel_flow_or_freight_market_evidence",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "minimum_acceptable_coverage": {
+      "minimum_total_requirements": 8,
+      "minimum_high_priority_requirements": 6,
+      "high_priority_requirements": [
+        "official_maritime_security",
+        "transit_control_or_constabulary_actions",
+        "sanctions_and_safe_passage_payment_risk",
+        "war_risk_insurance_pricing",
+        "vessel_flow_and_AIS_behaviour",
+        "energy_cargo_and_chokepoint_exposure"
+      ],
+      "minimum_sources_per_requirement": {
+        "REQ-HSO-A": 1,
+        "REQ-HSO-B": 1,
+        "REQ-HSO-C": 1,
+        "REQ-HSO-D": 1,
+        "REQ-HSO-E": 1,
+        "REQ-HSO-F": 1,
+        "REQ-HSO-G": 1,
+        "REQ-HSO-H": 1
+      }
+    },
+    "refresh_priorities": [
+      {
+        "requirement_id": "REQ-HSO-A",
+        "requirement_name": "official_maritime_security",
+        "refresh_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-B",
+        "requirement_name": "transit_control_or_constabulary_actions",
+        "refresh_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-C",
+        "requirement_name": "sanctions_and_safe_passage_payment_risk",
+        "refresh_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-D",
+        "requirement_name": "war_risk_insurance_pricing",
+        "refresh_expectation": "Current insurance-market evidence, preferably within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-E",
+        "requirement_name": "vessel_flow_and_AIS_behaviour",
+        "refresh_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-F",
+        "requirement_name": "energy_cargo_and_chokepoint_exposure",
+        "refresh_expectation": "Recent structural data or current maintained chokepoint data.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-G",
+        "requirement_name": "route_cost_and_arbitrage_inputs",
+        "refresh_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      },
+      {
+        "requirement_id": "REQ-HSO-H",
+        "requirement_name": "contrary_or_de_escalation_evidence",
+        "refresh_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+        "watchlist_indicators": [
+          "official maritime advisories",
+          "transit-control demands",
+          "safe-passage payment requests",
+          "war-risk premium movement"
+        ]
+      }
+    ],
+    "domain": "maritime_trade",
+    "client_decision_outputs": [
+      "operating stance",
+      "transit / delay / reroute option",
+      "sanctions escalation",
+      "insurance and route-cost review",
+      "relaxation triggers"
+    ],
+    "risk_drivers": [
+      "transit_control_risk",
+      "sanctions_safe_passage_risk",
+      "war_risk_insurance_pressure",
+      "vessel_flow_AIS_disruption",
+      "energy_chokepoint_exposure",
+      "route_cost_arbitrage",
+      "de_escalation_monitoring"
+    ]
+  },
+  "source_requirements": [
+    {
+      "requirement_id": "REQ-HSO-A",
+      "requirement_name": "official_maritime_security",
+      "why_required": "Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk.",
+      "preferred_source_types": [
+        "official_primary",
+        "official_guidance"
+      ],
+      "preferred_domains": [
+        "ukmto.org",
+        "imo.org",
+        "ics-shipping.org",
+        "bimco.org",
+        "intertanko.com",
+        "ocimf.org"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Should Hormuz-linked voyages require enhanced operational approval?",
+        "Is this a live vessel security risk or mainly a commercial-pricing issue?"
+      ],
+      "freshness_expectation": "Current official maritime/security guidance, preferably checked within 30 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-B",
+      "requirement_name": "transit_control_or_constabulary_actions",
+      "why_required": "Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims.",
+      "preferred_source_types": [
+        "reputable_news",
+        "official_primary"
+      ],
+      "preferred_domains": [
+        "reuters.com",
+        "apnews.com",
+        "ukmto.org",
+        "imo.org",
+        "gov.uk"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Are vessels being required to coordinate passage with Iranian authorities?",
+        "Does the transit-control mechanism create operational or detention risk?",
+        "Is direct transit still operationally acceptable?"
+      ],
+      "freshness_expectation": "Current operational reporting and advisories, preferably within 30 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-C",
+      "requirement_name": "sanctions_and_safe_passage_payment_risk",
+      "why_required": "Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure.",
+      "preferred_source_types": [
+        "official_primary",
+        "specialist_analysis",
+        "reputable_news"
+      ],
+      "preferred_domains": [
+        "ofac.treasury.gov",
+        "ofsi.gov.uk",
+        "gov.uk",
+        "reuters.com",
+        "apnews.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Could a transit demand create sanctions exposure?",
+        "Should the voyage be escalated to legal/compliance review?",
+        "Does sanctions risk override a cheaper direct transit option?"
+      ],
+      "freshness_expectation": "Current sanctions guidance or reporting, preferably within 30 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-D",
+      "requirement_name": "war_risk_insurance_pricing",
+      "why_required": "Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions.",
+      "preferred_source_types": [
+        "insurance_market_evidence",
+        "reputable_news"
+      ],
+      "preferred_domains": [
+        "howdenre.com",
+        "lmalloyds.com",
+        "lloydslist.com",
+        "reuters.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Is war-risk cover available?",
+        "Has premium repricing changed the voyage economics?",
+        "Are exclusions, cancellation provisions or additional premiums relevant?"
+      ],
+      "freshness_expectation": "Current insurance-market evidence, preferably within 30 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-E",
+      "requirement_name": "vessel_flow_and_AIS_behaviour",
+      "why_required": "Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening.",
+      "preferred_source_types": [
+        "vessel_flow_or_freight_market_evidence",
+        "reputable_news",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "reuters.com",
+        "kpler.com",
+        "vortexa.com",
+        "lloydslist.com",
+        "marinetraffic.com",
+        "gibsons.co.uk",
+        "apnews.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Are vessel flows recovering or still abnormal?",
+        "Are AIS/transponder behaviours creating operational or compliance red flags?",
+        "Should traffic recovery be treated as evidence for relaxation?"
+      ],
+      "freshness_expectation": "Recent vessel-flow or AIS evidence, preferably within 30 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-F",
+      "requirement_name": "energy_cargo_and_chokepoint_exposure",
+      "why_required": "Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure.",
+      "preferred_source_types": [
+        "energy_chokepoint_data",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "eia.gov",
+        "iea.org",
+        "unctad.org",
+        "spglobal.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Why does Hormuz matter commercially?",
+        "Which cargoes and vessel types create the largest exposure?",
+        "Does cargo criticality increase charter, client or delivery pressure?"
+      ],
+      "freshness_expectation": "Recent structural data or current maintained chokepoint data.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-HSO-G",
+      "requirement_name": "route_cost_and_arbitrage_inputs",
+      "why_required": "Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure.",
+      "preferred_source_types": [
+        "insurance_market_evidence",
+        "specialist_analysis",
+        "reputable_news"
+      ],
+      "preferred_domains": [
+        "howdenre.com",
+        "lloydslist.com",
+        "spglobal.com",
+        "reuters.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+        "What are the cost trade-offs between transit, delay and reroute?",
+        "Which option has the best risk-adjusted commercial case?"
+      ],
+      "freshness_expectation": "Current market inputs plus operator assumptions validated for the voyage.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-HSO-H",
+      "requirement_name": "contrary_or_de_escalation_evidence",
+      "why_required": "Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again.",
+      "preferred_source_types": [
+        "contrary_or_stabilising_evidence",
+        "reputable_news",
+        "official_primary"
+      ],
+      "preferred_domains": [
+        "reuters.com",
+        "apnews.com",
+        "gov.uk",
+        "ukmto.org",
+        "imo.org"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "What evidence would justify relaxing controls?",
+        "Has de-escalation translated into practical vessel-flow recovery?",
+        "Are insurance, sanctions and operator confidence improving together?"
+      ],
+      "freshness_expectation": "Current de-escalation reporting and vessel-flow evidence, preferably within 30 days.",
+      "strength_threshold": "medium"
+    }
+  ],
+  "search_queries_by_requirement": {
+    "REQ-HSO-A": [
+      "site:ukmto.org Strait of Hormuz Transit Controls official maritime security 1-3 months"
+    ],
+    "REQ-HSO-B": [
+      "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+      "AP Iran transit controls Hormuz vessel coordination detention risk",
+      "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions 1-3 months",
+      "site:reuters.com Strait of Hormuz Transit Controls transit control or constabulary actions"
+    ],
+    "REQ-HSO-C": [
+      "OFAC FAQ 1249 sanctions risks toll safe-passage payments Hormuz",
+      "AP US sanctions Iran Persian Gulf Strait Authority",
+      "site:ofac.treasury.gov Strait of Hormuz Transit Controls sanctions and safe passage payment risk 1-3 months",
+      "Strait of Hormuz Transit Controls sanctions and safe passage payment risk specialist analysis",
+      "site:reuters.com Strait of Hormuz Transit Controls sanctions and safe passage payment risk"
+    ],
+    "REQ-HSO-D": [
+      "Howden Re Strait of Hormuz war risk pricing",
+      "Reuters Hormuz war risk insurance premium shipping",
+      "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing 1-3 months",
+      "site:howdenre.com Strait of Hormuz Transit Controls war risk insurance pricing",
+      "site:reuters.com Strait of Hormuz Transit Controls war risk insurance pricing"
+    ],
+    "REQ-HSO-E": [
+      "Reuters Hormuz tanker traffic AIS transponder behaviour",
+      "AP Hormuz vessel flows AIS disruption",
+      "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour 1-3 months",
+      "site:lloydslist.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour",
+      "site:reuters.com Strait of Hormuz Transit Controls vessel flow and AIS behaviour"
+    ],
+    "REQ-HSO-F": [
+      "EIA Strait of Hormuz chokepoint oil LNG exposure",
+      "IEA Strait of Hormuz oil LNG chokepoint exposure",
+      "site:eia.gov Strait of Hormuz Transit Controls energy cargo and chokepoint exposure 1-3 months",
+      "site:spglobal.com Strait of Hormuz Transit Controls energy cargo and chokepoint exposure"
+    ],
+    "REQ-HSO-G": [
+      "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs 1-3 months",
+      "site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs",
+      "site:reuters.com Strait of Hormuz Transit Controls route cost and arbitrage inputs"
+    ],
+    "REQ-HSO-H": [
+      "Reuters Strait of Hormuz reopening conditions shipping de-escalation",
+      "AP Strait of Hormuz de-escalation vessel flows reopening",
+      "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence 1-3 months",
+      "site:reuters.com Strait of Hormuz Transit Controls contrary or de escalation evidence",
+      "Strait of Hormuz Transit Controls contrary or de escalation evidence scope limited stabilising contrary evidence"
+    ]
+  },
+  "candidates_by_query": {
+    "No safe transit through Strait of Hormuz: IMO Secretary-General": [
+      "HSO-001"
+    ],
+    "OFAC Alert: Sanctions Risks of Iranian Demands for Strait of Hormuz Passage": [
+      "HSO-002"
+    ],
+    "1249 | Office of Foreign Assets Control": [
+      "HSO-003"
+    ],
+    "US imposes sanctions on Iranian agency trying to control shipping in the Strait of Hormuz": [
+      "HSO-004"
+    ],
+    "Strait of Hormuz": [
+      "HSO-005"
+    ],
+    "Strait of Hormuz: (Re)insurance impact": [
+      "HSO-006"
+    ],
+    "Shippers whipsawed by changing stances as vessels remain stuck in Strait of Hormuz": [
+      "HSO-007"
+    ],
+    "Market Insights | Strait of Hormuz Spotlight": [
+      "HSO-008"
+    ],
+    "Trump says a deal with Iran and opening of Strait of Hormuz are 'largely negotiated'": [
+      "HSO-009"
+    ]
+  },
+  "source_provider": "fallback_demo_search",
+  "search_provider": "fallback_demo_search",
+  "evidence_mode": "Reproducible curated source pack",
+  "provider_error": "",
+  "fallback_demo_data_used": true,
+  "fallback_used": true,
+  "total_queries_run": 0,
+  "candidate_count": 9,
+  "selected_count": 9,
+  "rejected_count": 1,
+  "selected_sources": [
+    {
+      "source_id": "HSO-001",
+      "title": "No safe transit through Strait of Hormuz: IMO Secretary-General",
+      "publisher": "International Maritime Organization",
+      "publication_date": "2026-04-24",
+      "url": "https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx",
+      "source_type": "official_primary",
+      "claim_supported": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "snippet": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "key_facts": [
+        "24 April 2026 briefing",
+        "29 verified attacks",
+        "around 20,000 seafarers",
+        "around 1,600 vessels"
+      ],
+      "commercial_relevance": "Establishes a live maritime security baseline for voyage approval, crew safety and detention-risk escalation.",
+      "caveat": "Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions."
+    },
+    {
+      "source_id": "HSO-002",
+      "title": "OFAC Alert: Sanctions Risks of Iranian Demands for Strait of Hormuz Passage",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-05-01",
+      "url": "https://ofac.treasury.gov/system/files/2026-04/20260501_hormuz_tolls_alert.pdf",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "snippet": "OFAC warned that Iranian safe-passage demands and coordination arrangements can create sanctions risk for maritime service providers.",
+      "key_facts": [
+        "1 May 2026 alert",
+        "enhanced due diligence requested",
+        "safe-passage fees",
+        "maritime service providers"
+      ],
+      "commercial_relevance": "Makes sanctions escalation central to voyage approval if tolls, guarantees or other passage arrangements are demanded.",
+      "caveat": "U.S. sanctions guidance should be translated into operator-specific legal advice for UK-controlled voyages."
+    },
+    {
+      "source_id": "HSO-003",
+      "title": "1249 | Office of Foreign Assets Control",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-04-28",
+      "url": "https://ofac.treasury.gov/faqs/1249",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S. persons and U.S.-owned or -controlled foreign entities.",
+      "snippet": "OFAC FAQ 1249 says toll payments for safe passage through Hormuz would not be authorized for U.S. persons or U.S.-owned or -controlled foreign entities.",
+      "key_facts": [
+        "28 April 2026",
+        "payments to Government of Iran or IRGC",
+        "not authorized"
+      ],
+      "commercial_relevance": "Supports legal escalation where payment, guarantee, offset, digital asset or in-kind passage demands arise.",
+      "caveat": "The FAQ is U.S.-specific and should be combined with UK sanctions and operator counsel review."
+    },
+    {
+      "source_id": "HSO-004",
+      "title": "US imposes sanctions on Iranian agency trying to control shipping in the Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-28",
+      "url": "https://apnews.com/article/13052dd9323747cbdd661d48759f27d6",
+      "source_type": "reputable_news",
+      "claim_supported": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "snippet": "AP reported U.S. sanctions on a newly created Iranian agency seeking to control shipping through Hormuz.",
+      "key_facts": [
+        "28 May 2026",
+        "newly created Iranian agency",
+        "control shipping through Hormuz"
+      ],
+      "commercial_relevance": "Corroborates transit-control risk and highlights that coordination demands can be entangled with sanctions exposure.",
+      "caveat": "Reporting should be cross-checked against primary designation records for named entities and counterparties."
+    },
+    {
+      "source_id": "HSO-005",
+      "title": "Strait of Hormuz",
+      "publisher": "International Energy Agency",
+      "publication_date": "2026",
+      "url": "https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz",
+      "source_type": "energy_chokepoint_data",
+      "claim_supported": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "snippet": "IEA quantifies Hormuz as a core oil and LNG chokepoint with limited immediate alternatives.",
+      "key_facts": [
+        "20 mb/d oil and products in 2025",
+        "around 25% of world seaborne oil trade",
+        "93% of Qatar LNG exports",
+        "96% of UAE LNG exports"
+      ],
+      "commercial_relevance": "Explains why route disruption matters commercially for tanker cargoes, charter commitments and client delivery pressure.",
+      "caveat": "Structural chokepoint exposure does not by itself prove current transit conditions."
+    },
+    {
+      "source_id": "HSO-006",
+      "title": "Strait of Hormuz: (Re)insurance impact",
+      "publisher": "Howden Re",
+      "publication_date": "2026-04-01",
+      "url": "https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf",
+      "source_type": "insurance_market_evidence",
+      "claim_supported": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "snippet": "Howden Re reported major war-risk repricing for Hormuz transit and materially higher per-transit premium assumptions.",
+      "key_facts": [
+        "0.10-0.125% pre-conflict rate",
+        "2-3% March 2026 rate",
+        "$375,000-$3M per transit on a $100M vessel"
+      ],
+      "commercial_relevance": "Shows how insurance repricing can change the route-cost comparison between direct transit, delay and reroute.",
+      "caveat": "Broker analysis should be refreshed against current quoted terms before sailing."
+    },
+    {
+      "source_id": "HSO-007",
+      "title": "Shippers whipsawed by changing stances as vessels remain stuck in Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-06",
+      "url": "https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2",
+      "source_type": "vessel_flow_or_freight_market_evidence",
+      "claim_supported": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "snippet": "AP described hundreds of vessels stuck in the Gulf and sharply higher insurance costs around Hormuz.",
+      "key_facts": [
+        "6 May 2026",
+        "hundreds of vessels stuck",
+        "insurance costs rose sharply"
+      ],
+      "commercial_relevance": "Supports the view that vessel-flow disruption and operating stress remain practical, not theoretical.",
+      "caveat": "News synthesis should be checked against live vessel-tracking and operator updates before changing stance."
+    },
+    {
+      "source_id": "HSO-008",
+      "title": "Market Insights | Strait of Hormuz Spotlight",
+      "publisher": "The Signal Group",
+      "publication_date": "2026-03-09",
+      "url": "https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight",
+      "source_type": "specialist_analysis",
+      "claim_supported": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "snippet": "The Signal Group linked tanker-flow disruption, floating storage and risk-managed transport conditions around Hormuz.",
+      "key_facts": [
+        "9 March 2026",
+        "sharp decline in tanker transits",
+        "growing floating storage"
+      ],
+      "commercial_relevance": "Adds operator-facing interpretation for route stress, tanker-flow behaviour and practical route-cost trade-offs.",
+      "caveat": "Specialist analysis is interpretive and should be paired with primary or reputable reporting."
+    },
+    {
+      "source_id": "HSO-009",
+      "title": "Trump says a deal with Iran and opening of Strait of Hormuz are 'largely negotiated'",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-23",
+      "url": "https://apnews.com/article/1c283f26d037102cc5e6f798546d0e59",
+      "source_type": "contrary_or_stabilising_evidence",
+      "claim_supported": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "snippet": "AP reported diplomatic claims about reopening Hormuz, but practical normalisation remained unproven.",
+      "key_facts": [
+        "23 May 2026",
+        "opening largely negotiated"
+      ],
+      "commercial_relevance": "Provides contrary evidence for monitoring while keeping relaxation tied to practical recovery in guidance, insurance and vessel flows.",
+      "caveat": "Diplomatic reporting should not be treated as proof of operational reopening."
+    }
+  ],
+  "rejected_sources": [
+    {
+      "title": "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+      "requirement_name": "transit_control_or_constabulary_actions",
+      "query": "Reuters Iran sets up mechanism to manage vessel transit through Hormuz",
+      "ranking_score": 0,
+      "rejection_reason": "requires review because a directly verified source page was not captured for the curated fallback pack"
+    }
+  ],
+  "weighted_sources": [
+    {
+      "source_id": "HSO-001",
+      "title": "No safe transit through Strait of Hormuz: IMO Secretary-General",
+      "publisher": "International Maritime Organization",
+      "publication_date": "2026-04-24",
+      "url": "https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx",
+      "source_type": "official_primary",
+      "claim_supported": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "snippet": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "key_facts": [
+        "24 April 2026 briefing",
+        "29 verified attacks",
+        "around 20,000 seafarers",
+        "around 1,600 vessels"
+      ],
+      "commercial_relevance": "Establishes a live maritime security baseline for voyage approval, crew safety and detention-risk escalation.",
+      "caveat": "Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions."
+    },
+    {
+      "source_id": "HSO-002",
+      "title": "OFAC Alert: Sanctions Risks of Iranian Demands for Strait of Hormuz Passage",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-05-01",
+      "url": "https://ofac.treasury.gov/system/files/2026-04/20260501_hormuz_tolls_alert.pdf",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "snippet": "OFAC warned that Iranian safe-passage demands and coordination arrangements can create sanctions risk for maritime service providers.",
+      "key_facts": [
+        "1 May 2026 alert",
+        "enhanced due diligence requested",
+        "safe-passage fees",
+        "maritime service providers"
+      ],
+      "commercial_relevance": "Makes sanctions escalation central to voyage approval if tolls, guarantees or other passage arrangements are demanded.",
+      "caveat": "U.S. sanctions guidance should be translated into operator-specific legal advice for UK-controlled voyages."
+    },
+    {
+      "source_id": "HSO-003",
+      "title": "1249 | Office of Foreign Assets Control",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-04-28",
+      "url": "https://ofac.treasury.gov/faqs/1249",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S. persons and U.S.-owned or -controlled foreign entities.",
+      "snippet": "OFAC FAQ 1249 says toll payments for safe passage through Hormuz would not be authorized for U.S. persons or U.S.-owned or -controlled foreign entities.",
+      "key_facts": [
+        "28 April 2026",
+        "payments to Government of Iran or IRGC",
+        "not authorized"
+      ],
+      "commercial_relevance": "Supports legal escalation where payment, guarantee, offset, digital asset or in-kind passage demands arise.",
+      "caveat": "The FAQ is U.S.-specific and should be combined with UK sanctions and operator counsel review."
+    },
+    {
+      "source_id": "HSO-004",
+      "title": "US imposes sanctions on Iranian agency trying to control shipping in the Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-28",
+      "url": "https://apnews.com/article/13052dd9323747cbdd661d48759f27d6",
+      "source_type": "reputable_news",
+      "claim_supported": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "snippet": "AP reported U.S. sanctions on a newly created Iranian agency seeking to control shipping through Hormuz.",
+      "key_facts": [
+        "28 May 2026",
+        "newly created Iranian agency",
+        "control shipping through Hormuz"
+      ],
+      "commercial_relevance": "Corroborates transit-control risk and highlights that coordination demands can be entangled with sanctions exposure.",
+      "caveat": "Reporting should be cross-checked against primary designation records for named entities and counterparties."
+    },
+    {
+      "source_id": "HSO-005",
+      "title": "Strait of Hormuz",
+      "publisher": "International Energy Agency",
+      "publication_date": "2026",
+      "url": "https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz",
+      "source_type": "energy_chokepoint_data",
+      "claim_supported": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "snippet": "IEA quantifies Hormuz as a core oil and LNG chokepoint with limited immediate alternatives.",
+      "key_facts": [
+        "20 mb/d oil and products in 2025",
+        "around 25% of world seaborne oil trade",
+        "93% of Qatar LNG exports",
+        "96% of UAE LNG exports"
+      ],
+      "commercial_relevance": "Explains why route disruption matters commercially for tanker cargoes, charter commitments and client delivery pressure.",
+      "caveat": "Structural chokepoint exposure does not by itself prove current transit conditions."
+    },
+    {
+      "source_id": "HSO-006",
+      "title": "Strait of Hormuz: (Re)insurance impact",
+      "publisher": "Howden Re",
+      "publication_date": "2026-04-01",
+      "url": "https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf",
+      "source_type": "insurance_market_evidence",
+      "claim_supported": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "snippet": "Howden Re reported major war-risk repricing for Hormuz transit and materially higher per-transit premium assumptions.",
+      "key_facts": [
+        "0.10-0.125% pre-conflict rate",
+        "2-3% March 2026 rate",
+        "$375,000-$3M per transit on a $100M vessel"
+      ],
+      "commercial_relevance": "Shows how insurance repricing can change the route-cost comparison between direct transit, delay and reroute.",
+      "caveat": "Broker analysis should be refreshed against current quoted terms before sailing."
+    },
+    {
+      "source_id": "HSO-007",
+      "title": "Shippers whipsawed by changing stances as vessels remain stuck in Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-06",
+      "url": "https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2",
+      "source_type": "vessel_flow_or_freight_market_evidence",
+      "claim_supported": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "snippet": "AP described hundreds of vessels stuck in the Gulf and sharply higher insurance costs around Hormuz.",
+      "key_facts": [
+        "6 May 2026",
+        "hundreds of vessels stuck",
+        "insurance costs rose sharply"
+      ],
+      "commercial_relevance": "Supports the view that vessel-flow disruption and operating stress remain practical, not theoretical.",
+      "caveat": "News synthesis should be checked against live vessel-tracking and operator updates before changing stance."
+    },
+    {
+      "source_id": "HSO-008",
+      "title": "Market Insights | Strait of Hormuz Spotlight",
+      "publisher": "The Signal Group",
+      "publication_date": "2026-03-09",
+      "url": "https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight",
+      "source_type": "specialist_analysis",
+      "claim_supported": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "snippet": "The Signal Group linked tanker-flow disruption, floating storage and risk-managed transport conditions around Hormuz.",
+      "key_facts": [
+        "9 March 2026",
+        "sharp decline in tanker transits",
+        "growing floating storage"
+      ],
+      "commercial_relevance": "Adds operator-facing interpretation for route stress, tanker-flow behaviour and practical route-cost trade-offs.",
+      "caveat": "Specialist analysis is interpretive and should be paired with primary or reputable reporting."
+    },
+    {
+      "source_id": "HSO-009",
+      "title": "Trump says a deal with Iran and opening of Strait of Hormuz are 'largely negotiated'",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-23",
+      "url": "https://apnews.com/article/1c283f26d037102cc5e6f798546d0e59",
+      "source_type": "contrary_or_stabilising_evidence",
+      "claim_supported": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "snippet": "AP reported diplomatic claims about reopening Hormuz, but practical normalisation remained unproven.",
+      "key_facts": [
+        "23 May 2026",
+        "opening largely negotiated"
+      ],
+      "commercial_relevance": "Provides contrary evidence for monitoring while keeping relaxation tied to practical recovery in guidance, insurance and vessel flows.",
+      "caveat": "Diplomatic reporting should not be treated as proof of operational reopening."
+    }
+  ],
+  "source_categories_covered": [
+    "contrary_or_stabilising_evidence",
+    "energy_chokepoint_data",
+    "insurance_market_evidence",
+    "official_primary",
+    "reputable_news",
+    "specialist_analysis",
+    "vessel_flow_or_freight_market_evidence"
+  ],
+  "source_categories_missing": [],
+  "requirement_coverage": [
+    {
+      "requirement_id": "REQ-HSO-A",
+      "requirement_name": "official_maritime_security",
+      "why_required": "Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk.",
+      "covered_by": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003"
+      ],
+      "covered_by_count": 3,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Should Hormuz-linked voyages require enhanced operational approval?",
+        "Is this a live vessel security risk or mainly a commercial-pricing issue?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-B",
+      "requirement_name": "transit_control_or_constabulary_actions",
+      "why_required": "Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims.",
+      "covered_by": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003",
+        "HSO-004"
+      ],
+      "covered_by_count": 4,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Are vessels being required to coordinate passage with Iranian authorities?",
+        "Does the transit-control mechanism create operational or detention risk?",
+        "Is direct transit still operationally acceptable?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-C",
+      "requirement_name": "sanctions_and_safe_passage_payment_risk",
+      "why_required": "Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure.",
+      "covered_by": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003",
+        "HSO-004",
+        "HSO-008"
+      ],
+      "covered_by_count": 5,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Could a transit demand create sanctions exposure?",
+        "Should the voyage be escalated to legal/compliance review?",
+        "Does sanctions risk override a cheaper direct transit option?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-D",
+      "requirement_name": "war_risk_insurance_pricing",
+      "why_required": "Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions.",
+      "covered_by": [
+        "HSO-004",
+        "HSO-006"
+      ],
+      "covered_by_count": 2,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Is war-risk cover available?",
+        "Has premium repricing changed the voyage economics?",
+        "Are exclusions, cancellation provisions or additional premiums relevant?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-E",
+      "requirement_name": "vessel_flow_and_AIS_behaviour",
+      "why_required": "Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening.",
+      "covered_by": [
+        "HSO-004",
+        "HSO-007",
+        "HSO-008"
+      ],
+      "covered_by_count": 3,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Are vessel flows recovering or still abnormal?",
+        "Are AIS/transponder behaviours creating operational or compliance red flags?",
+        "Should traffic recovery be treated as evidence for relaxation?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-F",
+      "requirement_name": "energy_cargo_and_chokepoint_exposure",
+      "why_required": "Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure.",
+      "covered_by": [
+        "HSO-005",
+        "HSO-008"
+      ],
+      "covered_by_count": 2,
+      "evidence_weight": "high",
+      "decision_questions_supported": [
+        "Why does Hormuz matter commercially?",
+        "Which cargoes and vessel types create the largest exposure?",
+        "Does cargo criticality increase charter, client or delivery pressure?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-G",
+      "requirement_name": "route_cost_and_arbitrage_inputs",
+      "why_required": "Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure.",
+      "covered_by": [
+        "HSO-004",
+        "HSO-006",
+        "HSO-008"
+      ],
+      "covered_by_count": 3,
+      "evidence_weight": "medium",
+      "decision_questions_supported": [
+        "Is the cheaper route still acceptable once sanctions and insurance risk are included?",
+        "What are the cost trade-offs between transit, delay and reroute?",
+        "Which option has the best risk-adjusted commercial case?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    },
+    {
+      "requirement_id": "REQ-HSO-H",
+      "requirement_name": "contrary_or_de_escalation_evidence",
+      "why_required": "Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again.",
+      "covered_by": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003",
+        "HSO-004",
+        "HSO-009"
+      ],
+      "covered_by_count": 5,
+      "evidence_weight": "medium",
+      "decision_questions_supported": [
+        "What evidence would justify relaxing controls?",
+        "Has de-escalation translated into practical vessel-flow recovery?",
+        "Are insurance, sanctions and operator confidence improving together?"
+      ],
+      "remaining_gap": "No immediate coverage gap; analyst should still verify recency and source content."
+    }
+  ],
+  "evidence_by_requirement": {
+    "REQ-HSO-A": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003"
+    ],
+    "REQ-HSO-B": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003",
+      "HSO-004"
+    ],
+    "REQ-HSO-C": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003",
+      "HSO-004",
+      "HSO-008"
+    ],
+    "REQ-HSO-D": [
+      "HSO-004",
+      "HSO-006"
+    ],
+    "REQ-HSO-E": [
+      "HSO-004",
+      "HSO-007",
+      "HSO-008"
+    ],
+    "REQ-HSO-F": [
+      "HSO-005",
+      "HSO-008"
+    ],
+    "REQ-HSO-G": [
+      "HSO-004",
+      "HSO-006",
+      "HSO-008"
+    ],
+    "REQ-HSO-H": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003",
+      "HSO-004",
+      "HSO-009"
+    ]
+  },
+  "selected_sources_by_requirement": {
+    "unmapped": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003",
+      "HSO-004",
+      "HSO-005",
+      "HSO-006",
+      "HSO-007",
+      "HSO-008",
+      "HSO-009"
+    ]
+  },
+  "rejected_sources_by_requirement": {
+    "unmapped": [
+      ""
+    ]
+  },
+  "evidence_by_risk_driver": {
+    "Maritime security and transit risk": [
+      "HSO-001",
+      "HSO-002",
+      "HSO-003"
+    ],
+    "General commercial risk": [
+      "HSO-004",
+      "HSO-008"
+    ],
+    "Energy chokepoint exposure": [
+      "HSO-005"
+    ],
+    "Insurance-market repricing": [
+      "HSO-006"
+    ],
+    "Vessel-flow and market behaviour": [
+      "HSO-007"
+    ],
+    "De-escalation and stabilisation evidence": [
+      "HSO-009"
+    ]
+  },
+  "risk_drivers": [
+    {
+      "driver_name": "De-escalation and stabilisation evidence",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-009"
+      ],
+      "evidence_summary": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "quantified_facts": [],
+      "commercial_meaning": "Scenario balance and de-escalation monitoring.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "Diplomatic reporting should not be treated as proof of operational reopening.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    },
+    {
+      "driver_name": "Energy chokepoint exposure",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-005"
+      ],
+      "evidence_summary": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "quantified_facts": [
+        "20",
+        "20 mb/d",
+        "2025"
+      ],
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "Structural chokepoint exposure does not by itself prove current transit conditions.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    },
+    {
+      "driver_name": "General commercial risk",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-004",
+        "HSO-008"
+      ],
+      "evidence_summary": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign. The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "quantified_facts": [],
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "Reporting should be cross-checked against primary designation records for named entities and counterparties.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    },
+    {
+      "driver_name": "Insurance-market repricing",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-006"
+      ],
+      "evidence_summary": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "quantified_facts": [
+        "0.10",
+        "0.125%",
+        "2",
+        "3%",
+        "2026",
+        "$100M",
+        "100",
+        "100M"
+      ],
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "Broker analysis should be refreshed against current quoted terms before sailing.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    },
+    {
+      "driver_name": "Maritime security and transit risk",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003"
+      ],
+      "evidence_summary": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf. OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "quantified_facts": [
+        "1249"
+      ],
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    },
+    {
+      "driver_name": "Vessel-flow and market behaviour",
+      "source_requirements_covered": [],
+      "highest_weight_sources": [
+        "HSO-007"
+      ],
+      "evidence_summary": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "quantified_facts": [],
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "decision_use": "Supports operator review and control decisions.",
+      "uncertainty_or_caveat": "News synthesis should be checked against live vessel-tracking and operator updates before changing stance.",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions."
+    }
+  ],
+  "refresh_priorities": [
+    {
+      "risk_driver": "De-escalation and stabilisation evidence",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-009"
+      ]
+    },
+    {
+      "risk_driver": "Energy chokepoint exposure",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-005"
+      ]
+    },
+    {
+      "risk_driver": "General commercial risk",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-004",
+        "HSO-008"
+      ]
+    },
+    {
+      "risk_driver": "Insurance-market repricing",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-006"
+      ]
+    },
+    {
+      "risk_driver": "Maritime security and transit risk",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003"
+      ]
+    },
+    {
+      "risk_driver": "Vessel-flow and market behaviour",
+      "refresh_trigger": "Refresh before major underwriting or commercial decisions.",
+      "highest_weight_sources": [
+        "HSO-007"
+      ]
+    }
+  ],
+  "quantified_evidence_readout": {
+    "source_count": 9,
+    "high_weight_source_count": 0,
+    "requirement_coverage_percent": 100,
+    "average_source_quality": 0,
+    "quantified_facts": [
+      "1249",
+      "20",
+      "20 mb/d",
+      "2025",
+      "0.10",
+      "0.125%",
+      "2",
+      "3%",
+      "2026",
+      "$100M",
+      "100",
+      "100M"
+    ],
+    "strongest_evidence": "HSO-001 \u2014 No safe transit through Strait of Hormuz: IMO Secretary-General (unknown weight)",
+    "weakest_evidence": "Lowest selected score: HSO-001 / ",
+    "confidence_cap": "Confidence capped below 5 because evidence came from a reproducible curated source pack rather than live retrieval.",
+    "score_support_summary": "Scores are supported by 9 selected sources, 100% requirement coverage and 12 extracted quantified facts."
+  },
+  "evidence_to_score_bridge": {
+    "likelihood": {
+      "score": 5,
+      "evidence_basis": "Higher when the topic or region includes active disruption, conflict, sanctions, or strategic chokepoints.",
+      "supporting_sources": [
+        "HSO-001",
+        "HSO-002",
+        "HSO-003",
+        "HSO-004"
+      ],
+      "quantified_facts_used": [
+        "1249",
+        "20",
+        "20 mb/d",
+        "2025",
+        "0.10",
+        "0.125%"
+      ],
+      "why_score_not_higher": "Curated evidence mode caps confidence and requires live refresh before a higher score.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction."
+    },
+    "impact": {
+      "score": 4,
+      "evidence_basis": "Higher when concerns point to costs, access constraints, claims, freight, payment, or collateral effects.",
+      "supporting_sources": [
+        "HSO-005",
+        "HSO-006"
+      ],
+      "quantified_facts_used": [
+        "1249",
+        "20",
+        "20 mb/d",
+        "2025",
+        "0.10",
+        "0.125%"
+      ],
+      "why_score_not_higher": "Curated evidence mode caps confidence and requires live refresh before a higher score.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes."
+    },
+    "immediacy": {
+      "score": 2,
+      "evidence_basis": "Higher when the time horizon signals current or near-term exposure.",
+      "supporting_sources": [
+        "HSO-007"
+      ],
+      "quantified_facts_used": [
+        "1249",
+        "20",
+        "20 mb/d",
+        "2025",
+        "0.10",
+        "0.125%"
+      ],
+      "why_score_not_higher": "Curated evidence mode caps confidence and requires live refresh before a higher score.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture."
+    },
+    "confidence": {
+      "score": 4,
+      "evidence_basis": "at least three sources were supplied; source types are diverse; official primary evidence is present; contrary or stabilising evidence is present.",
+      "supporting_sources": [
+        "HSO-009"
+      ],
+      "quantified_facts_used": [
+        "1249",
+        "20",
+        "20 mb/d",
+        "2025",
+        "0.10",
+        "0.125%"
+      ],
+      "why_score_not_higher": "Curated evidence mode caps confidence and requires live refresh before a higher score.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence."
+    }
+  },
+  "quantified_facts_by_source": {
+    "HSO-001": [],
+    "HSO-002": [],
+    "HSO-003": [
+      "1249"
+    ],
+    "HSO-004": [],
+    "HSO-005": [
+      "20",
+      "20 mb/d",
+      "2025"
+    ],
+    "HSO-006": [
+      "0.10",
+      "0.125%",
+      "2",
+      "3%",
+      "2026",
+      "$100M",
+      "100",
+      "100M"
+    ],
+    "HSO-007": [],
+    "HSO-008": [],
+    "HSO-009": []
+  },
+  "confidence_cap_reason": "Confidence capped below 5 because evidence came from a reproducible curated source pack rather than live retrieval.",
+  "requirements_missing": [],
+  "requirements_below_threshold": [],
+  "coverage_summary": "All required evidence categories are represented.",
+  "search_failures": [],
+  "fetch_failures": [],
+  "evidence": [
+    {
+      "source_id": "HSO-001",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "No safe transit through Strait of Hormuz: IMO Secretary-General",
+      "publisher": "International Maritime Organization",
+      "url": "https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx",
+      "publication_date": "2026-04-24",
+      "retrieval_date": "2026-05-28",
+      "source_type": "official_primary",
+      "date": "2026-04-24",
+      "summary": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "evidence_label": "Official Primary",
+      "extracted_claim": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "claim_supported": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "supporting_detail": "Key facts: 24 April 2026 briefing; 29 verified attacks; around 20,000 seafarers; around 1,600 vessels",
+      "quantified_facts": [],
+      "key_facts": [
+        "gulf",
+        "strait of hormuz",
+        "transit",
+        "vessel"
+      ],
+      "commercial_relevance": "Establishes a live maritime security baseline for voyage approval, crew safety and detention-risk escalation.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to vessel security, safe transit, crew welfare and route approval.",
+      "risk_dimension": "likelihood",
+      "risk_driver": "Maritime security and transit risk",
+      "judgement_supported": "Maritime security and transit risk",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-002",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "OFAC Alert: Sanctions Risks of Iranian Demands for Strait of Hormuz Passage",
+      "publisher": "Office of Foreign Assets Control",
+      "url": "https://ofac.treasury.gov/system/files/2026-04/20260501_hormuz_tolls_alert.pdf",
+      "publication_date": "2026-05-01",
+      "retrieval_date": "2026-05-28",
+      "source_type": "official_primary",
+      "date": "2026-05-01",
+      "summary": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "evidence_label": "Official Primary",
+      "extracted_claim": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "claim_supported": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "supporting_detail": "Key facts: 1 May 2026 alert; enhanced due diligence requested; safe-passage fees; maritime service providers",
+      "quantified_facts": [],
+      "key_facts": [
+        "strait of hormuz",
+        "transit",
+        "vessel"
+      ],
+      "commercial_relevance": "Makes sanctions escalation central to voyage approval if tolls, guarantees or other passage arrangements are demanded.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to vessel security, safe transit, crew welfare and route approval.",
+      "risk_dimension": "likelihood",
+      "risk_driver": "Maritime security and transit risk",
+      "judgement_supported": "Maritime security and transit risk",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "U.S. sanctions guidance should be translated into operator-specific legal advice for UK-controlled voyages.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-003",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "1249 | Office of Foreign Assets Control",
+      "publisher": "Office of Foreign Assets Control",
+      "url": "https://ofac.treasury.gov/faqs/1249",
+      "publication_date": "2026-04-28",
+      "retrieval_date": "2026-05-28",
+      "source_type": "official_primary",
+      "date": "2026-04-28",
+      "summary": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S.",
+      "evidence_label": "Official Primary",
+      "extracted_claim": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S.",
+      "claim_supported": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S.",
+      "supporting_detail": "Key facts: 28 April 2026; payments to Government of Iran or IRGC; not authorized",
+      "quantified_facts": [
+        "1249"
+      ],
+      "key_facts": [
+        "1249",
+        "strait of hormuz"
+      ],
+      "commercial_relevance": "Supports legal escalation where payment, guarantee, offset, digital asset or in-kind passage demands arise.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to vessel security, safe transit, crew welfare and route approval.",
+      "risk_dimension": "likelihood",
+      "risk_driver": "Maritime security and transit risk",
+      "judgement_supported": "Maritime security and transit risk",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "The FAQ is U.S.-specific and should be combined with UK sanctions and operator counsel review.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-004",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "US imposes sanctions on Iranian agency trying to control shipping in the Strait of Hormuz",
+      "publisher": "Associated Press",
+      "url": "https://apnews.com/article/13052dd9323747cbdd661d48759f27d6",
+      "publication_date": "2026-05-28",
+      "retrieval_date": "2026-05-28",
+      "source_type": "reputable_news",
+      "date": "2026-05-28",
+      "summary": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "evidence_label": "Reputable News",
+      "extracted_claim": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "claim_supported": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "supporting_detail": "Key facts: 28 May 2026; newly created Iranian agency; control shipping through Hormuz",
+      "quantified_facts": [],
+      "key_facts": [
+        "shipping",
+        "strait of hormuz"
+      ],
+      "commercial_relevance": "Corroborates transit-control risk and highlights that coordination demands can be entangled with sanctions exposure.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Corroborates operational disruption, insurance stress and management attention.",
+      "risk_dimension": "commercial exposure",
+      "risk_driver": "General commercial risk",
+      "judgement_supported": "General commercial risk",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "Reporting should be cross-checked against primary designation records for named entities and counterparties.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-005",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "Strait of Hormuz",
+      "publisher": "International Energy Agency",
+      "url": "https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz",
+      "publication_date": "2026",
+      "retrieval_date": "2026-05-28",
+      "source_type": "energy_chokepoint_data",
+      "date": "2026",
+      "summary": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "evidence_label": "Energy Chokepoint Data",
+      "extracted_claim": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "claim_supported": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "supporting_detail": "Key facts: 20 mb/d oil and products in 2025; around 25% of world seaborne oil trade; 93% of Qatar LNG exports; 96% of UAE LNG exports",
+      "quantified_facts": [
+        "20",
+        "20 mb/d",
+        "2025"
+      ],
+      "key_facts": [
+        "20",
+        "2025",
+        "strait of hormuz",
+        "transit"
+      ],
+      "commercial_relevance": "Explains why route disruption matters commercially for tanker cargoes, charter commitments and client delivery pressure.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to tanker exposure, cargo values, LNG/oil disruption and accumulation risk.",
+      "risk_dimension": "commercial exposure",
+      "risk_driver": "Energy chokepoint exposure",
+      "judgement_supported": "Energy chokepoint exposure",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "Structural chokepoint exposure does not by itself prove current transit conditions.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-006",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "Strait of Hormuz: (Re)insurance impact",
+      "publisher": "Howden Re",
+      "url": "https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf",
+      "publication_date": "2026-04-01",
+      "retrieval_date": "2026-05-28",
+      "source_type": "insurance_market_evidence",
+      "date": "2026-04-01",
+      "summary": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "evidence_label": "Insurance Market Evidence",
+      "extracted_claim": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "claim_supported": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "supporting_detail": "Key facts: 0.10-0.125% pre-conflict rate; 2-3% March 2026 rate; $375,000-$3M per transit on a $100M vessel",
+      "quantified_facts": [
+        "0.10",
+        "0.125%",
+        "2",
+        "3%",
+        "2026",
+        "$100M",
+        "100",
+        "100M"
+      ],
+      "key_facts": [
+        "0.10",
+        "0.125%",
+        "100",
+        "2",
+        "2026",
+        "3%",
+        "insurance",
+        "premium",
+        "strait of hormuz",
+        "transit",
+        "vessel",
+        "war-risk"
+      ],
+      "commercial_relevance": "Shows how insurance repricing can change the route-cost comparison between direct transit, delay and reroute.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to premium adequacy, reinsurance appetite, underwriting controls and claims aggregation.",
+      "risk_dimension": "impact",
+      "risk_driver": "Insurance-market repricing",
+      "judgement_supported": "Insurance-market repricing",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "Broker analysis should be refreshed against current quoted terms before sailing.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-007",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "Shippers whipsawed by changing stances as vessels remain stuck in Strait of Hormuz",
+      "publisher": "Associated Press",
+      "url": "https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2",
+      "publication_date": "2026-05-06",
+      "retrieval_date": "2026-05-28",
+      "source_type": "vessel_flow_or_freight_market_evidence",
+      "date": "2026-05-06",
+      "summary": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "evidence_label": "Vessel Flow Or Freight Market Evidence",
+      "extracted_claim": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "claim_supported": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "supporting_detail": "Key facts: 6 May 2026; hundreds of vessels stuck; insurance costs rose sharply",
+      "quantified_facts": [],
+      "key_facts": [
+        "gulf",
+        "insurance",
+        "persian gulf",
+        "strait of hormuz",
+        "transit",
+        "vessel"
+      ],
+      "commercial_relevance": "Supports the view that vessel-flow disruption and operating stress remain practical, not theoretical.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to transit recovery, floating storage, congestion and accumulation.",
+      "risk_dimension": "impact",
+      "risk_driver": "Vessel-flow and market behaviour",
+      "judgement_supported": "Vessel-flow and market behaviour",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "News synthesis should be checked against live vessel-tracking and operator updates before changing stance.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-008",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "Market Insights | Strait of Hormuz Spotlight",
+      "publisher": "The Signal Group",
+      "url": "https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight",
+      "publication_date": "2026-03-09",
+      "retrieval_date": "2026-05-28",
+      "source_type": "specialist_analysis",
+      "date": "2026-03-09",
+      "summary": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "evidence_label": "Specialist Analysis",
+      "extracted_claim": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "claim_supported": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "supporting_detail": "Key facts: 9 March 2026; sharp decline in tanker transits; growing floating storage",
+      "quantified_facts": [],
+      "key_facts": [
+        "strait of hormuz",
+        "tanker",
+        "transit"
+      ],
+      "commercial_relevance": "Adds operator-facing interpretation for route stress, tanker-flow behaviour and practical route-cost trade-offs.",
+      "commercial_meaning": "Relevant evidence for analyst review.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Supports scenario design, market interpretation and stress testing.",
+      "risk_dimension": "commercial exposure",
+      "risk_driver": "General commercial risk",
+      "judgement_supported": "General commercial risk",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "raises confidence through source diversity",
+      "caveat": "Specialist analysis is interpretive and should be paired with primary or reputable reporting.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    },
+    {
+      "source_id": "HSO-009",
+      "requirement_id": "",
+      "requirement_name": "",
+      "title": "Trump says a deal with Iran and opening of Strait of Hormuz are 'largely negotiated'",
+      "publisher": "Associated Press",
+      "url": "https://apnews.com/article/1c283f26d037102cc5e6f798546d0e59",
+      "publication_date": "2026-05-23",
+      "retrieval_date": "2026-05-28",
+      "source_type": "contrary_or_stabilising_evidence",
+      "date": "2026-05-23",
+      "summary": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "evidence_label": "Contrary Or Stabilising Evidence",
+      "extracted_claim": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "claim_supported": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "supporting_detail": "Key facts: 23 May 2026; opening largely negotiated",
+      "quantified_facts": [],
+      "key_facts": [
+        "claims",
+        "strait of hormuz"
+      ],
+      "commercial_relevance": "Provides contrary evidence for monitoring while keeping relaxation tied to practical recovery in guidance, insurance and vessel flows.",
+      "commercial_meaning": "Scenario balance and de-escalation monitoring.",
+      "business_user_relevance": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "business_user_implication": "Relevant to routing, vessel security, crew safety, and customer commitments.",
+      "marine_insurance_implication": "Maps to scenario balance and conditions for relaxing controls.",
+      "risk_dimension": "impact",
+      "risk_driver": "De-escalation and stabilisation evidence",
+      "judgement_supported": "De-escalation and stabilisation evidence",
+      "decision_use": "Supports operator review and control decisions.",
+      "contrary_signal": false,
+      "confidence_impact": "adds scenario balance but caps certainty",
+      "caveat": "Diplomatic reporting should not be treated as proof of operational reopening.",
+      "refresh_requirement": "Refresh before major underwriting or commercial decisions.",
+      "evidence_weight": "medium",
+      "reliability_score": "",
+      "relevance_score": "",
+      "recency_score": "",
+      "specificity_score": "",
+      "decision_value_score": "",
+      "fetch_status": "demo"
+    }
+  ],
+  "duplicate_urls_removed": 0,
+  "route_cost_assumptions": {
+    "illustrative": true,
+    "estimated_direct_voyage_days": 14,
+    "estimated_reroute_days": 24,
+    "daily_vessel_cost": 45000,
+    "bunker_cost_per_day": 28000,
+    "war_risk_premium_direct": 750000,
+    "war_risk_premium_reroute": 150000,
+    "demurrage_or_delay_cost_per_day": 35000,
+    "compliance_hold_days": 5,
+    "caveat": "Illustrative voyage assumptions requiring operator validation."
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "demo_search_results": [
+    {
+      "source_id": "UKETS-001",
+      "title": "UK ETS scope expansion: domestic maritime - main Authority response",
+      "publisher": "GOV.UK",
+      "publication_date": "2025-11-26",
+      "url": "https://www.gov.uk/government/consultations/uk-ets-scope-expansion-maritime-sector/outcome/uk-ets-scope-expansion-domestic-maritime-main-authority-response-accessible-webpage",
+      "source_type": "official_primary",
+      "claim_supported": "The UK ETS Authority confirmed that domestic maritime emissions from ships of 5,000 GT and above will be brought into scope from 1 July 2026, with domestic voyages between UK ports and emissions in UK ports covered.",
+      "snippet": "Domestic maritime emissions from ships of 5,000 GT and above enter scope from 1 July 2026, covering domestic UK voyages and in-port emissions.",
+      "key_facts": [
+        "1 July 2026",
+        "5,000 GT threshold",
+        "domestic voyages between UK ports",
+        "in-port emissions"
+      ],
+      "commercial_relevance": "Establishes whether current route-level carbon cost is real exposure or only scenario exposure.",
+      "caveat": "International maritime expansion remains a separate consultation path and should not be treated as current scope without later confirmation."
+    },
+    {
+      "source_id": "UKETS-002",
+      "title": "06/2026: UK ETS extends to domestic maritime sector",
+      "publisher": "Lloyd's Register",
+      "publication_date": "2026-03-27",
+      "url": "https://www.lr.org/en/knowledge/class-news/06-26/",
+      "source_type": "specialist_analysis",
+      "claim_supported": "Lloyd's Register said the first reporting period covers 1 July to 31 December 2026, verified emissions reports are due by 31 March following the reporting period, and the first two maritime surrender years can use a one-off 30 April 2028 double-surrender deadline.",
+      "snippet": "LR summarised reporting and surrender timing, including the one-off double-surrender window for the first maritime years.",
+      "key_facts": [
+        "1 July-31 December 2026 first reporting period",
+        "31 March verified report deadline",
+        "30 April 2028 double-surrender window"
+      ],
+      "commercial_relevance": "Makes compliance timing a live readiness issue rather than a distant policy note.",
+      "caveat": "Operator processes still need route-level implementation and accountable-entity confirmation."
+    },
+    {
+      "source_id": "UKETS-003",
+      "title": "UK announces major policy decisions and launches new consultations on ETS expansion",
+      "publisher": "ICAP",
+      "publication_date": "2025-12-19",
+      "url": "https://icapcarbonaction.com/en/news/uk-announces-major-policy-decisions-and-launches-new-consultations-ets-expansion",
+      "source_type": "official_guidance",
+      "claim_supported": "ICAP summarised that the UK ETS domestic maritime expansion covers vessels of 5,000 GT or above undertaking domestic voyages between UK ports, while international maritime inclusion remains subject to a separate consultation.",
+      "snippet": "ICAP distinguishes confirmed domestic scope from the separate international expansion process.",
+      "key_facts": [
+        "5,000 GT or above",
+        "domestic voyages between UK ports",
+        "international consultation separate"
+      ],
+      "commercial_relevance": "Supports clean separation between current in-scope routes and scenario-only international exposure.",
+      "caveat": "ICAP is a policy summary source and should be paired with primary UK policy texts."
+    },
+    {
+      "source_id": "UKETS-004",
+      "title": "UK ETS to launch on 1 July",
+      "publisher": "Lloyd's Register",
+      "publication_date": "2026-04-01",
+      "url": "https://www.lr.org/en/knowledge/horizons/april-2026/uk-ets-to-launch-on-1-july/",
+      "source_type": "company_update",
+      "claim_supported": "LR said ships of at least 5,000 GT at berth or sailing between UK ports will be affected from 1 July, and noted that operators still needed clearer implementation guidance.",
+      "snippet": "LR highlighted both confirmed scope and practical readiness gaps for operators.",
+      "key_facts": [
+        "5,000 GT",
+        "at berth or sailing between UK ports",
+        "implementation guidance gap"
+      ],
+      "commercial_relevance": "Shows that scope confirmation alone is not enough; implementation readiness affects operator exposure.",
+      "caveat": "Operational readiness commentary is informative but not a substitute for formal compliance advice."
+    },
+    {
+      "source_id": "UKETS-005",
+      "title": "UK Chamber of Shipping technical briefing",
+      "publisher": "UK Chamber of Shipping",
+      "publication_date": "2026-02-01",
+      "url": "https://www.ukchamberofshipping.com/sites/default/files/2026-02/UK%20ETS%20draft%20SI%20-%20Impact%20Assessment%20Analysis.pdf",
+      "source_type": "reputable_news",
+      "claim_supported": "The UK Chamber of Shipping briefing said additional UK ETS costs could be passed through to consumers as a secondary or tertiary impact and framed the scheme as a material cost issue for operators.",
+      "snippet": "Industry briefing linked UK ETS to operator cost pressure and potential pass-through.",
+      "key_facts": [
+        "additional cost to operators",
+        "pass through to consumers"
+      ],
+      "commercial_relevance": "Supports analysis of margin pressure and cost pass-through rather than compliance in the abstract.",
+      "caveat": "Industry advocacy material may emphasise commercial burden and should be balanced with official scope texts."
+    },
+    {
+      "source_id": "UKETS-006",
+      "title": "Fourth IMO GHG Study 2020",
+      "publisher": "International Maritime Organization",
+      "publication_date": "2020",
+      "url": "https://greenvoyage2050.imo.org/wp-content/uploads/2021/07/Fourth-IMO-GHG-Study-2020-Full-report-and-annexes_compressed.pdf",
+      "source_type": "official_primary",
+      "claim_supported": "The IMO study lists a fuel-based carbon dioxide emissions factor of 3.206 for marine distillate fuels such as MGO/MDO, which can be used as a default conversion input where operator-specific verified factors are not supplied.",
+      "snippet": "IMO provides a 3.206 CO2 factor for marine distillate fuels used here as a deterministic fallback.",
+      "key_facts": [
+        "3.206 factor for MDO / distillate marine fuels"
+      ],
+      "commercial_relevance": "Enables a transparent voyage-level carbon cost estimate from illustrative fuel-burn assumptions.",
+      "caveat": "Used here as a default factor requiring validation against the operator's approved emissions methodology."
+    },
+    {
+      "source_id": "UKETS-007",
+      "title": "Inclusion of domestic shipping in the UK Emissions Trading Scheme: Due to apply from 2026?",
+      "publisher": "HFW",
+      "publication_date": "2023-10-05",
+      "url": "https://www.hfw.com/insights/inclusion-of-domestic-shipping-in-the-uk-emissions-trading-scheme-due-to-apply-from-2026/",
+      "source_type": "specialist_analysis",
+      "claim_supported": "HFW explained that the responsible entity, allowance handling and practical compliance approach matter commercially because operators may need registry arrangements, contractual allocation and verified reporting processes before costs can be managed cleanly.",
+      "snippet": "HFW linked domestic shipping inclusion to entity responsibility, allowances and contractual allocation issues.",
+      "key_facts": [
+        "registry arrangements",
+        "contractual allocation",
+        "compliance approach"
+      ],
+      "commercial_relevance": "Turns policy scope into practical accountability, documentation and governance questions.",
+      "caveat": "Published before final 2025-2026 implementation details and should be read with current official responses."
+    },
+    {
+      "source_id": "UKETS-008",
+      "title": "UK ETS scope expansion - emissions from international maritime voyages consultation",
+      "publisher": "GOV.UK",
+      "publication_date": "2025-11-26",
+      "url": "https://www.gov.uk/government/consultations/uk-ets-scope-expansion-emissions-from-international-maritime-voyages/uk-ets-scope-expansion-emissions-from-international-maritime-voyages-consultation-accessible-webpage",
+      "source_type": "contrary_or_stabilising_evidence",
+      "claim_supported": "The government consultation on international maritime voyages shows that UK-international routes are being considered for future scope expansion, which means they should be treated as scenario exposure rather than current obligation unless later confirmed.",
+      "snippet": "International maritime inclusion is a consultation topic, not current confirmed scope in this showcase.",
+      "key_facts": [
+        "international maritime consultation",
+        "future scope expansion"
+      ],
+      "commercial_relevance": "Prevents over-applying current UK ETS cost assumptions to routes outside confirmed 2026 domestic scope.",
+      "caveat": "Scenario planning value is high, but this is not current-route scope confirmation."
+    }
+  ]
+}

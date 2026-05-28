@@ -1,0 +1,596 @@
+{
+  "maritime_trade": {
+    "source_requirements": [
+      "official_maritime_security",
+      "transit_control_or_constabulary_actions",
+      "sanctions_and_safe_passage_payment_risk",
+      "war_risk_insurance_pricing",
+      "vessel_flow_and_AIS_behaviour",
+      "energy_cargo_and_chokepoint_exposure",
+      "route_cost_and_arbitrage_inputs",
+      "contrary_or_de_escalation_evidence"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "company_update",
+      "energy_chokepoint_data",
+      "insurance_market_evidence",
+      "vessel_flow_or_freight_market_evidence",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "ukmto.org",
+      "imo.org",
+      "maersk.com",
+      "hapag-lloyd.com",
+      "cma-cgm.com",
+      "eia.gov",
+      "iea.org",
+      "howdenre.com",
+      "reuters.com",
+      "lloydslist.com",
+      "gibsons.co.uk",
+      "kpler.com"
+    ],
+    "required_source_mix": [
+      "official maritime/security advisory",
+      "transit-control and detention reporting",
+      "sanctions and legal guidance",
+      "energy/freight/vessel-flow data",
+      "insurance and route-cost evidence",
+      "contrary or de-escalation evidence"
+    ],
+    "risk_drivers": [
+      "transit_control_risk",
+      "sanctions_safe_passage_risk",
+      "war_risk_insurance_pressure",
+      "vessel_flow_AIS_disruption",
+      "energy_chokepoint_exposure",
+      "route_cost_arbitrage",
+      "de_escalation_monitoring"
+    ],
+    "decision_questions": [
+      "Should a UK shipping operator transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review?",
+      "Do transit controls or detention risks make direct passage operationally unacceptable?",
+      "Does sanctions or war-risk pressure override the cheaper direct route?",
+      "What evidence would justify relaxation?"
+    ],
+    "client_decision_outputs": [
+      "operating stance",
+      "transit / delay / reroute option",
+      "sanctions escalation",
+      "insurance and route-cost review",
+      "relaxation triggers"
+    ],
+    "watchlist_indicators": [
+      "official maritime advisories",
+      "transit-control demands",
+      "safe-passage payment requests",
+      "war-risk premium movement",
+      "vessel-flow and AIS recovery",
+      "de-escalation reporting"
+    ],
+    "scoring_emphasis": [
+      "impact",
+      "immediacy",
+      "confidence"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "company_update",
+      "energy_chokepoint_data",
+      "insurance_market_evidence",
+      "vessel_flow_or_freight_market_evidence",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "transit_control_risk",
+      "sanctions_safe_passage_risk",
+      "war_risk_insurance_pressure",
+      "vessel_flow_AIS_disruption",
+      "route_cost_arbitrage"
+    ],
+    "likely_business_users": [
+      "shipping_operator",
+      "marine_insurer",
+      "importer_exporter",
+      "trade_finance_lender"
+    ],
+    "example_watchlist_indicators": [
+      "official maritime advisories",
+      "carrier service updates",
+      "war-risk premium movement",
+      "vessel-flow recovery"
+    ]
+  },
+  "sanctions_trade_finance": {
+    "source_requirements": [
+      "official_sanctions_guidance",
+      "sanctions_regime_context",
+      "export_control_and_dual_use_risk",
+      "legal_practical_analysis",
+      "trade_route_and_diversion_risk",
+      "banking_and_payment_risk",
+      "contrary_or_scope_limited_evidence"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "official_guidance",
+      "specialist_analysis",
+      "reputable_news",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "gov.uk",
+      "ofsi.gov.uk",
+      "businessandtrade.gov.uk",
+      "legislation.gov.uk",
+      "trade-tariff.service.gov.uk",
+      "skadden.com",
+      "akingump.com",
+      "bakermckenzie.com",
+      "osborneclarke.com",
+      "reuters.com",
+      "fatf-gafi.org",
+      "wolfsberg-principles.com"
+    ],
+    "required_source_mix": [
+      "official sanctions guidance",
+      "sanctions regime context",
+      "export-control / dual-use guidance",
+      "legal practical analysis",
+      "trade-route / diversion evidence",
+      "banking and payment-risk evidence",
+      "scope-limited or contrary evidence"
+    ],
+    "risk_drivers": [
+      "official sanctions guidance",
+      "sanctions regime context",
+      "goods and end-use risk",
+      "trade route and diversion risk",
+      "payment and documentation risk",
+      "collateral risk",
+      "scope-limited approval evidence"
+    ],
+    "decision_questions": [
+      "Does the transaction create sanctions end-use exposure?",
+      "Does the route, counterparty or goods profile suggest diversion risk?",
+      "Could payment be delayed, blocked or rejected?",
+      "What evidence would justify approval after enhanced due diligence?"
+    ],
+    "client_decision_outputs": [
+      "approve / hold / decline stance",
+      "counterparty escalation",
+      "goods classification review",
+      "licence position",
+      "payment controls",
+      "facility conditions"
+    ],
+    "watchlist_indicators": [
+      "official sanctions guidance updates",
+      "new sanctions designations",
+      "third-country diversion reporting",
+      "goods classification changes",
+      "correspondent-bank refusals",
+      "licence delays or refusals"
+    ],
+    "scoring_emphasis": [
+      "likelihood",
+      "confidence",
+      "impact"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "official sanctions guidance",
+      "sanctions regime context",
+      "goods and end-use risk",
+      "trade route and diversion risk",
+      "payment and documentation risk",
+      "collateral risk"
+    ],
+    "likely_business_users": [
+      "trade_finance_lender",
+      "importer_exporter",
+      "consultant"
+    ],
+    "example_watchlist_indicators": [
+      "official sanctions guidance updates",
+      "new sanctions designations",
+      "third-country diversion reporting",
+      "goods classification changes",
+      "correspondent-bank refusals",
+      "licence delays or refusals"
+    ]
+  },
+  "election_investor_risk": {
+    "source_requirements": [
+      "official_election_calendar",
+      "polling_aggregates",
+      "policy_platforms",
+      "market_data",
+      "sovereign_risk_analysis",
+      "business_sector_exposure",
+      "post_election_scenario_evidence"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "market_indicator",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "election commission",
+      "national statistics office",
+      "imf.org",
+      "worldbank.org",
+      "reuters.com",
+      "ft.com",
+      "spglobal.com",
+      "moodys.com",
+      "fitchratings.com"
+    ],
+    "required_source_mix": [
+      "official election calendar",
+      "polling aggregates",
+      "fiscal/monetary policy platforms",
+      "market data",
+      "sovereign-risk analysis",
+      "business sector exposure",
+      "post-election scenario evidence"
+    ],
+    "risk_drivers": [
+      "policy uncertainty",
+      "market volatility",
+      "fiscal stance",
+      "currency risk",
+      "sector exposure",
+      "institutional stability"
+    ],
+    "decision_questions": [
+      "Which policy outcomes affect investor exposure?",
+      "Which sectors or assets are most sensitive?",
+      "What market signals confirm or challenge the political scenario?"
+    ],
+    "client_decision_outputs": [
+      "scenario probabilities",
+      "asset exposure map",
+      "hedging/watchlist triggers",
+      "post-election review plan"
+    ],
+    "watchlist_indicators": [
+      "election commission updates",
+      "polling shifts",
+      "currency volatility",
+      "bond spreads",
+      "policy platform changes",
+      "coalition statements"
+    ],
+    "scoring_emphasis": [
+      "likelihood",
+      "impact"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "market_indicator",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "policy uncertainty",
+      "regulatory change",
+      "market volatility",
+      "capital controls",
+      "institutional stability"
+    ],
+    "likely_business_users": [
+      "consultant",
+      "importer_exporter",
+      "trade_finance_lender"
+    ],
+    "example_watchlist_indicators": [
+      "polling shifts",
+      "election commission updates",
+      "currency volatility",
+      "policy manifesto changes"
+    ]
+  },
+  "civil_unrest_supply_chain": {
+    "source_requirements": [
+      "official_security_advisories",
+      "local_news_reporting",
+      "logistics_port_transport_indicators",
+      "company_operational_updates",
+      "protest_labour_reporting",
+      "insurance_security_analysis",
+      "stabilising_evidence"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "company_update",
+      "market_indicator",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "foreign ministry advisories",
+      "local government",
+      "reuters.com",
+      "apnews.com",
+      "port authority",
+      "logistics provider",
+      "controlrisks.com",
+      "crisis24.garda.com"
+    ],
+    "required_source_mix": [
+      "official security advisories",
+      "local news",
+      "logistics/port/transport indicators",
+      "company operational updates",
+      "protest/labour reporting",
+      "insurance/security analysis",
+      "stabilising evidence"
+    ],
+    "risk_drivers": [
+      "security disruption",
+      "transport access",
+      "port or road constraints",
+      "supplier disruption",
+      "labour unrest",
+      "inventory pressure"
+    ],
+    "decision_questions": [
+      "Which shipments, sites or suppliers are exposed?",
+      "Are alternative routes or inventory buffers required?",
+      "What evidence shows stabilisation or escalation?"
+    ],
+    "client_decision_outputs": [
+      "route decision",
+      "supplier contingency",
+      "inventory buffer",
+      "security escalation",
+      "customer communication"
+    ],
+    "watchlist_indicators": [
+      "curfew announcements",
+      "port closures",
+      "road blockages",
+      "supplier advisories",
+      "transport strike notices",
+      "security incident reporting"
+    ],
+    "scoring_emphasis": [
+      "immediacy",
+      "impact"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "company_update",
+      "market_indicator",
+      "reputable_news",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "transport disruption",
+      "port or road access",
+      "supplier shutdown",
+      "security risk",
+      "inventory pressure"
+    ],
+    "likely_business_users": [
+      "importer_exporter",
+      "shipping_operator",
+      "consultant"
+    ],
+    "example_watchlist_indicators": [
+      "curfew announcements",
+      "port closures",
+      "supplier advisories",
+      "transport strike notices"
+    ]
+  },
+  "regulatory_change_insurance": {
+    "source_requirements": [
+      "regulator_publications",
+      "consultation_papers",
+      "statutory_instruments",
+      "industry_body_responses",
+      "insurer_broker_analysis",
+      "legal_analysis",
+      "implementation_timeline"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "market_indicator",
+      "company_update",
+      "specialist_analysis",
+      "reputable_news"
+    ],
+    "preferred_domains": [
+      "fca.org.uk",
+      "bankofengland.co.uk",
+      "legislation.gov.uk",
+      "abi.org.uk",
+      "lmalloyds.com",
+      "marsh.com",
+      "wtwco.com",
+      "cms-lawnow.com",
+      "linklaters.com"
+    ],
+    "required_source_mix": [
+      "regulator publications",
+      "consultation papers",
+      "statutory instruments",
+      "industry body responses",
+      "insurer/broker analysis",
+      "legal analysis",
+      "implementation timelines"
+    ],
+    "risk_drivers": [
+      "policy wording change",
+      "capital requirement",
+      "claims handling impact",
+      "pricing adequacy",
+      "implementation deadline"
+    ],
+    "decision_questions": [
+      "Which policy wordings need review?",
+      "Does pricing, reserving or capital appetite need adjustment?",
+      "What is the implementation timeline?"
+    ],
+    "client_decision_outputs": [
+      "wording review",
+      "pricing adjustment",
+      "capital appetite review",
+      "implementation plan",
+      "client communication"
+    ],
+    "watchlist_indicators": [
+      "regulator consultations",
+      "statutory instrument updates",
+      "implementation deadlines",
+      "industry association responses",
+      "court or enforcement actions"
+    ],
+    "scoring_emphasis": [
+      "impact",
+      "confidence"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "company_update",
+      "market_indicator",
+      "reputable_news",
+      "specialist_analysis"
+    ],
+    "default_risk_drivers": [
+      "policy wording change",
+      "capital requirement",
+      "claims handling impact",
+      "pricing adequacy",
+      "compliance deadline"
+    ],
+    "likely_business_users": [
+      "marine_insurer",
+      "consultant"
+    ],
+    "example_watchlist_indicators": [
+      "regulator consultations",
+      "implementation deadlines",
+      "industry association responses",
+      "court or enforcement actions"
+    ]
+  },
+  "regulatory_carbon_shipping": {
+    "source_requirements": [
+      "official_policy_scope",
+      "reporting_surrender_timeline",
+      "carbon_price_evidence",
+      "emissions_factor_evidence",
+      "operator_guidance",
+      "legal_practical_analysis",
+      "future_scope_or_international_extension",
+      "contrary_or_scope_limited_evidence"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "official_guidance",
+      "market_indicator",
+      "specialist_analysis",
+      "reputable_news",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "gov.uk",
+      "gov.scot",
+      "gov.wales",
+      "icapcarbonaction.com",
+      "lr.org",
+      "lloydslist.com",
+      "ukchamberofshipping.com",
+      "hfw.com",
+      "watsonfarley.com",
+      "nortonrosefulbright.com",
+      "stephensonharwood.com",
+      "imo.org"
+    ],
+    "required_source_mix": [
+      "official policy scope source",
+      "timeline / reporting source",
+      "carbon price source or manual fallback",
+      "emissions factor source",
+      "operator implementation guidance",
+      "legal practical analysis",
+      "future-scope evidence",
+      "scope-limiting evidence"
+    ],
+    "risk_drivers": [
+      "policy_scope_and_route_applicability",
+      "reporting_and_surrender_readiness",
+      "carbon_price_and_allowance_cost",
+      "emissions_factor_and_voyage_calculation",
+      "operator_margin_and_pass_through_pressure",
+      "future_international_expansion_risk",
+      "scope_limited_or_exemption_constraints"
+    ],
+    "decision_questions": [
+      "Does UK ETS apply to this vessel and route today, or only as a future scenario?",
+      "What is the quantified voyage-level carbon cost exposure at current UKA assumptions?",
+      "Are reporting and surrender processes ready for the first compliance periods?",
+      "Can the operator pass carbon cost through, or will margins absorb it?"
+    ],
+    "client_decision_outputs": [
+      "operator stance",
+      "applicability check",
+      "carbon cost estimate",
+      "compliance timeline",
+      "scenario watchpoints"
+    ],
+    "watchlist_indicators": [
+      "route clearly falls within scope",
+      "UKA price movement",
+      "reporting process gap",
+      "allowance procurement risk",
+      "future international expansion"
+    ],
+    "scoring_emphasis": [
+      "impact",
+      "confidence",
+      "immediacy"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "market_indicator",
+      "specialist_analysis",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "policy_scope_and_route_applicability",
+      "reporting_and_surrender_readiness",
+      "carbon_price_and_allowance_cost",
+      "operator_margin_and_pass_through_pressure"
+    ],
+    "likely_business_users": [
+      "shipping_operator",
+      "consultant"
+    ],
+    "example_watchlist_indicators": [
+      "route clearly falls within scope",
+      "UKA price movement",
+      "reporting process gap",
+      "allowance procurement risk"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+# Strait of Hormuz Evidence Pack
+
+Generated for the Political Risk Agent flagship Strait of Hormuz showcase.
+
+This pack uses real, web-verified sources gathered on 2026-05-27. It excludes placeholder notes. Claims are concise summaries of the cited source and should be rechecked before operational, underwriting, or financial decisions.
+
+| Source ID | Source Type | Publisher | Date | Claim Supported | Commercial Relevance | Caveat |
+| --- | --- | --- | --- | --- | --- | --- |
+| HORMUZ-001 | official_primary | International Maritime Organization | 2026-04-24 | IMO said there was no safe transit anywhere in the Strait of Hormuz, citing verified vessel attacks, detained vessels, mines risk, and around 20,000 seafarers trapped on about 1,600 vessels in the Gulf. | Confirms a severe official maritime-security environment affecting vessel safety, crew welfare, war-risk underwriting, accumulation exposure, and claims scenarios. | Official IMO statement is strong on safety and humanitarian conditions, but does not quantify insurance pricing or cargo-specific losses. |
+| HORMUZ-002 | company_update | Maersk | 2026-04-27 | Maersk said operating conditions around the Strait remained constrained, shipping traffic continued well below normal levels, safe transit could not be assured, and no service changes were being made. | Supports operational disruption, route caution, possible schedule impacts, and direct commercial exposure for insured vessels and cargo. | Reflects Maersk's network and risk appetite; other operators may take different decisions. |
+| HORMUZ-003 | energy_chokepoint_data | International Energy Agency | 2026 | IEA says the Strait handled about 20 mb/d of crude oil and oil products in 2025, around 25% of world seaborne oil trade, and major shares of Qatar and UAE LNG exports. | Quantifies oil and LNG exposure, showing why marine insurance, tanker availability, energy trade, and trade finance risk can reprice quickly. | Structural exposure data does not by itself prove current disruption severity. |
+| HORMUZ-004 | insurance_market_evidence | Howden Re | 2026-04-01 | Howden Re reported Hormuz war-risk pricing rising from roughly 0.10-0.125% pre-conflict to 2-3% in March 2026, with worst-case premiums for a $100M vessel around $375,000-$3M per transit. | Directly supports marine insurer judgement on war-risk premium repricing, underwriting controls, claims aggregation, and cargo war-risk treatment. | Figures should be validated against current broker quotes before underwriting decisions. |
+| HORMUZ-005 | vessel_flow_or_freight_market_evidence | Kpler | 2026-02-28 | Kpler reported vessel-positioning changes and estimated about 191 million barrels of Iranian crude on water globally as of 27 February 2026, including about 25 million barrels within the Mideast Gulf. | Supports vessel-flow and sanctions-linked exposure analysis, including tanker positioning, floating cargo, route risk, and compliance concerns. | Specialist data depends on vessel-tracking methodology and classification assumptions. |
+| HORMUZ-006 | reputable_news | Associated Press | 2026-05-06 | AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply, Hapag-Lloyd cited about $60M/week in Hormuz-related costs, and Maersk said one U.S.-flagged carrier exited with military accompaniment. | Corroborates operational disruption, carrier cost escalation, insurance stress, and uncertainty around normalisation. | News source aggregates several claims; primary company statements should be checked where possible. |
+| HORMUZ-007 | specialist_analysis | The Signal Group | 2026-03-09 | The Signal Group assessed a sharp decline in tanker transits, growing floating storage in Gulf anchorages, rising war-risk premiums, and a shift toward risk-managed energy transport. | Links tanker-flow disruption, floating storage, insurance premiums, and market scenarios for marine insurer stress testing. | Scenario analysis is judgment-based and should be used alongside primary operational and market sources. |
+| HORMUZ-008 | contrary_or_stabilising_evidence | Axios | 2026-05-26 | Axios reported that a possible U.S.-Iran deal could reopen the Strait while nuclear talks proceed, but analysts cautioned that recovery could be stop-start and depend on shipper confidence, mine clearance, insurance rates, and operating conditions. | Provides stabilising evidence for scenario balance while preserving uncertainty around de-escalation and operational recovery. | Forward-looking reporting; not confirmation that normal commercial transit has resumed. |
+
+## Source Links
+
+- HORMUZ-001: https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx
+- HORMUZ-002: https://www.maersk.com/news/articles/2026/04/27/middle-east-situation-overview-4
+- HORMUZ-003: https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz
+- HORMUZ-004: https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf
+- HORMUZ-005: https://www.kpler.com/fr/blog/strait-of-hormuz-watch-amid-iran-conflict-risk-tracking-crude-flows-interference-and-diversions-in-kpler
+- HORMUZ-006: https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2
+- HORMUZ-007: https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight
+- HORMUZ-008: https://www.axios.com/2026/05/26/new-oil-order-iran-deal-prices

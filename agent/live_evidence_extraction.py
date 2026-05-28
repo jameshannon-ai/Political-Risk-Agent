@@ -1,0 +1,565 @@
+import re
+from datetime import datetime
+from urllib.parse import urlparse
+
+
+INSURANCE_TERMS = ["insurance", "war-risk", "war risk", "premium", "underwriting", "claims"]
+VESSEL_FLOW_TERMS = ["vessel", "tanker", "traffic", "transit", "flows", "freight", "shipping"]
+ROUTE_TERMS = ["strait of hormuz", "persian gulf", "gulf", "waterway", "chokepoint"]
+CARRIER_TERMS = ["route", "routing", "service", "operations", "transit", "security review"]
+DEESCALATION_TERMS = [
+    "de-escalation",
+    "deescalation",
+    "reopen",
+    "reopening",
+    "restored",
+    "reduced near-term disruption",
+    "stabilising",
+    "stabilizing",
+]
+
+
+def extract_live_evidence(fetched_sources, business_user):
+    return [
+        _extract_source(source, index + 1, business_user)
+        for index, source in enumerate(fetched_sources)
+    ]
+
+
+def _extract_source(source, index, business_user):
+    body_text = source.get("content") or source.get("claim_supported") or source.get("snippet", "")
+    body_text = _clean_extracted_text(body_text)
+    text = " ".join([source.get("title", ""), body_text])
+    lower_text = text.lower()
+    source_type = source.get("source_type", "unknown")
+    contrary_signal = any(term in lower_text for term in DEESCALATION_TERMS)
+    claim_supported = _best_claim(source, body_text or text)
+    requirement_name = source.get("requirement_name", "")
+    decision_profile = _decision_profile(requirement_name, source_type, business_user)
+
+    return {
+        "source_id": source.get("source_id", f"L{index}"),
+        "requirement_id": source.get("requirement_id", ""),
+        "requirement_name": requirement_name,
+        "title": source.get("title", ""),
+        "publisher": source.get("publisher") or _publisher_from_url(source.get("url", "")),
+        "url": source.get("url", ""),
+        "publication_date": source.get("publication_date", ""),
+        "retrieval_date": datetime.now().date().isoformat(),
+        "source_type": source_type,
+        "date": source.get("publication_date", ""),
+        "summary": claim_supported,
+        "evidence_label": source_type.replace("_", " ").title(),
+        "extracted_claim": claim_supported,
+        "claim_supported": claim_supported,
+        "supporting_detail": _supporting_detail(source, text),
+        "quantified_facts": _quantified_facts(text),
+        "key_facts": _key_facts(text),
+        "commercial_relevance": source.get("commercial_relevance") or decision_profile["commercial_meaning"],
+        "commercial_meaning": decision_profile["commercial_meaning"],
+        "business_user_relevance": decision_profile["business_user_implication"],
+        "business_user_implication": decision_profile["business_user_implication"],
+        "marine_insurance_implication": _marine_insurance_implication(source_type),
+        "risk_dimension": _risk_dimension(lower_text, source_type),
+        "risk_driver": _risk_driver(requirement_name, source_type),
+        "judgement_supported": _judgement_supported(requirement_name, source_type),
+        "decision_use": decision_profile["decision_use"] if requirement_name else source.get("decision_use") or decision_profile["decision_use"],
+        "contrary_signal": contrary_signal,
+        "confidence_impact": _confidence_impact(source_type, contrary_signal),
+        "caveat": source.get("caveat") or _caveat(source_type, source.get("fetch_status", "")),
+        "refresh_requirement": _refresh_requirement(requirement_name, source_type),
+        "evidence_weight": source.get("evidence_weight", "medium"),
+        "reliability_score": source.get("reliability_score", ""),
+        "relevance_score": source.get("relevance_score", ""),
+        "recency_score": source.get("recency_score", ""),
+        "specificity_score": source.get("specificity_score", ""),
+        "decision_value_score": source.get("decision_value_score", ""),
+        "fetch_status": source.get("fetch_status", ""),
+    }
+
+
+def _claim_supported(text):
+    sentence = re.split(r"(?<=[.!?])\s+", text.strip())[0]
+    return sentence[:500] if sentence else "No concise claim extracted."
+
+
+def _best_claim(source, text):
+    cleaned = _clean_extracted_text(text)
+    if _looks_like_bad_claim(cleaned):
+        snippet = _clean_extracted_text(source.get("snippet", ""))
+        if snippet and not _looks_like_bad_claim(snippet):
+            source["fetch_status"] = "snippet_used"
+            return _claim_supported(snippet)
+        claim_supported = _clean_extracted_text(source.get("claim_supported", ""))
+        if claim_supported and not _looks_like_bad_claim(claim_supported):
+            source["fetch_status"] = "snippet_used"
+            return _claim_supported(claim_supported)
+    return _claim_supported(cleaned)
+
+
+def _clean_extracted_text(text):
+    text = re.sub(r"(?is)<(script|style|nav|footer|header|noscript|form|aside)\b.*?</\1>", " ", text or "")
+    text = re.sub(r"<[^>]+>", " ", text or "")
+    text = re.sub(r"\b(cookie|cookies|privacy policy|accept all|skip to content)\b", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\b(function|var|return|data-[a-z0-9_-]+)\b.*", " ", text, flags=re.IGNORECASE)
+    text = " ".join(text.split())
+    return text[:5000]
+
+
+def _looks_like_bad_claim(text):
+    if not text or len(text.strip()) < 25:
+        return True
+    lowered = text.strip().lower()
+    bad_prefixes = ("<script", "<!doctype", "<html", "data-", "var", "function", "cookie")
+    if lowered.startswith(bad_prefixes):
+        return True
+    if any(token in lowered for token in ["<!doctype", "<html", "<script", "javascript", "window.dataLayer"]):
+        return True
+    return False
+
+
+def _key_facts(text):
+    facts = []
+    facts.extend(re.findall(r"(?<!\w)\d+(?:\.\d+)?%?", text))
+    facts.extend(term for term in ROUTE_TERMS if term in text.lower())
+    facts.extend(term for term in INSURANCE_TERMS if term in text.lower())
+    facts.extend(term for term in VESSEL_FLOW_TERMS if term in text.lower())
+    return sorted(set(facts))[:12]
+
+
+def _quantified_facts(text):
+    patterns = [
+        r"\b\d+(?:\.\d+)?\s?%",
+        r"(?:\$|£|€)\s?\d+(?:\.\d+)?\s?(?:m|mn|million|bn|billion)?",
+        r"\b\d+(?:\.\d+)?\s?(?:m|mn|million|bn|billion)\b",
+        r"\b\d+(?:\.\d+)?\s?(?:mb/d|b/d|barrels per day|barrels|vessels|seafarers|tankers|ships)\b",
+        r"\b\d+(?:\.\d+)?\s?(?:LNG|oil|crude|cargo|transit|transits)\b",
+        r"\b\d+(?:\.\d+)?\s?(?:basis points|bps|premium|premiums|rate|rates)\b",
+        r"\b\d{1,2}\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s\d{4}\b",
+        r"\b\d{4}-\d{2}-\d{2}\b",
+        r"\b(?:13 May 2026|22 April 2026|1-3 months)\b",
+        r"\b(?:licen[cs]e|notification|penalt(?:y|ies)|payment|collateral)\s.{0,40}?\d+(?:\.\d+)?%?",
+    ]
+    facts = []
+    for pattern in patterns:
+        facts.extend(match.strip() for match in re.findall(pattern, text, flags=re.IGNORECASE))
+    facts.extend(re.findall(r"(?<!\w)\d+(?:\.\d+)?%?", text))
+    return sorted(set(facts), key=lambda item: text.lower().find(item.lower()))[:20]
+
+
+def _supporting_detail(source, text):
+    key_facts = source.get("key_facts") or _key_facts(text)
+    if key_facts:
+        return "Key facts: " + "; ".join(str(fact) for fact in key_facts[:5])
+    return "No discrete supporting detail extracted beyond the claim summary."
+
+
+def _commercial_relevance(text, source_type):
+    if source_type == "contrary_or_stabilising_evidence":
+        return "Scenario balance and de-escalation monitoring."
+    if any(term in text for term in INSURANCE_TERMS):
+        return "Insurance pricing, claims aggregation, and underwriting exposure."
+    if any(term in text for term in ["oil", "lng", "energy", "chokepoint"]):
+        return "Energy tanker and commodity supply-chain exposure."
+    if any(term in text for term in VESSEL_FLOW_TERMS):
+        return "Vessel flow, freight, and transit disruption exposure."
+    return "Relevant evidence for analyst review."
+
+
+def _business_user_relevance(business_user, text):
+    if business_user == "marine_insurer":
+        return "Relevant to war-risk pricing, accumulation control, policy wording, and claims scenarios."
+    if business_user == "shipping_operator":
+        return "Relevant to routing, vessel security, crew safety, and customer commitments."
+    if business_user == "trade_finance_lender":
+        return "Relevant to counterparty, sanctions, cargo documentation, and collateral risk."
+    return "Relevant to this user's exposure mapping and risk brief."
+
+
+def _marine_insurance_implication(source_type):
+    implications = {
+        "insurance_market_evidence": "Maps to premium adequacy, reinsurance appetite, underwriting controls and claims aggregation.",
+        "energy_chokepoint_data": "Maps to tanker exposure, cargo values, LNG/oil disruption and accumulation risk.",
+        "company_update": "Maps to routing, service continuity, trapped vessel and cargo delay risk.",
+        "official_primary": "Maps to vessel security, safe transit, crew welfare and route approval.",
+        "vessel_flow_or_freight_market_evidence": "Maps to transit recovery, floating storage, congestion and accumulation.",
+        "contrary_or_stabilising_evidence": "Maps to scenario balance and conditions for relaxing controls.",
+        "reputable_news": "Corroborates operational disruption, insurance stress and management attention.",
+        "specialist_analysis": "Supports scenario design, market interpretation and stress testing.",
+    }
+    return implications.get(source_type, "Supports analyst review of relevant insurance exposure.")
+
+
+def _confidence_impact(source_type, contrary_signal):
+    if contrary_signal or source_type == "contrary_or_stabilising_evidence":
+        return "adds scenario balance but caps certainty"
+    if source_type == "unknown":
+        return "limited confidence impact"
+    return "raises confidence through source diversity"
+
+
+def _risk_dimension(text, source_type):
+    if any(term in text for term in INSURANCE_TERMS):
+        return "impact"
+    if any(term in text for term in DEESCALATION_TERMS):
+        return "confidence"
+    if source_type == "official_primary":
+        return "likelihood"
+    return "commercial exposure"
+
+
+def _caveat(source_type, fetch_status):
+    if fetch_status == "failed":
+        return "Fetch failed; evidence uses search snippet only."
+    if source_type == "contrary_or_stabilising_evidence":
+        return "Stabilising signal should be checked against newer escalation indicators."
+    return "Rule-based extraction; analyst should verify facts and context."
+
+
+def _decision_profile(requirement_name, source_type, business_user):
+    if business_user == "trade_finance_lender":
+        return _trade_finance_decision_profile(requirement_name, source_type)
+    if _is_uk_ets_requirement(requirement_name):
+        return _uk_ets_shipping_operator_decision_profile(requirement_name, source_type)
+    if business_user == "shipping_operator":
+        return _shipping_operator_decision_profile(requirement_name, source_type)
+    if business_user != "marine_insurer":
+        return {
+            "commercial_meaning": _commercial_relevance("", source_type),
+            "business_user_implication": _business_user_relevance(business_user, ""),
+            "decision_use": "Supports exposure review, control adjustment and monitoring triggers.",
+        }
+
+    profiles = {
+        "official_maritime_security": (
+            "Safe passage uncertainty, crew welfare, route approval and live transit risk.",
+            "Hull war controls, liability exposure, claims preparedness and voyage approval.",
+            "Supports enhanced referral and route-level controls.",
+        ),
+        "carrier_operational_behaviour": (
+            "Operator risk appetite and practical service constraints.",
+            "Trapped vessel, delay, deviation and cargo accumulation risk.",
+            "Informs whether transit controls should remain enhanced.",
+        ),
+        "energy_chokepoint_exposure": (
+            "Structural exposure across oil, LNG, tanker demand and cargo values.",
+            "Severe impact rating and accumulation stress testing.",
+            "Supports severe impact scoring even where transit partially resumes.",
+        ),
+        "insurance_pricing_reinsurance": (
+            "Pricing and reinsurance markets have repriced route risk.",
+            "Premium adequacy, limits, deductibles, reinsurance appetite and referral thresholds.",
+            "Supports pricing review and capacity check.",
+        ),
+        "vessel_flow_freight_market": (
+            "Vessel behaviour shows operational normalisation or continuing friction.",
+            "Floating cargo, trapped vessels, congestion and accumulation exposure.",
+            "Supports immediacy score and relaxation triggers.",
+        ),
+        "sanctions_compliance": (
+            "Counterparty, cargo, vessel control and payment risk can affect coverage and claims.",
+            "Sanctions exclusions, legal review, claims uncertainty and referral controls.",
+            "Supports compliance escalation and wording review.",
+        ),
+        "contrary_de_escalation": (
+            "Credible stabilising evidence defines conditions under which disruption may ease.",
+            "Prevents excessive downside bias while preserving controls.",
+            "Informs relaxation triggers without automatically reducing controls.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _marine_insurance_implication(source_type), "Supports analyst review and decision controls."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _shipping_operator_decision_profile(requirement_name, source_type):
+    profiles = {
+        "official_maritime_security": (
+            "Defines whether security conditions, detention risk or crew-safety concerns justify enhanced voyage approval before transit.",
+            "Drives routing approval, crew-safety controls and customer-commitment management.",
+            "Supports hold, reroute or escalate decisions before sailing.",
+        ),
+        "transit_control_or_constabulary_actions": (
+            "Shows whether passage is subject to Iranian coordination demands, constabulary controls or detention risk.",
+            "Creates direct voyage-approval risk and can make direct transit operationally unacceptable.",
+            "Supports the transit versus delay versus reroute decision.",
+        ),
+        "sanctions_and_safe_passage_payment_risk": (
+            "Defines whether tolls, safe-passage payments, swaps, offsets or guarantees create sanctions exposure.",
+            "Can force legal/compliance escalation even if direct transit looks commercially cheaper.",
+            "Supports sanctions red-flag escalation and payment prohibition controls.",
+        ),
+        "war_risk_insurance_pricing": (
+            "Shows whether war-risk cover remains available and whether repricing changes voyage economics.",
+            "Affects route cost, charterparty economics, exclusions, cancellation clauses and additional premium decisions.",
+            "Supports insurance confirmation and route-cost comparison before transit.",
+        ),
+        "vessel_flow_and_AIS_behaviour": (
+            "Shows whether vessel behaviour confirms constrained transit, AIS suppression or practical recovery.",
+            "Affects routing confidence, compliance red flags and relaxation thresholds.",
+            "Supports live operating stance and practical reopening tests.",
+        ),
+        "energy_cargo_and_chokepoint_exposure": (
+            "Quantifies why Hormuz matters commercially for oil, LNG and time-sensitive cargoes.",
+            "Explains charter, customer and delivery pressure if transit is delayed or rerouted.",
+            "Supports impact severity and client communication.",
+        ),
+        "route_cost_and_arbitrage_inputs": (
+            "Compares direct transit, delay and reroute economics using voyage days, bunker burn, insurance and hold costs.",
+            "Helps translate political risk into a risk-adjusted commercial routing decision.",
+            "Supports preferred option selection subject to sanctions and safety overrides.",
+        ),
+        "contrary_or_de_escalation_evidence": (
+            "Identifies whether de-escalation has turned into practical reopening rather than headline-only improvement.",
+            "Prevents one-way escalation while keeping relaxation tied to vessel-flow, insurance and legal evidence.",
+            "Defines relaxation triggers before normal routing resumes.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _business_user_relevance("shipping_operator", ""), "Supports operator review and control decisions."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _uk_ets_shipping_operator_decision_profile(requirement_name, source_type):
+    profiles = {
+        "official_policy_scope": (
+            "Defines whether the vessel, route and emissions category are in confirmed scope or only future scenario exposure.",
+            "Determines whether carbon cost belongs in current voyage economics or scenario planning only.",
+            "Supports route applicability and current-versus-scenario classification.",
+        ),
+        "reporting_surrender_timeline": (
+            "Sets the reporting calendar, surrender timing and first-cycle compliance burden.",
+            "Determines whether the operator is ready for MRV, reporting and allowance procurement deadlines.",
+            "Supports compliance readiness and timeline escalation.",
+        ),
+        "carbon_price_evidence": (
+            "Provides the allowance price used to convert emissions into route-level cost.",
+            "Drives sensitivity to UKA price movement and procurement timing.",
+            "Supports base-case and stressed carbon cost estimates.",
+        ),
+        "emissions_factor_evidence": (
+            "Converts fuel burn into estimated tCO2e exposure per voyage.",
+            "Drives the arithmetic behind voyage-level carbon cost exposure.",
+            "Supports deterministic carbon cost calculation.",
+        ),
+        "operator_guidance": (
+            "Shows how operators and advisers are preparing for reporting, procurement and cost pass-through.",
+            "Highlights likely margin pressure and customer pricing decisions.",
+            "Supports pass-through and implementation planning.",
+        ),
+        "legal_practical_analysis": (
+            "Clarifies the responsible entity, documentation, MRV process and practical compliance approach.",
+            "Reduces risk of mis-allocating responsibility or missing documentary controls.",
+            "Supports governance and compliance escalation where responsibilities are unclear.",
+        ),
+        "future_scope_or_international_extension": (
+            "Shows how future policy may extend the exposure to wider route sets.",
+            "Helps separate confirmed 2026 exposure from strategic scenario planning.",
+            "Supports scenario analysis for UK-international routes.",
+        ),
+        "contrary_or_scope_limited_evidence": (
+            "Prevents the operator from applying current carbon cost assumptions to routes or vessels outside confirmed scope.",
+            "Protects against overstating current obligation or coverage rate.",
+            "Supports scope-limiting caveats and scenario-only treatment where needed.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _business_user_relevance("shipping_operator", ""), "Supports operator review and control decisions."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _trade_finance_decision_profile(requirement_name, source_type):
+    profiles = {
+        "official_sanctions_guidance": (
+            "Defines the legal basis for end-use exposure, notification, licensing and transaction escalation.",
+            "Determines whether the lender should approve, hold, escalate or decline a transaction.",
+            "Anchors transaction screening, hold/decline triggers and compliance escalation.",
+        ),
+        "sanctions_regime_context": (
+            "Places the transaction inside wider UK/EU sanctions, Russia restrictions and circumvention controls.",
+            "Raises counterparty, destination, restricted trade route and regulatory penalty exposure.",
+            "Supports regime screening and sanctions-connected party escalation.",
+        ),
+        "export_control_and_dual_use_risk": (
+            "Identifies sensitive goods, dual-use technology and diversion-prone cargo profiles.",
+            "Drives goods classification, documentation requirements and specialist export-control review.",
+            "Supports goods classification checks before financing or drawdown.",
+        ),
+        "legal_practical_analysis": (
+            "Explains practical timing, notification, licensing, due diligence and business obligations.",
+            "Helps translate legal requirements into transaction controls and conditions precedent.",
+            "Supports compliance checklist design and legal escalation thresholds.",
+        ),
+        "trade_route_and_diversion_risk": (
+            "Identifies third-country routing, intermediaries and end-use opacity associated with circumvention.",
+            "Raises counterparty, documentation, collateral and regulatory exposure.",
+            "Supports enhanced end-use documentation and route-level escalation.",
+        ),
+        "banking_and_payment_risk": (
+            "Links sanctions exposure to blocked payments, correspondent banking friction and settlement risk.",
+            "Affects payment execution, facility drawdown, reimbursement and client communication.",
+            "Supports payment-route checks and facility controls.",
+        ),
+        "contrary_or_scope_limited_evidence": (
+            "Identifies where risk may be specific, documentable and controllable rather than automatically prohibitive.",
+            "Supports approval after enhanced due diligence where goods scope, end-use and counterparties are clear.",
+            "Defines approval triggers without weakening escalation for unresolved red flags.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _business_user_relevance("trade_finance_lender", ""), "Supports transaction review and compliance controls."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _risk_driver(requirement_name, source_type):
+    requirement_mapping = {
+        "official_policy_scope": "policy_scope_and_route_applicability",
+        "reporting_surrender_timeline": "reporting_and_surrender_readiness",
+        "carbon_price_evidence": "carbon_price_and_allowance_cost",
+        "emissions_factor_evidence": "emissions_factor_and_voyage_calculation",
+        "operator_guidance": "operator_margin_and_pass_through_pressure",
+        "legal_practical_analysis": "reporting_and_surrender_readiness",
+        "future_scope_or_international_extension": "future_international_expansion_risk",
+        "contrary_or_scope_limited_evidence": "scope_limited_or_exemption_constraints",
+        "official_maritime_security": "transit_control_risk",
+        "carrier_operational_behaviour": "Carrier and operational disruption",
+        "transit_control_or_constabulary_actions": "transit_control_risk",
+        "sanctions_and_safe_passage_payment_risk": "sanctions_safe_passage_risk",
+        "war_risk_insurance_pricing": "war_risk_insurance_pressure",
+        "vessel_flow_and_AIS_behaviour": "vessel_flow_AIS_disruption",
+        "energy_cargo_and_chokepoint_exposure": "energy_chokepoint_exposure",
+        "route_cost_and_arbitrage_inputs": "route_cost_arbitrage",
+        "contrary_or_de_escalation_evidence": "de_escalation_monitoring",
+        "energy_chokepoint_exposure": "Energy chokepoint exposure",
+        "insurance_pricing_reinsurance": "Insurance-market repricing",
+        "vessel_flow_freight_market": "Vessel-flow and market behaviour",
+        "sanctions_compliance": "Sanctions and compliance risk",
+        "contrary_de_escalation": "De-escalation and stabilisation evidence",
+        "official_sanctions_guidance": "Official sanctions guidance",
+        "sanctions_regime_context": "Sanctions regime context",
+        "export_control_and_dual_use_risk": "Goods and end-use risk",
+        "legal_practical_analysis": "Legal and practical controls",
+        "trade_route_and_diversion_risk": "Trade route and diversion risk",
+        "banking_and_payment_risk": "Payment and documentation risk",
+        "contrary_or_scope_limited_evidence": "Scope-limited approval evidence",
+    }
+    source_type_mapping = {
+        "official_primary": "Maritime security and transit risk",
+        "company_update": "Carrier and operational disruption",
+        "energy_chokepoint_data": "Energy chokepoint exposure",
+        "insurance_market_evidence": "Insurance-market repricing",
+        "vessel_flow_or_freight_market_evidence": "Vessel-flow and market behaviour",
+        "contrary_or_stabilising_evidence": "De-escalation and stabilisation evidence",
+    }
+    return requirement_mapping.get(requirement_name) or source_type_mapping.get(source_type, "General commercial risk")
+
+
+def _judgement_supported(requirement_name, source_type):
+    mapping = {
+        "official_policy_scope": "Confirmed scope should be separated from future scenario exposure",
+        "reporting_surrender_timeline": "Reporting and surrender timing create a live readiness issue",
+        "carbon_price_evidence": "UKA pricing can materially alter route economics",
+        "emissions_factor_evidence": "Fuel burn can be translated into deterministic tCO2e exposure",
+        "operator_guidance": "Operators face margin and pass-through pressure",
+        "legal_practical_analysis": "Entity responsibility and MRV controls must be clarified",
+        "future_scope_or_international_extension": "International exposure should remain scenario-only unless confirmed",
+        "contrary_or_scope_limited_evidence": "Routes outside confirmed scope should not be overstated as current liability",
+        "official_maritime_security": "Official guidance indicates live security and crew-safety risk",
+        "transit_control_or_constabulary_actions": "Iran-linked transit controls create voyage approval risk",
+        "sanctions_and_safe_passage_payment_risk": "Safe-passage demands create sanctions escalation risk",
+        "war_risk_insurance_pricing": "War-risk repricing changes voyage economics",
+        "vessel_flow_and_AIS_behaviour": "AIS disruption and abnormal flows confirm practical operating stress",
+        "energy_cargo_and_chokepoint_exposure": "Hormuz cargo concentration makes commercial impact severe",
+        "route_cost_and_arbitrage_inputs": "Route-cost comparisons should inform transit, delay and reroute choices",
+        "contrary_or_de_escalation_evidence": "De-escalation should change monitoring before changing stance",
+        "carrier_operational_behaviour": "Carrier caution indicates practical operating constraints",
+        "energy_chokepoint_exposure": "Energy chokepoint exposure makes impact severe",
+        "insurance_pricing_reinsurance": "War-risk pricing and reinsurance appetite require active review",
+        "vessel_flow_freight_market": "Vessel-flow disruption supports high immediacy",
+        "sanctions_compliance": "Sanctions and compliance risk requires escalation controls",
+        "contrary_de_escalation": "De-escalation evidence reduces certainty around worst-case assumptions",
+        "official_sanctions_guidance": "Sanctions end-use controls create transaction-screening risk",
+        "sanctions_regime_context": "Third-country diversion risk is central to the case",
+        "export_control_and_dual_use_risk": "Goods and end-use opacity should drive escalation",
+        "legal_practical_analysis": "Official guidance should anchor practical controls",
+        "trade_route_and_diversion_risk": "Diversion indicators should drive enhanced due diligence",
+        "banking_and_payment_risk": "Payment and correspondent banking risk can crystallise early",
+        "contrary_or_scope_limited_evidence": "Scope-limited evidence can support approval after enhanced due diligence",
+    }
+    return mapping.get(requirement_name, _risk_driver(requirement_name, source_type))
+
+
+def _refresh_requirement(requirement_name, source_type):
+    mapping = {
+        "official_policy_scope": "Refresh if route scope, threshold or exemption guidance changes.",
+        "reporting_surrender_timeline": "Refresh before the first verified report and allowance procurement cycle.",
+        "carbon_price_evidence": "Refresh when UKA market levels move materially or no live price is available.",
+        "emissions_factor_evidence": "Refresh if verified fuel mix or approved emissions methodology changes.",
+        "operator_guidance": "Refresh when operator pass-through or implementation practice changes.",
+        "legal_practical_analysis": "Refresh if responsible entity, MRV process or exemptions are clarified further.",
+        "future_scope_or_international_extension": "Refresh when consultation responses or expansion decisions are published.",
+        "contrary_or_scope_limited_evidence": "Refresh before applying current carbon cost logic to routes near the edge of scope.",
+        "official_maritime_security": "Refresh before approving transit or relaxing operator controls.",
+        "transit_control_or_constabulary_actions": "Refresh if transit coordination demands, detention incidents or naval warnings change.",
+        "sanctions_and_safe_passage_payment_risk": "Refresh immediately if any toll, guarantee, swap or payment demand is reported.",
+        "war_risk_insurance_pricing": "Refresh before sailing if premiums, exclusions or cancellation clauses change.",
+        "vessel_flow_and_AIS_behaviour": "Refresh weekly during disruption or before treating recovery as a relaxation trigger.",
+        "energy_cargo_and_chokepoint_exposure": "Refresh when cargo criticality or chokepoint data assumptions are updated.",
+        "route_cost_and_arbitrage_inputs": "Refresh voyage assumptions before final route approval.",
+        "contrary_or_de_escalation_evidence": "Refresh before relaxing controls; confirm with vessel-flow, insurance and sanctions evidence.",
+        "carrier_operational_behaviour": "Refresh before changing referral rules or after major carrier service updates.",
+        "energy_chokepoint_exposure": "Refresh when structural oil/LNG flow assumptions or chokepoint data are updated.",
+        "insurance_pricing_reinsurance": "Refresh before binding Gulf-linked risk or after broker/reinsurance market movement.",
+        "vessel_flow_freight_market": "Refresh weekly during disruption or before using flow recovery as a relaxation trigger.",
+        "sanctions_compliance": "Refresh after sanctions, ownership, cargo or payment-control announcements.",
+        "contrary_de_escalation": "Refresh before relaxing controls; verify against operational and pricing evidence.",
+        "official_sanctions_guidance": "Refresh before approval if official guidance, notices or licensing triggers change.",
+        "sanctions_regime_context": "Refresh after sanctions designations, regime amendments or Russia-related updates.",
+        "export_control_and_dual_use_risk": "Refresh before drawdown if goods classification or export-control status changes.",
+        "legal_practical_analysis": "Refresh when legal interpretation, notification or licensing practice changes.",
+        "trade_route_and_diversion_risk": "Refresh when routing, intermediary, end user or destination changes.",
+        "banking_and_payment_risk": "Refresh before payment execution or facility drawdown.",
+        "contrary_or_scope_limited_evidence": "Refresh before approving transactions previously held for scope or documentation gaps.",
+    }
+    return mapping.get(requirement_name, "Refresh before major underwriting or commercial decisions.")
+
+
+def _is_uk_ets_requirement(requirement_name):
+    return requirement_name in {
+        "official_policy_scope",
+        "reporting_surrender_timeline",
+        "carbon_price_evidence",
+        "emissions_factor_evidence",
+        "operator_guidance",
+        "legal_practical_analysis",
+        "future_scope_or_international_extension",
+        "contrary_or_scope_limited_evidence",
+    }
+
+
+def _publisher_from_url(url):
+    return urlparse(url).netloc.replace("www.", "") or "Unknown"

@@ -1,0 +1,159 @@
+{
+  "demo_search_results": [
+    {
+      "source_id": "HSO-001",
+      "title": "No safe transit through Strait of Hormuz: IMO Secretary-General",
+      "publisher": "International Maritime Organization",
+      "publication_date": "2026-04-24",
+      "url": "https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx",
+      "source_type": "official_primary",
+      "claim_supported": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "snippet": "IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf.",
+      "key_facts": [
+        "24 April 2026 briefing",
+        "29 verified attacks",
+        "around 20,000 seafarers",
+        "around 1,600 vessels"
+      ],
+      "commercial_relevance": "Establishes a live maritime security baseline for voyage approval, crew safety and detention-risk escalation.",
+      "caveat": "Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions."
+    },
+    {
+      "source_id": "HSO-002",
+      "title": "OFAC Alert: Sanctions Risks of Iranian Demands for Strait of Hormuz Passage",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-05-01",
+      "url": "https://ofac.treasury.gov/system/files/2026-04/20260501_hormuz_tolls_alert.pdf",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk.",
+      "snippet": "OFAC warned that Iranian safe-passage demands and coordination arrangements can create sanctions risk for maritime service providers.",
+      "key_facts": [
+        "1 May 2026 alert",
+        "enhanced due diligence requested",
+        "safe-passage fees",
+        "maritime service providers"
+      ],
+      "commercial_relevance": "Makes sanctions escalation central to voyage approval if tolls, guarantees or other passage arrangements are demanded.",
+      "caveat": "U.S. sanctions guidance should be translated into operator-specific legal advice for UK-controlled voyages."
+    },
+    {
+      "source_id": "HSO-003",
+      "title": "1249 | Office of Foreign Assets Control",
+      "publisher": "Office of Foreign Assets Control",
+      "publication_date": "2026-04-28",
+      "url": "https://ofac.treasury.gov/faqs/1249",
+      "source_type": "official_primary",
+      "claim_supported": "OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S. persons and U.S.-owned or -controlled foreign entities.",
+      "snippet": "OFAC FAQ 1249 says toll payments for safe passage through Hormuz would not be authorized for U.S. persons or U.S.-owned or -controlled foreign entities.",
+      "key_facts": [
+        "28 April 2026",
+        "payments to Government of Iran or IRGC",
+        "not authorized"
+      ],
+      "commercial_relevance": "Supports legal escalation where payment, guarantee, offset, digital asset or in-kind passage demands arise.",
+      "caveat": "The FAQ is U.S.-specific and should be combined with UK sanctions and operator counsel review."
+    },
+    {
+      "source_id": "HSO-004",
+      "title": "US imposes sanctions on Iranian agency trying to control shipping in the Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-28",
+      "url": "https://apnews.com/article/13052dd9323747cbdd661d48759f27d6",
+      "source_type": "reputable_news",
+      "claim_supported": "AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign.",
+      "snippet": "AP reported U.S. sanctions on a newly created Iranian agency seeking to control shipping through Hormuz.",
+      "key_facts": [
+        "28 May 2026",
+        "newly created Iranian agency",
+        "control shipping through Hormuz"
+      ],
+      "commercial_relevance": "Corroborates transit-control risk and highlights that coordination demands can be entangled with sanctions exposure.",
+      "caveat": "Reporting should be cross-checked against primary designation records for named entities and counterparties."
+    },
+    {
+      "source_id": "HSO-005",
+      "title": "Strait of Hormuz",
+      "publisher": "International Energy Agency",
+      "publication_date": "2026",
+      "url": "https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz",
+      "source_type": "energy_chokepoint_data",
+      "claim_supported": "IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait.",
+      "snippet": "IEA quantifies Hormuz as a core oil and LNG chokepoint with limited immediate alternatives.",
+      "key_facts": [
+        "20 mb/d oil and products in 2025",
+        "around 25% of world seaborne oil trade",
+        "93% of Qatar LNG exports",
+        "96% of UAE LNG exports"
+      ],
+      "commercial_relevance": "Explains why route disruption matters commercially for tanker cargoes, charter commitments and client delivery pressure.",
+      "caveat": "Structural chokepoint exposure does not by itself prove current transit conditions."
+    },
+    {
+      "source_id": "HSO-006",
+      "title": "Strait of Hormuz: (Re)insurance impact",
+      "publisher": "Howden Re",
+      "publication_date": "2026-04-01",
+      "url": "https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf",
+      "source_type": "insurance_market_evidence",
+      "claim_supported": "Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply.",
+      "snippet": "Howden Re reported major war-risk repricing for Hormuz transit and materially higher per-transit premium assumptions.",
+      "key_facts": [
+        "0.10-0.125% pre-conflict rate",
+        "2-3% March 2026 rate",
+        "$375,000-$3M per transit on a $100M vessel"
+      ],
+      "commercial_relevance": "Shows how insurance repricing can change the route-cost comparison between direct transit, delay and reroute.",
+      "caveat": "Broker analysis should be refreshed against current quoted terms before sailing."
+    },
+    {
+      "source_id": "HSO-007",
+      "title": "Shippers whipsawed by changing stances as vessels remain stuck in Strait of Hormuz",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-06",
+      "url": "https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2",
+      "source_type": "vessel_flow_or_freight_market_evidence",
+      "claim_supported": "AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz.",
+      "snippet": "AP described hundreds of vessels stuck in the Gulf and sharply higher insurance costs around Hormuz.",
+      "key_facts": [
+        "6 May 2026",
+        "hundreds of vessels stuck",
+        "insurance costs rose sharply"
+      ],
+      "commercial_relevance": "Supports the view that vessel-flow disruption and operating stress remain practical, not theoretical.",
+      "caveat": "News synthesis should be checked against live vessel-tracking and operator updates before changing stance."
+    },
+    {
+      "source_id": "HSO-008",
+      "title": "Market Insights | Strait of Hormuz Spotlight",
+      "publisher": "The Signal Group",
+      "publication_date": "2026-03-09",
+      "url": "https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight",
+      "source_type": "specialist_analysis",
+      "claim_supported": "The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations.",
+      "snippet": "The Signal Group linked tanker-flow disruption, floating storage and risk-managed transport conditions around Hormuz.",
+      "key_facts": [
+        "9 March 2026",
+        "sharp decline in tanker transits",
+        "growing floating storage"
+      ],
+      "commercial_relevance": "Adds operator-facing interpretation for route stress, tanker-flow behaviour and practical route-cost trade-offs.",
+      "caveat": "Specialist analysis is interpretive and should be paired with primary or reputable reporting."
+    },
+    {
+      "source_id": "HSO-009",
+      "title": "Trump says a deal with Iran and opening of Strait of Hormuz are 'largely negotiated'",
+      "publisher": "Associated Press",
+      "publication_date": "2026-05-23",
+      "url": "https://apnews.com/article/1c283f26d037102cc5e6f798546d0e59",
+      "source_type": "contrary_or_stabilising_evidence",
+      "claim_supported": "AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence.",
+      "snippet": "AP reported diplomatic claims about reopening Hormuz, but practical normalisation remained unproven.",
+      "key_facts": [
+        "23 May 2026",
+        "opening largely negotiated"
+      ],
+      "commercial_relevance": "Provides contrary evidence for monitoring while keeping relaxation tied to practical recovery in guidance, insurance and vessel flows.",
+      "caveat": "Diplomatic reporting should not be treated as proof of operational reopening."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "business_users": [
+    "shipping_operator",
+    "marine_insurer",
+    "importer_exporter",
+    "trade_finance_lender",
+    "consultant"
+  ]
+}

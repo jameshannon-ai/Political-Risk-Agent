@@ -1,0 +1,1973 @@
+{
+  "topic": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators",
+  "business_user": "shipping_operator",
+  "region": "UK domestic maritime",
+  "time_horizon": "1-12 months",
+  "concerns": [
+    "carbon cost exposure",
+    "reporting deadline",
+    "allowance surrender obligation",
+    "UKA price movement",
+    "voyage cost pass-through",
+    "competitiveness",
+    "future international expansion",
+    "route applicability",
+    "compliance failure"
+  ],
+  "created_at": "2026-05-28T16:51:41",
+  "retrieval_timestamp": "2026-05-28T16:51:41",
+  "source_strategy": {
+    "topic": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators",
+    "region": "UK domestic maritime",
+    "time_horizon": "1-12 months",
+    "domain": "regulatory_carbon_shipping",
+    "source_plan": {
+      "research_objective": "Build a governed evidence base for shipping_operator decision-making on UK ETS Maritime Expansion and carbon cost exposure for shipping operators in UK domestic maritime over 1-12 months, using the regulatory_carbon_shipping domain pack.",
+      "decision_questions": [
+        "Does UK ETS apply to this vessel and route today, or only as a future scenario?",
+        "What is the quantified voyage-level carbon cost exposure at current UKA assumptions?",
+        "Are reporting and surrender processes ready for the first compliance periods?",
+        "Can the operator pass carbon cost through, or will margins absorb it?",
+        "Does UK ETS apply to this vessel and route?",
+        "Is the voyage domestic UK, at-berth, offshore or international?",
+        "Is the route inside the confirmed 2026 scope or only a future scenario?",
+        "When must emissions be reported?",
+        "When must allowances be surrendered?",
+        "Is the first surrender affected by the double-surrender window?",
+        "What UKA price should be used?",
+        "How sensitive is voyage cost to UKA price movement?",
+        "Which emissions factor should be used for the selected fuel?",
+        "What is the estimated tCO2e per voyage?",
+        "How are operators preparing?",
+        "Are carbon costs being passed through to customers?",
+        "Which operators or routes are most exposed?",
+        "Which entity is responsible?",
+        "What documentation or MRV process is needed?",
+        "What uncertainties remain?",
+        "Could future expansion affect UK-international routes?",
+        "Which routes are confirmed in scope and which are scenario-only?",
+        "Is this route outside confirmed 2026 scope?",
+        "Are there exemptions or delayed implementation issues?",
+        "Should a route be treated as scenario exposure rather than current obligation?"
+      ],
+      "required_source_mix": [
+        "official policy scope source",
+        "timeline / reporting source",
+        "carbon price source or manual fallback",
+        "emissions factor source",
+        "operator implementation guidance",
+        "legal practical analysis",
+        "future-scope evidence",
+        "scope-limiting evidence"
+      ],
+      "source_requirements": [
+        {
+          "requirement_id": "REQ-UKETS-A",
+          "requirement_name": "official_policy_scope",
+          "why_required": "Confirms whether the rule applies to the vessel, voyage and emissions type.",
+          "preferred_source_types": [
+            "official_primary",
+            "official_guidance"
+          ],
+          "preferred_domains": [
+            "gov.uk",
+            "gov.scot",
+            "gov.wales",
+            "icapcarbonaction.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Does UK ETS apply to this vessel and route?",
+            "Is the voyage domestic UK, at-berth, offshore or international?",
+            "Is the route inside the confirmed 2026 scope or only a future scenario?"
+          ],
+          "freshness_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-UKETS-B",
+          "requirement_name": "reporting_surrender_timeline",
+          "why_required": "Confirms MRV, reporting and allowance surrender deadlines.",
+          "preferred_source_types": [
+            "official_primary",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "gov.uk",
+            "lr.org",
+            "hfw.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "When must emissions be reported?",
+            "When must allowances be surrendered?",
+            "Is the first surrender affected by the double-surrender window?"
+          ],
+          "freshness_expectation": "Current implementation guidance, preferably within 90 days.",
+          "strength_threshold": "high"
+        },
+        {
+          "requirement_id": "REQ-UKETS-C",
+          "requirement_name": "carbon_price_evidence",
+          "why_required": "Provides the allowance price needed to calculate estimated carbon cost exposure.",
+          "preferred_source_types": [
+            "market_indicator",
+            "reputable_news",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "theice.com",
+            "market data sources",
+            "lloydslist.com",
+            "icapcarbonaction.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "What UKA price should be used?",
+            "How sensitive is voyage cost to UKA price movement?"
+          ],
+          "freshness_expectation": "Current market or clearly labelled manual fallback price.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-UKETS-D",
+          "requirement_name": "emissions_factor_evidence",
+          "why_required": "Converts fuel consumption into estimated emissions.",
+          "preferred_source_types": [
+            "official_primary",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "imo.org",
+            "gov.uk",
+            "lr.org"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Which emissions factor should be used for the selected fuel?",
+            "What is the estimated tCO2e per voyage?"
+          ],
+          "freshness_expectation": "Current or still-valid conversion-factor guidance.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-UKETS-E",
+          "requirement_name": "operator_guidance",
+          "why_required": "Shows how shipping operators and maritime advisers are interpreting and implementing the rule.",
+          "preferred_source_types": [
+            "company_update",
+            "specialist_analysis",
+            "reputable_news"
+          ],
+          "preferred_domains": [
+            "maersk.com",
+            "lr.org",
+            "lloydslist.com",
+            "ukchamberofshipping.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "How are operators preparing?",
+            "Are carbon costs being passed through to customers?",
+            "Which operators or routes are most exposed?"
+          ],
+          "freshness_expectation": "Recent implementation commentary, preferably within 90 days.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-UKETS-F",
+          "requirement_name": "legal_practical_analysis",
+          "why_required": "Explains obligations, exemptions, uncertainty and compliance approach.",
+          "preferred_source_types": [
+            "specialist_analysis",
+            "official_guidance"
+          ],
+          "preferred_domains": [
+            "hfw.com",
+            "watsonfarley.com",
+            "nortonrosefulbright.com",
+            "stephensonharwood.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Which entity is responsible?",
+            "What documentation or MRV process is needed?",
+            "What uncertainties remain?"
+          ],
+          "freshness_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-UKETS-G",
+          "requirement_name": "future_scope_or_international_extension",
+          "why_required": "Captures the risk that future policy may expand to international voyages or wider emissions categories.",
+          "preferred_source_types": [
+            "official_primary",
+            "specialist_analysis",
+            "contrary_or_stabilising_evidence"
+          ],
+          "preferred_domains": [
+            "gov.uk",
+            "icapcarbonaction.com",
+            "icct.org"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Could future expansion affect UK-international routes?",
+            "Which routes are confirmed in scope and which are scenario-only?"
+          ],
+          "freshness_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+          "strength_threshold": "medium"
+        },
+        {
+          "requirement_id": "REQ-UKETS-H",
+          "requirement_name": "contrary_or_scope_limited_evidence",
+          "why_required": "Prevents over-application to routes, vessels or emissions outside scope.",
+          "preferred_source_types": [
+            "contrary_or_stabilising_evidence",
+            "official_primary",
+            "specialist_analysis"
+          ],
+          "preferred_domains": [
+            "gov.uk",
+            "lr.org",
+            "hfw.com",
+            "icapcarbonaction.com"
+          ],
+          "minimum_sources": 1,
+          "decision_questions_supported": [
+            "Is this route outside confirmed 2026 scope?",
+            "Are there exemptions or delayed implementation issues?",
+            "Should a route be treated as scenario exposure rather than current obligation?"
+          ],
+          "freshness_expectation": "Current scope-limiting guidance or implementation caveats.",
+          "strength_threshold": "medium"
+        }
+      ],
+      "search_queries": {
+        "REQ-UKETS-A": [
+          "GOV.UK UK ETS domestic maritime 1 July 2026 5000 GT UK ports",
+          "ICAP UK ETS domestic maritime 2026 5000 GT",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators official policy scope 1-12 months"
+        ],
+        "REQ-UKETS-B": [
+          "GOV.UK UK ETS maritime verified annual emissions report 31 March 30 April 2028",
+          "LR UK ETS domestic maritime reporting surrender deadline 2026 2028",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline specialist analysis"
+        ],
+        "REQ-UKETS-C": [
+          "UKA carbon price UK ETS allowance price maritime 2026",
+          "UK ETS allowance price manual fallback shipping operator",
+          "site:theice.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence 1-12 months",
+          "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence Reuters"
+        ],
+        "REQ-UKETS-D": [
+          "IMO marine gas oil emission factor CO2 per tonne fuel",
+          "GOV.UK greenhouse gas conversion factor marine gas oil",
+          "site:imo.org UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence specialist analysis"
+        ],
+        "REQ-UKETS-E": [
+          "LR UK ETS domestic maritime operator guidance cost pass through",
+          "UK Chamber of Shipping UK ETS maritime operator exposure",
+          "site:maersk.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance 1-12 months",
+          "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance Reuters"
+        ],
+        "REQ-UKETS-F": [
+          "HFW UK ETS domestic shipping 2026 compliance responsibility",
+          "Watson Farley UK ETS maritime domestic shipping 2026",
+          "site:hfw.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis specialist analysis"
+        ],
+        "REQ-UKETS-G": [
+          "GOV.UK UK ETS international maritime consultation",
+          "ICAP UK ETS international maritime consultation domestic shipping",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension specialist analysis"
+        ],
+        "REQ-UKETS-H": [
+          "GOV.UK UK ETS maritime exemptions offshore delayed 2027",
+          "LR UK ETS domestic maritime exemptions international routes not in scope",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence specialist analysis",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence scope limited stabilising contrary evidence"
+        ]
+      },
+      "expected_evidence_types": [
+        "official_primary",
+        "official_guidance",
+        "market_indicator",
+        "specialist_analysis",
+        "reputable_news",
+        "contrary_or_stabilising_evidence"
+      ],
+      "minimum_acceptable_coverage": {
+        "minimum_total_requirements": 8,
+        "minimum_high_priority_requirements": 2,
+        "high_priority_requirements": [
+          "official_policy_scope",
+          "reporting_surrender_timeline"
+        ],
+        "minimum_sources_per_requirement": {
+          "REQ-UKETS-A": 1,
+          "REQ-UKETS-B": 1,
+          "REQ-UKETS-C": 1,
+          "REQ-UKETS-D": 1,
+          "REQ-UKETS-E": 1,
+          "REQ-UKETS-F": 1,
+          "REQ-UKETS-G": 1,
+          "REQ-UKETS-H": 1
+        }
+      },
+      "refresh_priorities": [
+        {
+          "requirement_id": "REQ-UKETS-A",
+          "requirement_name": "official_policy_scope",
+          "refresh_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-B",
+          "requirement_name": "reporting_surrender_timeline",
+          "refresh_expectation": "Current implementation guidance, preferably within 90 days.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-C",
+          "requirement_name": "carbon_price_evidence",
+          "refresh_expectation": "Current market or clearly labelled manual fallback price.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-D",
+          "requirement_name": "emissions_factor_evidence",
+          "refresh_expectation": "Current or still-valid conversion-factor guidance.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-E",
+          "requirement_name": "operator_guidance",
+          "refresh_expectation": "Recent implementation commentary, preferably within 90 days.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-F",
+          "requirement_name": "legal_practical_analysis",
+          "refresh_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-G",
+          "requirement_name": "future_scope_or_international_extension",
+          "refresh_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        },
+        {
+          "requirement_id": "REQ-UKETS-H",
+          "requirement_name": "contrary_or_scope_limited_evidence",
+          "refresh_expectation": "Current scope-limiting guidance or implementation caveats.",
+          "watchlist_indicators": [
+            "route clearly falls within scope",
+            "UKA price movement",
+            "reporting process gap",
+            "allowance procurement risk"
+          ]
+        }
+      ],
+      "domain": "regulatory_carbon_shipping",
+      "client_decision_outputs": [
+        "operator stance",
+        "applicability check",
+        "carbon cost estimate",
+        "compliance timeline",
+        "scenario watchpoints"
+      ],
+      "risk_drivers": [
+        "policy_scope_and_route_applicability",
+        "reporting_and_surrender_readiness",
+        "carbon_price_and_allowance_cost",
+        "emissions_factor_and_voyage_calculation",
+        "operator_margin_and_pass_through_pressure",
+        "future_international_expansion_risk",
+        "scope_limited_or_exemption_constraints"
+      ]
+    },
+    "source_requirements": [
+      {
+        "requirement_id": "REQ-UKETS-A",
+        "requirement_name": "official_policy_scope",
+        "why_required": "Confirms whether the rule applies to the vessel, voyage and emissions type.",
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "gov.scot",
+          "gov.wales",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Does UK ETS apply to this vessel and route?",
+          "Is the voyage domestic UK, at-berth, offshore or international?",
+          "Is the route inside the confirmed 2026 scope or only a future scenario?"
+        ],
+        "freshness_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-UKETS-B",
+        "requirement_name": "reporting_surrender_timeline",
+        "why_required": "Confirms MRV, reporting and allowance surrender deadlines.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "When must emissions be reported?",
+          "When must allowances be surrendered?",
+          "Is the first surrender affected by the double-surrender window?"
+        ],
+        "freshness_expectation": "Current implementation guidance, preferably within 90 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-UKETS-C",
+        "requirement_name": "carbon_price_evidence",
+        "why_required": "Provides the allowance price needed to calculate estimated carbon cost exposure.",
+        "preferred_source_types": [
+          "market_indicator",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "theice.com",
+          "market data sources",
+          "lloydslist.com",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "What UKA price should be used?",
+          "How sensitive is voyage cost to UKA price movement?"
+        ],
+        "freshness_expectation": "Current market or clearly labelled manual fallback price.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-D",
+        "requirement_name": "emissions_factor_evidence",
+        "why_required": "Converts fuel consumption into estimated emissions.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "imo.org",
+          "gov.uk",
+          "lr.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Which emissions factor should be used for the selected fuel?",
+          "What is the estimated tCO2e per voyage?"
+        ],
+        "freshness_expectation": "Current or still-valid conversion-factor guidance.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-E",
+        "requirement_name": "operator_guidance",
+        "why_required": "Shows how shipping operators and maritime advisers are interpreting and implementing the rule.",
+        "preferred_source_types": [
+          "company_update",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "maersk.com",
+          "lr.org",
+          "lloydslist.com",
+          "ukchamberofshipping.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "How are operators preparing?",
+          "Are carbon costs being passed through to customers?",
+          "Which operators or routes are most exposed?"
+        ],
+        "freshness_expectation": "Recent implementation commentary, preferably within 90 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-F",
+        "requirement_name": "legal_practical_analysis",
+        "why_required": "Explains obligations, exemptions, uncertainty and compliance approach.",
+        "preferred_source_types": [
+          "specialist_analysis",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "hfw.com",
+          "watsonfarley.com",
+          "nortonrosefulbright.com",
+          "stephensonharwood.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Which entity is responsible?",
+          "What documentation or MRV process is needed?",
+          "What uncertainties remain?"
+        ],
+        "freshness_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-G",
+        "requirement_name": "future_scope_or_international_extension",
+        "why_required": "Captures the risk that future policy may expand to international voyages or wider emissions categories.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "contrary_or_stabilising_evidence"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "icapcarbonaction.com",
+          "icct.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Could future expansion affect UK-international routes?",
+          "Which routes are confirmed in scope and which are scenario-only?"
+        ],
+        "freshness_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-H",
+        "requirement_name": "contrary_or_scope_limited_evidence",
+        "why_required": "Prevents over-application to routes, vessels or emissions outside scope.",
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is this route outside confirmed 2026 scope?",
+          "Are there exemptions or delayed implementation issues?",
+          "Should a route be treated as scenario exposure rather than current obligation?"
+        ],
+        "freshness_expectation": "Current scope-limiting guidance or implementation caveats.",
+        "strength_threshold": "medium"
+      }
+    ],
+    "categories": [
+      {
+        "category": "official_primary",
+        "source_requirement": "official_policy_scope",
+        "requirement_id": "REQ-UKETS-A",
+        "requirement_name": "official_policy_scope",
+        "evidence_question": "Does UK ETS apply to this vessel and route?",
+        "target_evidence_question": "Does UK ETS apply to this vessel and route?",
+        "preferred_domains": [
+          "gov.uk",
+          "gov.scot",
+          "gov.wales",
+          "icapcarbonaction.com"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "queries": [
+          "GOV.UK UK ETS domestic maritime 1 July 2026 5000 GT UK ports",
+          "ICAP UK ETS domestic maritime 2026 5000 GT",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators official policy scope 1-12 months"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+        "refresh_expectation": "Current policy response or implementation guidance, preferably within 90 days."
+      },
+      {
+        "category": "official_primary",
+        "source_requirement": "reporting_surrender_timeline",
+        "requirement_id": "REQ-UKETS-B",
+        "requirement_name": "reporting_surrender_timeline",
+        "evidence_question": "When must emissions be reported?",
+        "target_evidence_question": "When must emissions be reported?",
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "GOV.UK UK ETS maritime verified annual emissions report 31 March 30 April 2028",
+          "LR UK ETS domestic maritime reporting surrender deadline 2026 2028",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline specialist analysis"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current implementation guidance, preferably within 90 days.",
+        "refresh_expectation": "Current implementation guidance, preferably within 90 days."
+      },
+      {
+        "category": "reputable_news",
+        "source_requirement": "carbon_price_evidence",
+        "requirement_id": "REQ-UKETS-C",
+        "requirement_name": "carbon_price_evidence",
+        "evidence_question": "What UKA price should be used?",
+        "target_evidence_question": "What UKA price should be used?",
+        "preferred_domains": [
+          "theice.com",
+          "market data sources",
+          "lloydslist.com",
+          "icapcarbonaction.com"
+        ],
+        "preferred_source_types": [
+          "market_indicator",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "UKA carbon price UK ETS allowance price maritime 2026",
+          "UK ETS allowance price manual fallback shipping operator",
+          "site:theice.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence 1-12 months",
+          "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence Reuters"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "reputable_news",
+        "freshness_expectation": "Current market or clearly labelled manual fallback price.",
+        "refresh_expectation": "Current market or clearly labelled manual fallback price."
+      },
+      {
+        "category": "official_primary",
+        "source_requirement": "emissions_factor_evidence",
+        "requirement_id": "REQ-UKETS-D",
+        "requirement_name": "emissions_factor_evidence",
+        "evidence_question": "Which emissions factor should be used for the selected fuel?",
+        "target_evidence_question": "Which emissions factor should be used for the selected fuel?",
+        "preferred_domains": [
+          "imo.org",
+          "gov.uk",
+          "lr.org"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "IMO marine gas oil emission factor CO2 per tonne fuel",
+          "GOV.UK greenhouse gas conversion factor marine gas oil",
+          "site:imo.org UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence specialist analysis"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current or still-valid conversion-factor guidance.",
+        "refresh_expectation": "Current or still-valid conversion-factor guidance."
+      },
+      {
+        "category": "company_update",
+        "source_requirement": "operator_guidance",
+        "requirement_id": "REQ-UKETS-E",
+        "requirement_name": "operator_guidance",
+        "evidence_question": "How are operators preparing?",
+        "target_evidence_question": "How are operators preparing?",
+        "preferred_domains": [
+          "maersk.com",
+          "lr.org",
+          "lloydslist.com",
+          "ukchamberofshipping.com"
+        ],
+        "preferred_source_types": [
+          "company_update",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "queries": [
+          "LR UK ETS domestic maritime operator guidance cost pass through",
+          "UK Chamber of Shipping UK ETS maritime operator exposure",
+          "site:maersk.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance 1-12 months",
+          "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance Reuters"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "company_update",
+        "freshness_expectation": "Recent implementation commentary, preferably within 90 days.",
+        "refresh_expectation": "Recent implementation commentary, preferably within 90 days."
+      },
+      {
+        "category": "specialist_analysis",
+        "source_requirement": "legal_practical_analysis",
+        "requirement_id": "REQ-UKETS-F",
+        "requirement_name": "legal_practical_analysis",
+        "evidence_question": "Which entity is responsible?",
+        "target_evidence_question": "Which entity is responsible?",
+        "preferred_domains": [
+          "hfw.com",
+          "watsonfarley.com",
+          "nortonrosefulbright.com",
+          "stephensonharwood.com"
+        ],
+        "preferred_source_types": [
+          "specialist_analysis",
+          "official_guidance"
+        ],
+        "queries": [
+          "HFW UK ETS domestic shipping 2026 compliance responsibility",
+          "Watson Farley UK ETS maritime domestic shipping 2026",
+          "site:hfw.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis specialist analysis"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "specialist_analysis",
+        "freshness_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+        "refresh_expectation": "Current legal/compliance analysis, preferably within 180 days."
+      },
+      {
+        "category": "official_primary",
+        "source_requirement": "future_scope_or_international_extension",
+        "requirement_id": "REQ-UKETS-G",
+        "requirement_name": "future_scope_or_international_extension",
+        "evidence_question": "Could future expansion affect UK-international routes?",
+        "target_evidence_question": "Could future expansion affect UK-international routes?",
+        "preferred_domains": [
+          "gov.uk",
+          "icapcarbonaction.com",
+          "icct.org"
+        ],
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "contrary_or_stabilising_evidence"
+        ],
+        "queries": [
+          "GOV.UK UK ETS international maritime consultation",
+          "ICAP UK ETS international maritime consultation domestic shipping",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension specialist analysis"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "official_primary",
+        "freshness_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+        "refresh_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days."
+      },
+      {
+        "category": "contrary_or_stabilising_evidence",
+        "source_requirement": "contrary_or_scope_limited_evidence",
+        "requirement_id": "REQ-UKETS-H",
+        "requirement_name": "contrary_or_scope_limited_evidence",
+        "evidence_question": "Is this route outside confirmed 2026 scope?",
+        "target_evidence_question": "Is this route outside confirmed 2026 scope?",
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com",
+          "icapcarbonaction.com"
+        ],
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "queries": [
+          "GOV.UK UK ETS maritime exemptions offshore delayed 2027",
+          "LR UK ETS domestic maritime exemptions international routes not in scope",
+          "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence 1-12 months",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence specialist analysis",
+          "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence scope limited stabilising contrary evidence"
+        ],
+        "minimum_acceptable_evidence": 1,
+        "expected_source_type": "contrary_or_stabilising_evidence",
+        "freshness_expectation": "Current scope-limiting guidance or implementation caveats.",
+        "refresh_expectation": "Current scope-limiting guidance or implementation caveats."
+      }
+    ]
+  },
+  "source_plan": {
+    "research_objective": "Build a governed evidence base for shipping_operator decision-making on UK ETS Maritime Expansion and carbon cost exposure for shipping operators in UK domestic maritime over 1-12 months, using the regulatory_carbon_shipping domain pack.",
+    "decision_questions": [
+      "Does UK ETS apply to this vessel and route today, or only as a future scenario?",
+      "What is the quantified voyage-level carbon cost exposure at current UKA assumptions?",
+      "Are reporting and surrender processes ready for the first compliance periods?",
+      "Can the operator pass carbon cost through, or will margins absorb it?",
+      "Does UK ETS apply to this vessel and route?",
+      "Is the voyage domestic UK, at-berth, offshore or international?",
+      "Is the route inside the confirmed 2026 scope or only a future scenario?",
+      "When must emissions be reported?",
+      "When must allowances be surrendered?",
+      "Is the first surrender affected by the double-surrender window?",
+      "What UKA price should be used?",
+      "How sensitive is voyage cost to UKA price movement?",
+      "Which emissions factor should be used for the selected fuel?",
+      "What is the estimated tCO2e per voyage?",
+      "How are operators preparing?",
+      "Are carbon costs being passed through to customers?",
+      "Which operators or routes are most exposed?",
+      "Which entity is responsible?",
+      "What documentation or MRV process is needed?",
+      "What uncertainties remain?",
+      "Could future expansion affect UK-international routes?",
+      "Which routes are confirmed in scope and which are scenario-only?",
+      "Is this route outside confirmed 2026 scope?",
+      "Are there exemptions or delayed implementation issues?",
+      "Should a route be treated as scenario exposure rather than current obligation?"
+    ],
+    "required_source_mix": [
+      "official policy scope source",
+      "timeline / reporting source",
+      "carbon price source or manual fallback",
+      "emissions factor source",
+      "operator implementation guidance",
+      "legal practical analysis",
+      "future-scope evidence",
+      "scope-limiting evidence"
+    ],
+    "source_requirements": [
+      {
+        "requirement_id": "REQ-UKETS-A",
+        "requirement_name": "official_policy_scope",
+        "why_required": "Confirms whether the rule applies to the vessel, voyage and emissions type.",
+        "preferred_source_types": [
+          "official_primary",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "gov.scot",
+          "gov.wales",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Does UK ETS apply to this vessel and route?",
+          "Is the voyage domestic UK, at-berth, offshore or international?",
+          "Is the route inside the confirmed 2026 scope or only a future scenario?"
+        ],
+        "freshness_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-UKETS-B",
+        "requirement_name": "reporting_surrender_timeline",
+        "why_required": "Confirms MRV, reporting and allowance surrender deadlines.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "When must emissions be reported?",
+          "When must allowances be surrendered?",
+          "Is the first surrender affected by the double-surrender window?"
+        ],
+        "freshness_expectation": "Current implementation guidance, preferably within 90 days.",
+        "strength_threshold": "high"
+      },
+      {
+        "requirement_id": "REQ-UKETS-C",
+        "requirement_name": "carbon_price_evidence",
+        "why_required": "Provides the allowance price needed to calculate estimated carbon cost exposure.",
+        "preferred_source_types": [
+          "market_indicator",
+          "reputable_news",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "theice.com",
+          "market data sources",
+          "lloydslist.com",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "What UKA price should be used?",
+          "How sensitive is voyage cost to UKA price movement?"
+        ],
+        "freshness_expectation": "Current market or clearly labelled manual fallback price.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-D",
+        "requirement_name": "emissions_factor_evidence",
+        "why_required": "Converts fuel consumption into estimated emissions.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "imo.org",
+          "gov.uk",
+          "lr.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Which emissions factor should be used for the selected fuel?",
+          "What is the estimated tCO2e per voyage?"
+        ],
+        "freshness_expectation": "Current or still-valid conversion-factor guidance.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-E",
+        "requirement_name": "operator_guidance",
+        "why_required": "Shows how shipping operators and maritime advisers are interpreting and implementing the rule.",
+        "preferred_source_types": [
+          "company_update",
+          "specialist_analysis",
+          "reputable_news"
+        ],
+        "preferred_domains": [
+          "maersk.com",
+          "lr.org",
+          "lloydslist.com",
+          "ukchamberofshipping.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "How are operators preparing?",
+          "Are carbon costs being passed through to customers?",
+          "Which operators or routes are most exposed?"
+        ],
+        "freshness_expectation": "Recent implementation commentary, preferably within 90 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-F",
+        "requirement_name": "legal_practical_analysis",
+        "why_required": "Explains obligations, exemptions, uncertainty and compliance approach.",
+        "preferred_source_types": [
+          "specialist_analysis",
+          "official_guidance"
+        ],
+        "preferred_domains": [
+          "hfw.com",
+          "watsonfarley.com",
+          "nortonrosefulbright.com",
+          "stephensonharwood.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Which entity is responsible?",
+          "What documentation or MRV process is needed?",
+          "What uncertainties remain?"
+        ],
+        "freshness_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-G",
+        "requirement_name": "future_scope_or_international_extension",
+        "why_required": "Captures the risk that future policy may expand to international voyages or wider emissions categories.",
+        "preferred_source_types": [
+          "official_primary",
+          "specialist_analysis",
+          "contrary_or_stabilising_evidence"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "icapcarbonaction.com",
+          "icct.org"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Could future expansion affect UK-international routes?",
+          "Which routes are confirmed in scope and which are scenario-only?"
+        ],
+        "freshness_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+        "strength_threshold": "medium"
+      },
+      {
+        "requirement_id": "REQ-UKETS-H",
+        "requirement_name": "contrary_or_scope_limited_evidence",
+        "why_required": "Prevents over-application to routes, vessels or emissions outside scope.",
+        "preferred_source_types": [
+          "contrary_or_stabilising_evidence",
+          "official_primary",
+          "specialist_analysis"
+        ],
+        "preferred_domains": [
+          "gov.uk",
+          "lr.org",
+          "hfw.com",
+          "icapcarbonaction.com"
+        ],
+        "minimum_sources": 1,
+        "decision_questions_supported": [
+          "Is this route outside confirmed 2026 scope?",
+          "Are there exemptions or delayed implementation issues?",
+          "Should a route be treated as scenario exposure rather than current obligation?"
+        ],
+        "freshness_expectation": "Current scope-limiting guidance or implementation caveats.",
+        "strength_threshold": "medium"
+      }
+    ],
+    "search_queries": {
+      "REQ-UKETS-A": [
+        "GOV.UK UK ETS domestic maritime 1 July 2026 5000 GT UK ports",
+        "ICAP UK ETS domestic maritime 2026 5000 GT",
+        "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators official policy scope 1-12 months"
+      ],
+      "REQ-UKETS-B": [
+        "GOV.UK UK ETS maritime verified annual emissions report 31 March 30 April 2028",
+        "LR UK ETS domestic maritime reporting surrender deadline 2026 2028",
+        "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline 1-12 months",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline specialist analysis"
+      ],
+      "REQ-UKETS-C": [
+        "UKA carbon price UK ETS allowance price maritime 2026",
+        "UK ETS allowance price manual fallback shipping operator",
+        "site:theice.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence 1-12 months",
+        "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence Reuters"
+      ],
+      "REQ-UKETS-D": [
+        "IMO marine gas oil emission factor CO2 per tonne fuel",
+        "GOV.UK greenhouse gas conversion factor marine gas oil",
+        "site:imo.org UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence 1-12 months",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence specialist analysis"
+      ],
+      "REQ-UKETS-E": [
+        "LR UK ETS domestic maritime operator guidance cost pass through",
+        "UK Chamber of Shipping UK ETS maritime operator exposure",
+        "site:maersk.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance 1-12 months",
+        "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance Reuters"
+      ],
+      "REQ-UKETS-F": [
+        "HFW UK ETS domestic shipping 2026 compliance responsibility",
+        "Watson Farley UK ETS maritime domestic shipping 2026",
+        "site:hfw.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis 1-12 months",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis specialist analysis"
+      ],
+      "REQ-UKETS-G": [
+        "GOV.UK UK ETS international maritime consultation",
+        "ICAP UK ETS international maritime consultation domestic shipping",
+        "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension 1-12 months",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension specialist analysis"
+      ],
+      "REQ-UKETS-H": [
+        "GOV.UK UK ETS maritime exemptions offshore delayed 2027",
+        "LR UK ETS domestic maritime exemptions international routes not in scope",
+        "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence 1-12 months",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence specialist analysis",
+        "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence scope limited stabilising contrary evidence"
+      ]
+    },
+    "expected_evidence_types": [
+      "official_primary",
+      "official_guidance",
+      "market_indicator",
+      "specialist_analysis",
+      "reputable_news",
+      "contrary_or_stabilising_evidence"
+    ],
+    "minimum_acceptable_coverage": {
+      "minimum_total_requirements": 8,
+      "minimum_high_priority_requirements": 2,
+      "high_priority_requirements": [
+        "official_policy_scope",
+        "reporting_surrender_timeline"
+      ],
+      "minimum_sources_per_requirement": {
+        "REQ-UKETS-A": 1,
+        "REQ-UKETS-B": 1,
+        "REQ-UKETS-C": 1,
+        "REQ-UKETS-D": 1,
+        "REQ-UKETS-E": 1,
+        "REQ-UKETS-F": 1,
+        "REQ-UKETS-G": 1,
+        "REQ-UKETS-H": 1
+      }
+    },
+    "refresh_priorities": [
+      {
+        "requirement_id": "REQ-UKETS-A",
+        "requirement_name": "official_policy_scope",
+        "refresh_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-B",
+        "requirement_name": "reporting_surrender_timeline",
+        "refresh_expectation": "Current implementation guidance, preferably within 90 days.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-C",
+        "requirement_name": "carbon_price_evidence",
+        "refresh_expectation": "Current market or clearly labelled manual fallback price.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-D",
+        "requirement_name": "emissions_factor_evidence",
+        "refresh_expectation": "Current or still-valid conversion-factor guidance.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-E",
+        "requirement_name": "operator_guidance",
+        "refresh_expectation": "Recent implementation commentary, preferably within 90 days.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-F",
+        "requirement_name": "legal_practical_analysis",
+        "refresh_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-G",
+        "requirement_name": "future_scope_or_international_extension",
+        "refresh_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      },
+      {
+        "requirement_id": "REQ-UKETS-H",
+        "requirement_name": "contrary_or_scope_limited_evidence",
+        "refresh_expectation": "Current scope-limiting guidance or implementation caveats.",
+        "watchlist_indicators": [
+          "route clearly falls within scope",
+          "UKA price movement",
+          "reporting process gap",
+          "allowance procurement risk"
+        ]
+      }
+    ],
+    "domain": "regulatory_carbon_shipping",
+    "client_decision_outputs": [
+      "operator stance",
+      "applicability check",
+      "carbon cost estimate",
+      "compliance timeline",
+      "scenario watchpoints"
+    ],
+    "risk_drivers": [
+      "policy_scope_and_route_applicability",
+      "reporting_and_surrender_readiness",
+      "carbon_price_and_allowance_cost",
+      "emissions_factor_and_voyage_calculation",
+      "operator_margin_and_pass_through_pressure",
+      "future_international_expansion_risk",
+      "scope_limited_or_exemption_constraints"
+    ]
+  },
+  "source_requirements": [
+    {
+      "requirement_id": "REQ-UKETS-A",
+      "requirement_name": "official_policy_scope",
+      "why_required": "Confirms whether the rule applies to the vessel, voyage and emissions type.",
+      "preferred_source_types": [
+        "official_primary",
+        "official_guidance"
+      ],
+      "preferred_domains": [
+        "gov.uk",
+        "gov.scot",
+        "gov.wales",
+        "icapcarbonaction.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Does UK ETS apply to this vessel and route?",
+        "Is the voyage domestic UK, at-berth, offshore or international?",
+        "Is the route inside the confirmed 2026 scope or only a future scenario?"
+      ],
+      "freshness_expectation": "Current policy response or implementation guidance, preferably within 90 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "why_required": "Confirms MRV, reporting and allowance surrender deadlines.",
+      "preferred_source_types": [
+        "official_primary",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "gov.uk",
+        "lr.org",
+        "hfw.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "When must emissions be reported?",
+        "When must allowances be surrendered?",
+        "Is the first surrender affected by the double-surrender window?"
+      ],
+      "freshness_expectation": "Current implementation guidance, preferably within 90 days.",
+      "strength_threshold": "high"
+    },
+    {
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "why_required": "Provides the allowance price needed to calculate estimated carbon cost exposure.",
+      "preferred_source_types": [
+        "market_indicator",
+        "reputable_news",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "theice.com",
+        "market data sources",
+        "lloydslist.com",
+        "icapcarbonaction.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "What UKA price should be used?",
+        "How sensitive is voyage cost to UKA price movement?"
+      ],
+      "freshness_expectation": "Current market or clearly labelled manual fallback price.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "why_required": "Converts fuel consumption into estimated emissions.",
+      "preferred_source_types": [
+        "official_primary",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "imo.org",
+        "gov.uk",
+        "lr.org"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Which emissions factor should be used for the selected fuel?",
+        "What is the estimated tCO2e per voyage?"
+      ],
+      "freshness_expectation": "Current or still-valid conversion-factor guidance.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "why_required": "Shows how shipping operators and maritime advisers are interpreting and implementing the rule.",
+      "preferred_source_types": [
+        "company_update",
+        "specialist_analysis",
+        "reputable_news"
+      ],
+      "preferred_domains": [
+        "maersk.com",
+        "lr.org",
+        "lloydslist.com",
+        "ukchamberofshipping.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "How are operators preparing?",
+        "Are carbon costs being passed through to customers?",
+        "Which operators or routes are most exposed?"
+      ],
+      "freshness_expectation": "Recent implementation commentary, preferably within 90 days.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "why_required": "Explains obligations, exemptions, uncertainty and compliance approach.",
+      "preferred_source_types": [
+        "specialist_analysis",
+        "official_guidance"
+      ],
+      "preferred_domains": [
+        "hfw.com",
+        "watsonfarley.com",
+        "nortonrosefulbright.com",
+        "stephensonharwood.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Which entity is responsible?",
+        "What documentation or MRV process is needed?",
+        "What uncertainties remain?"
+      ],
+      "freshness_expectation": "Current legal/compliance analysis, preferably within 180 days.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "why_required": "Captures the risk that future policy may expand to international voyages or wider emissions categories.",
+      "preferred_source_types": [
+        "official_primary",
+        "specialist_analysis",
+        "contrary_or_stabilising_evidence"
+      ],
+      "preferred_domains": [
+        "gov.uk",
+        "icapcarbonaction.com",
+        "icct.org"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Could future expansion affect UK-international routes?",
+        "Which routes are confirmed in scope and which are scenario-only?"
+      ],
+      "freshness_expectation": "Current consultation or policy-expansion evidence, preferably within 180 days.",
+      "strength_threshold": "medium"
+    },
+    {
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "why_required": "Prevents over-application to routes, vessels or emissions outside scope.",
+      "preferred_source_types": [
+        "contrary_or_stabilising_evidence",
+        "official_primary",
+        "specialist_analysis"
+      ],
+      "preferred_domains": [
+        "gov.uk",
+        "lr.org",
+        "hfw.com",
+        "icapcarbonaction.com"
+      ],
+      "minimum_sources": 1,
+      "decision_questions_supported": [
+        "Is this route outside confirmed 2026 scope?",
+        "Are there exemptions or delayed implementation issues?",
+        "Should a route be treated as scenario exposure rather than current obligation?"
+      ],
+      "freshness_expectation": "Current scope-limiting guidance or implementation caveats.",
+      "strength_threshold": "medium"
+    }
+  ],
+  "search_queries_by_requirement": {
+    "REQ-UKETS-A": [
+      "GOV.UK UK ETS domestic maritime 1 July 2026 5000 GT UK ports",
+      "ICAP UK ETS domestic maritime 2026 5000 GT",
+      "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators official policy scope 1-12 months"
+    ],
+    "REQ-UKETS-B": [
+      "GOV.UK UK ETS maritime verified annual emissions report 31 March 30 April 2028",
+      "LR UK ETS domestic maritime reporting surrender deadline 2026 2028",
+      "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline 1-12 months",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline specialist analysis"
+    ],
+    "REQ-UKETS-C": [
+      "UKA carbon price UK ETS allowance price maritime 2026",
+      "UK ETS allowance price manual fallback shipping operator",
+      "site:theice.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence 1-12 months",
+      "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence Reuters"
+    ],
+    "REQ-UKETS-D": [
+      "IMO marine gas oil emission factor CO2 per tonne fuel",
+      "GOV.UK greenhouse gas conversion factor marine gas oil",
+      "site:imo.org UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence 1-12 months",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence specialist analysis"
+    ],
+    "REQ-UKETS-E": [
+      "LR UK ETS domestic maritime operator guidance cost pass through",
+      "UK Chamber of Shipping UK ETS maritime operator exposure",
+      "site:maersk.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance 1-12 months",
+      "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance Reuters"
+    ],
+    "REQ-UKETS-F": [
+      "HFW UK ETS domestic shipping 2026 compliance responsibility",
+      "Watson Farley UK ETS maritime domestic shipping 2026",
+      "site:hfw.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis 1-12 months",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis specialist analysis"
+    ],
+    "REQ-UKETS-G": [
+      "GOV.UK UK ETS international maritime consultation",
+      "ICAP UK ETS international maritime consultation domestic shipping",
+      "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension 1-12 months",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension specialist analysis"
+    ],
+    "REQ-UKETS-H": [
+      "GOV.UK UK ETS maritime exemptions offshore delayed 2027",
+      "LR UK ETS domestic maritime exemptions international routes not in scope",
+      "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence 1-12 months",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence specialist analysis",
+      "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence scope limited stabilising contrary evidence"
+    ]
+  },
+  "candidates_by_query": {},
+  "source_provider": "tavily",
+  "search_provider": "tavily",
+  "evidence_mode": "Live source retrieval",
+  "provider_error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\")); HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))",
+  "fallback_demo_data_used": false,
+  "fallback_used": false,
+  "total_queries_run": 34,
+  "candidate_count": 0,
+  "selected_count": 0,
+  "rejected_count": 0,
+  "selected_sources": [],
+  "rejected_sources": [],
+  "weighted_sources": [],
+  "source_categories_covered": [],
+  "source_categories_missing": [
+    "official_primary",
+    "official_primary",
+    "reputable_news",
+    "official_primary",
+    "company_update",
+    "specialist_analysis",
+    "official_primary",
+    "contrary_or_stabilising_evidence"
+  ],
+  "requirement_coverage": [
+    {
+      "requirement_id": "REQ-UKETS-A",
+      "requirement_name": "official_policy_scope",
+      "why_required": "Confirms whether the rule applies to the vessel, voyage and emissions type.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "Does UK ETS apply to this vessel and route?",
+        "Is the voyage domestic UK, at-berth, offshore or international?",
+        "Is the route inside the confirmed 2026 scope or only a future scenario?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "why_required": "Confirms MRV, reporting and allowance surrender deadlines.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "When must emissions be reported?",
+        "When must allowances be surrendered?",
+        "Is the first surrender affected by the double-surrender window?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "why_required": "Provides the allowance price needed to calculate estimated carbon cost exposure.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "What UKA price should be used?",
+        "How sensitive is voyage cost to UKA price movement?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "why_required": "Converts fuel consumption into estimated emissions.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "Which emissions factor should be used for the selected fuel?",
+        "What is the estimated tCO2e per voyage?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "why_required": "Shows how shipping operators and maritime advisers are interpreting and implementing the rule.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "How are operators preparing?",
+        "Are carbon costs being passed through to customers?",
+        "Which operators or routes are most exposed?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "why_required": "Explains obligations, exemptions, uncertainty and compliance approach.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "Which entity is responsible?",
+        "What documentation or MRV process is needed?",
+        "What uncertainties remain?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "why_required": "Captures the risk that future policy may expand to international voyages or wider emissions categories.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "Could future expansion affect UK-international routes?",
+        "Which routes are confirmed in scope and which are scenario-only?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    },
+    {
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "why_required": "Prevents over-application to routes, vessels or emissions outside scope.",
+      "covered_by": [],
+      "covered_by_count": 0,
+      "evidence_weight": "low",
+      "decision_questions_supported": [
+        "Is this route outside confirmed 2026 scope?",
+        "Are there exemptions or delayed implementation issues?",
+        "Should a route be treated as scenario exposure rather than current obligation?"
+      ],
+      "remaining_gap": "No selected source directly satisfies this requirement."
+    }
+  ],
+  "evidence_by_requirement": {
+    "REQ-UKETS-A": [],
+    "REQ-UKETS-B": [],
+    "REQ-UKETS-C": [],
+    "REQ-UKETS-D": [],
+    "REQ-UKETS-E": [],
+    "REQ-UKETS-F": [],
+    "REQ-UKETS-G": [],
+    "REQ-UKETS-H": []
+  },
+  "selected_sources_by_requirement": {},
+  "rejected_sources_by_requirement": {},
+  "evidence_by_risk_driver": {},
+  "risk_drivers": [],
+  "refresh_priorities": [],
+  "quantified_evidence_readout": {
+    "source_count": 0,
+    "high_weight_source_count": 0,
+    "requirement_coverage_percent": 0,
+    "average_source_quality": 0,
+    "quantified_facts": [],
+    "strongest_evidence": "No selected source evidence.",
+    "weakest_evidence": "Missing requirements: REQ-UKETS-A, REQ-UKETS-B, REQ-UKETS-C, REQ-UKETS-D, REQ-UKETS-E, REQ-UKETS-F, REQ-UKETS-G, REQ-UKETS-H",
+    "confidence_cap": "Confidence capped because one or more source requirements are not covered.",
+    "score_support_summary": "Scores are supported by 0 selected sources, 0% requirement coverage and 0 extracted quantified facts."
+  },
+  "evidence_to_score_bridge": {
+    "likelihood": {
+      "score": 5,
+      "evidence_basis": "Confirmed policy implementation, not speculative risk.",
+      "supporting_sources": [],
+      "quantified_facts_used": [],
+      "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "why_score_not_lower": "Partial coverage supports the score but leaves review gaps.",
+      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction."
+    },
+    "impact": {
+      "score": 4,
+      "evidence_basis": "Material for in-scope domestic routes, but not universal across all UK or international voyages.",
+      "supporting_sources": [],
+      "quantified_facts_used": [],
+      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "why_score_not_lower": "Partial coverage supports the score but leaves review gaps.",
+      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes."
+    },
+    "immediacy": {
+      "score": 5,
+      "evidence_basis": "Reporting, monitoring and allowance preparation need near-term action before or during implementation.",
+      "supporting_sources": [],
+      "quantified_facts_used": [],
+      "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "why_score_not_lower": "Partial coverage supports the score but leaves review gaps.",
+      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture."
+    },
+    "confidence": {
+      "score": 4,
+      "evidence_basis": "Capped below 5 because official policy evidence is strong, but UKA price and operator fuel assumptions are not transaction-specific live inputs.",
+      "supporting_sources": [],
+      "quantified_facts_used": [],
+      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "why_score_not_lower": "Partial coverage supports the score but leaves review gaps.",
+      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence."
+    }
+  },
+  "quantified_facts_by_source": {},
+  "confidence_cap_reason": "Confidence capped because one or more source requirements are not covered.",
+  "requirements_missing": [
+    "REQ-UKETS-A",
+    "REQ-UKETS-B",
+    "REQ-UKETS-C",
+    "REQ-UKETS-D",
+    "REQ-UKETS-E",
+    "REQ-UKETS-F",
+    "REQ-UKETS-G",
+    "REQ-UKETS-H"
+  ],
+  "requirements_below_threshold": [
+    "REQ-UKETS-A",
+    "REQ-UKETS-B",
+    "REQ-UKETS-C",
+    "REQ-UKETS-D",
+    "REQ-UKETS-E",
+    "REQ-UKETS-F",
+    "REQ-UKETS-G",
+    "REQ-UKETS-H"
+  ],
+  "coverage_summary": "Covered 0 categories; missing: official_primary, official_primary, reputable_news, official_primary, company_update, specialist_analysis, official_primary, contrary_or_stabilising_evidence.",
+  "search_failures": [
+    {
+      "query": "GOV.UK UK ETS domestic maritime 1 July 2026 5000 GT UK ports",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-A",
+      "requirement_name": "official_policy_scope",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "ICAP UK ETS domestic maritime 2026 5000 GT",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-A",
+      "requirement_name": "official_policy_scope",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators official policy scope 1-12 months",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-A",
+      "requirement_name": "official_policy_scope",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "GOV.UK UK ETS maritime verified annual emissions report 31 March 30 April 2028",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "LR UK ETS domestic maritime reporting surrender deadline 2026 2028",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline 1-12 months",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators reporting surrender timeline specialist analysis",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-B",
+      "requirement_name": "reporting_surrender_timeline",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UKA carbon price UK ETS allowance price maritime 2026",
+      "category": "reputable_news",
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS allowance price manual fallback shipping operator",
+      "category": "reputable_news",
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:theice.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence 1-12 months",
+      "category": "reputable_news",
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence",
+      "category": "reputable_news",
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators carbon price evidence Reuters",
+      "category": "reputable_news",
+      "requirement_id": "REQ-UKETS-C",
+      "requirement_name": "carbon_price_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "IMO marine gas oil emission factor CO2 per tonne fuel",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "GOV.UK greenhouse gas conversion factor marine gas oil",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:imo.org UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence 1-12 months",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators emissions factor evidence specialist analysis",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-D",
+      "requirement_name": "emissions_factor_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "LR UK ETS domestic maritime operator guidance cost pass through",
+      "category": "company_update",
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK Chamber of Shipping UK ETS maritime operator exposure",
+      "category": "company_update",
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:maersk.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance 1-12 months",
+      "category": "company_update",
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:lloydslist.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance",
+      "category": "company_update",
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators operator guidance Reuters",
+      "category": "company_update",
+      "requirement_id": "REQ-UKETS-E",
+      "requirement_name": "operator_guidance",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "HFW UK ETS domestic shipping 2026 compliance responsibility",
+      "category": "specialist_analysis",
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "Watson Farley UK ETS maritime domestic shipping 2026",
+      "category": "specialist_analysis",
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:hfw.com UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis 1-12 months",
+      "category": "specialist_analysis",
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators legal practical analysis specialist analysis",
+      "category": "specialist_analysis",
+      "requirement_id": "REQ-UKETS-F",
+      "requirement_name": "legal_practical_analysis",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "GOV.UK UK ETS international maritime consultation",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "ICAP UK ETS international maritime consultation domestic shipping",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension 1-12 months",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators future scope or international extension specialist analysis",
+      "category": "official_primary",
+      "requirement_id": "REQ-UKETS-G",
+      "requirement_name": "future_scope_or_international_extension",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "GOV.UK UK ETS maritime exemptions offshore delayed 2027",
+      "category": "contrary_or_stabilising_evidence",
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "LR UK ETS domestic maritime exemptions international routes not in scope",
+      "category": "contrary_or_stabilising_evidence",
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "site:gov.uk UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence 1-12 months",
+      "category": "contrary_or_stabilising_evidence",
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence specialist analysis",
+      "category": "contrary_or_stabilising_evidence",
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    },
+    {
+      "query": "UK ETS Maritime Expansion and carbon cost exposure for shipping operators contrary or scope limited evidence scope limited stabilising contrary evidence",
+      "category": "contrary_or_stabilising_evidence",
+      "requirement_id": "REQ-UKETS-H",
+      "requirement_name": "contrary_or_scope_limited_evidence",
+      "error": "HTTPSConnectionPool(host='api.tavily.com', port=443): Max retries exceeded with url: /search (Caused by NameResolutionError(\"HTTPSConnection(host='api.tavily.com', port=443): Failed to resolve 'api.tavily.com' ([Errno 8] nodename nor servname provided, or not known)\"))"
+    }
+  ],
+  "fetch_failures": [],
+  "evidence": [],
+  "duplicate_urls_removed": 0,
+  "calculator_assumptions": {
+    "illustrative": true,
+    "vessel_type": "Ro-Ro ferry",
+    "gross_tonnage": 8500,
+    "route": "Liverpool to Belfast",
+    "route_type": "domestic_uk",
+    "fuel_type": "MGO",
+    "fuel_consumption_tonnes_per_voyage": 18,
+    "voyages_per_week": 6,
+    "uka_price_per_tonne": 48,
+    "coverage_rate": 1.0,
+    "reporting_period_months": 6,
+    "price_source": "Manual fallback input",
+    "caveat": "Illustrative voyage assumptions requiring operator validation."
+  }
+}

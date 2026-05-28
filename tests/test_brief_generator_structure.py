@@ -51,11 +51,13 @@ class BriefGeneratorStructureTests(unittest.TestCase):
 
     def test_required_shipping_operator_sections_are_present(self):
         for phrase in [
-            "## 1. Operator Decision Stance",
-            "## 7. Voyage Decision Matrix",
-            "## 8. Sanctions and Safe-Passage Risk",
-            "## 11. Dynamic Route-Cost Assessment",
-            "## 13. Recommended Operator Actions",
+            "## 1. Decision Recommendation",
+            "## 4. Route Decision Optimiser",
+            "## 5. Route-Cost Assumptions",
+            "## 6. Sanctions Red-Flag Assessment",
+            "## 7. Insurance Break-Even Analysis",
+            "## 8. AIS and Vessel-Flow Signals",
+            "## 12. Recommended Operator Actions",
         ]:
             self.assertIn(phrase, self.brief)
 
@@ -66,7 +68,7 @@ class BriefGeneratorStructureTests(unittest.TestCase):
     def test_fallback_confidence_is_capped(self):
         self.assertIn("| Confidence | 4/5 |", self.brief)
         self.assertIn("Reproducible curated source pack", self.brief)
-        self.assertIn("Illustrative voyage assumptions requiring operator validation.", self.brief)
+        self.assertIn("| compliance hold days | 5 | operator-required |", self.brief)
 
     def test_generic_output_still_works(self):
         brief = generate_brief(
@@ -79,7 +81,7 @@ class BriefGeneratorStructureTests(unittest.TestCase):
         )
 
         self.assertIn("## Executive Judgement", brief)
-        self.assertNotIn("Voyage Decision Matrix", brief)
+        self.assertNotIn("Route Decision Optimiser", brief)
 
     def test_strongest_source_is_populated_for_covered_requirements(self):
         evidence_pack = {

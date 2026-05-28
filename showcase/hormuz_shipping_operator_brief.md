@@ -1,117 +1,144 @@
 # Political Risk Brief
-## Strait of Hormuz Transit Controls: Shipping Operator Exposure
+## Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs
 
 | Field | Value |
 | --- | --- |
-| Generated date | 2026-05-28 16:53 |
-| Risk issue | Strait of Hormuz Transit Controls |
-| Business lens | UK shipping operator voyage approval, sanctions escalation and route-cost management |
+| Generated date | 2026-05-28 21:36 |
+| Risk issue | Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs |
+| Business lens | UK shipping operator route decision across transit, delay, reroute and legal hold |
 | Region | Persian Gulf / UK shipping operators |
 | Time horizon | 1-3 months |
 | Overall risk level | Severe |
 | Confidence | 4/5 |
-| Evidence mode | Reproducible curated source pack |
+| Evidence mode | Live source retrieval |
 
-## 1. Operator Decision Stance
+## 1. Decision Recommendation
 
 | Item | Assessment |
 | --- | --- |
-| Current stance | Escalate Hormuz-linked voyages for operational, insurance and sanctions review before transit |
-| Risk level | Severe |
-| Confidence | 4/5 |
-| Primary risk | Transit-control exposure, detention risk, sanctions exposure from safe-passage demands, war-risk insurance repricing and disrupted vessel flows |
-| Action bias | Hold or reroute where safe passage, insurance cover, sanctions position or vessel-flow conditions are unclear |
-| Transit trigger | Updated official maritime guidance, confirmed insurance cover, clear sanctions/legal position and evidence of practical vessel-flow recovery |
-| Reroute / hold trigger | Any safe-passage payment demand, vessel detention risk, AIS/transponder concern, insurance withdrawal, unclear counterparties or conflict escalation |
+| Preferred option | Legal hold if any sanctions/payment trigger is present; otherwise delay or reroute until insurance, AIS/vessel-flow and official guidance conditions support conditional transit. |
+| Current stance | Transit only after sanctions, insurance and operations clearance |
+| Primary blocker | Safe-passage/toll demand, insurance uncertainty, detention risk or AIS/vessel-flow disruption |
+| Legal hold trigger | Any safe-passage payment, toll, guarantee, offset, swap, in-kind arrangement or indirect payment demand |
+| Reroute trigger | Direct transit cost exceeds reroute cost after war-risk premium, or detention risk remains high |
+| Delay trigger | Short-lived uncertainty and delay cost remains below reroute cost |
+| Conditional transit trigger | Clean sanctions position, confirmed war-risk cover, acceptable official guidance and normalising vessel-flow/AIS signals |
+| Relaxation trigger | Official guidance, insurance appetite and vessel-flow/AIS recovery align |
 
-## 2. Executive Judgement
+## Dashboard Summary
 
-The case assesses whether a UK shipping operator should transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review. It links source evidence to operating stance, sanctions red flags, war-risk insurance pressure, vessel-flow signals, route-cost trade-offs and practical escalation/relaxation triggers.
+| Item | Value |
+| --- | --- |
+| Decision engine | Transit / delay / reroute / legal hold |
+| Current stance | Transit only after sanctions, insurance and operations clearance |
+| Primary legal trigger | Any safe-passage/toll/payment-equivalent demand |
+| Primary commercial trigger | War-risk premium or detention risk makes direct transit weaker than delay/reroute |
+| Evidence mode | Live source retrieval |
+| Source provider | tavily |
+| Key data limits | Route-cost assumptions are illustrative and require operator validation |
 
-Iran-linked transit controls, safe-passage demands, vessel detention risk, AIS/transponder disruption, war-risk insurance repricing and sanctions exposure create a dynamic voyage decision for UK shipping operators over the next 1-3 months. The current operating stance is `Transit can proceed with enhanced monitoring`.
+## 2. Scope and Specificity
 
-## 3. Key Judgements
+This brief is a route-decision product for a shipping operator choosing between direct transit, delay / wait, reroute or legal hold for a Gulf-linked voyage. It is not a blanket warning to avoid Hormuz; it is a structured comparison of route options once sanctions, insurance, AIS/vessel-flow and detention risks are included.
 
-| Judgement | Evidence basis | Concrete signal | Operator relevance |
+## 3. Executive Judgement
+
+Direct transit may be cheaper on voyage days alone, but it becomes commercially or legally unacceptable where sanctions-linked payment demands, war-risk pricing, AIS disruption, detention risk or unstable vessel-flow conditions are present. The current stance is not a blanket avoidance recommendation: it is a trigger-based decision framework. Legal hold applies where a sanctions/payment trigger exists; otherwise delay or reroute remains preferred until insurance, official guidance and vessel-flow signals support conditional transit.
+
+## 4. Route Decision Optimiser
+
+| Option | Estimated cost | Legal/sanctions risk | Insurance risk | Operational risk | Decision |
+| --- | --- | --- | --- | --- | --- |
+| Direct transit | $3,022,000 | High | Unclear | High | Blocked unless sanctions, insurance and vessel-flow triggers clear. |
+| Delay / wait | $3,562,000 | Low | Moderate | Moderate | Use only if uncertainty looks short-lived and waiting remains cheaper than reroute. |
+| Reroute | $1,752,000 | Moderate | Lower than direct transit | Moderate | Preferred when premium pressure or detention risk makes direct transit uneconomic. |
+| Legal hold | Hold pending clearance | Control action | Preserves cover position | Stops sailing until cleared | Required if any payment, toll, guarantee, offset, swap or coordination demand appears. |
+
+## 5. Route-Cost Assumptions
+
+| Input | Value | Status | Why it matters |
 | --- | --- | --- | --- |
-| Iran-linked transit controls create a direct voyage approval risk. | Official maritime guidance and transit-control reporting indicate that safe passage is not a routine commercial assumption. | Transit coordination demands, detention warnings and route-specific approval requirements. | Transit should not proceed as a normal scheduling decision. |
-| Sanctions exposure is central if safe-passage payments or coordination demands are present. | OFAC alert, FAQ 1249 and sanctions reporting show that tolls, guarantees, offsets, swaps or digital-asset payments can create sanctions risk. | Any payment demand or unclear Iranian coordination chain. | Escalate to legal/compliance before voyage approval. |
-| War-risk insurance repricing changes route economics. | Broker and market evidence show additional premium pressure and exclusion sensitivity. | Direct-route cover reprices sharply relative to non-Hormuz routing. | A nominally cheaper direct route may stop being commercially rational. |
-| AIS/transponder disruption and reduced transits indicate practical operating stress. | AP and vessel-flow/AIS evidence show traffic distortion and signaling changes. | Abnormal AIS declarations, reduced transit confidence and trapped-vessel reporting. | Operational recovery should be judged from behaviour, not headlines alone. |
-| Hormuz’s oil/LNG role makes cargo and charter exposure commercially severe. | IEA/EIA chokepoint evidence quantifies how much oil and LNG depends on the Strait. | Around 20 mb/d and major LNG volumes still rely on Hormuz transit. | Delivery pressure, charterparty exposure and client escalation remain material. |
-| De-escalation evidence should affect monitoring before it changes transit stance. | Contrary evidence exists but remains conditional on practical reopening. | Negotiation headlines without aligned flow, insurance and legal improvement. | Monitor closely, but do not treat diplomacy alone as a green light. |
+| vessel value | $100,000,000 | illustrative | Drives war-risk premium cost and break-even analysis. |
+| war-risk premium assumption | 2.00% | manual input | Determines whether direct transit remains cheaper than reroute. |
+| direct voyage cost | $1,022,000 | illustrative | Baseline direct-transit commercial cost before additional controls. |
+| delay days | 5 | illustrative | Defines whether waiting is cheaper than rerouting. |
+| delay cost per day | $108,000 | illustrative | Captures charter, vessel and demurrage pressure during delay. |
+| reroute extra days | 10 | illustrative | Converts reroute time into cost and schedule impact. |
+| reroute cost per day | $73,000 | illustrative | Sets the operating cost of a longer route. |
+| compliance hold days | 5 | operator-required | Determines the cost of legal/compliance hold before clearance. |
 
-## 4. Risk Scorecard
+## 6. Sanctions Red-Flag Assessment
+
+| Trigger | Decision effect | Why it matters |
+| --- | --- | --- |
+| safe-passage payment | legal hold / compliance escalation | A payment framed as passage clearance can create sanctions exposure that overrides commercial convenience. |
+| toll demand | legal hold / compliance escalation | A toll or fee linked to passage may amount to a prohibited or escalation-triggering transfer. |
+| guarantee | legal hold / compliance escalation | Guarantees can replicate the economic effect of a direct payment. |
+| offset | legal hold / compliance escalation | Offsets may disguise value transfer to a restricted counterparty or coordination chain. |
+| swap | legal hold / compliance escalation | Swap structures can create indirect payment exposure even if no cash toll is paid. |
+| in-kind arrangement | legal hold / compliance escalation | In-kind consideration can still satisfy a demanded benefit and trigger review. |
+| indirect payment | legal hold / compliance escalation | Routing payment through an intermediary does not remove legal or compliance risk. |
+| Iranian coordination requirement | legal hold / compliance escalation | Coordination demands may indicate a state-linked control structure requiring legal review. |
+| unclear counterparty/payment instruction | legal hold / compliance escalation | Ambiguous instructions make it unsafe to assume the transaction is commercially routine. |
+
+- Safe-passage fee signal: specialist reporting said Iran planned a Strait of Hormuz vessel-traffic system with charges for specialised services, creating sanctions escalation risk if payments, offsets or guarantees are demanded.
+
+## 7. Insurance Break-Even Analysis
+
+| Input / Output | Value | Note |
+| --- | --- | --- |
+| war-risk cost | $2,000,000 | Illustrative premium cost based on vessel value and manual premium assumption. |
+| direct total cost | $3,022,000 | Illustrative direct-transit cost once war-risk premium is added. |
+| delay total cost | $3,562,000 | Illustrative direct cost plus premium plus delay cost. |
+| reroute total cost | $1,752,000 | Illustrative reroute cost without a direct-transit premium assumption. |
+| break-even war-risk premium against reroute | 0.73% | Above this premium, reroute is cheaper than direct transit. |
+| break-even war-risk premium against delay | 2.54% | Above this premium, waiting is cheaper than direct transit. |
+| commercial interpretation | Illustrative direct transit is commercially weaker than reroute once premium pressure and detention stress are high. | Use operator-specific costs before treating this as a voyage-specific recommendation. |
+
+## 8. AIS and Vessel-Flow Signals
+
+| Signal | Current evidence | Decision use | Refresh trigger |
+| --- | --- | --- | --- |
+| AIS/transponder disruption | AIS disruption remains a live compliance and routing red flag rather than a closed issue. | Requires compliance review before any conditional transit decision. | Refresh if routing instructions or AIS suppression reports change. |
+| traffic disruption | Selected live reporting still points to disrupted or only partially recovered passage conditions. | Supports continued control posture rather than routine transit. | Refresh if vessel-flow signals materially recover. |
+| stranded vessel/seafarer signal | Official security reporting referenced significant vessel and seafarer disruption during the stress phase. | Supports a cautious stance on detention and crew-safety exposure. | Refresh if official incident reporting improves or worsens. |
+| official/security guidance | Current operating posture still depends on live official guidance rather than a generic reopening narrative. | Sets the threshold for whether transit can move from restricted to conditional. | Refresh before voyage approval if guidance changes. |
+| vessel-flow recovery | Recovery evidence is partial and should not be treated as normalisation on its own. | Defines whether controls can relax from hold/reroute to conditional transit. | Refresh before relaxing controls. |
+
+- AIS and vessel-flow stress: Lloyd's List maintained a dedicated Strait of Hormuz crisis tracker, supporting the view that route conditions remained under active disruption review rather than full normalisation.
+
+## 9. Risk Scorecard
 
 | Dimension | Score | Direction | Evidence-based rationale |
 | --- | --- | --- | --- |
-| Likelihood | 5/5 | Elevated | Official maritime, company update and reputable news evidence indicate constrained transit, security risk and carrier caution around Hormuz. |
+| Likelihood | 5/5 | Elevated | Transit-control, sanctions/legal and reputable reporting indicate constrained transit, security risk and active route-level controls around Hormuz. |
 | Impact | 5/5 | Severe | Energy chokepoint, insurance-market and vessel-flow evidence show material exposure for tanker flows, cargo values, energy markets and marine war-risk pricing. |
-| Immediacy | 5/5 | Near-term | The time horizon is 1-3 months and current or recent company, insurance and vessel-flow sources describe operational conditions that require active monitoring now. |
-| Confidence | 4/5 | Moderate-high | Evidence is diverse, but confidence is capped because conditions, diplomatic signals, vessel-flow data and war-risk pricing are fast-moving. |
+| Immediacy | 5/5 | Near-term | The time horizon is 1-3 months and current transit-control, insurance and vessel-flow evidence describe conditions that require active monitoring now. |
+| Confidence | 3/5 | Moderate-high | Evidence is diverse, but confidence is capped because conditions, diplomatic signals, vessel-flow data and war-risk pricing are fast-moving. |
 
-## 5. Quantified Evidence Readout
-
-| Metric | Value | Why it matters |
-| --- | --- | --- |
-| selected sources | 9 | Shows breadth of selected evidence. |
-| high-weight sources | 0 | Shows how much source evidence carries stronger analyst weight. |
-| source requirement coverage | 100% | Shows whether required evidence questions are covered. |
-| average source quality | 0 | Average of reliability, relevance, recency, specificity and decision value. |
-| quantified facts extracted | 12 | Shows how much numeric evidence supports the judgement. |
-| confidence cap | Confidence capped below 5 because evidence came from a reproducible curated source pack rather than live retrieval. | Explains why confidence is not overstated. |
-
-## 6. Evidence-To-Score Bridge
+## 10. Evidence-To-Score Bridge
 
 | Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
 | --- | --- | --- | --- | --- |
-| Likelihood | 5/5 | Official maritime, company update and reputable news evidence indicate constrained transit, security risk and carrier caution around Hormuz. Sources: HSO-001, HSO-002, HSO-003, HSO-004. Facts: 1249, 20, 20 mb/d, 2025. | Higher: Curated evidence mode caps confidence and requires live refresh before a higher score. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if official, company, regulator or credible contrary evidence changes the risk direction. |
-| Impact | 5/5 | Energy chokepoint, insurance-market and vessel-flow evidence show material exposure for tanker flows, cargo values, energy markets and marine war-risk pricing. Sources: HSO-005, HSO-006. Facts: 1249, 20, 20 mb/d, 2025. | Higher: Curated evidence mode caps confidence and requires live refresh before a higher score. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes. |
-| Immediacy | 5/5 | The time horizon is 1-3 months and current or recent company, insurance and vessel-flow sources describe operational conditions that require active monitoring now. Sources: HSO-007. Facts: 1249, 20, 20 mb/d, 2025. | Higher: Curated evidence mode caps confidence and requires live refresh before a higher score. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if new operational, market, licensing or payment evidence changes the near-term picture. |
-| Confidence | 4/5 | Evidence is diverse, but confidence is capped because conditions, diplomatic signals, vessel-flow data and war-risk pricing are fast-moving. Sources: HSO-009. Facts: 1249, 20, 20 mb/d, 2025. | Higher: Curated evidence mode caps confidence and requires live refresh before a higher score. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh live sources or resolve missing requirements before increasing confidence. |
+| Likelihood | 5/5 | Transit-control, sanctions/legal and reputable reporting indicate constrained transit, security risk and active route-level controls around Hormuz. Supporting sources: L1, L2, L3, L4. Key facts: Transit-control mechanism reported: 5 May 2026; Safe-passage fee system reported with sanctions implications; Official or quasi-official transit controls remain active. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if official, company, regulator or credible contrary evidence changes the risk direction. |
+| Impact | 5/5 | Energy chokepoint, insurance-market and vessel-flow evidence show material exposure for tanker flows, cargo values, energy markets and marine war-risk pricing. Supporting sources: L2, L3, L5, L6. Key facts: War-risk pricing: up to 12x pre-crisis levels; Illustrative tanker premium: about $7.5m at a 3% rate; VLCC shipping rate signal: above $400,000/day. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes. |
+| Immediacy | 5/5 | The time horizon is 1-3 months and current transit-control, insurance and vessel-flow evidence describe conditions that require active monitoring now. Supporting sources: L4. Key facts: AIS and vessel-flow disruption remains active; Detention and transit-control risk remains live; Recovery evidence is partial rather than normalised. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if new operational, market, licensing or payment evidence changes the near-term picture. |
+| Confidence | 3/5 | Evidence is diverse, but confidence is capped because conditions, diplomatic signals, vessel-flow data and war-risk pricing are fast-moving. Supporting sources: L7. Key facts: De-escalation evidence exists but remains conditional; One fetch fell back to snippet-only evidence; Insurance, sanctions and flow signals are still fast-moving. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh live sources or resolve missing requirements before increasing confidence. |
 
-## 7. Voyage Decision Matrix
+## 11. Source Requirement Coverage
 
-| Option | Commercial effect | Risk effect | Decision use |
-| --- | --- | --- | --- |
-| Transit | Fastest route if it remains legally and operationally viable. | High unless official guidance, insurance and sanctions position are clear. | Use only when official guidance, insurance cover and sanctions position are clear. |
-| Delay / wait | Adds demurrage and schedule cost but can preserve optionality. | Moderates exposure if clarification is expected soon. | Use when direct transit is uncertain but time-limited clarification is plausible. |
-| Reroute | Higher voyage-day and bunker cost, but can reduce direct Hormuz-specific exposure. | Can lower detention, sanctions and war-risk uncertainty. | Use when sanctions, detention, AIS or insurance risks materially outweigh direct-route savings. |
-| Escalate / legal hold | May delay revenue recognition and client delivery decisions. | Reduces risk of unlawful payment, unsafe transit or uninsured sailing. | Use when sanctions or transit-control red flags are unresolved. |
+| Requirement | Coverage | Strongest source | Source role | Evidence weight | Decision supported | Gap / refresh need |
+| --- | --- | --- | --- | --- | --- | --- |
+| official_maritime_security | Partially covered: None | None | None | low | Should the operator transit, delay, reroute or place the voyage on legal hold? | Requires UKMTO, IMO, ICS, BIMCO, INTERTANKO, OCIMF or government advisory refresh before operational use. |
+| transit_control_or_constabulary_actions | Covered by 2 source(s): L1, L2 | L2 — IndexBox / PGSA Hormuz Fees and Sanctions Risk Note (indexbox.io) | specialist_interpretation | high | Should the operator transit, delay, reroute or place the voyage on legal hold? | No immediate coverage gap; analyst should still verify recency and source content. |
+| sanctions_and_safe_passage_payment_risk | Covered by 2 source(s): L1, L2 | L2 — IndexBox / PGSA Hormuz Fees and Sanctions Risk Note (indexbox.io) | specialist_interpretation | high | Is there a sanctions red flag from tolls, safe-passage demands, offsets, swaps, guarantees, in-kind arrangements or Iranian coordination? | No immediate coverage gap; analyst should still verify recency and source content. |
+| war_risk_insurance_pricing | Covered by 3 source(s): L1, L3, L6 | L3 — Howden Re Hormuz War-Risk Pricing Analysis (insurancebusinessmag.com) | market_pricing | high | Is war-risk cover available and economically viable? | No immediate coverage gap; analyst should still verify recency and source content. |
+| vessel_flow_and_AIS_behaviour | Covered by 2 source(s): L1, L4 | L4 — Lloyd's List Hormuz Traffic Stress Monitor (lloydslist.com) | data_or_indicator_source | high | Do AIS/vessel-flow indicators show route normalisation or continuing operating stress? | No immediate coverage gap; analyst should still verify recency and source content. |
+| energy_cargo_and_chokepoint_exposure | Partially covered: L5 | L5 — World Oil Report on EIA Hormuz Chokepoint Dataset Update (worldoil.com) | data_or_indicator_source | high | How do direct transit, delay and reroute compare once insurance, sanctions and delay costs are included? | Current evidence is secondary reporting of EIA-linked data; refresh with direct EIA or equivalent official dataset before operational use. |
+| route_cost_and_arbitrage_inputs | Covered by 3 source(s): L1, L3, L6 | L3 — Howden Re Hormuz War-Risk Pricing Analysis (insurancebusinessmag.com) | market_pricing | medium | How do direct transit, delay and reroute compare once insurance, sanctions and delay costs are included? | No immediate coverage gap; analyst should still verify recency and source content. |
+| contrary_or_de_escalation_evidence | Partially covered: L1, L2, L7 | L2 — IndexBox / PGSA Hormuz Fees and Sanctions Risk Note (indexbox.io) | specialist_interpretation | medium | What evidence would justify relaxing controls? | Current contrary signal is weak secondary reporting; refresh with Reuters, AP or official recovery evidence before treating relaxation as credible. |
 
-## 8. Sanctions and Safe-Passage Risk
-
-Toll or safe-passage demands matter because they can convert a routing issue into a sanctions and legal exposure issue. OFAC's May 1, 2026 alert says the risk exists regardless of payment method and explicitly references fiat payments, digital assets, offsets, informal swaps, guarantees and in-kind arrangements. UK operators should treat any such demand as a legal/compliance escalation event rather than a negotiable voyage cost.
-
-A cheaper direct transit may therefore become unacceptable once sanctions risk is present. Even non-U.S. persons can face exposure if payments or guarantees involve sanctioned Iranian actors, and connected insurers, reinsurers, banks or service providers may also be affected.
-
-## 9. Insurance and Route-Cost Pressure
-
-War-risk repricing affects voyage economics directly through additional premium, exclusions, cancellation rights and underwriter appetite. Insurance pressure should be treated as part of the voyage approval decision rather than a back-end procurement issue, especially where direct transit requires materially higher premium or narrower cover than rerouting.
-
-## 10. Vessel-Flow and AIS Signals
-
-Actual vessel behaviour helps distinguish headline de-escalation from practical recovery. AIS/transponder anomalies, self-identification behaviour, reduced traffic confidence and trapped-vessel reporting all indicate whether the route is functioning normally enough for operators to rely on direct transit again.
-
-## 11. Dynamic Route-Cost Assessment
-
-| Option | Estimated cost | Key assumptions | Non-financial risk | Decision implication |
-| --- | --- | --- | --- | --- |
-| direct transit | $1,772,000 | Illustrative 14-day voyage, current war-risk premium, operator validation required. | High sanctions, detention, AIS and insurance risk. | Use only if legal, insurance and operational controls clear. |
-| delay / wait | $2,312,000 | Illustrative 5-day compliance hold plus delay and operating cost. | Moderate-high; preserves flexibility but prolongs exposure. | Useful where clarification is expected quickly. |
-| reroute | $1,902,000 | Illustrative 24-day voyage, lower direct war-risk premium, operator validation required. | Lower direct Hormuz exposure but higher time and fuel cost. | Preferable when direct transit remains uncertain or sanctions-sensitive. |
-
-Illustrative voyage assumptions requiring operator validation.
-
-## 12. Scenario Outlook
-
-| Scenario | Description | Escalation trigger | Relaxation trigger | Operator implication |
-| --- | --- | --- | --- | --- |
-| Base case: constrained transit controls | Voyages remain possible only with enhanced review and elevated insurance/sanctions discipline. | New detention, payment demand or insurer withdrawal. | Official guidance improves and vessel-flow recovery is sustained. | Hold or reroute unless control conditions are clear. |
-| Downside case: tighter control or detention risk | Coordination demands, control claims or incidents make direct transit operationally unacceptable. | Transit-control mechanism expands or safe-passage demands intensify. | Control claims recede and operators regain confidence. | Reroute or maintain legal hold. |
-| Stabilisation case: practical reopening | Diplomatic progress is matched by insurance normalisation and cleaner vessel-flow signals. | De-escalation stalls or new incidents emerge. | Guidance, cover and flows improve together. | Gradual return to direct transit with approval controls. |
-
-## 13. Recommended Operator Actions
+## 12. Recommended Operator Actions
 
 1. Voyage approval: require operations, insurance and sanctions review before Hormuz transit.
 2. Sanctions escalation: treat any toll, safe-passage payment, offset, swap, guarantee or informal payment demand as legal escalation.
@@ -121,91 +148,82 @@ Illustrative voyage assumptions requiring operator validation.
 6. Client communication: explain whether route decisions are driven by safety, sanctions, insurance or cost.
 7. Relaxation test: relax controls only after official guidance, insurer appetite and vessel-flow recovery align.
 
-## 14. Watchlist
+## 13. Relaxation and Escalation Triggers
 
-| Indicator | Why it matters | Decision use |
-| --- | --- | --- |
-| Official maritime guidance | Tests whether security and detention risk remain live. | Transit approval trigger. |
-| Safe-passage or payment demands | Directly raises sanctions exposure. | Automatic compliance escalation. |
-| War-risk premium movement | Shows whether direct-route economics are deteriorating or improving. | Insurance and route-cost refresh. |
-| AIS / vessel-flow recovery | Shows whether operating conditions are practically normalising. | Relaxation trigger. |
-| De-escalation reporting | Useful only if operational evidence confirms it. | Monitoring, not standalone approval. |
+**Relaxation triggers**
 
-## 15. Source Requirement Coverage
+- Official guidance returns to normal and no new transit-control warnings are issued.
+- War-risk cover is confirmed on acceptable terms and not subject to exclusion or withdrawal.
+- AIS disruption falls to low or medium and vessel-flow signals move from disrupted to normalising.
+- No toll, safe-passage, offset, swap, guarantee or in-kind payment demand is present.
+- Detention risk is no higher than medium and compliance review clears the voyage.
 
-| Requirement | Coverage | Evidence weight | Strongest source | Decision supported | Gap / refresh need |
-| --- | --- | --- | --- | --- | --- |
-| official_maritime_security | Covered by 3 source(s): HSO-001, HSO-002, HSO-003 | high | HSO-001 — No safe transit through Strait of Hormuz | Should Hormuz-linked voyages require enhanced operational approval? | No immediate coverage gap; analyst should still verify recency and source content. |
-| transit_control_or_constabulary_actions | Covered by 4 source(s): HSO-001, HSO-002, HSO-003, HSO-004 | high | HSO-001 — No safe transit through Strait of Hormuz | Are vessels being required to coordinate passage with Iranian authorities? | No immediate coverage gap; analyst should still verify recency and source content. |
-| sanctions_and_safe_passage_payment_risk | Covered by 5 source(s): HSO-001, HSO-002, HSO-003, HSO-004, HSO-008 | high | HSO-001 — No safe transit through Strait of Hormuz | Could a transit demand create sanctions exposure? | No immediate coverage gap; analyst should still verify recency and source content. |
-| war_risk_insurance_pricing | Covered by 2 source(s): HSO-004, HSO-006 | high | HSO-004 — US imposes sanctions on Iranian agency t | Is war-risk cover available? | No immediate coverage gap; analyst should still verify recency and source content. |
-| vessel_flow_and_AIS_behaviour | Covered by 3 source(s): HSO-004, HSO-007, HSO-008 | high | HSO-004 — US imposes sanctions on Iranian agency t | Are vessel flows recovering or still abnormal? | No immediate coverage gap; analyst should still verify recency and source content. |
-| energy_cargo_and_chokepoint_exposure | Covered by 2 source(s): HSO-005, HSO-008 | high | HSO-005 — Strait of Hormuz | Why does Hormuz matter commercially? | No immediate coverage gap; analyst should still verify recency and source content. |
-| route_cost_and_arbitrage_inputs | Covered by 3 source(s): HSO-004, HSO-006, HSO-008 | medium | HSO-004 — US imposes sanctions on Iranian agency t | Is the cheaper route still acceptable once sanctions and insurance risk are included? | No immediate coverage gap; analyst should still verify recency and source content. |
-| contrary_or_de_escalation_evidence | Covered by 5 source(s): HSO-001, HSO-002, HSO-003, HSO-004, HSO-009 | medium | HSO-001 — No safe transit through Strait of Hormuz | What evidence would justify relaxing controls? | No immediate coverage gap; analyst should still verify recency and source content. |
+**Escalation triggers**
 
-## 16. Evidence Appendix
+- Any safe-passage payment, toll, offset, swap, guarantee or in-kind arrangement is requested.
+- Insurance cover is excluded, withdrawn or only available on uneconomic terms.
+- AIS disruption is high or vessel-flow status is severely disrupted.
+- Detention risk remains high or official guidance shifts to enhanced warning or restrictive.
+- Direct transit becomes more expensive than reroute after war-risk premium is included.
 
-| Source ID | Requirement | Weight | Source Type | Risk Driver | Judgement Supported | Claim | Decision Use | Caveat |
+## 14. Evidence Appendix
+
+| Source ID | Requirement | Source role | Evidence weight | Claim | Quantified / concrete signal | Decision use | Caveat | Refresh trigger |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| HSO-001 |  | medium | official_primary | Maritime security and transit risk | Maritime security and transit risk | IMO said there was no safe transit anywhere in the Strait of Hormuz and referenced verified vessel attacks, detention risk, mines risk and thousands of seafarers and vessels affected in the Gulf. | Supports operator review and control decisions. | Official safety guidance is strong on risk conditions but does not resolve sanctions or route-cost decisions. |
-| HSO-002 |  | medium | official_primary | Maritime security and transit risk | Maritime security and transit risk | OFAC urged maritime service providers to ask who vessels coordinated with for Hormuz transit and whether any safe-passage fees were or will be paid to Iran, warning that such conduct can create sanctions risk. | Supports operator review and control decisions. | U.S. sanctions guidance should be translated into operator-specific legal advice for UK-controlled voyages. |
-| HSO-003 |  | medium | official_primary | Maritime security and transit risk | Maritime security and transit risk | OFAC FAQ 1249 states that payments to the Government of Iran or the IRGC, directly or indirectly, for safe passage through the Strait of Hormuz would not be authorized for U.S. | Supports operator review and control decisions. | The FAQ is U.S.-specific and should be combined with UK sanctions and operator counsel review. |
-| HSO-004 |  | medium | reputable_news | General commercial risk | General commercial risk | AP reported that the United States sanctioned a newly created Iranian agency trying to control shipping through the Strait of Hormuz as part of a wider economic pressure campaign. | Supports operator review and control decisions. | Reporting should be cross-checked against primary designation records for named entities and counterparties. |
-| HSO-005 |  | medium | energy_chokepoint_data | Energy chokepoint exposure | Energy chokepoint exposure | IEA says the Strait of Hormuz handled about 20 mb/d of crude oil and oil products in 2025, about a quarter of world seaborne oil trade, while most Qatari and UAE LNG exports also transit the Strait. | Supports operator review and control decisions. | Structural chokepoint exposure does not by itself prove current transit conditions. |
-| HSO-006 |  | medium | insurance_market_evidence | Insurance-market repricing | Insurance-market repricing | Howden Re reported war-risk pricing for Hormuz transit rising from roughly 0.10-0.125% of vessel value pre-conflict to 2-3% in March 2026, with estimated per-transit premiums for a $100M vessel rising sharply. | Supports operator review and control decisions. | Broker analysis should be refreshed against current quoted terms before sailing. |
-| HSO-007 |  | medium | vessel_flow_or_freight_market_evidence | Vessel-flow and market behaviour | Vessel-flow and market behaviour | AP reported hundreds of vessels remained stuck in the Persian Gulf, insurance costs had risen sharply and operators faced unstable transit conditions around Hormuz. | Supports operator review and control decisions. | News synthesis should be checked against live vessel-tracking and operator updates before changing stance. |
-| HSO-008 |  | medium | specialist_analysis | General commercial risk | General commercial risk | The Signal Group assessed a sharp decline in tanker transits, growing floating storage and a shift toward risk-managed transport rather than normal market operations. | Supports operator review and control decisions. | Specialist analysis is interpretive and should be paired with primary or reputable reporting. |
-| HSO-009 |  | medium | contrary_or_stabilising_evidence | De-escalation and stabilisation evidence | De-escalation and stabilisation evidence | AP reported claims that a deal and opening of the Strait were largely negotiated, but this remained a political signal rather than proof that operators, insurers and crews had returned to normal confidence. | Supports operator review and control decisions. | Diplomatic reporting should not be treated as proof of operational reopening. |
+| L1 | transit_control_or_constabulary_actions | live_event_reporting | medium | Transit-control mechanism: Reuters reported on 5 May 2026 that Iran had set up a new mechanism to manage vessel transit through the Strait of Hormuz. | Transit-control mechanism reported: 5 May 2026; Source basis: Reuters-reported via Al-Monitor | Supports the transit versus delay versus reroute decision. | Operational reporting should still be checked against current official guidance before transit approval. | Refresh if detention reports, coordination demands or transit-control notices change. |
+| L2 | sanctions_and_safe_passage_payment_risk | specialist_interpretation | medium | Safe-passage fee signal: specialist reporting said Iran planned a Strait of Hormuz vessel-traffic system with charges for specialised services, creating sanctions escalation risk if payments, offsets or guarantees are demanded. | Potential fee system reported: specialised service charges; Legal hold trigger: any toll or equivalent payment demand | Supports sanctions red-flag escalation and payment prohibition controls. | Specialist analysis should be validated against current legal guidance before any payment-related decision. | Refresh immediately if any toll, payment, guarantee, offset, swap or in-kind demand appears. |
+| L3 | war_risk_insurance_pricing | market_pricing | high | War-risk pricing: Howden Re reported marine war-risk pricing up to 12x pre-crisis levels, with tanker premiums around $7.5m at a 3% rate. | War-risk pricing: up to 12x pre-crisis levels; Illustrative tanker premium: about $7.5m at a 3% rate | Supports insurance confirmation and route-cost comparison before transit. | Market pricing is fast-moving and should be refreshed with broker or underwriter quotes before sailing. | Refresh before voyage approval if war-risk premium, exclusions or cancellation wording changes. |
+| L4 | vessel_flow_and_AIS_behaviour | data_or_indicator_source | medium | AIS and vessel-flow stress: Lloyd's List maintained a dedicated Strait of Hormuz crisis tracker, supporting the view that route conditions remained under active disruption review rather than full normalisation. | Traffic status: disruption tracker remained active; Decision use: not sufficient on its own to justify relaxation | Supports live operating stance and practical reopening tests. | Fetched page text was not decision-grade; pair this signal with Reuters, AP or vessel-tracking evidence before relaxing controls. | Refresh if AIS disruption, vessel-flow conditions or recovery signals change. |
+| L5 | energy_cargo_and_chokepoint_exposure | data_or_indicator_source | medium | Chokepoint exposure: World Oil reported that the U.S. EIA would publish new strategic petroleum reserve and shipping-flow datasets as Hormuz disruption continued to reshape oil and LNG trade routes. | Source basis: World Oil citing U.S. EIA dataset launch; Commercial relevance: Hormuz disruption affects oil and LNG routing | Supports impact severity and client communication. | Use the underlying EIA chokepoint data for final cargo exposure calculations where available. | Refresh if cargo exposure or structural chokepoint assumptions change. |
+| L6 | route_cost_and_arbitrage_inputs | market_pricing | medium | Freight cost signal: Reuters reported Gulf-linked oil and gas shipping costs surged, with Mideast-China VLCC rates above $400,000 per day. | VLCC rate signal: above $400,000/day; Decision use: direct transit cost should be tested against reroute economics | Supports preferred option selection subject to sanctions and safety overrides. | This source is snippet-based because page fetch failed; refresh with full article access or broker data before using commercially. | Refresh before commercial use if delay, reroute or charter assumptions change. |
+| L7 | contrary_or_de_escalation_evidence | contrary_scope_limit | medium | De-escalation signal: reopening claims point to some recovery in commercial passage, but they do not justify relaxing controls without matching insurer, official and vessel-flow confirmation. | Recovery signal: reopening claim reported; Relaxation test: insurer, official and vessel-flow confirmation still required | Defines relaxation triggers before normal routing resumes. | Contrary evidence should be treated as conditional until stronger operational recovery evidence is available. | Refresh before relaxing controls if de-escalation claims emerge. |
 
-## 17. Source Audit Summary
+## 15. Source Audit Summary
 
 | Item | Value |
 | --- | --- |
-| Search provider | fallback_demo_search |
-| Evidence mode | Reproducible curated source pack |
-| Fallback data used | true |
+| Search provider | tavily |
+| Evidence mode | Live source retrieval |
+| Fallback data used | false |
 | Provider error | None |
-| Evidence categories covered | contrary_or_stabilising_evidence, energy_chokepoint_data, insurance_market_evidence, official_primary, reputable_news, specialist_analysis, vessel_flow_or_freight_market_evidence |
-| Evidence categories missing | None |
-| Total queries run | 0 |
-| Candidate sources | 9 |
-| Selected sources | 9 |
-| Rejected sources | 1 |
-| Strongest sources | HSO-001 — No safe transit through Strait of Hormuz: IMO Secretary-General (unknown weight) |
-| Weakest evidence area | Lowest selected score: HSO-001 /  |
-| Missing or stale evidence | None flagged |
-| Source hierarchy coverage | 100% requirement coverage |
-| Confidence cap reason | Confidence capped below 5 because evidence came from a reproducible curated source pack rather than live retrieval. |
-| Refresh priorities | Refresh before major underwriting or commercial decisions.; Refresh before major underwriting or commercial decisions.; Refresh before major underwriting or commercial decisions. |
+| Evidence categories covered | contrary_or_stabilising_evidence, insurance_market_evidence, reputable_news, specialist_analysis, vessel_flow_or_freight_market_evidence |
+| Evidence categories missing | official_primary, official_primary, energy_chokepoint_data |
+| Total queries run | 32 |
+| Candidate sources | 50 |
+| Selected sources | 7 |
+| Rejected sources | 43 |
+| Strongest sources | L3 — Howden Re Hormuz War-Risk Pricing Analysis (high weight) |
+| Weakest evidence area | Missing requirements: REQ-HSO-A |
+| Missing or stale evidence | REQ-HSO-A |
+| Source hierarchy coverage | 88% requirement coverage |
+| Confidence cap reason | Confidence capped because one or more source requirements are not covered. |
+| Refresh priorities | Refresh immediately if any toll, safe-passage fee, guarantee, offset, swap or in-kind demand is reported.; Refresh before voyage approval if war-risk premium, exclusions, cancellation wording or insurer appetite changes.; Refresh if AIS disruption, detention reports, transit-control notices or official guidance change. |
 
 ### Source Register
 
 | Source ID | Source Type | Publisher | Date | URL |
 | --- | --- | --- | --- | --- |
-| HSO-001 | official_primary | International Maritime Organization | 2026-04-24 | https://www.imo.org/en/MediaCentre/PressBriefings/pages/No-safe-transit-through-Hormuz-IMO-Secretary-General.aspx |
-| HSO-002 | official_primary | Office of Foreign Assets Control | 2026-05-01 | https://ofac.treasury.gov/system/files/2026-04/20260501_hormuz_tolls_alert.pdf |
-| HSO-003 | official_primary | Office of Foreign Assets Control | 2026-04-28 | https://ofac.treasury.gov/faqs/1249 |
-| HSO-004 | reputable_news | Associated Press | 2026-05-28 | https://apnews.com/article/13052dd9323747cbdd661d48759f27d6 |
-| HSO-005 | energy_chokepoint_data | International Energy Agency | 2026 | https://www.iea.org/about/oil-security-and-emergency-reserve/strait-of-hormuz |
-| HSO-006 | insurance_market_evidence | Howden Re | 2026-04-01 | https://www.howdenre.com/sites/howdenre.howdenprod.com/files/2026-04/HowdenRe_Strait_of_Hormuz_report_April12026.pdf |
-| HSO-007 | vessel_flow_or_freight_market_evidence | Associated Press | 2026-05-06 | https://apnews.com/article/iran-war-shipping-trump-03af894eaddb8ede53928babc76f80e2 |
-| HSO-008 | specialist_analysis | The Signal Group | 2026-03-09 | https://www.thesignalgroup.com/newsroom/market-insights-strait-of-hormuz-spotlight |
-| HSO-009 | contrary_or_stabilising_evidence | Associated Press | 2026-05-23 | https://apnews.com/article/1c283f26d037102cc5e6f798546d0e59 |
+| L1 | reputable_news | al-monitor.com |  | https://www.al-monitor.com/originals/2026/05/iran-sets-new-mechanism-manage-vessel-transit-through-hormuz |
+| L2 | specialist_analysis | indexbox.io |  | https://www.indexbox.io/blog/irans-new-strait-of-hormuz-vessel-traffic-system-and-us-sanctions-risks |
+| L3 | insurance_market_evidence | insurancebusinessmag.com |  | https://www.insurancebusinessmag.com/reinsurance/news/breaking-news/howden-re-analysis-points-to-aggregation-risk-from-multicountry-strikes-570052.aspx |
+| L4 | vessel_flow_or_freight_market_evidence | lloydslist.com |  | https://www.lloydslist.com/hot-topics/strait-of-hormuz-crisis |
+| L5 | reputable_news | worldoil.com |  | https://www.worldoil.com/news/2026/5/12/eia-launches-new-oil-lng-chokepoint-datasets-amid-hormuz-crisis |
+| L6 | insurance_market_evidence | reuters.com |  | https://www.reuters.com/world/middle-east/middle-east-oil-shipping-costs-surge-all-time-high-us-iran-conflict-intensifies-2026-03-02 |
+| L7 | contrary_or_stabilising_evidence | stl.news |  | https://www.stl.news/strait-of-hormuz-reopens-iran-conflict |
 
-## 18. Methodology and Review Controls
+## 16. Methodology and Review Controls
 
 Method: source plan, source requirements, source ranking, claim extraction, quantified fact extraction, risk-driver synthesis, score bridge and review controls. Scoring is rule-based and transparent; changes to official, market, legal or operational evidence should trigger refresh.
 
 ### Source Strategy
 
-- `official_primary`: site:ukmto.org Strait of Hormuz Transit Controls official maritime security 1-3 months
+- `official_primary`: site:ukmto.org Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs official maritime security 1-3 months
 - `reputable_news`: Reuters Iran sets up mechanism to manage vessel transit through Hormuz
 - `official_primary`: OFAC FAQ 1249 sanctions risks toll safe-passage payments Hormuz
 - `insurance_market_evidence`: Howden Re Strait of Hormuz war risk pricing
 - `vessel_flow_or_freight_market_evidence`: Reuters Hormuz tanker traffic AIS transponder behaviour
 - `energy_chokepoint_data`: EIA Strait of Hormuz chokepoint oil LNG exposure
-- `insurance_market_evidence`: site:howdenre.com Strait of Hormuz Transit Controls route cost and arbitrage inputs 1-3 months
+- `insurance_market_evidence`: site:howdenre.com Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs route cost and arbitrage inputs 1-3 months
 - `contrary_or_stabilising_evidence`: Reuters Strait of Hormuz reopening conditions shipping de-escalation
 
 ### Source Requirements
@@ -223,18 +241,22 @@ Method: source plan, source requirements, source ranking, claim extraction, quan
 
 ### Review Flags
 
-- Missing company_update source.
-- Missing company update in live evidence.
-- Curated local source pack used instead of live API search.
+- Live source refresh required before operational use.
+- UK sanctions/OFSI review required for UK-controlled exposure.
+- Legal review required for any safe-passage/toll/coordination/payment demand.
+- War-risk cover and exclusions must be confirmed before sailing.
+- Route-cost assumptions require operator validation.
+- AIS/vessel-flow recovery must be refreshed before relaxing controls.
+- Snippet-based or failed fetch evidence should be validated before operational use.
 
 ### Review Controls
 
 | Control | Status | Required action |
 | --- | --- | --- |
-| Evidence mode | Review | Confirm whether curated pack or live retrieval is appropriate for the decision context. |
+| Evidence mode | Passed | Confirm whether live retrieval remains appropriate for the voyage decision context. |
 | Source freshness | Passed | Publication dates are visible in the appendix and audit trail. |
-| Market-pricing recency | Review | Refresh broker and reinsurance indications before binding or relaxing Gulf-linked risks. |
-| De-escalation update | Review | Refresh diplomatic and reopening reporting before changing stance. |
-| Primary-source verification | Passed | Official, company, energy and insurance-market sources are represented. |
-| Sanctions/legal review | Warning | Specialist legal review is required for sanctions-sensitive counterparties, cargoes or vessels. |
-| Underwriting sign-off | Warning | Enhanced controls should be changed only with underwriting governance approval. |
+| Sanctions/payment trigger | Warning | Treat any toll, safe-passage fee, guarantee, offset, swap or in-kind demand as legal/compliance escalation. |
+| Insurance wording | Review | Confirm war-risk cover, exclusions, cancellation language and premium validity before transit. |
+| AIS and routing review | Review | Validate transponder behaviour, routing instructions and detention indicators before sailing. |
+| Cost assumption validation | Warning | Replace illustrative vessel value, delay and reroute assumptions with operator-specific data before commercial use. |
+| Relaxation gate | Warning | Move from hold or reroute to conditional transit only when official guidance, insurer appetite and vessel-flow recovery align. |

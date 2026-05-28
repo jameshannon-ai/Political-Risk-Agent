@@ -10,6 +10,8 @@ def generate_review_flags(sources, today=None, evidence_pack=None):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_flags(evidence_pack, today) or ["No major evidence review flags identified."]
+    if domain == "maritime_trade":
+        return _hormuz_flags(evidence_pack, today) or ["No major evidence review flags identified."]
 
     flags = []
 
@@ -45,6 +47,8 @@ def _live_evidence_flags(live_source_types, evidence_pack, today):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_flags(evidence_pack, today)
+    if domain == "maritime_trade":
+        return _hormuz_flags(evidence_pack, today)
     flags = []
     if "official_primary" not in live_source_types:
         flags.append("Missing official source in live evidence.")
@@ -83,4 +87,23 @@ def _uk_ets_flags(evidence_pack, today):
             "Reporting and surrender dates require monitoring against current guidance.",
         ]
     )
+    return flags
+
+
+def _hormuz_flags(evidence_pack, today):
+    flags = []
+    flags.extend(
+        [
+            "Live source refresh required before operational use.",
+            "UK sanctions/OFSI review required for UK-controlled exposure.",
+            "Legal review required for any safe-passage/toll/coordination/payment demand.",
+            "War-risk cover and exclusions must be confirmed before sailing.",
+            "Route-cost assumptions require operator validation.",
+            "AIS/vessel-flow recovery must be refreshed before relaxing controls.",
+        ]
+    )
+    if any(_is_stale(source.get("publication_date", ""), today) for source in evidence_pack.get("evidence", [])):
+        flags.append("One or more live sources appear older than 90 days.")
+    if evidence_pack.get("fetch_failures"):
+        flags.append("Snippet-based or failed fetch evidence should be validated before operational use.")
     return flags

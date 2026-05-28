@@ -52,17 +52,19 @@
       "de_escalation_monitoring"
     ],
     "decision_questions": [
-      "Should a UK shipping operator transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review?",
-      "Do transit controls or detention risks make direct passage operationally unacceptable?",
-      "Does sanctions or war-risk pressure override the cheaper direct route?",
-      "What evidence would justify relaxation?"
+      "Should the operator transit, delay, reroute or place the voyage on legal hold?",
+      "Is there a sanctions red flag from tolls, safe-passage demands, offsets, swaps, guarantees, in-kind arrangements or Iranian coordination?",
+      "Is war-risk cover available and economically viable?",
+      "Do AIS/vessel-flow indicators show route normalisation or continuing stress?",
+      "How do direct transit, delay and reroute compare once insurance, sanctions and delay costs are included?",
+      "What evidence would justify relaxing controls?"
     ],
     "client_decision_outputs": [
-      "operating stance",
-      "transit / delay / reroute option",
-      "sanctions escalation",
-      "insurance and route-cost review",
-      "relaxation triggers"
+      "preferred option",
+      "legal hold trigger",
+      "insurance break-even",
+      "cost-adjusted route ranking",
+      "relaxation and escalation triggers"
     ],
     "watchlist_indicators": [
       "official maritime advisories",

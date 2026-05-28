@@ -17,6 +17,7 @@ CATEGORY_PURPOSES = {
 
 
 def generate_source_audit(evidence_pack):
+    domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     return f"""# Source Audit
 
 ## Search Configuration
@@ -84,13 +85,7 @@ def generate_source_audit(evidence_pack):
 
 ## Analyst Review Controls
 
-- Verify publication dates.
-- Verify fetched content against source page.
-- Check source freshness.
-- Check carrier/company updates remain current.
-- Check market pricing recency.
-- Check de-escalation reporting.
-- Check sanctions/legal implications.
+{_analyst_review_controls(domain)}
 """
 
 
@@ -218,6 +213,16 @@ def _refresh_triggers(evidence_pack):
                 "- Review emissions factor methodology with verifier / MRV process.",
             ]
         )
+    if domain == "maritime_trade":
+        return "\n".join(
+            [
+                "- Refresh immediately if any toll, safe-passage fee, guarantee, offset, swap or in-kind demand is reported.",
+                "- Refresh before voyage approval if war-risk premium, exclusions, cancellation wording or insurer appetite changes.",
+                "- Refresh if AIS disruption, detention reports, transit-control notices or official guidance change.",
+                "- Validate vessel value, delay-cost, reroute-cost and charter assumptions before using the optimiser commercially.",
+                "- Relax from hold or reroute only after official guidance, insurer appetite and vessel-flow recovery improve together.",
+            ]
+        )
     triggers = [
         item.get("refresh_trigger", "")
         for item in evidence_pack.get("refresh_priorities", [])
@@ -232,16 +237,18 @@ def _selected_sources(evidence_pack):
     if not evidence_pack["selected_sources"]:
         return "No selected sources."
     rows = [
-        "| Source ID | Requirement | Query | Decision Question | Title | Reliability | Relevance | Recency | Specificity | Decision value | Independence | Evidence weight | Selection reason | Decision use | Fetch Status | Caveat |",
-        "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- |",
+        "| Source ID | Requirement | Source role | Source value | Query | Decision Question | Title | Reliability | Relevance | Recency | Specificity | Decision value | Independence | Evidence weight | Selection reason | Decision use | Fetch Status | Caveat |",
+        "| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- |",
     ]
     evidence_by_id = {item["source_id"]: item for item in evidence_pack["evidence"]}
     for source in evidence_pack["selected_sources"]:
         evidence = evidence_by_id.get(source.get("source_id"), {})
         rows.append(
-            "| {source_id} | {requirement} | {query} | {question} | {title} | {reliability} | {relevance} | {recency} | {specificity} | {decision_value} | {independence} | {weight} | {reason} | {decision_use} | {fetch_status} | {caveat} |".format(
+            "| {source_id} | {requirement} | {role} | {value} | {query} | {question} | {title} | {reliability} | {relevance} | {recency} | {specificity} | {decision_value} | {independence} | {weight} | {reason} | {decision_use} | {fetch_status} | {caveat} |".format(
                 source_id=_cell(source.get("source_id", "")),
                 requirement=_cell(source.get("requirement_name", "") or source.get("source_type", "")),
+                role=_cell(source.get("source_role", "")),
+                value=_cell(source.get("source_value_explanation", source.get("evidence_value", ""))),
                 query=_cell(source.get("query", "")),
                 question=_cell(source.get("decision_question_supported", "")),
                 title=_cell(_clean_title(source.get("title", ""))),
@@ -285,9 +292,18 @@ def _rejected_sources(evidence_pack, limit=10):
 
 
 def _strongest_category(evidence_pack):
-    if "official_primary" in evidence_pack["source_categories_covered"]:
-        return "official_primary"
-    return evidence_pack["source_categories_covered"][0] if evidence_pack["source_categories_covered"] else "None"
+    selected = evidence_pack.get("selected_sources", [])
+    if not selected:
+        return "None"
+    ranked = sorted(
+        selected,
+        key=lambda item: (
+            3 if item.get("evidence_weight") == "high" else 2 if item.get("evidence_weight") == "medium" else 1,
+            item.get("total_score", 0),
+        ),
+        reverse=True,
+    )
+    return ranked[0].get("source_type", "None")
 
 
 def _weakest_category(evidence_pack):
@@ -315,6 +331,31 @@ def _clean_title(title):
     title = title.replace(" | Stephenson Harwood", "").replace(" - International Council on Clean Transportation", " - ICCT")
     title = title.replace(" ...", "").replace("...", "")
     return " ".join(title.split())
+
+
+def _analyst_review_controls(domain):
+    if domain == "maritime_trade":
+        return "\n".join(
+            [
+                "- Verify publication dates.",
+                "- Verify fetched content against the source page or search snippet.",
+                "- Check transit-control, detention and AIS evidence remain current.",
+                "- Check war-risk premium, exclusions and insurer appetite before voyage approval.",
+                "- Check sanctions/legal implications of any toll, payment, guarantee, offset or swap demand.",
+                "- Check de-escalation reporting against practical vessel-flow recovery before relaxing controls.",
+            ]
+        )
+    return "\n".join(
+        [
+            "- Verify publication dates.",
+            "- Verify fetched content against source page.",
+            "- Check source freshness.",
+            "- Check carrier/company updates remain current.",
+            "- Check market pricing recency.",
+            "- Check de-escalation reporting.",
+            "- Check sanctions/legal implications.",
+        ]
+    )
 
 
 def _cell(value):

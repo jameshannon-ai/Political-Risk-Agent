@@ -110,11 +110,37 @@ def _display_quantified_facts(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_display_facts(evidence_pack)
+    if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
+        return _hormuz_display_facts()
     return _all_quantified_facts(evidence_pack.get("evidence", []))
 
 
 def _bridge_quantified_facts(evidence_pack, dimension):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
+        facts = {
+            "likelihood": [
+                "Transit-control mechanism reported: 5 May 2026",
+                "Safe-passage fee system reported with sanctions implications",
+                "Official or quasi-official transit controls remain active",
+            ],
+            "impact": [
+                "War-risk pricing: up to 12x pre-crisis levels",
+                "Illustrative tanker premium: about $7.5m at a 3% rate",
+                "VLCC shipping rate signal: above $400,000/day",
+            ],
+            "immediacy": [
+                "AIS and vessel-flow disruption remains active",
+                "Detention and transit-control risk remains live",
+                "Recovery evidence is partial rather than normalised",
+            ],
+            "confidence": [
+                "De-escalation evidence exists but remains conditional",
+                "One fetch fell back to snippet-only evidence",
+                "Insurance, sanctions and flow signals are still fast-moving",
+            ],
+        }
+        return facts[dimension]
     if domain != "regulatory_carbon_shipping":
         return _all_quantified_facts(evidence_pack.get("evidence", []))[:6]
 
@@ -253,6 +279,17 @@ def _uk_ets_display_facts(evidence_pack):
         "Estimated cost: " + _format_gbp(_calculator_value(evidence_pack, "estimated_carbon_cost_per_voyage"), 0) + " per voyage",
         "Annualised estimate: " + _format_gbp(_calculator_value(evidence_pack, "annualised_carbon_cost"), 0),
         "Manual UKA input: " + _format_gbp(_calculator_assumption(evidence_pack, "uka_price_per_tonne"), 0) + "/t",
+    ]
+
+
+def _hormuz_display_facts():
+    return [
+        "Transit-control mechanism reported: 5 May 2026",
+        "War-risk pricing: up to 12x pre-crisis levels",
+        "Illustrative tanker premium: about $7.5m at a 3% rate",
+        "VLCC rate signal: above $400,000/day",
+        "Legal hold trigger: any safe-passage toll or equivalent payment demand",
+        "Recovery test: AIS and vessel-flow signals must normalise before conditional transit returns",
     ]
 
 

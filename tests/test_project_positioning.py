@@ -43,8 +43,9 @@ class ProjectPositioningTests(unittest.TestCase):
             sources=[],
         )
 
-        self.assertIn("Operator Decision Stance", brief)
-        self.assertIn("Voyage Decision Matrix", brief)
+        self.assertIn("Decision Recommendation", brief)
+        self.assertIn("Route Decision Optimiser", brief)
+        self.assertIn("Sanctions Red-Flag Assessment", brief)
         self.assertEqual(
             select_report_template("Strait of Hormuz Transit Controls", "shipping_operator"),
             "hormuz_shipping_operator_showcase",

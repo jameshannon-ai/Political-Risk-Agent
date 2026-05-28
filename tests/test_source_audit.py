@@ -62,7 +62,7 @@ class SourceAuditTests(unittest.TestCase):
             self.assertIn("# Source Audit", written)
             self.assertIn("## Research Plan", written)
             self.assertIn("## Source Requirement Coverage", written)
-            self.assertIn("| Source ID | Requirement | Query | Decision Question | Title | Reliability | Relevance | Recency | Specificity | Decision value | Independence | Evidence weight | Selection reason | Decision use |", written)
+            self.assertIn("| Source ID | Requirement | Source role | Source value | Query | Decision Question | Title | Reliability | Relevance | Recency | Specificity | Decision value | Independence | Evidence weight | Selection reason | Decision use |", written)
             self.assertIn("| Title | Requirement | Query | Total score | Lowest scoring dimension | Rejection reason | Stronger source covered same requirement |", written)
 
     def test_uk_ets_audit_uses_domain_specific_refresh_triggers(self):

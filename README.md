@@ -182,6 +182,14 @@ streamlit run dashboard_app.py
 
 The dashboard displays the saved UK ETS live-source showcase output. It does not call Tavily or spend search credits.
 
+## Agent / Codex instructions
+
+For durable project guidance, see:
+
+- `AGENTS.md`
+- `docs/FRAMEWORK_PRINCIPLES.md`
+- `docs/TASK_BRIEF_TEMPLATE.md`
+
 ## Future Roadmap
 
 - Add non-interactive CLI arguments for repeatable runs

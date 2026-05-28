@@ -116,6 +116,8 @@ def _selected(candidate, topic):
         **candidate,
         "selection_reason": _selection_reason(candidate, topic),
         "evidence_value": _evidence_value(candidate),
+        "source_role": _source_role(candidate),
+        "source_value_explanation": _source_value_explanation(candidate),
         "decision_use": _decision_use(candidate),
     }
 
@@ -169,6 +171,20 @@ def _evidence_value(candidate):
 
 
 def _decision_use(candidate):
+    requirement_name = candidate.get("requirement_name", "")
+    requirement_uses = {
+        "official_maritime_security": "Supports transit approval thresholds and tests whether official guidance still justifies enhanced controls.",
+        "transit_control_or_constabulary_actions": "Supports the transit versus delay versus reroute decision by showing whether direct passage remains operationally acceptable.",
+        "sanctions_and_safe_passage_payment_risk": "Supports legal-hold escalation if tolls, safe-passage payments, offsets, swaps, guarantees or in-kind demands appear.",
+        "war_risk_insurance_pricing": "Supports insurance viability checks and the break-even comparison between direct transit and reroute.",
+        "vessel_flow_and_AIS_behaviour": "Supports whether AIS and vessel-flow signals justify continued controls or conditional relaxation.",
+        "energy_cargo_and_chokepoint_exposure": "Supports impact severity and client communication on why Hormuz route decisions matter commercially.",
+        "route_cost_and_arbitrage_inputs": "Supports direct transit, delay and reroute cost comparison after insurance and hold costs are included.",
+        "contrary_or_de_escalation_evidence": "Supports the evidence threshold for moving from hold or reroute back to conditional transit.",
+    }
+    if requirement_name in requirement_uses:
+        return requirement_uses[requirement_name]
+
     source_type = candidate.get("source_type", "unknown")
     uses = {
         "official_primary": "Supports enhanced referral and route-level controls.",
@@ -181,6 +197,36 @@ def _decision_use(candidate):
         "contrary_or_stabilising_evidence": "Informs relaxation triggers without automatically reducing controls.",
     }
     return uses.get(source_type, "Supports analyst judgement and review controls.")
+
+
+def _source_role(candidate):
+    requirement_name = candidate.get("requirement_name", "")
+    mapping = {
+        "official_maritime_security": "official_anchor",
+        "transit_control_or_constabulary_actions": "live_event_reporting",
+        "sanctions_and_safe_passage_payment_risk": "sanctions_legal_guidance",
+        "war_risk_insurance_pricing": "insurance_market_evidence",
+        "vessel_flow_and_AIS_behaviour": "vessel_flow_or_AIS_data",
+        "energy_cargo_and_chokepoint_exposure": "energy_chokepoint_data",
+        "route_cost_and_arbitrage_inputs": "operator_or_industry_guidance",
+        "contrary_or_de_escalation_evidence": "contrary_or_de_escalation_evidence",
+    }
+    return mapping.get(requirement_name, candidate.get("source_type", "unknown"))
+
+
+def _source_value_explanation(candidate):
+    role = _source_role(candidate)
+    explanations = {
+        "official_anchor": "Anchors whether official guidance still supports transit or requires enhanced warning or restriction.",
+        "live_event_reporting": "Shows whether direct passage remains disrupted through detentions, coordination demands or live transit controls.",
+        "sanctions_legal_guidance": "Explains when safe-passage demands turn into legal/compliance hold triggers.",
+        "insurance_market_evidence": "Shows whether war-risk cover is available and when premium pressure makes reroute economically preferable.",
+        "vessel_flow_or_AIS_data": "Shows whether AIS and vessel-flow behaviour support normalisation or continued stress.",
+        "energy_chokepoint_data": "Quantifies why a Hormuz routing decision matters for cargo, customer and timing exposure.",
+        "operator_or_industry_guidance": "Translates the disruption into operator-facing route-cost, delay and pass-through decisions.",
+        "contrary_or_de_escalation_evidence": "Tests whether there is enough practical recovery evidence to relax from hold or reroute to conditional transit.",
+    }
+    return explanations.get(role, _evidence_value(candidate))
 
 
 def _scored_candidate(candidate, topic):

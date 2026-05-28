@@ -10,11 +10,13 @@ SHOWCASE = ROOT / "showcase"
 def main():
     checks = [
         _files_exist,
+        _framework_guidance,
         _brief_sections,
         _evidence_packs,
         _dashboard_checks,
         _source_audits,
         _confidence_caps,
+        _repo_hygiene,
         _no_api_keys,
     ]
     failures = []
@@ -29,7 +31,7 @@ def main():
 
 def _files_exist():
     failures = []
-    for path in [ROOT / "README.md", ROOT / "dashboard_app.py"]:
+    for path in [ROOT / "README.md", ROOT / "dashboard_app.py", ROOT / "AGENTS.md"]:
         if not path.exists():
             failures.append(f"Missing {path.name}")
     for name in [
@@ -48,14 +50,62 @@ def _files_exist():
     return failures
 
 
+def _framework_guidance():
+    failures = []
+    for path in [
+        ROOT / "AGENTS.md",
+        ROOT / "docs" / "FRAMEWORK_PRINCIPLES.md",
+        ROOT / "docs" / "TASK_BRIEF_TEMPLATE.md",
+        ROOT / "scripts" / "create_clean_project_zip.py",
+    ]:
+        if not path.exists():
+            failures.append(f"Missing {path.relative_to(ROOT)}")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for phrase in ["## Agent / Codex instructions", "AGENTS.md", "docs/FRAMEWORK_PRINCIPLES.md", "docs/TASK_BRIEF_TEMPLATE.md"]:
+        if phrase not in readme:
+            failures.append(f"README.md missing framework guidance reference: {phrase}")
+    return failures
+
+
 def _brief_sections():
     failures = []
     hormuz = _read("hormuz_shipping_operator_brief.md")
     uk_ets = _read("uk_ets_shipping_operator_brief.md")
     sanctions = _read("sanctions_trade_finance_sample.md")
     for phrase in ["Operator Decision Stance", "Voyage Decision Matrix", "Sanctions and Safe-Passage Risk", "Dynamic Route-Cost Assessment"]:
+        if phrase in hormuz:
+            failures.append(f"Hormuz brief still contains old section {phrase}")
+    for phrase in [
+        "Route Decision Engine",
+        "Decision Recommendation",
+        "Dashboard Summary",
+        "Route-Cost Assumptions",
+        "Route Decision Optimiser",
+        "Sanctions Red-Flag Assessment",
+        "Insurance Break-Even Analysis",
+        "AIS and Vessel-Flow Signals",
+        "Legal hold trigger",
+    ]:
         if phrase not in hormuz:
             failures.append(f"Hormuz brief missing {phrase}")
+    for phrase in ["Search IndexBox", "Hot Topics Strait of Hormuz crisis", "Skip to main content Iran sets up new mechanism"]:
+        if phrase in hormuz:
+            failures.append(f"Hormuz brief still contains boilerplate evidence text: {phrase}")
+    for phrase in ["Supports operator review and control decisions."]:
+        if phrase in hormuz:
+            failures.append(f"Hormuz brief contains generic decision-use wording: {phrase}")
+    for phrase in [
+        "Live source refresh required before operational use.",
+        "UK sanctions/OFSI review required for UK-controlled exposure.",
+        "Legal review required for any safe-passage/toll/coordination/payment demand.",
+        "War-risk cover and exclusions must be confirmed before sailing.",
+        "Route-cost assumptions require operator validation.",
+        "AIS/vessel-flow recovery must be refreshed before relaxing controls.",
+    ]:
+        if phrase not in hormuz:
+            failures.append(f"Hormuz brief missing review flag: {phrase}")
+    if "Preferred option | Legal hold if any sanctions/payment trigger is present; otherwise delay or reroute until insurance, AIS/vessel-flow and official guidance conditions support conditional transit." not in hormuz:
+        failures.append("Hormuz preferred option wording is not trigger-based")
     for phrase in ["Transaction Stance", "Quantified Evidence Readout", "Evidence-To-Score Bridge", "Payment and Documentation Risk"]:
         if phrase not in sanctions:
             failures.append(f"Sanctions brief missing {phrase}")
@@ -121,6 +171,34 @@ def _evidence_packs():
             failures.append(f"UK ETS evidence claim contains raw HTML for {evidence.get('source_id')}")
         if not any(":" in fact for fact in evidence.get("quantified_facts", [])):
             failures.append(f"UK ETS quantified facts are not labelled for {evidence.get('source_id')}")
+    hormuz_pack = json.loads((SHOWCASE / "hormuz_evidence_pack.json").read_text(encoding="utf-8"))
+    if hormuz_pack.get("search_provider") != "tavily" or hormuz_pack.get("source_provider") != "tavily":
+        failures.append("Hormuz showcase pack is not marked as tavily/tavily")
+    if hormuz_pack.get("fallback_used") or hormuz_pack.get("fallback_demo_data_used"):
+        failures.append("Hormuz showcase pack incorrectly shows fallback data")
+    if hormuz_pack.get("evidence_mode") != "Live source retrieval":
+        failures.append("Hormuz showcase pack is not marked as live source retrieval")
+    if any(item.get("decision_use") == "Supports operator review and control decisions." for item in hormuz_pack.get("selected_sources", [])):
+        failures.append("Hormuz selected sources still contain generic decision use")
+    if len(hormuz_pack.get("source_plan", {}).get("decision_questions", [])) != 6:
+        failures.append("Hormuz source plan should contain exactly six core decision questions")
+    for source in hormuz_pack.get("selected_sources", []):
+        if source.get("publisher") == "indexbox.io" and source.get("source_type") == "official_primary":
+            failures.append("Hormuz evidence pack incorrectly classifies indexbox.io as official_primary")
+    official_cov = next((item for item in hormuz_pack.get("requirement_coverage", []) if item.get("requirement_name") == "official_maritime_security"), None)
+    if official_cov:
+        if official_cov.get("coverage_status") == "covered":
+            failures.append("official_maritime_security should not be fully covered without a true official maritime/security source")
+        if "Requires UKMTO, IMO, ICS, BIMCO, INTERTANKO, OCIMF or government advisory refresh before operational use." not in official_cov.get("remaining_gap", ""):
+            failures.append("official_maritime_security gap wording is not specific enough")
+    for evidence in hormuz_pack.get("evidence", []):
+        claim = evidence.get("claim_supported", "")
+        if any(fragment in claim for fragment in ["Search IndexBox", "Hot Topics Strait of Hormuz crisis", "Skip to main content", "<script", "<html"]):
+            failures.append(f"Hormuz evidence claim still looks like boilerplate for {evidence.get('source_id')}")
+        if not any(":" in fact for fact in evidence.get("quantified_facts", [])):
+            failures.append(f"Hormuz quantified facts are not labelled for {evidence.get('source_id')}")
+        if evidence.get("decision_use") == "Supports operator review and control decisions.":
+            failures.append(f"Hormuz evidence uses generic decision-use wording for {evidence.get('source_id')}")
     return failures
 
 
@@ -132,6 +210,7 @@ def _source_audits():
             if phrase not in text:
                 failures.append(f"{name} missing {phrase}")
     uk_ets_audit = _read("uk_ets_source_audit.md")
+    hormuz_audit = _read("hormuz_source_audit.md")
     for phrase in [
         "Refresh UKA price before pricing or contract decisions.",
         "Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.",
@@ -141,6 +220,8 @@ def _source_audits():
     ]:
         if phrase not in uk_ets_audit:
             failures.append(f"UK ETS audit missing refresh priority: {phrase}")
+    if "Strongest evidence category: contrary_or_stabilising_evidence" in hormuz_audit or "Strongest sources | L7 — STL.News" in hormuz_audit:
+        failures.append("Hormuz source audit overstates weak de-escalation evidence as strongest source")
     return failures
 
 
@@ -154,13 +235,56 @@ def _dashboard_checks():
         failures.append("requirements.txt missing streamlit")
     if "TavilyClient" in dashboard or "live_search_mode" in dashboard:
         failures.append("dashboard_app.py contains live retrieval references")
+    if ".env" in dashboard:
+        failures.append("dashboard_app.py should not read or reference .env")
     for phrase in [
         'SHOWCASE / "uk_ets_evidence_pack.json"',
         'SHOWCASE / "uk_ets_shipping_operator_brief.md"',
         'SHOWCASE / "uk_ets_source_audit.md"',
+        'SHOWCASE / "hormuz_evidence_pack.json"',
+        'SHOWCASE / "hormuz_shipping_operator_brief.md"',
+        'SHOWCASE / "hormuz_source_audit.md"',
+        'st.sidebar.radio("Cases"',
+        "Hormuz Route Decision Engine",
+        "saved showcase artefacts only",
+        "UK ETS Maritime Expansion: Carbon Cost Exposure",
     ]:
         if phrase not in dashboard:
             failures.append(f"dashboard_app.py does not read the expected showcase file: {phrase}")
+    return failures
+
+
+def _repo_hygiene():
+    failures = []
+    gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+    for phrase in [".env", ".venv/", ".DS_Store", "*.zip", "outputs/*.md", "outputs/*.json", "!outputs/.gitkeep"]:
+        if phrase not in gitignore:
+            failures.append(f".gitignore missing {phrase}")
+    tracked = (ROOT / ".git").exists()
+    if tracked:
+        git_info = (ROOT / ".git").resolve()
+        if not git_info.exists():
+            failures.append(".git metadata is not accessible for hygiene checks")
+    env_path = ROOT / ".env"
+    if env_path.exists():
+        try:
+            import subprocess
+
+            result = subprocess.run(
+                ["git", "ls-files", ".env"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.stdout.strip():
+                failures.append(".env is tracked by git and should remain untracked")
+        except Exception:
+            failures.append("Unable to verify whether .env is tracked")
+    export_script = (ROOT / "scripts" / "create_clean_project_zip.py").read_text(encoding="utf-8")
+    for phrase in [".env", ".venv", ".git", "outputs", "political-risk-agent-clean.zip"]:
+        if phrase not in export_script:
+            failures.append(f"create_clean_project_zip.py missing export exclusion or output reference: {phrase}")
     return failures
 
 

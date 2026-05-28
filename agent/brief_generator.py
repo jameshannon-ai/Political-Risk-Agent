@@ -5,12 +5,12 @@ import re
 from agent.confidence_model import calculate_confidence
 from agent.carbon_cost_calculator import calculate_carbon_cost
 from agent.exposure_mapping import get_exposure_map
+from agent.hormuz_decision_engine import evaluate_hormuz_route_decision
 from agent.route_cost_assessment import assess_route_cost
 from agent.review_flags import generate_review_flags
 from agent.risk_scoring import score_risk
 from agent.risk_driver_synthesis import synthesize_risk_drivers
 from agent.quantitative_assessment import build_evidence_to_score_bridge, build_quantified_evidence_readout
-from agent.voyage_decision_framework import build_voyage_decision_framework
 
 # Template selection keeps the reusable political risk engine separate from
 # showcase-specific briefing templates.
@@ -108,7 +108,7 @@ def _display_scores(topic, time_horizon, scores, confidence, evidence_pack):
         display["likelihood"] = {
             "score": 5,
             "direction": "Elevated",
-            "rationale": "Official maritime, company update and reputable news evidence indicate constrained transit, security risk and carrier caution around Hormuz.",
+            "rationale": "Transit-control, sanctions/legal and reputable reporting indicate constrained transit, security risk and active route-level controls around Hormuz.",
         }
         display["impact"] = {
             "score": 5,
@@ -118,7 +118,7 @@ def _display_scores(topic, time_horizon, scores, confidence, evidence_pack):
         display["immediacy"] = {
             "score": 5,
             "direction": "Near-term",
-            "rationale": "The time horizon is 1-3 months and current or recent company, insurance and vessel-flow sources describe operational conditions that require active monitoring now.",
+            "rationale": "The time horizon is 1-3 months and current transit-control, insurance and vessel-flow evidence describe conditions that require active monitoring now.",
         }
         confidence_score = 4 if evidence_pack and evidence_pack.get("fallback_demo_data_used") else display["confidence"]["score"]
         display["confidence"] = {
@@ -406,24 +406,44 @@ def _watchlist():
     return _table(["Indicator", "Why it matters", "Source type to monitor"], rows)
 
 
-def _evidence_appendix(sources):
+def _evidence_appendix(sources, domain=""):
     if not sources:
         return "No source evidence supplied."
 
     rows = []
     for source in sources:
-        rows.append(
-            (
-                source.get("source_id", ""),
-                source.get("requirement_name", ""),
-                source.get("evidence_weight", ""),
-                source.get("source_type", source.get("inferred_source_type", "unknown")),
-                source.get("risk_driver") or _risk_driver_for_source(source.get("source_type", "")),
-                source.get("judgement_supported") or _judgement_for_source(source.get("source_type", "")),
-                source.get("extracted_claim") or source.get("claim_supported") or source.get("summary", ""),
-                source.get("decision_use", ""),
-                source.get("caveat", ""),
+        if domain == "maritime_trade":
+            rows.append(
+                (
+                    source.get("source_id", ""),
+                    source.get("requirement_name", ""),
+                    source.get("source_role", source.get("source_type", source.get("inferred_source_type", "unknown"))),
+                    source.get("evidence_weight", ""),
+                    source.get("claim_supported") or source.get("extracted_claim") or source.get("summary", ""),
+                    "; ".join(source.get("quantified_facts", [])[:2]) or "No quantified signal extracted.",
+                    source.get("decision_use", ""),
+                    source.get("caveat", ""),
+                    source.get("refresh_trigger", _refresh_trigger_for_requirement(source.get("requirement_name", ""))),
+                )
             )
+        else:
+            rows.append(
+                (
+                    source.get("source_id", ""),
+                    source.get("requirement_name", ""),
+                    source.get("evidence_weight", ""),
+                    source.get("source_type", source.get("inferred_source_type", "unknown")),
+                    source.get("risk_driver") or _risk_driver_for_source(source.get("source_type", "")),
+                    source.get("judgement_supported") or _judgement_for_source(source.get("source_type", "")),
+                    source.get("extracted_claim") or source.get("claim_supported") or source.get("summary", ""),
+                    source.get("decision_use", ""),
+                    source.get("caveat", ""),
+                )
+            )
+    if domain == "maritime_trade":
+        return _table(
+            ["Source ID", "Requirement", "Source role", "Evidence weight", "Claim", "Quantified / concrete signal", "Decision use", "Caveat", "Refresh trigger"],
+            rows,
         )
     return _table(["Source ID", "Requirement", "Weight", "Source Type", "Risk Driver", "Judgement Supported", "Claim", "Decision Use", "Caveat"], rows)
 
@@ -433,22 +453,47 @@ def _source_requirement_coverage(evidence_pack):
         return "No source requirement coverage available."
     rows = []
     sources_by_id = {item.get("source_id"): item for item in evidence_pack.get("selected_sources", [])}
+    domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     for item in evidence_pack["requirement_coverage"]:
         strongest = _strongest_requirement_source(item.get("covered_by", []), sources_by_id)
-        rows.append(
-            (
-                item["requirement_name"],
-                _coverage_label(item),
-                item["evidence_weight"],
-                strongest,
-                item["decision_questions_supported"][0] if item.get("decision_questions_supported") else "",
-                item["remaining_gap"],
+        if domain == "maritime_trade":
+            rows.append(
+                (
+                    item["requirement_name"],
+                    _coverage_label(item),
+                    strongest["label"],
+                    strongest["role"],
+                    item["evidence_weight"],
+                    item["decision_questions_supported"][0] if item.get("decision_questions_supported") else "",
+                    item["remaining_gap"],
+                )
             )
-        )
+        else:
+            rows.append(
+                (
+                    item["requirement_name"],
+                    _coverage_label(item),
+                    item["evidence_weight"],
+                    strongest["label"],
+                    item["decision_questions_supported"][0] if item.get("decision_questions_supported") else "",
+                    item["remaining_gap"],
+                )
+            )
+    if domain == "maritime_trade":
+        return _table(["Requirement", "Coverage", "Strongest source", "Source role", "Evidence weight", "Decision supported", "Gap / refresh need"], rows)
     return _table(["Requirement", "Coverage", "Evidence weight", "Strongest source", "Decision supported", "Gap / refresh need"], rows)
 
 
 def _coverage_label(item):
+    explicit = item.get("coverage_status")
+    if explicit == "gap":
+        return "Gap"
+    if explicit == "partially_covered":
+        covered_by = ", ".join(item.get("covered_by", [])) or "None"
+        return f"Partially covered: {covered_by}"
+    if explicit == "covered":
+        covered_by = ", ".join(item.get("covered_by", [])) or "None"
+        return f"Covered by {item.get('covered_by_count', 0)} source(s): {covered_by}"
     count = item.get("covered_by_count", 0)
     if count == 0:
         return "Gap"
@@ -458,7 +503,7 @@ def _coverage_label(item):
 def _strongest_requirement_source(source_ids, sources_by_id):
     sources = [sources_by_id[source_id] for source_id in source_ids if source_id in sources_by_id]
     if not sources:
-        return "None"
+        return {"label": "None", "role": "None"}
     strongest = sorted(
         sources,
         key=lambda item: (
@@ -468,7 +513,25 @@ def _strongest_requirement_source(source_ids, sources_by_id):
         reverse=True,
     )[0]
     title = _clean_source_title(strongest.get("title", "") or "Source")
-    return f"{strongest.get('source_id', '')} — {title}"
+    publisher = strongest.get("publisher", "")
+    label = f"{strongest.get('source_id', '')} — {title}"
+    if publisher:
+        label = f"{label} ({publisher})"
+    return {"label": label, "role": strongest.get("source_role", strongest.get("source_type", ""))}
+
+
+def _refresh_trigger_for_requirement(requirement_name):
+    mapping = {
+        "official_maritime_security": "Refresh if official maritime or security guidance changes.",
+        "transit_control_or_constabulary_actions": "Refresh if detention reports, coordination demands or transit-control notices change.",
+        "sanctions_and_safe_passage_payment_risk": "Refresh immediately if any toll, payment, guarantee, offset, swap or in-kind demand appears.",
+        "war_risk_insurance_pricing": "Refresh before voyage approval if war-risk premium, exclusions or cancellation wording changes.",
+        "vessel_flow_and_AIS_behaviour": "Refresh if AIS disruption, vessel-flow conditions or recovery signals change.",
+        "energy_cargo_and_chokepoint_exposure": "Refresh if cargo exposure or structural chokepoint assumptions change.",
+        "route_cost_and_arbitrage_inputs": "Refresh before commercial use if delay, reroute or charter assumptions change.",
+        "contrary_or_de_escalation_evidence": "Refresh before relaxing controls if de-escalation claims emerge.",
+    }
+    return mapping.get(requirement_name, "Refresh before operational use.")
 
 
 def _risk_driver_for_source(source_type):
@@ -581,6 +644,17 @@ def _review_controls(evidence_pack):
             ("Operator data sign-off", "Warning", "Replace illustrative voyage assumptions with operator-specific route and vessel data before final decisions."),
         ]
         return _table(["Control", "Status", "Required action"], rows)
+    if domain == "maritime_trade":
+        rows = [
+            ("Evidence mode", "Review" if fallback else "Passed", "Confirm whether live retrieval remains appropriate for the voyage decision context."),
+            ("Source freshness", "Passed", "Publication dates are visible in the appendix and audit trail."),
+            ("Sanctions/payment trigger", "Warning", "Treat any toll, safe-passage fee, guarantee, offset, swap or in-kind demand as legal/compliance escalation."),
+            ("Insurance wording", "Review", "Confirm war-risk cover, exclusions, cancellation language and premium validity before transit."),
+            ("AIS and routing review", "Review", "Validate transponder behaviour, routing instructions and detention indicators before sailing."),
+            ("Cost assumption validation", "Warning", "Replace illustrative vessel value, delay and reroute assumptions with operator-specific data before commercial use."),
+            ("Relaxation gate", "Warning", "Move from hold or reroute to conditional transit only when official guidance, insurer appetite and vessel-flow recovery align."),
+        ]
+        return _table(["Control", "Status", "Required action"], rows)
     rows = [
         ("Evidence mode", "Review" if fallback else "Passed", "Confirm whether curated pack or live retrieval is appropriate for the decision context."),
         ("Source freshness", "Passed", "Publication dates are visible in the appendix and audit trail."),
@@ -691,6 +765,18 @@ def _table(headers, rows):
     for row in rows:
         output.append("| " + " | ".join(_escape_table_cell(value) for value in row) + " |")
     return "\n".join(output)
+
+
+def _hormuz_option_decision_label(option, decision, preferred_option):
+    if option == "Direct transit":
+        return "Blocked unless sanctions, insurance and vessel-flow triggers clear."
+    if option == "Delay / wait":
+        return "Use only if uncertainty looks short-lived and waiting remains cheaper than reroute."
+    if option == "Reroute":
+        return "Preferred when premium pressure or detention risk makes direct transit uneconomic."
+    if option == "Legal hold":
+        return "Required if any payment, toll, guarantee, offset, swap or coordination demand appears."
+    return decision or preferred_option
 
 
 def generate_brief(topic, business_user, region, time_horizon, concerns, sources=None, evidence_pack=None):
@@ -861,7 +947,7 @@ def _evidence_status(evidence_pack):
 def _generate_hormuz_shipping_operator_brief(topic, business_user, region, time_horizon, sources, evidence_pack, scores, review_flags, generated_at):
     route_cost = assess_route_cost(
         route_name="Hormuz-linked UK operator voyage",
-        direct_transit_allowed="uncertain",
+        direct_transit_allowed=False,
         estimated_direct_voyage_days=14,
         estimated_reroute_days=24,
         daily_vessel_cost=45000,
@@ -872,119 +958,171 @@ def _generate_hormuz_shipping_operator_brief(topic, business_user, region, time_
         sanctions_risk_flag=True,
         compliance_hold_days=5,
     )
-    voyage_framework = build_voyage_decision_framework(evidence_pack or {"evidence": []}, route_cost)
+    engine = evaluate_hormuz_route_decision(
+        sanctions_red_flag=True,
+        war_risk_premium_pct=0.02,
+        vessel_value=100000000,
+        direct_voyage_cost=(14 * (45000 + 28000)),
+        delay_days=5,
+        delay_cost_per_day=35000 + 45000 + 28000,
+        reroute_extra_days=10,
+        reroute_cost_per_day=45000 + 28000,
+        ais_disruption_level="high",
+        vessel_flow_status="severely_disrupted",
+        detention_risk="high",
+        insurance_cover_status="unclear",
+        official_guidance_status="restrictive",
+    )
+    sanctions_claims = [item for item in sources if item.get("requirement_name") == "sanctions_and_safe_passage_payment_risk"][:2]
+    flow_claims = [item for item in sources if item.get("requirement_name") == "vessel_flow_and_AIS_behaviour"][:2]
     return f"""# Political Risk Brief
-## Strait of Hormuz Transit Controls: Shipping Operator Exposure
+## Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs
 
 | Field | Value |
 | --- | --- |
 | Generated date | {generated_at} |
 | Risk issue | {topic} |
-| Business lens | UK shipping operator voyage approval, sanctions escalation and route-cost management |
+| Business lens | UK shipping operator route decision across transit, delay, reroute and legal hold |
 | Region | {region} |
 | Time horizon | {time_horizon} |
 | Overall risk level | Severe |
 | Confidence | 4/5 |
 | Evidence mode | {_evidence_status(evidence_pack)} |
 
-## 1. Operator Decision Stance
+## 1. Decision Recommendation
 
 {_table(
     ["Item", "Assessment"],
     [
-        ("Current stance", "Escalate Hormuz-linked voyages for operational, insurance and sanctions review before transit"),
-        ("Risk level", "Severe"),
-        ("Confidence", "4/5"),
-        ("Primary risk", "Transit-control exposure, detention risk, sanctions exposure from safe-passage demands, war-risk insurance repricing and disrupted vessel flows"),
-        ("Action bias", "Hold or reroute where safe passage, insurance cover, sanctions position or vessel-flow conditions are unclear"),
-        ("Transit trigger", "Updated official maritime guidance, confirmed insurance cover, clear sanctions/legal position and evidence of practical vessel-flow recovery"),
-        ("Reroute / hold trigger", "Any safe-passage payment demand, vessel detention risk, AIS/transponder concern, insurance withdrawal, unclear counterparties or conflict escalation"),
+        ("Preferred option", "Legal hold if any sanctions/payment trigger is present; otherwise delay or reroute until insurance, AIS/vessel-flow and official guidance conditions support conditional transit."),
+        ("Current stance", "Transit only after sanctions, insurance and operations clearance"),
+        ("Primary blocker", "Safe-passage/toll demand, insurance uncertainty, detention risk or AIS/vessel-flow disruption"),
+        ("Legal hold trigger", "Any safe-passage payment, toll, guarantee, offset, swap, in-kind arrangement or indirect payment demand"),
+        ("Reroute trigger", "Direct transit cost exceeds reroute cost after war-risk premium, or detention risk remains high"),
+        ("Delay trigger", "Short-lived uncertainty and delay cost remains below reroute cost"),
+        ("Conditional transit trigger", "Clean sanctions position, confirmed war-risk cover, acceptable official guidance and normalising vessel-flow/AIS signals"),
+        ("Relaxation trigger", "Official guidance, insurance appetite and vessel-flow/AIS recovery align"),
     ],
 )}
 
-## 2. Executive Judgement
-
-The case assesses whether a UK shipping operator should transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review. It links source evidence to operating stance, sanctions red flags, war-risk insurance pressure, vessel-flow signals, route-cost trade-offs and practical escalation/relaxation triggers.
-
-Iran-linked transit controls, safe-passage demands, vessel detention risk, AIS/transponder disruption, war-risk insurance repricing and sanctions exposure create a dynamic voyage decision for UK shipping operators over the next {time_horizon}. The current operating stance is `{voyage_framework["operating_stance"]}`.
-
-## 3. Key Judgements
+## Dashboard Summary
 
 {_table(
-    ["Judgement", "Evidence basis", "Concrete signal", "Operator relevance"],
+    ["Item", "Value"],
     [
-        ("Iran-linked transit controls create a direct voyage approval risk.", "Official maritime guidance and transit-control reporting indicate that safe passage is not a routine commercial assumption.", "Transit coordination demands, detention warnings and route-specific approval requirements.", "Transit should not proceed as a normal scheduling decision."),
-        ("Sanctions exposure is central if safe-passage payments or coordination demands are present.", "OFAC alert, FAQ 1249 and sanctions reporting show that tolls, guarantees, offsets, swaps or digital-asset payments can create sanctions risk.", "Any payment demand or unclear Iranian coordination chain.", "Escalate to legal/compliance before voyage approval."),
-        ("War-risk insurance repricing changes route economics.", "Broker and market evidence show additional premium pressure and exclusion sensitivity.", "Direct-route cover reprices sharply relative to non-Hormuz routing.", "A nominally cheaper direct route may stop being commercially rational."),
-        ("AIS/transponder disruption and reduced transits indicate practical operating stress.", "AP and vessel-flow/AIS evidence show traffic distortion and signaling changes.", "Abnormal AIS declarations, reduced transit confidence and trapped-vessel reporting.", "Operational recovery should be judged from behaviour, not headlines alone."),
-        ("Hormuz’s oil/LNG role makes cargo and charter exposure commercially severe.", "IEA/EIA chokepoint evidence quantifies how much oil and LNG depends on the Strait.", "Around 20 mb/d and major LNG volumes still rely on Hormuz transit.", "Delivery pressure, charterparty exposure and client escalation remain material."),
-        ("De-escalation evidence should affect monitoring before it changes transit stance.", "Contrary evidence exists but remains conditional on practical reopening.", "Negotiation headlines without aligned flow, insurance and legal improvement.", "Monitor closely, but do not treat diplomacy alone as a green light."),
+        ("Decision engine", "Transit / delay / reroute / legal hold"),
+        ("Current stance", "Transit only after sanctions, insurance and operations clearance"),
+        ("Primary legal trigger", "Any safe-passage/toll/payment-equivalent demand"),
+        ("Primary commercial trigger", "War-risk premium or detention risk makes direct transit weaker than delay/reroute"),
+        ("Evidence mode", _evidence_status(evidence_pack)),
+        ("Source provider", (evidence_pack or {}).get("source_provider", "")),
+        ("Key data limits", "Route-cost assumptions are illustrative and require operator validation"),
     ],
 )}
 
-## 4. Risk Scorecard
+## 2. Scope and Specificity
+
+This brief is a route-decision product for a shipping operator choosing between direct transit, delay / wait, reroute or legal hold for a Gulf-linked voyage. It is not a blanket warning to avoid Hormuz; it is a structured comparison of route options once sanctions, insurance, AIS/vessel-flow and detention risks are included.
+
+## 3. Executive Judgement
+
+Direct transit may be cheaper on voyage days alone, but it becomes commercially or legally unacceptable where sanctions-linked payment demands, war-risk pricing, AIS disruption, detention risk or unstable vessel-flow conditions are present. The current stance is not a blanket avoidance recommendation: it is a trigger-based decision framework. Legal hold applies where a sanctions/payment trigger exists; otherwise delay or reroute remains preferred until insurance, official guidance and vessel-flow signals support conditional transit.
+
+## 4. Route Decision Optimiser
+
+{_table(
+    ["Option", "Estimated cost", "Legal/sanctions risk", "Insurance risk", "Operational risk", "Decision"],
+    [
+        (
+            row["option"],
+            f"${row['estimated_cost']:,.0f}" if row["estimated_cost"] else "Hold pending clearance",
+            row["legal_sanctions_risk"],
+            row["insurance_risk"],
+            row["operational_risk"],
+            _hormuz_option_decision_label(row["option"], row["decision"], engine["preferred_option"]),
+        )
+        for row in engine["option_ranking"]
+    ],
+)}
+
+## 5. Route-Cost Assumptions
+
+{_table(
+    ["Input", "Value", "Status", "Why it matters"],
+    [
+        ("vessel value", "$100,000,000", "illustrative", "Drives war-risk premium cost and break-even analysis."),
+        ("war-risk premium assumption", "2.00%", "manual input", "Determines whether direct transit remains cheaper than reroute."),
+        ("direct voyage cost", "$1,022,000", "illustrative", "Baseline direct-transit commercial cost before additional controls."),
+        ("delay days", "5", "illustrative", "Defines whether waiting is cheaper than rerouting."),
+        ("delay cost per day", "$108,000", "illustrative", "Captures charter, vessel and demurrage pressure during delay."),
+        ("reroute extra days", "10", "illustrative", "Converts reroute time into cost and schedule impact."),
+        ("reroute cost per day", "$73,000", "illustrative", "Sets the operating cost of a longer route."),
+        ("compliance hold days", "5", "operator-required", "Determines the cost of legal/compliance hold before clearance."),
+    ],
+)}
+
+## 6. Sanctions Red-Flag Assessment
+
+{_table(
+    ["Trigger", "Decision effect", "Why it matters"],
+    [
+        ("safe-passage payment", "legal hold / compliance escalation", "A payment framed as passage clearance can create sanctions exposure that overrides commercial convenience."),
+        ("toll demand", "legal hold / compliance escalation", "A toll or fee linked to passage may amount to a prohibited or escalation-triggering transfer."),
+        ("guarantee", "legal hold / compliance escalation", "Guarantees can replicate the economic effect of a direct payment."),
+        ("offset", "legal hold / compliance escalation", "Offsets may disguise value transfer to a restricted counterparty or coordination chain."),
+        ("swap", "legal hold / compliance escalation", "Swap structures can create indirect payment exposure even if no cash toll is paid."),
+        ("in-kind arrangement", "legal hold / compliance escalation", "In-kind consideration can still satisfy a demanded benefit and trigger review."),
+        ("indirect payment", "legal hold / compliance escalation", "Routing payment through an intermediary does not remove legal or compliance risk."),
+        ("Iranian coordination requirement", "legal hold / compliance escalation", "Coordination demands may indicate a state-linked control structure requiring legal review."),
+        ("unclear counterparty/payment instruction", "legal hold / compliance escalation", "Ambiguous instructions make it unsafe to assume the transaction is commercially routine."),
+    ],
+)}
+
+{_format_bullets([item.get("claim_supported", "") for item in sanctions_claims if item.get("claim_supported")])}
+
+## 7. Insurance Break-Even Analysis
+
+{_table(
+    ["Input / Output", "Value", "Note"],
+    [
+        ("war-risk cost", f"${engine['insurance_break_even']['war_risk_cost']:,.0f}", "Illustrative premium cost based on vessel value and manual premium assumption."),
+        ("direct total cost", f"${engine['insurance_break_even']['direct_total_cost']:,.0f}", "Illustrative direct-transit cost once war-risk premium is added."),
+        ("delay total cost", f"${engine['insurance_break_even']['delay_total_cost']:,.0f}", "Illustrative direct cost plus premium plus delay cost."),
+        ("reroute total cost", f"${engine['insurance_break_even']['reroute_total_cost']:,.0f}", "Illustrative reroute cost without a direct-transit premium assumption."),
+        ("break-even war-risk premium against reroute", f"{engine['insurance_break_even']['premium_pct_break_even_vs_reroute'] * 100:.2f}%", "Above this premium, reroute is cheaper than direct transit."),
+        ("break-even war-risk premium against delay", f"{engine['insurance_break_even']['premium_pct_break_even_vs_delay'] * 100:.2f}%", "Above this premium, waiting is cheaper than direct transit."),
+        ("commercial interpretation", "Illustrative direct transit is commercially weaker than reroute once premium pressure and detention stress are high.", "Use operator-specific costs before treating this as a voyage-specific recommendation."),
+    ],
+)}
+
+## 8. AIS and Vessel-Flow Signals
+
+{_table(
+    ["Signal", "Current evidence", "Decision use", "Refresh trigger"],
+    [
+        ("AIS/transponder disruption", "AIS disruption remains a live compliance and routing red flag rather than a closed issue.", "Requires compliance review before any conditional transit decision.", "Refresh if routing instructions or AIS suppression reports change."),
+        ("traffic disruption", "Selected live reporting still points to disrupted or only partially recovered passage conditions.", "Supports continued control posture rather than routine transit.", "Refresh if vessel-flow signals materially recover."),
+        ("stranded vessel/seafarer signal", "Official security reporting referenced significant vessel and seafarer disruption during the stress phase.", "Supports a cautious stance on detention and crew-safety exposure.", "Refresh if official incident reporting improves or worsens."),
+        ("official/security guidance", "Current operating posture still depends on live official guidance rather than a generic reopening narrative.", "Sets the threshold for whether transit can move from restricted to conditional.", "Refresh before voyage approval if guidance changes."),
+        ("vessel-flow recovery", "Recovery evidence is partial and should not be treated as normalisation on its own.", "Defines whether controls can relax from hold/reroute to conditional transit.", "Refresh before relaxing controls."),
+    ],
+)}
+
+{_format_bullets([item.get("claim_supported", "") for item in flow_claims if item.get("claim_supported")])}
+
+## 9. Risk Scorecard
 
 {_risk_scorecard(scores)}
 
-## 5. Quantified Evidence Readout
-
-{_quantified_evidence_readout(evidence_pack, business_user)}
-
-## 6. Evidence-To-Score Bridge
+## 10. Evidence-To-Score Bridge
 
 {_evidence_to_score_bridge(evidence_pack, scores)}
 
-## 7. Voyage Decision Matrix
+## 11. Source Requirement Coverage
 
-{_table(
-    ["Option", "Commercial effect", "Risk effect", "Decision use"],
-    [
-        ("Transit", "Fastest route if it remains legally and operationally viable.", "High unless official guidance, insurance and sanctions position are clear.", voyage_framework["transit_option"]),
-        ("Delay / wait", "Adds demurrage and schedule cost but can preserve optionality.", "Moderates exposure if clarification is expected soon.", voyage_framework["delay_option"]),
-        ("Reroute", "Higher voyage-day and bunker cost, but can reduce direct Hormuz-specific exposure.", "Can lower detention, sanctions and war-risk uncertainty.", voyage_framework["reroute_option"]),
-        ("Escalate / legal hold", "May delay revenue recognition and client delivery decisions.", "Reduces risk of unlawful payment, unsafe transit or uninsured sailing.", "Use when sanctions or transit-control red flags are unresolved."),
-    ],
-)}
+{_source_requirement_coverage(evidence_pack)}
 
-## 8. Sanctions and Safe-Passage Risk
-
-Toll or safe-passage demands matter because they can convert a routing issue into a sanctions and legal exposure issue. OFAC's May 1, 2026 alert says the risk exists regardless of payment method and explicitly references fiat payments, digital assets, offsets, informal swaps, guarantees and in-kind arrangements. UK operators should treat any such demand as a legal/compliance escalation event rather than a negotiable voyage cost.
-
-A cheaper direct transit may therefore become unacceptable once sanctions risk is present. Even non-U.S. persons can face exposure if payments or guarantees involve sanctioned Iranian actors, and connected insurers, reinsurers, banks or service providers may also be affected.
-
-## 9. Insurance and Route-Cost Pressure
-
-War-risk repricing affects voyage economics directly through additional premium, exclusions, cancellation rights and underwriter appetite. Insurance pressure should be treated as part of the voyage approval decision rather than a back-end procurement issue, especially where direct transit requires materially higher premium or narrower cover than rerouting.
-
-## 10. Vessel-Flow and AIS Signals
-
-Actual vessel behaviour helps distinguish headline de-escalation from practical recovery. AIS/transponder anomalies, self-identification behaviour, reduced traffic confidence and trapped-vessel reporting all indicate whether the route is functioning normally enough for operators to rely on direct transit again.
-
-## 11. Dynamic Route-Cost Assessment
-
-{_table(
-    ["Option", "Estimated cost", "Key assumptions", "Non-financial risk", "Decision implication"],
-    [
-        ("direct transit", f"${route_cost['direct_route_estimated_cost']:,.0f}", "Illustrative 14-day voyage, current war-risk premium, operator validation required.", "High sanctions, detention, AIS and insurance risk.", "Use only if legal, insurance and operational controls clear."),
-        ("delay / wait", f"${route_cost['delay_estimated_cost']:,.0f}", "Illustrative 5-day compliance hold plus delay and operating cost.", "Moderate-high; preserves flexibility but prolongs exposure.", "Useful where clarification is expected quickly."),
-        ("reroute", f"${route_cost['reroute_estimated_cost']:,.0f}", "Illustrative 24-day voyage, lower direct war-risk premium, operator validation required.", "Lower direct Hormuz exposure but higher time and fuel cost.", "Preferable when direct transit remains uncertain or sanctions-sensitive."),
-    ],
-)}
-
-{route_cost['caveat']}
-
-## 12. Scenario Outlook
-
-{_table(
-    ["Scenario", "Description", "Escalation trigger", "Relaxation trigger", "Operator implication"],
-    [
-        ("Base case: constrained transit controls", "Voyages remain possible only with enhanced review and elevated insurance/sanctions discipline.", "New detention, payment demand or insurer withdrawal.", "Official guidance improves and vessel-flow recovery is sustained.", "Hold or reroute unless control conditions are clear."),
-        ("Downside case: tighter control or detention risk", "Coordination demands, control claims or incidents make direct transit operationally unacceptable.", "Transit-control mechanism expands or safe-passage demands intensify.", "Control claims recede and operators regain confidence.", "Reroute or maintain legal hold."),
-        ("Stabilisation case: practical reopening", "Diplomatic progress is matched by insurance normalisation and cleaner vessel-flow signals.", "De-escalation stalls or new incidents emerge.", "Guidance, cover and flows improve together.", "Gradual return to direct transit with approval controls."),
-    ],
-)}
-
-## 13. Recommended Operator Actions
+## 12. Recommended Operator Actions
 
 1. Voyage approval: require operations, insurance and sanctions review before Hormuz transit.
 2. Sanctions escalation: treat any toll, safe-passage payment, offset, swap, guarantee or informal payment demand as legal escalation.
@@ -994,28 +1132,21 @@ Actual vessel behaviour helps distinguish headline de-escalation from practical 
 6. Client communication: explain whether route decisions are driven by safety, sanctions, insurance or cost.
 7. Relaxation test: relax controls only after official guidance, insurer appetite and vessel-flow recovery align.
 
-## 14. Watchlist
+## 13. Relaxation and Escalation Triggers
 
-{_table(
-    ["Indicator", "Why it matters", "Decision use"],
-    [
-        ("Official maritime guidance", "Tests whether security and detention risk remain live.", "Transit approval trigger."),
-        ("Safe-passage or payment demands", "Directly raises sanctions exposure.", "Automatic compliance escalation."),
-        ("War-risk premium movement", "Shows whether direct-route economics are deteriorating or improving.", "Insurance and route-cost refresh."),
-        ("AIS / vessel-flow recovery", "Shows whether operating conditions are practically normalising.", "Relaxation trigger."),
-        ("De-escalation reporting", "Useful only if operational evidence confirms it.", "Monitoring, not standalone approval."),
-    ],
-)}
+**Relaxation triggers**
 
-## 15. Source Requirement Coverage
+{_format_bullets(engine["relaxation_triggers"])}
 
-{_source_requirement_coverage(evidence_pack)}
+**Escalation triggers**
 
-## 16. Evidence Appendix
+{_format_bullets(engine["escalation_triggers"])}
 
-{_evidence_appendix(sources)}
+## 14. Evidence Appendix
 
-## 17. Source Audit Summary
+{_evidence_appendix(sources, domain="maritime_trade")}
+
+## 15. Source Audit Summary
 
 {_source_audit_summary(evidence_pack)}
 
@@ -1023,7 +1154,7 @@ Actual vessel behaviour helps distinguish headline de-escalation from practical 
 
 {_source_register(evidence_pack)}
 
-## 18. Methodology and Review Controls
+## 16. Methodology and Review Controls
 
 {_methodology(evidence_pack)}
 

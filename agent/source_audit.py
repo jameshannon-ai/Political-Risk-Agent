@@ -75,7 +75,7 @@ def generate_source_audit(evidence_pack):
 - Contrary/stabilising evidence: {_contrary_status(evidence_pack)}
 - Confidence impact: {_confidence_impact(evidence_pack)}
 
-## Route-Cost Assumptions
+## Illustrative Route-Cost Scenario
 
 {_route_cost_assumptions(evidence_pack)}
 
@@ -194,7 +194,8 @@ def _route_cost_assumptions(evidence_pack):
         )
     return "\n".join(
         [
-            "- Direct, delay and reroute comparisons use illustrative voyage assumptions requiring operator validation.",
+            "- Direct, delay and reroute comparisons use illustrative scenario inputs rather than company-specific voyage facts.",
+            "- Replace vessel value, charter rate, bunker cost, insurance quote, demurrage exposure and voyage-plan assumptions before commercial use.",
             "- Validate voyage days, bunker burn, daily vessel cost, war-risk premiums, demurrage and compliance hold assumptions before route approval.",
             "- Sanctions risk should be treated as a legal override, not just a line item in the direct-route cost stack.",
         ]

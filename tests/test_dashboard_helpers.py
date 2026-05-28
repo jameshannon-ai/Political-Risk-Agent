@@ -59,7 +59,7 @@ class DashboardHelperTests(unittest.TestCase):
             "Dashboard Summary",
             "1. Decision Recommendation",
             "4. Route Decision Optimiser",
-            "5. Route-Cost Assumptions",
+            "5. Illustrative Route-Cost Scenario",
             "6. Sanctions Red-Flag Assessment",
             "7. Insurance Break-Even Analysis",
             "8. AIS and Vessel-Flow Signals",

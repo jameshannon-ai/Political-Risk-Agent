@@ -53,12 +53,14 @@ class BriefGeneratorStructureTests(unittest.TestCase):
         for phrase in [
             "## 1. Decision Recommendation",
             "## 4. Route Decision Optimiser",
-            "## 5. Route-Cost Assumptions",
+            "## 5. Illustrative Route-Cost Scenario",
             "## 6. Sanctions Red-Flag Assessment",
             "## 7. Insurance Break-Even Analysis",
             "## 8. AIS and Vessel-Flow Signals",
             "## 12. Recommended Operator Actions",
         ]:
+            self.assertIn(phrase, self.brief)
+        for phrase in ["not company-specific figures", "Replace with", "### Assumption Confidence"]:
             self.assertIn(phrase, self.brief)
 
     def test_shipping_operator_brief_omits_marine_insurer_only_sections(self):
@@ -68,7 +70,7 @@ class BriefGeneratorStructureTests(unittest.TestCase):
     def test_fallback_confidence_is_capped(self):
         self.assertIn("| Confidence | 4/5 |", self.brief)
         self.assertIn("Reproducible curated source pack", self.brief)
-        self.assertIn("| compliance hold days | 5 | operator-required |", self.brief)
+        self.assertIn("| Compliance hold days | 5 days | Operator-required input |", self.brief)
 
     def test_generic_output_still_works(self):
         brief = generate_brief(

@@ -54,18 +54,29 @@ Direct transit may be cheaper on voyage days alone, but it becomes commercially 
 | Reroute | $1,752,000 | Moderate | Lower than direct transit | Moderate | Preferred when premium pressure or detention risk makes direct transit uneconomic. |
 | Legal hold | Hold pending clearance | Control action | Preserves cover position | Stops sailing until cleared | Required if any payment, toll, guarantee, offset, swap or coordination demand appears. |
 
-## 5. Route-Cost Assumptions
+## 5. Illustrative Route-Cost Scenario
 
-| Input | Value | Status | Why it matters |
-| --- | --- | --- | --- |
-| vessel value | $100,000,000 | illustrative | Drives war-risk premium cost and break-even analysis. |
-| war-risk premium assumption | 2.00% | manual input | Determines whether direct transit remains cheaper than reroute. |
-| direct voyage cost | $1,022,000 | illustrative | Baseline direct-transit commercial cost before additional controls. |
-| delay days | 5 | illustrative | Defines whether waiting is cheaper than rerouting. |
-| delay cost per day | $108,000 | illustrative | Captures charter, vessel and demurrage pressure during delay. |
-| reroute extra days | 10 | illustrative | Converts reroute time into cost and schedule impact. |
-| reroute cost per day | $73,000 | illustrative | Sets the operating cost of a longer route. |
-| compliance hold days | 5 | operator-required | Determines the cost of legal/compliance hold before clearance. |
+The values below are illustrative scenario inputs used to show how the decision engine compares direct transit, delay and reroute options. They are not company-specific figures. A shipping operator would replace these inputs with vessel value, charter rate, bunker cost, insurance quote, demurrage exposure and voyage plan data before using the model commercially.
+
+| Input | Value | Basis | Use in model | Replace with |
+| --- | --- | --- | --- | --- |
+| Vessel value | $100m | Illustrative tanker scenario | Calculates war-risk premium cost | Insured vessel value / market value |
+| War-risk premium | 2.0% | Manual stress-case input informed by reported premium pressure | Tests whether direct transit becomes uneconomic | Broker quote / underwriter indication |
+| Base direct voyage cost | $1.02m | Illustrative voyage-cost input | Baseline direct transit cost before risk premium | Charter hire, fuel, port, cargo and operating cost data |
+| Delay period | 5 days | Illustrative waiting scenario | Tests short delay versus reroute | Voyage plan and security guidance |
+| Delay cost per day | $108k | Illustrative delay/demurrage input | Calculates cost of waiting | Charterparty/demurrage/vessel cost |
+| Reroute extra days | 10 days | Illustrative rerouting scenario | Tests longer route cost | Actual routing estimate |
+| Reroute cost per day | $73k | Illustrative incremental operating cost | Calculates reroute cost | Fuel, hire, port and schedule data |
+| Compliance hold days | 5 days | Operator-required input | Shows data needed for legal hold costing | Internal legal/compliance review timing |
+
+### Assumption Confidence
+
+| Input type | Confidence | Reason |
+| --- | --- | --- |
+| Legal trigger logic | High | Based on sanctions/payment-risk source evidence |
+| War-risk premium direction | Medium-high | Source evidence supports premium pressure, exact quote needs broker validation |
+| Route-cost scenario | Medium | Useful for comparison, needs operator-specific data |
+| Final voyage recommendation | Medium | Requires vessel, cargo, insurance and charterparty data |
 
 ## 6. Sanctions Red-Flag Assessment
 

@@ -97,6 +97,8 @@ def _average_quality(assessment):
 
 def _confidence_cap_reason(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        return "Confidence capped because live evidence can screen client-type exposure, but BOM, supplier, inventory and contract data are still required for company-specific production decisions."
     if domain == "regulatory_carbon_shipping":
         return "Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed."
     if evidence_pack.get("fallback_demo_data_used"):
@@ -108,6 +110,8 @@ def _confidence_cap_reason(evidence_pack):
 
 def _display_quantified_facts(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        return _critical_minerals_display_facts()
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_display_facts(evidence_pack)
     if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
@@ -117,6 +121,30 @@ def _display_quantified_facts(evidence_pack):
 
 def _bridge_quantified_facts(evidence_pack, dimension):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        facts = {
+            "likelihood": [
+                "China-linked supply share: 70%",
+                "Controlled rare earth magnet input identified",
+                "Live export-control trigger evidence requires monitoring",
+            ],
+            "impact": [
+                "Exposed product-line revenue: £50m illustrative",
+                "Substitution difficulty: high",
+                "Production continuity gap: 135 days",
+            ],
+            "immediacy": [
+                "Inventory runway: 45 days",
+                "Alternative supplier qualification time: 180 days",
+                "Qualification lag exceeds current runway",
+            ],
+            "confidence": [
+                "Client-type exposure screen only",
+                "BOM / supplier / inventory data still required",
+                "Customer delivery commitments still need validation",
+            ],
+        }
+        return facts[dimension]
     if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
         facts = {
             "likelihood": [
@@ -212,6 +240,14 @@ def _score_support_summary(evidence_pack, assessment):
 
 
 def _dimension_basis(dimension, evidence_pack, score_data, domain=""):
+    if domain == "critical_minerals_supply_chain":
+        mapping = {
+            "likelihood": "Likelihood is based on export-control direction, source concentration and live geopolitical or licensing triggers affecting rare earth magnet inputs.",
+            "impact": "Impact is based on product criticality, revenue exposure, substitution difficulty, supplier concentration and the production continuity gap between inventory runway and qualification time.",
+            "immediacy": "Immediacy is based on inventory runway versus alternative supplier qualification time and any evidence of shipment, licensing or procurement delay.",
+            "confidence": "Confidence is based on source coverage, but capped by missing company-specific BOM, supplier, inventory and contract data.",
+        }
+        return mapping[dimension]
     if domain == "regulatory_carbon_shipping":
         mapping = {
             "likelihood": "Official UK ETS policy sources confirm domestic maritime expansion from 1 July 2026 for covered vessels and routes.",
@@ -290,6 +326,17 @@ def _hormuz_display_facts():
         "VLCC rate signal: above $400,000/day",
         "Legal hold trigger: any safe-passage toll or equivalent payment demand",
         "Recovery test: AIS and vessel-flow signals must normalise before conditional transit returns",
+    ]
+
+
+def _critical_minerals_display_facts():
+    return [
+        "Inventory runway: 45 days",
+        "Alternative supplier qualification time: 180 days",
+        "Production continuity gap: 135 days",
+        "China-linked supply share: 70%",
+        "Exposed product-line revenue: £50m illustrative",
+        "Substitution difficulty: high",
     ]
 
 

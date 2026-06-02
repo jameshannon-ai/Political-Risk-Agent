@@ -595,4 +595,108 @@
       "allowance procurement risk"
     ]
   }
+  ,
+  "critical_minerals_supply_chain": {
+    "source_requirements": [
+      "uk_critical_minerals_policy_and_manufacturing_resilience",
+      "export_control_direction_and_live_trigger",
+      "rare_earth_magnet_or_controlled_input_classification",
+      "supply_concentration_and_dependency_data",
+      "uk_industry_exposure_and_advanced_manufacturing_relevance",
+      "substitution_feasibility_and_alternative_supplier_qualification",
+      "market_pricing_or_shortage_signal",
+      "contrary_or_easing_evidence",
+      "company_data_requirements_and_anti_overclaiming_controls"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "specialist_analysis",
+      "reputable_news",
+      "company_update",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "gov.uk",
+      "bgs.ac.uk",
+      "parliament.uk",
+      "oecd.org",
+      "usgs.gov",
+      "iea.org",
+      "csis.org",
+      "rusi.org",
+      "css.ethz.ch",
+      "reuters.com",
+      "apnews.com",
+      "hvm.catapult.org.uk"
+    ],
+    "required_source_mix": [
+      "official_anchor",
+      "data_or_indicator_source",
+      "specialist_interpretation",
+      "operator_or_industry_guidance",
+      "market_pricing",
+      "live_event_reporting",
+      "contrary_scope_limit"
+    ],
+    "risk_drivers": [
+      "export_control_direction",
+      "rare_earth_input_dependency",
+      "supplier_concentration",
+      "inventory_runway_gap",
+      "substitution_feasibility",
+      "uk_manufacturing_exposure"
+    ],
+    "decision_questions": [
+      "Can the manufacturer continue production with the current supplier base if export-control disruption intensifies?",
+      "Which exact rare earth magnet or controlled input is concentration-exposed or trade-restricted?",
+      "How concentrated is supply and how much of that concentration is China-linked?",
+      "How long can production continue based on inventory runway versus alternative supplier qualification time?",
+      "Which mitigation action is currently preferred: stockpile, qualify alternative supplier, redesign input, allocate inventory or production hold?",
+      "What evidence would justify relaxing a high-control stance back to normal procurement?"
+    ],
+    "client_decision_outputs": [
+      "recommended continuity stance",
+      "production continuity gap",
+      "supplier concentration exposure",
+      "mitigation option ranking",
+      "company-data requirements"
+    ],
+    "watchlist_indicators": [
+      "export-control announcements",
+      "magnet or rare earth price spikes",
+      "supplier shutdowns or shipment delays",
+      "qualification progress",
+      "alternative supply announcements",
+      "policy easing or licence clarification"
+    ],
+    "scoring_emphasis": [
+      "impact",
+      "immediacy",
+      "confidence"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "specialist_analysis",
+      "reputable_news",
+      "company_update",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "export_control_direction",
+      "supplier_concentration",
+      "inventory_runway_gap",
+      "substitution_feasibility"
+    ],
+    "likely_business_users": [
+      "advanced_manufacturer",
+      "consultant",
+      "importer_exporter"
+    ],
+    "example_watchlist_indicators": [
+      "export-control announcements",
+      "price spikes",
+      "supplier-country disruption",
+      "qualification status"
+    ]
+  }
 }

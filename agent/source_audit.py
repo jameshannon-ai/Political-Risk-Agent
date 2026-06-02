@@ -182,6 +182,15 @@ def _requirement_coverage(evidence_pack):
 
 def _route_cost_assumptions(evidence_pack):
     if evidence_pack.get("business_user") != "shipping_operator":
+        domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+        if domain == "critical_minerals_supply_chain":
+            return "\n".join(
+                [
+                    "- Production continuity outputs use illustrative inventory, qualification, concentration and revenue inputs unless company data is supplied.",
+                    "- Replace bill of materials, supplier-country, inventory, purchase order, contract and customer data before using the model commercially.",
+                    "- Treat the continuity gap as a client-type decision aid, not a company-specific production forecast.",
+                ]
+            )
         return "- Route-cost assumptions are case-specific and were not foregrounded in this business-user path."
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "regulatory_carbon_shipping":
@@ -204,6 +213,15 @@ def _route_cost_assumptions(evidence_pack):
 
 def _refresh_triggers(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        return "\n".join(
+            [
+                "- Refresh if new export-control, licensing or trade-restriction announcements affect rare earth magnets or controlled inputs.",
+                "- Refresh if supplier concentration, alternative capacity or easing evidence materially changes.",
+                "- Refresh before commercial use if inventory runway, qualification timeline, substitution feasibility or customer-priority assumptions change.",
+                "- Validate BOM, supplier-country and inventory data before using the continuity gap as an operational decision tool.",
+            ]
+        )
     if domain == "regulatory_carbon_shipping":
         return "\n".join(
             [

@@ -51,6 +51,28 @@ class ProjectPositioningTests(unittest.TestCase):
             "hormuz_shipping_operator_showcase",
         )
 
+    def test_critical_minerals_path_is_non_shipping_and_decision_led(self):
+        brief = generate_brief(
+            topic="Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers",
+            business_user="advanced_manufacturer",
+            region="UK advanced manufacturer exposed to global rare earth magnet supply chains",
+            time_horizon="1-6 months",
+            concerns=["production continuity"],
+            sources=[],
+        )
+
+        self.assertIn("Controlled Input Assessment", brief)
+        self.assertIn("Mitigation Options", brief)
+        self.assertNotIn("Route Decision Optimiser", brief)
+        self.assertEqual(
+            select_report_template(
+                "Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers",
+                "advanced_manufacturer",
+                "critical_minerals_supply_chain",
+            ),
+            "critical_minerals_advanced_manufacturer_showcase",
+        )
+
     def test_readme_identifies_engine_domain_layer_and_showcase(self):
         readme = Path("README.md").read_text(encoding="utf-8")
 

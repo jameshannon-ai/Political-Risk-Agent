@@ -27,6 +27,11 @@ RECOMMENDED_ACTIONS = {
         "Review collateral controls, payment timing, and facility covenants.",
         "Escalate higher-risk transactions for legal, compliance, and credit review.",
     ],
+    "advanced_manufacturer": [
+        "Verify the controlled input, supplier-country exposure and inventory runway before changing sourcing stance.",
+        "Compare stockpile, alternative qualification, redesign, allocation and hold options against production continuity risk.",
+        "Escalate cases where qualification lag, substitution difficulty or delivery criticality make disruption commercially material.",
+    ],
     "consultant": [
         "Frame client exposure by sector, geography, route, supplier, and revenue dependency.",
         "Develop practical scenarios and mitigation options for management review.",

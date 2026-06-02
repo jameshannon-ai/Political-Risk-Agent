@@ -1,4 +1,6 @@
 def generate_source_requirements(topic, business_user, region, time_horizon, concerns, domain_pack=None):
+    if _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
+        return _critical_minerals_advanced_manufacturer_requirements()
     if _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
         return _uk_ets_shipping_operator_requirements()
     if "hormuz" in topic.lower() and business_user == "shipping_operator":
@@ -46,6 +48,138 @@ def _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
             or (domain_pack or {}).get("domain") == "regulatory_carbon_shipping"
         )
     )
+
+
+def _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
+    lowered = topic.lower()
+    return business_user == "advanced_manufacturer" and (
+        "critical minerals" in lowered
+        or "rare earth" in lowered
+        or "magnet supply" in lowered
+        or (domain_pack or {}).get("domain") == "critical_minerals_supply_chain"
+    )
+
+
+def _critical_minerals_advanced_manufacturer_requirements():
+    return [
+        {
+            "requirement_id": "REQ-CM-A",
+            "requirement_name": "uk_critical_minerals_policy_and_manufacturing_resilience",
+            "why_required": "Anchors the UK policy and resilience context for why critical-mineral and rare-earth disruption matters to UK advanced manufacturers.",
+            "preferred_source_types": ["official_primary"],
+            "preferred_domains": ["gov.uk", "parliament.uk", "bgs.ac.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Why is this a live UK manufacturing continuity issue rather than a generic global commodity story?",
+            ],
+            "freshness_expectation": "Current or maintained UK policy/resilience evidence.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CM-B",
+            "requirement_name": "export_control_direction_and_live_trigger",
+            "why_required": "Shows whether new export controls, licences, restrictions or geopolitical triggers could interrupt procurement in the near term.",
+            "preferred_source_types": ["reputable_news", "official_primary"],
+            "preferred_domains": ["reuters.com", "apnews.com", "gov.uk", "oecd.org"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Is there a live export-control or geopolitical trigger that could disrupt access to rare earth magnets or critical-mineral inputs?",
+            ],
+            "freshness_expectation": "Current live reporting or official update, preferably within 30 days.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CM-C",
+            "requirement_name": "rare_earth_magnet_or_controlled_input_classification",
+            "why_required": "Defines which exact input or subcomponent is exposed so the case does not drift into generic critical-minerals commentary.",
+            "preferred_source_types": ["official_primary", "specialist_analysis"],
+            "preferred_domains": ["usgs.gov", "iea.org", "bgs.ac.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Which exact input is controlled or concentration-exposed: finished magnet, oxide, alloy, sintered component or magnet-dependent subassembly?",
+            ],
+            "freshness_expectation": "Current or maintained classification evidence.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CM-D",
+            "requirement_name": "supply_concentration_and_dependency_data",
+            "why_required": "Quantifies dependency and concentration so the decision can distinguish manageable sourcing friction from structural supply risk.",
+            "preferred_source_types": ["official_primary", "specialist_analysis"],
+            "preferred_domains": ["oecd.org", "usgs.gov", "iea.org"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "How concentrated is supply for the relevant rare earth magnet input, and how much is China-linked?",
+            ],
+            "freshness_expectation": "Current or maintained dependency data.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CM-E",
+            "requirement_name": "uk_industry_exposure_and_advanced_manufacturing_relevance",
+            "why_required": "Connects the global supply-chain issue to UK advanced-manufacturing production continuity and customer delivery risk.",
+            "preferred_source_types": ["company_update", "specialist_analysis", "official_primary"],
+            "preferred_domains": ["hvm.catapult.org.uk", "bgs.ac.uk", "parliament.uk", "gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Why is this relevant to a UK advanced manufacturer rather than only to upstream miners or battery policy?",
+            ],
+            "freshness_expectation": "Recent or maintained UK industry exposure evidence.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CM-F",
+            "requirement_name": "substitution_feasibility_and_alternative_supplier_qualification",
+            "why_required": "Tests whether the manufacturer can redesign, dual-source or qualify alternative suppliers before inventory is exhausted.",
+            "preferred_source_types": ["specialist_analysis", "company_update", "reputable_news"],
+            "preferred_domains": ["csis.org", "rusi.org", "css.ethz.ch", "hvm.catapult.org.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Can the input be substituted, redesigned or qualified from another supplier within a commercially useful timeframe?",
+            ],
+            "freshness_expectation": "Recent specialist or industry evidence.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CM-G",
+            "requirement_name": "market_pricing_or_shortage_signal",
+            "why_required": "Shows whether pricing, scarcity or allocation conditions are tightening enough to affect stockpile or procurement decisions.",
+            "preferred_source_types": ["reputable_news", "specialist_analysis"],
+            "preferred_domains": ["reuters.com", "apnews.com", "iea.org", "usgs.gov"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Do shortage or pricing signals justify stockpiling, allocation or accelerated qualification?",
+            ],
+            "freshness_expectation": "Current market or shortage signal, preferably within 30-60 days.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CM-H",
+            "requirement_name": "contrary_or_easing_evidence",
+            "why_required": "Prevents one-way escalation by identifying easing, new capacity, licence clarification or alternative supply that could narrow the continuity risk.",
+            "preferred_source_types": ["contrary_or_stabilising_evidence", "reputable_news", "official_primary"],
+            "preferred_domains": ["reuters.com", "apnews.com", "gov.uk", "iea.org"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What evidence would justify relaxing a high-control sourcing stance back to normal procurement?",
+            ],
+            "freshness_expectation": "Current easing or contrary evidence, preferably within 30 days.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CM-I",
+            "requirement_name": "company_data_requirements_and_anti_overclaiming_controls",
+            "why_required": "Makes visible which conclusions remain illustrative until bill of materials, supplier, inventory and contract data are supplied.",
+            "preferred_source_types": ["specialist_analysis", "official_primary"],
+            "preferred_domains": ["gov.uk", "hvm.catapult.org.uk", "csis.org", "rusi.org"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What company-specific data is required before turning a client-type exposure screen into an operational production decision?",
+            ],
+            "freshness_expectation": "Current or maintained control guidance.",
+            "strength_threshold": "high",
+        },
+    ]
 
 
 def _sanctions_trade_finance_requirements():

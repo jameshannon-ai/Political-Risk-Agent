@@ -21,6 +21,9 @@ UK_ETS_AUDIT = SHOWCASE / "uk_ets_source_audit.md"
 HORMUZ_PACK = SHOWCASE / "hormuz_evidence_pack.json"
 HORMUZ_BRIEF = SHOWCASE / "hormuz_shipping_operator_brief.md"
 HORMUZ_AUDIT = SHOWCASE / "hormuz_source_audit.md"
+CRITICAL_MINERALS_PACK = SHOWCASE / "critical_minerals_evidence_pack.json"
+CRITICAL_MINERALS_BRIEF = SHOWCASE / "critical_minerals_advanced_manufacturer_brief.md"
+CRITICAL_MINERALS_AUDIT = SHOWCASE / "critical_minerals_source_audit.md"
 
 CASES = {
     "UK ETS Maritime Expansion": {
@@ -36,6 +39,13 @@ CASES = {
         "pack": HORMUZ_PACK,
         "title": "Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs",
         "description": "Trigger-based shipping-operator decision workflow for transit, delay, reroute or legal hold across sanctions, insurance, AIS/vessel-flow and detention risk conditions.",
+    },
+    "Critical Minerals Exposure Engine": {
+        "brief": CRITICAL_MINERALS_BRIEF,
+        "audit": CRITICAL_MINERALS_AUDIT,
+        "pack": CRITICAL_MINERALS_PACK,
+        "title": "Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers",
+        "description": "Production-continuity decision workflow for stockpile, alternative supplier qualification, redesign, customer allocation and production-hold decisions under rare earth magnet supply disruption.",
     },
 }
 
@@ -84,8 +94,10 @@ def main():
 
     if case_name == "UK ETS Maritime Expansion":
         _render_uk_ets(pack, brief, audit)
-    else:
+    elif case_name == "Hormuz Route Decision Engine":
         _render_hormuz(pack, brief, audit)
+    else:
+        _render_critical_minerals(pack, brief, audit)
 
 
 def _render_uk_ets(pack, brief, audit):
@@ -148,7 +160,7 @@ def _render_hormuz(pack, brief, audit):
         _render_markdown_table_section(brief, "4. Route Decision Optimiser")
 
     with tab2:
-        _render_markdown_table_section(brief, "5. Route-Cost Assumptions")
+        _render_markdown_table_section(brief, "5. Illustrative Route-Cost Scenario")
         _render_markdown_table_section(brief, "7. Insurance Break-Even Analysis")
 
     with tab3:
@@ -167,6 +179,50 @@ def _render_hormuz(pack, brief, audit):
         _render_markdown_table_section(brief, "15. Source Audit Summary")
         st.markdown("### Full source audit summary")
         st.markdown(audit)
+
+    with tab5:
+        with st.expander("Full brief markdown", expanded=False):
+            st.markdown(brief)
+        with st.expander("Full source audit markdown", expanded=False):
+            st.markdown(audit)
+
+
+def _render_critical_minerals(pack, brief, audit):
+    overview = _build_critical_minerals_overview_metrics(pack, brief)
+    _render_metrics(overview)
+
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        ["Decision", "Production Continuity", "Mitigation Options", "Evidence and Sources", "Full Brief / Source Audit"]
+    )
+
+    with tab1:
+        _render_markdown_table_section(brief, "3. Dashboard Summary")
+        _render_markdown_table_section(brief, "1. Decision Recommendation")
+        _render_text_section(brief, "2. Scope and Specificity")
+        _render_markdown_table_section(brief, "4. Exposure Summary")
+
+    with tab2:
+        _render_markdown_table_section(brief, "5. Controlled Input Assessment")
+        _render_markdown_table_section(brief, "6. Supplier Concentration Assessment")
+        _render_markdown_table_section(brief, "7. Production Continuity Model")
+        _render_markdown_table_section(brief, "8. Inventory Runway vs Supplier Qualification Gap")
+
+    with tab3:
+        _render_markdown_table_section(brief, "9. Mitigation Options")
+        _render_critical_minerals_company_data_controls(brief)
+
+    with tab4:
+        _render_markdown_table_section(brief, "10. Risk Scorecard")
+        _render_markdown_table_section(brief, "11. Evidence-To-Score Bridge")
+        _render_markdown_table_section(brief, "12. Source Requirement Coverage")
+        _render_markdown_table_section(brief, "13. Source Quality Notes")
+        st.info(
+            "Dashboard caveats: substitution feasibility needs stronger magnet-specific engineering or qualification evidence; "
+            "market/pricing signal is directional, not a robust pricing benchmark; contrary/easing evidence is secondary and not an all-clear; "
+            "company BOM, supplier ownership/country, inventory, contracts and qualification data are required before operational use."
+        )
+        with st.expander("Evidence Appendix", expanded=False):
+            _render_markdown_table_section(brief, "14. Evidence Appendix")
 
     with tab5:
         with st.expander("Full brief markdown", expanded=False):
@@ -227,6 +283,14 @@ def _render_refresh_df(pack):
         st.dataframe(refresh_df, use_container_width=True, hide_index=True)
 
 
+def _render_critical_minerals_company_data_controls(brief):
+    section = extract_markdown_section(brief, "16. Methodology and Review Controls")
+    if not section:
+        return
+    st.markdown("### Company Data and Review Controls")
+    st.markdown(section)
+
+
 def _build_uk_ets_overview_metrics(pack, brief, carbon_cost):
     return {
         "Overall risk level": _extract_field_value(brief, "Overall risk level"),
@@ -258,6 +322,27 @@ def _build_hormuz_overview_metrics(pack, brief):
         "Selected sources": str(pack.get("selected_count", len(pack.get("selected_sources", [])))),
         "Primary legal trigger": _row_value(summary_rows, "Item", "Primary legal trigger"),
         "Insurance break-even against reroute": _row_value(insurance_rows, "Input / Output", "break-even war-risk premium against reroute").upper(),
+    }
+
+
+def _build_critical_minerals_overview_metrics(pack, brief):
+    decision = extract_markdown_table(extract_markdown_section(brief, "1. Decision Recommendation"))
+    decision_rows = decision[0] if decision else []
+    scenario = pack.get("scenario_inputs", {})
+    gap = get_nested_value(scenario, [["production_continuity_gap_days", "value"]], "")
+    runway = get_nested_value(scenario, [["inventory_runway_days", "value"]], "")
+    qualification = get_nested_value(scenario, [["alternative_supplier_qualification_days", "value"]], "")
+    return {
+        "Decision recommendation": _row_value(decision_rows, "Item", "Recommended action"),
+        "Overall risk level": _extract_field_value(brief, "Overall risk level"),
+        "Confidence": _extract_field_value(brief, "Confidence"),
+        "Evidence mode": pack.get("evidence_mode", ""),
+        "Source provider": pack.get("source_provider", ""),
+        "Fallback used": str(pack.get("fallback_used", pack.get("fallback_demo_data_used", ""))).lower(),
+        "Selected sources": str(pack.get("selected_count", len(pack.get("selected_sources", [])))),
+        "Production continuity gap": f"{gap} days" if gap != "" else "",
+        "Inventory runway": f"{runway} days" if runway != "" else "",
+        "Alternative supplier qualification time": f"{qualification} days" if qualification != "" else "",
     }
 
 

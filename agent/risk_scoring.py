@@ -49,6 +49,26 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
     sources = sources or []
     combined_text = " ".join([topic, region, time_horizon, " ".join(concerns)]).lower()
 
+    if _is_critical_minerals_supply_chain(combined_text):
+        return {
+            "likelihood": {
+                "score": 4,
+                "rationale": "Export-control direction, source concentration and live geopolitical triggers create a credible disruption pathway for rare earth magnet inputs.",
+            },
+            "impact": {
+                "score": 5,
+                "rationale": "Product criticality, supplier concentration, high substitution difficulty and a large production continuity gap can make the exposure severe for affected lines.",
+            },
+            "immediacy": {
+                "score": 5,
+                "rationale": "A short inventory runway relative to supplier qualification time makes continuity risk near-term if shipments or licences are disrupted.",
+            },
+            "confidence": {
+                "score": 3,
+                "rationale": "Public evidence can screen client-type exposure, but BOM, supplier, inventory and contract data are still required for company-specific precision.",
+            },
+        }
+
     if _is_uk_ets_maritime(combined_text):
         return {
             "likelihood": {
@@ -129,3 +149,14 @@ def _is_uk_ets_maritime(text):
 def _has_material_uk_ets_cost_context(text):
     terms = ["carbon cost", "allowance", "uka", "domestic", "route", "voyage", "liverpool", "belfast"]
     return sum(1 for term in terms if term in text) >= 3
+
+
+def _is_critical_minerals_supply_chain(text):
+    triggers = [
+        "critical minerals",
+        "rare earth",
+        "magnet supply",
+        "advanced manufacturer",
+        "production continuity",
+    ]
+    return sum(1 for term in triggers if term in text) >= 2

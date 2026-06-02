@@ -4,6 +4,7 @@ import re
 
 from agent.confidence_model import calculate_confidence
 from agent.carbon_cost_calculator import calculate_carbon_cost
+from agent.critical_minerals_decision_engine import build_critical_minerals_model
 from agent.exposure_mapping import get_exposure_map
 from agent.hormuz_decision_engine import evaluate_hormuz_route_decision
 from agent.route_cost_assessment import assess_route_cost
@@ -44,7 +45,19 @@ def _is_uk_ets_shipping_operator(topic, business_user):
     return business_user == "shipping_operator" and ("uk ets" in lowered or "maritime expansion" in lowered)
 
 
+def _is_critical_minerals_advanced_manufacturer(topic, business_user, domain=None):
+    lowered = topic.lower()
+    return business_user == "advanced_manufacturer" and (
+        "critical minerals" in lowered
+        or "rare earth" in lowered
+        or "magnet supply" in lowered
+        or domain == "critical_minerals_supply_chain"
+    )
+
+
 def select_report_template(topic, business_user, domain=None):
+    if _is_critical_minerals_advanced_manufacturer(topic, business_user, domain):
+        return "critical_minerals_advanced_manufacturer_showcase"
     if _is_uk_ets_shipping_operator(topic, business_user):
         return "uk_ets_shipping_operator_showcase"
     if _is_hormuz_shipping_operator(topic, business_user):
@@ -150,6 +163,28 @@ def _display_scores(topic, time_horizon, scores, confidence, evidence_pack):
             "score": 4,
             "direction": "Moderate-high",
             "rationale": "Confidence is capped at 4/5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed.",
+        }
+
+    if _is_critical_minerals_advanced_manufacturer(topic, "advanced_manufacturer", ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")):
+        display["likelihood"] = {
+            "score": 4,
+            "direction": "Elevated",
+            "rationale": "Export-control direction, source concentration and live geopolitical triggers create a credible disruption pathway for rare earth magnet inputs.",
+        }
+        display["impact"] = {
+            "score": 5,
+            "direction": "Severe",
+            "rationale": "Impact is high where magnet-dependent production, supplier concentration, substitution difficulty and continuity gaps combine.",
+        }
+        display["immediacy"] = {
+            "score": 5,
+            "direction": "Near-term",
+            "rationale": "Inventory runway is materially shorter than illustrative supplier qualification time, so production continuity action may be needed before sourcing normalises.",
+        }
+        display["confidence"] = {
+            "score": 3,
+            "direction": "Moderate",
+            "rationale": "Confidence is limited by missing company-specific BOM, supplier, inventory and contract data even where source coverage is strong.",
         }
 
     return display
@@ -412,7 +447,7 @@ def _evidence_appendix(sources, domain=""):
 
     rows = []
     for source in sources:
-        if domain == "maritime_trade":
+        if domain in {"maritime_trade", "critical_minerals_supply_chain"}:
             rows.append(
                 (
                     source.get("source_id", ""),
@@ -440,11 +475,16 @@ def _evidence_appendix(sources, domain=""):
                     source.get("caveat", ""),
                 )
             )
-    if domain == "maritime_trade":
-        return _table(
-            ["Source ID", "Requirement", "Source role", "Evidence weight", "Claim", "Quantified / concrete signal", "Decision use", "Caveat", "Refresh trigger"],
-            rows,
-        )
+        if domain == "critical_minerals_supply_chain":
+            return _table(
+                ["Source ID", "Requirement", "Source role", "Evidence weight", "Claim", "Quantified / concrete signal", "Decision use", "Caveat", "Refresh trigger"],
+                rows,
+            )
+        if domain == "maritime_trade":
+            return _table(
+                ["Source ID", "Requirement", "Source role", "Evidence weight", "Claim", "Quantified / concrete signal", "Decision use", "Caveat", "Refresh trigger"],
+                rows,
+            )
     return _table(["Source ID", "Requirement", "Weight", "Source Type", "Risk Driver", "Judgement Supported", "Claim", "Decision Use", "Caveat"], rows)
 
 
@@ -456,7 +496,7 @@ def _source_requirement_coverage(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     for item in evidence_pack["requirement_coverage"]:
         strongest = _strongest_requirement_source(item.get("covered_by", []), sources_by_id)
-        if domain == "maritime_trade":
+        if domain in {"maritime_trade", "critical_minerals_supply_chain"}:
             rows.append(
                 (
                     item["requirement_name"],
@@ -479,7 +519,7 @@ def _source_requirement_coverage(evidence_pack):
                     item["remaining_gap"],
                 )
             )
-    if domain == "maritime_trade":
+    if domain in {"maritime_trade", "critical_minerals_supply_chain"}:
         return _table(["Requirement", "Coverage", "Strongest source", "Source role", "Evidence weight", "Decision supported", "Gap / refresh need"], rows)
     return _table(["Requirement", "Coverage", "Evidence weight", "Strongest source", "Decision supported", "Gap / refresh need"], rows)
 
@@ -530,6 +570,15 @@ def _refresh_trigger_for_requirement(requirement_name):
         "energy_cargo_and_chokepoint_exposure": "Refresh if cargo exposure or structural chokepoint assumptions change.",
         "route_cost_and_arbitrage_inputs": "Refresh before commercial use if delay, reroute or charter assumptions change.",
         "contrary_or_de_escalation_evidence": "Refresh before relaxing controls if de-escalation claims emerge.",
+        "uk_critical_minerals_policy_and_manufacturing_resilience": "Refresh if UK critical minerals or manufacturing resilience policy changes.",
+        "export_control_direction_and_live_trigger": "Refresh if export-control, licensing or geopolitical trigger evidence changes.",
+        "rare_earth_magnet_or_controlled_input_classification": "Refresh if controlled-input scope or product classification changes.",
+        "supply_concentration_and_dependency_data": "Refresh if concentration, dependency or supplier-country evidence changes.",
+        "uk_industry_exposure_and_advanced_manufacturing_relevance": "Refresh if UK manufacturing exposure evidence changes materially.",
+        "substitution_feasibility_and_alternative_supplier_qualification": "Refresh if qualification timing or substitution evidence changes.",
+        "market_pricing_or_shortage_signal": "Refresh if magnet pricing or shortage signals change.",
+        "contrary_or_easing_evidence": "Refresh before relaxing controls if easing or alternative supply evidence emerges.",
+        "company_data_requirements_and_anti_overclaiming_controls": "Refresh before commercial use if BOM, supplier or inventory assumptions are updated.",
     }
     return mapping.get(requirement_name, "Refresh before operational use.")
 
@@ -633,6 +682,17 @@ def _source_audit_summary(evidence_pack):
 def _review_controls(evidence_pack):
     fallback = bool(evidence_pack and evidence_pack.get("fallback_demo_data_used"))
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        rows = [
+            ("Evidence mode", "Review" if fallback else "Passed", "Keep live-source provenance visible and rerun if material export-control developments appear."),
+            ("Controlled-input verification", "Warning", "Confirm the exact rare earth magnet or dependent subcomponent in the BOM before using the recommendation commercially."),
+            ("Supplier-chain validation", "Warning", "Validate supplier country, ownership, processing chain and open purchase orders."),
+            ("Inventory validation", "Warning", "Replace illustrative runway assumptions with inventory-by-input data."),
+            ("Qualification timeline", "Review", "Confirm alternative supplier qualification time with engineering, quality and procurement teams."),
+            ("Customer-priority review", "Review", "Validate delivery commitments, penalties and priority-customer logic before allocation or hold decisions."),
+            ("Anti-overclaiming control", "Passed", "Treat the output as a client-type exposure screen unless company-specific data is supplied."),
+        ]
+        return _table(["Control", "Status", "Required action"], rows)
     if domain == "regulatory_carbon_shipping":
         rows = [
             ("Evidence mode", "Review" if fallback else "Passed", "Confirm whether live retrieval remains appropriate and rerun if material policy updates appear."),
@@ -801,6 +861,18 @@ def generate_brief(topic, business_user, region, time_horizon, concerns, sources
         )
     if select_report_template(topic, business_user) == "hormuz_shipping_operator_showcase":
         return _generate_hormuz_shipping_operator_brief(
+            topic=topic,
+            business_user=business_user,
+            region=region,
+            time_horizon=time_horizon,
+            sources=sources,
+            evidence_pack=evidence_pack,
+            scores=scores,
+            review_flags=review_flags,
+            generated_at=generated_at,
+        )
+    if select_report_template(topic, business_user, ((evidence_pack or {}).get("source_strategy") or {}).get("domain")) == "critical_minerals_advanced_manufacturer_showcase":
+        return _generate_critical_minerals_advanced_manufacturer_brief(
             topic=topic,
             business_user=business_user,
             region=region,
@@ -1390,6 +1462,194 @@ Carbon cost does not automatically become recoverable revenue. The practical que
 ## 17. Methodology and Review Controls
 
 {_methodology(evidence_pack)}
+
+### Source Strategy
+
+{_source_strategy(evidence_pack)}
+
+### Source Requirements
+
+{_source_requirements(evidence_pack)}
+
+### Review Flags
+
+{_format_bullets(review_flags)}
+
+### Review Controls
+
+{_review_controls(evidence_pack)}
+"""
+
+
+def _generate_critical_minerals_advanced_manufacturer_brief(topic, business_user, region, time_horizon, sources, evidence_pack, scores, review_flags, generated_at):
+    model = build_critical_minerals_model()
+    return f"""# Political Risk Brief
+## Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers
+
+| Field | Value |
+| --- | --- |
+| Generated date | {generated_at} |
+| Risk issue | {topic} |
+| Business lens | UK advanced manufacturer production continuity under rare earth magnet and controlled-input disruption |
+| Region | {region} |
+| Time horizon | {time_horizon} |
+| Overall risk level | High |
+| Confidence | 3/5 |
+| Evidence mode | {_evidence_status(evidence_pack)} |
+
+## 1. Decision Recommendation
+
+{_table(
+    ["Item", "Assessment"],
+    [
+        ("Recommended action", model["preferred_action"]),
+        ("Current stance", "Maintain supply continuity only with heightened controls: targeted stockpile, alternative qualification and contingency planning rather than business-as-usual procurement."),
+        ("Continue with current supplier base", "Only defensible if live export-control risk eases and company-specific inventory and alternative supply data improve."),
+        ("Stockpile trigger", "Use if inventory runway is shorter than qualification time and supply risk remains elevated."),
+        ("Qualify alternative supplier trigger", "Use if source concentration is high and substitution difficulty prevents easy redesign."),
+        ("Redesign input trigger", "Use if substitution is technically plausible but concentration remains structurally high."),
+        ("Allocate inventory trigger", "Use if customer delivery criticality and exposed revenue justify priority allocation."),
+        ("Production hold trigger", "Use if inventory runway is exhausted and qualified alternative supply cannot arrive in time."),
+    ],
+)}
+
+## 2. Scope and Specificity
+
+This is a client-type exposure screen, not a company-specific operational assessment. It models a UK advanced manufacturer exposed to global rare earth magnet and controlled-input disruption, with the decision framed around production continuity rather than commodity commentary.
+
+The case is intentionally specific to rare earth magnet or magnet-dependent inputs. It should not be read as a generic statement that all critical minerals are equally risky. The relevant question is whether a controlled or concentration-exposed magnet input can be sourced, qualified, substituted or allocated quickly enough to keep production running.
+
+## 3. Dashboard Summary
+
+{_table(
+    ["Item", "Value"],
+    [
+        ("Decision engine", "Continue / stockpile / qualify alternative supplier / redesign input / allocate inventory / production hold"),
+        ("Current stance", "Heightened continuity controls rather than routine procurement"),
+        ("Primary continuity metric", "Production continuity gap"),
+        ("Production continuity gap", f"{model['production_continuity_gap_days']} days"),
+        ("Evidence mode", _evidence_status(evidence_pack)),
+        ("Source provider", (evidence_pack or {}).get("source_provider", "")),
+        ("Key data limits", "BOM, supplier, inventory and contract data are still required for company-specific use"),
+    ],
+)}
+
+## 4. Exposure Summary
+
+{_table(
+    ["Exposure factor", "Current readout", "Decision use"],
+    [
+        ("Controlled input", "Rare earth magnet / magnet-dependent controlled input", "Confirms the case is about production-critical magnet exposure rather than generic critical-mineral commentary."),
+        ("China-linked supply share", "70% illustrative", "Shows concentration pressure and supports whether the current supplier base is too exposed."),
+        ("Inventory runway", "45 days illustrative", "Shows how long production can continue before the sourcing gap becomes operational."),
+        ("Alternative supplier qualification time", "180 days illustrative", "Shows whether dual-sourcing can realistically protect production in time."),
+        ("Exposed product-line revenue", "£50m illustrative", "Supports whether allocation, stockpile or hold decisions are commercially material."),
+        ("Substitution difficulty", "High", "Supports whether redesign is plausible or whether qualification is the more realistic path."),
+    ],
+)}
+
+## 5. Controlled Input Assessment
+
+{_table(
+    ["Question", "Assessment", "Decision implication"],
+    [
+        ("Is the relevant input specific enough?", "Yes, the case is framed around rare earth magnets or magnet-dependent subcomponents rather than critical minerals in general.", "Prevents generic overstatement and anchors the case to a production-critical input."),
+        ("Why does classification matter?", "Exposure differs depending on whether the bottleneck sits in finished magnets, oxides, alloys or magnet-dependent subassemblies.", "BOM verification is required before company-specific use."),
+        ("Current control posture", "Treat controlled-input verification as a prerequisite before mitigation is prioritised commercially.", "Do not turn client-type evidence into company-specific action without BOM confirmation."),
+    ],
+)}
+
+## 6. Supplier Concentration Assessment
+
+{_table(
+    ["Factor", "Illustrative readout", "Decision implication"],
+    [
+        ("China-linked supply share", "70%", "High concentration supports accelerated qualification and stockpile planning."),
+        ("Supplier concentration", "High", "Single-region dependency means disruption can become structural rather than temporary."),
+        ("Alternative capacity certainty", "Unclear from public evidence alone", "Do not assume fast replacement supply without qualification and procurement validation."),
+        ("Concentration stance", "Too concentrated for passive monitoring only", "Supports heightened sourcing controls rather than business-as-usual procurement."),
+    ],
+)}
+
+## 7. Production Continuity Model
+
+{_table(
+    ["Input", "Value", "Label", "Decision implication"],
+    [
+        ("Inventory runway", f"{model['inventory_runway_days']} days", "illustrative", "Shorter runway increases immediacy."),
+        ("Alternative supplier qualification time", f"{model['alternative_supplier_qualification_days']} days", "illustrative", "Long qualification cycle raises continuity risk."),
+        ("Production continuity gap", f"{model['production_continuity_gap_days']} days", "derived", "Positive gap means production risk can crystallise before alternative supply is ready."),
+        ("China-linked supply share", f"{model['china_linked_supply_share_pct']}%", "illustrative", "Supports concentration and likelihood assessment."),
+        ("Substitution difficulty", model['substitution_difficulty'].title(), "illustrative", "Limits redesign as a rapid mitigation path."),
+        ("Customer delivery criticality", model['customer_delivery_criticality'].title(), "illustrative", "Supports allocation or hold planning."),
+    ],
+)}
+
+## 8. Inventory Runway vs Supplier Qualification Gap
+
+{_table(
+    ["Metric", "Value", "Status", "Why it matters"],
+    [
+        ("Inventory runway", "45 days", "illustrative", "Shows how long production can continue if supply disruption bites now."),
+        ("Qualification time", "180 days", "illustrative", "Shows how long alternative supply may take to become production-ready."),
+        ("Production continuity gap", "135 days", "derived", "Positive gap means alternative supply may not arrive before inventory is exhausted."),
+        ("Decision implication", model["decision_implication"], "derived", "Turns the model into a continuity decision rather than a generic risk statement."),
+    ],
+)}
+
+## 9. Mitigation Options
+
+{_table(
+    ["Option", "When to use it", "Limit"],
+    [
+        ("Continue with current supplier base", "Only if live trigger risk eases and company data shows adequate resilience.", "Weak if concentration remains high and qualification lag exceeds runway."),
+        ("Stockpile", "When runway is shorter than qualification time and shortage signals intensify.", "Working-capital and shelf-life constraints require company validation."),
+        ("Qualify alternative supplier", "When concentration is high and continuity depends on dual-source resilience.", "Qualification can be too slow for immediate continuity protection."),
+        ("Redesign input", "When substitution is technically plausible and concentration remains structurally high.", "Engineering, quality and customer approvals may be slow."),
+        ("Allocate scarce inventory", "When delivery criticality and revenue exposure justify customer prioritisation.", "Requires contract and customer-commitment review."),
+        ("Production hold", "When inventory is exhausted and no qualified alternative can arrive in time.", "High-impact option requiring management and customer escalation."),
+    ],
+)}
+
+## 10. Risk Scorecard
+
+{_risk_scorecard(scores)}
+
+## 11. Evidence-To-Score Bridge
+
+{_evidence_to_score_bridge(evidence_pack, scores)}
+
+## 12. Source Requirement Coverage
+
+{_source_requirement_coverage(evidence_pack)}
+
+## 13. Evidence Appendix
+
+{_evidence_appendix(sources, domain="critical_minerals_supply_chain")}
+
+## 14. Source Audit Summary
+
+{_source_audit_summary(evidence_pack)}
+
+### Source Register
+
+{_source_register(evidence_pack)}
+
+## 15. Methodology and Review Controls
+
+{_methodology(evidence_pack)}
+
+This is a client-type exposure screen, not a company-specific operational assessment.
+
+Company-specific use requires:
+- bill of materials / input classification
+- supplier country and ownership data
+- purchase orders and supplier contracts
+- inventory by input
+- customer delivery commitments
+- alternative supplier qualification status
+- technical substitution feasibility
+- price/pass-through terms
 
 ### Source Strategy
 

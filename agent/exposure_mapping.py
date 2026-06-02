@@ -27,6 +27,13 @@ EXPOSURE_MAPPINGS = {
         "payment disruption",
         "collateral risk",
     ],
+    "advanced_manufacturer": [
+        "supplier concentration",
+        "inventory runway",
+        "production continuity",
+        "input substitution difficulty",
+        "customer delivery criticality",
+    ],
     "consultant": [
         "client exposure",
         "scenario planning",

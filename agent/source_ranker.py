@@ -11,6 +11,15 @@ TRUSTED_DOMAINS = [
     "iea.org",
     "reuters.com",
     "apnews.com",
+    "gov.uk",
+    "parliament.uk",
+    "bgs.ac.uk",
+    "oecd.org",
+    "usgs.gov",
+    "csis.org",
+    "rusi.org",
+    "css.ethz.ch",
+    "hvm.catapult.org.uk",
     "lloydslist.com",
     "gibsons.co.uk",
     "kpler.com",
@@ -34,6 +43,12 @@ USEFUL_TERMS = [
     "freight",
     "sanctions",
     "de-escalation",
+    "rare earth",
+    "magnet",
+    "critical minerals",
+    "export control",
+    "inventory",
+    "qualification",
 ]
 
 REQUIREMENT_BY_SOURCE_TYPE = {
@@ -181,6 +196,15 @@ def _decision_use(candidate):
         "energy_cargo_and_chokepoint_exposure": "Supports impact severity and client communication on why Hormuz route decisions matter commercially.",
         "route_cost_and_arbitrage_inputs": "Supports direct transit, delay and reroute cost comparison after insurance and hold costs are included.",
         "contrary_or_de_escalation_evidence": "Supports the evidence threshold for moving from hold or reroute back to conditional transit.",
+        "uk_critical_minerals_policy_and_manufacturing_resilience": "Supports the UK manufacturing-resilience baseline and explains why the case is decision-relevant for a UK advanced manufacturer.",
+        "export_control_direction_and_live_trigger": "Supports whether export-control direction or live policy triggers justify heightened procurement controls.",
+        "rare_earth_magnet_or_controlled_input_classification": "Supports identifying which exact input or subcomponent is exposed before action is taken.",
+        "supply_concentration_and_dependency_data": "Supports concentration scoring and whether the current supplier base is too dependency-heavy to leave unchanged.",
+        "uk_industry_exposure_and_advanced_manufacturing_relevance": "Supports why the issue matters to UK production continuity, customer delivery and management escalation.",
+        "substitution_feasibility_and_alternative_supplier_qualification": "Supports whether the preferred response is qualification, redesign or eventual production hold.",
+        "market_pricing_or_shortage_signal": "Supports stockpile, allocation and accelerated sourcing decisions when shortage signals tighten.",
+        "contrary_or_easing_evidence": "Supports the threshold for relaxing a high-control sourcing stance back toward normal procurement.",
+        "company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing which company facts are still required before operational decisions.",
     }
     if requirement_name in requirement_uses:
         return requirement_uses[requirement_name]
@@ -210,6 +234,15 @@ def _source_role(candidate):
         "energy_cargo_and_chokepoint_exposure": "energy_chokepoint_data",
         "route_cost_and_arbitrage_inputs": "operator_or_industry_guidance",
         "contrary_or_de_escalation_evidence": "contrary_or_de_escalation_evidence",
+        "uk_critical_minerals_policy_and_manufacturing_resilience": "official_anchor",
+        "export_control_direction_and_live_trigger": "live_event_reporting",
+        "rare_earth_magnet_or_controlled_input_classification": "data_or_indicator_source",
+        "supply_concentration_and_dependency_data": "data_or_indicator_source",
+        "uk_industry_exposure_and_advanced_manufacturing_relevance": "operator_or_industry_guidance",
+        "substitution_feasibility_and_alternative_supplier_qualification": "specialist_interpretation",
+        "market_pricing_or_shortage_signal": "market_pricing",
+        "contrary_or_easing_evidence": "contrary_scope_limit",
+        "company_data_requirements_and_anti_overclaiming_controls": "specialist_interpretation",
     }
     return mapping.get(requirement_name, candidate.get("source_type", "unknown"))
 
@@ -225,6 +258,11 @@ def _source_value_explanation(candidate):
         "energy_chokepoint_data": "Quantifies why a Hormuz routing decision matters for cargo, customer and timing exposure.",
         "operator_or_industry_guidance": "Translates the disruption into operator-facing route-cost, delay and pass-through decisions.",
         "contrary_or_de_escalation_evidence": "Tests whether there is enough practical recovery evidence to relax from hold or reroute to conditional transit.",
+        "data_or_indicator_source": "Quantifies concentration, dependency and controlled-input exposure needed for continuity decisions.",
+        "operator_or_industry_guidance": "Shows how UK advanced manufacturers are exposed in practice and where delivery pressure may appear first.",
+        "specialist_interpretation": "Explains qualification lag, substitution limits and the company-data conditions for using the model responsibly.",
+        "market_pricing": "Shows whether scarcity or pricing pressure is strong enough to justify stockpile, allocation or accelerated sourcing action.",
+        "contrary_scope_limit": "Tests whether easing, alternative supply or licence clarification narrows the need for severe mitigation action.",
     }
     return explanations.get(role, _evidence_value(candidate))
 
@@ -262,6 +300,9 @@ def _score(candidate, topic):
 
 def _reliability_score(candidate):
     source_type = candidate.get("source_type", "unknown")
+    domain = urlparse(candidate.get("url", "")).netloc.lower()
+    if any(term in domain for term in ["facebook.com", "linkedin.com", "x.com", "twitter.com", "instagram.com"]):
+        return 1
     trusted = _trusted_domain(candidate.get("url", ""))
     if source_type in {"official_primary", "company_update", "energy_chokepoint_data", "insurance_market_evidence"}:
         return 5 if trusted else 4

@@ -14,6 +14,7 @@ def main():
         _brief_sections,
         _evidence_packs,
         _dashboard_checks,
+        _dashboard_file_check,
         _source_audits,
         _confidence_caps,
         _repo_hygiene,
@@ -38,6 +39,9 @@ def _files_exist():
         "hormuz_shipping_operator_brief.md",
         "hormuz_source_audit.md",
         "hormuz_evidence_pack.json",
+        "critical_minerals_advanced_manufacturer_brief.md",
+        "critical_minerals_source_audit.md",
+        "critical_minerals_evidence_pack.json",
         "uk_ets_shipping_operator_brief.md",
         "uk_ets_source_audit.md",
         "uk_ets_evidence_pack.json",
@@ -70,6 +74,7 @@ def _framework_guidance():
 def _brief_sections():
     failures = []
     hormuz = _read("hormuz_shipping_operator_brief.md")
+    critical_minerals = _read("critical_minerals_advanced_manufacturer_brief.md")
     uk_ets = _read("uk_ets_shipping_operator_brief.md")
     sanctions = _read("sanctions_trade_finance_sample.md")
     for phrase in ["Operator Decision Stance", "Voyage Decision Matrix", "Sanctions and Safe-Passage Risk", "Dynamic Route-Cost Assessment"]:
@@ -144,6 +149,48 @@ def _brief_sections():
     for phrase in ["Hull war", "Cargo war", "Marine Insurance Implications"]:
         if phrase in hormuz:
             failures.append(f"Hormuz brief contains marine-insurance-only phrase: {phrase}")
+    for phrase in [
+        "Critical Minerals Exposure Engine",
+        "Decision Recommendation",
+        "Dashboard Summary",
+        "Exposure Summary",
+        "Controlled Input Assessment",
+        "Supplier Concentration Assessment",
+        "Production Continuity Model",
+        "Inventory Runway vs Supplier Qualification Gap",
+        "Mitigation Options",
+        "Risk Scorecard",
+        "Evidence-To-Score Bridge",
+        "Source Requirement Coverage",
+        "Evidence Appendix",
+        "Source Audit Summary",
+        "Methodology and Review Controls",
+        "production continuity gap",
+        "This is a client-type exposure screen, not a company-specific operational assessment.",
+        "bill of materials / input classification",
+        "supplier country and ownership data",
+        "inventory by input",
+        "Source Quality Notes",
+        "The continuity gap is positive where alternative supplier qualification takes longer than available inventory.",
+        "snippet/metadata-supported",
+        "illustrative",
+        "derived",
+    ]:
+        if phrase not in critical_minerals:
+            failures.append(f"Critical minerals brief missing {phrase}")
+    for phrase in [
+        "We use some essential",
+        "cookie",
+        "cargo",
+        "collateral",
+        "underwriting",
+        "demurrage",
+        "voyage",
+    ]:
+        if phrase in critical_minerals:
+            failures.append(f"Critical minerals brief contains forbidden cross-domain or boilerplate wording: {phrase}")
+    if "company-specific operational assessment" in critical_minerals and "not a company-specific operational assessment" not in critical_minerals:
+        failures.append("Critical minerals brief risks claiming company-specific precision")
     for phrase in ["Hull war", "Cargo war", "War-risk premium", "Marine Insurance Implications"]:
         if phrase in sanctions:
             failures.append(f"Sanctions brief contains marine-insurance-only phrase: {phrase}")
@@ -157,6 +204,31 @@ def _evidence_packs():
         for key in ["source_plan", "source_requirements", "requirement_coverage", "quantified_evidence_readout"]:
             if key not in pack:
                 failures.append(f"{name} missing {key}")
+    critical_pack = json.loads((SHOWCASE / "critical_minerals_evidence_pack.json").read_text(encoding="utf-8"))
+    if critical_pack.get("search_provider") != "tavily" or critical_pack.get("source_provider") != "tavily":
+        failures.append("Critical minerals showcase pack is not marked as tavily/tavily")
+    if critical_pack.get("fallback_used") or critical_pack.get("fallback_demo_data_used"):
+        failures.append("Critical minerals showcase pack incorrectly shows fallback data")
+    if critical_pack.get("evidence_mode") != "Live source retrieval":
+        failures.append("Critical minerals showcase pack is not marked as live source retrieval")
+    labels = json.dumps(critical_pack.get("scenario_inputs", {}))
+    for phrase in ['"label": "illustrative"', '"label": "derived"']:
+        if phrase not in labels:
+            failures.append(f"Critical minerals scenario inputs missing label {phrase}")
+    confidence_score = critical_pack.get("evidence_to_score_bridge", {}).get("confidence", {}).get("score")
+    if confidence_score is not None and confidence_score >= 5:
+        failures.append("Critical minerals confidence should remain below 5")
+    for evidence in critical_pack.get("evidence", []):
+        claim = evidence.get("claim_supported", "")
+        if not claim or len(claim.split()) < 8:
+            failures.append(f"Critical minerals evidence claim is not readable for {evidence.get('source_id')}")
+        if any(fragment in claim for fragment in ["We use some essential", "cookie", "<script", "<html", "2019; 0"]):
+            failures.append(f"Critical minerals evidence claim still looks like boilerplate for {evidence.get('source_id')}")
+        if evidence.get("decision_use") in ("Supports operator review and control decisions.", "", None):
+            failures.append(f"Critical minerals evidence needs specific decision use for {evidence.get('source_id')}")
+        refresh = evidence.get("refresh_requirement", "")
+        if any(term in refresh for term in ["cargo", "collateral", "underwriting", "demurrage", "voyage"]):
+            failures.append(f"Critical minerals refresh trigger contains irrelevant wording for {evidence.get('source_id')}")
     uk_ets_pack = json.loads((SHOWCASE / "uk_ets_evidence_pack.json").read_text(encoding="utf-8"))
     if uk_ets_pack.get("search_provider") != "tavily" or uk_ets_pack.get("source_provider") != "tavily":
         failures.append("UK ETS showcase pack is not marked as tavily/tavily")
@@ -214,6 +286,7 @@ def _source_audits():
                 failures.append(f"{name} missing {phrase}")
     uk_ets_audit = _read("uk_ets_source_audit.md")
     hormuz_audit = _read("hormuz_source_audit.md")
+    critical_audit = _read("critical_minerals_source_audit.md")
     for phrase in [
         "Refresh UKA price before pricing or contract decisions.",
         "Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.",
@@ -225,6 +298,19 @@ def _source_audits():
             failures.append(f"UK ETS audit missing refresh priority: {phrase}")
     if "Strongest evidence category: contrary_or_stabilising_evidence" in hormuz_audit or "Strongest sources | L7 — STL.News" in hormuz_audit:
         failures.append("Hormuz source audit overstates weak de-escalation evidence as strongest source")
+    for phrase in [
+        "Source Quality Notes",
+        "Refresh if export-control rules or licensing practice changes.",
+        "Refresh if China-linked export licences tighten or ease.",
+        "Refresh if rare earth magnet shortage or price signals change.",
+        "Refresh if alternative supplier qualification assumptions change.",
+        "Refresh when company BOM, supplier, inventory or contract data becomes available.",
+    ]:
+        if phrase not in critical_audit:
+            failures.append(f"Critical minerals audit missing phrase: {phrase}")
+    for phrase in ["carrier/company updates", "underwriting", "cargo", "voyage", "demurrage"]:
+        if phrase in critical_audit:
+            failures.append(f"Critical minerals audit contains irrelevant wording: {phrase}")
     return failures
 
 
@@ -247,13 +333,43 @@ def _dashboard_checks():
         'SHOWCASE / "hormuz_evidence_pack.json"',
         'SHOWCASE / "hormuz_shipping_operator_brief.md"',
         'SHOWCASE / "hormuz_source_audit.md"',
+        'SHOWCASE / "critical_minerals_evidence_pack.json"',
+        'SHOWCASE / "critical_minerals_advanced_manufacturer_brief.md"',
+        'SHOWCASE / "critical_minerals_source_audit.md"',
         'st.sidebar.radio("Cases"',
         "Hormuz Route Decision Engine",
+        "Critical Minerals Exposure Engine",
         "saved showcase artefacts only",
         "UK ETS Maritime Expansion: Carbon Cost Exposure",
+        "Production continuity gap",
+        "substitution feasibility needs stronger magnet-specific engineering",
+        "company BOM, supplier ownership/country, inventory, contracts and qualification data are required before operational use",
     ]:
         if phrase not in dashboard:
             failures.append(f"dashboard_app.py does not read the expected showcase file: {phrase}")
+    return failures
+
+
+def _dashboard_file_check():
+    failures = []
+    script = ROOT / "scripts" / "check_dashboard_files.py"
+    if not script.exists():
+        return ["Missing scripts/check_dashboard_files.py"]
+    try:
+        import subprocess
+
+        result = subprocess.run(
+            ["python3", str(script)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except Exception as exc:
+        return [f"Unable to run dashboard file check: {exc}"]
+    if result.returncode != 0:
+        output = (result.stdout + result.stderr).strip()
+        failures.append(f"Dashboard file check failed: {output}")
     return failures
 
 
@@ -315,6 +431,9 @@ def _no_api_keys():
         ROOT / "showcase" / "hormuz_shipping_operator_brief.md",
         ROOT / "showcase" / "hormuz_source_audit.md",
         ROOT / "showcase" / "hormuz_evidence_pack.json",
+        ROOT / "showcase" / "critical_minerals_advanced_manufacturer_brief.md",
+        ROOT / "showcase" / "critical_minerals_source_audit.md",
+        ROOT / "showcase" / "critical_minerals_evidence_pack.json",
         ROOT / "showcase" / "uk_ets_shipping_operator_brief.md",
         ROOT / "showcase" / "uk_ets_source_audit.md",
         ROOT / "showcase" / "uk_ets_evidence_pack.json",

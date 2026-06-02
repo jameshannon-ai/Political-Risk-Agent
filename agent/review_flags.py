@@ -8,6 +8,8 @@ def generate_review_flags(sources, today=None, evidence_pack=None):
     source_types = [source.get("source_type", source.get("inferred_source_type", "unknown")) for source in sources]
     live_source_types = [source.get("source_type", "") for source in sources]
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        return _critical_minerals_flags(evidence_pack, today) or ["No major evidence review flags identified."]
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_flags(evidence_pack, today) or ["No major evidence review flags identified."]
     if domain == "maritime_trade":
@@ -45,6 +47,8 @@ def _is_stale(date_value, today):
 
 def _live_evidence_flags(live_source_types, evidence_pack, today):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "critical_minerals_supply_chain":
+        return _critical_minerals_flags(evidence_pack, today)
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_flags(evidence_pack, today)
     if domain == "maritime_trade":
@@ -102,6 +106,22 @@ def _hormuz_flags(evidence_pack, today):
             "AIS/vessel-flow recovery must be refreshed before relaxing controls.",
         ]
     )
+    if any(_is_stale(source.get("publication_date", ""), today) for source in evidence_pack.get("evidence", [])):
+        flags.append("One or more live sources appear older than 90 days.")
+    if evidence_pack.get("fetch_failures"):
+        flags.append("Snippet-based or failed fetch evidence should be validated before operational use.")
+    return flags
+
+
+def _critical_minerals_flags(evidence_pack, today):
+    flags = [
+        "Live source refresh required before production or sourcing decisions.",
+        "This is a client-type exposure screen, not a company-specific operational assessment.",
+        "Bill of materials / input classification must be verified before using the recommendation commercially.",
+        "Supplier country, ownership, purchase order and contract data are required for company-specific use.",
+        "Inventory by input and customer delivery commitments must be validated before allocation or hold decisions.",
+        "Alternative supplier qualification status and technical substitution feasibility require engineering and quality review.",
+    ]
     if any(_is_stale(source.get("publication_date", ""), today) for source in evidence_pack.get("evidence", [])):
         flags.append("One or more live sources appear older than 90 days.")
     if evidence_pack.get("fetch_failures"):

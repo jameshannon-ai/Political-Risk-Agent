@@ -171,6 +171,8 @@ def _business_user_relevance(business_user, text):
         return "Relevant to war-risk pricing, accumulation control, policy wording, and claims scenarios."
     if business_user == "shipping_operator":
         return "Relevant to routing, vessel security, crew safety, and customer commitments."
+    if business_user == "advanced_manufacturer":
+        return "Relevant to production continuity, supplier concentration, inventory runway, qualification lag and customer delivery commitments."
     if business_user == "trade_finance_lender":
         return "Relevant to counterparty, sanctions, cargo documentation, and collateral risk."
     return "Relevant to this user's exposure mapping and risk brief."
@@ -217,6 +219,8 @@ def _caveat(source_type, fetch_status):
 
 
 def _decision_profile(requirement_name, source_type, business_user):
+    if business_user == "advanced_manufacturer":
+        return _advanced_manufacturer_decision_profile(requirement_name, source_type)
     if business_user == "trade_finance_lender":
         return _trade_finance_decision_profile(requirement_name, source_type)
     if _is_uk_ets_requirement(requirement_name):
@@ -270,6 +274,65 @@ def _decision_profile(requirement_name, source_type, business_user):
     commercial, implication, decision = profiles.get(
         requirement_name,
         (_commercial_relevance("", source_type), _marine_insurance_implication(source_type), "Supports analyst review and decision controls."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _advanced_manufacturer_decision_profile(requirement_name, source_type):
+    profiles = {
+        "uk_critical_minerals_policy_and_manufacturing_resilience": (
+            "UK policy and resilience framing shows why critical-mineral disruption matters for production continuity rather than only industrial strategy.",
+            "Supports management escalation and board-level framing for UK manufacturing resilience.",
+            "Supports the UK decision context for stockpile, qualification and redesign discussions.",
+        ),
+        "export_control_direction_and_live_trigger": (
+            "Live export-control direction can turn concentration exposure into immediate procurement disruption.",
+            "Supports deciding whether the current supplier base is still commercially acceptable.",
+            "Supports trigger-based escalation from normal procurement to heightened sourcing controls.",
+        ),
+        "rare_earth_magnet_or_controlled_input_classification": (
+            "Controlled-input identification prevents the case from drifting into generic critical-minerals commentary.",
+            "Supports BOM-level scoping of which product lines are genuinely exposed.",
+            "Supports confirming whether the at-risk item is a magnet, oxide, alloy or dependent subassembly before mitigation is chosen.",
+        ),
+        "supply_concentration_and_dependency_data": (
+            "Concentration and dependency data show whether supply risk is structural rather than incidental.",
+            "Supports whether dual-source qualification should be accelerated.",
+            "Supports concentration scoring and continuity-gap severity assessment.",
+        ),
+        "uk_industry_exposure_and_advanced_manufacturing_relevance": (
+            "UK industry exposure evidence connects global rare-earth risk to domestic production continuity and delivery risk.",
+            "Supports whether management should treat the issue as a live manufacturing-control problem.",
+            "Supports customer-priority, allocation and continuity planning decisions.",
+        ),
+        "substitution_feasibility_and_alternative_supplier_qualification": (
+            "Qualification and substitution evidence determine whether redesign or alternative sourcing is realistic before inventory runs out.",
+            "Supports engineering, procurement and quality review of the mitigation path.",
+            "Supports whether the preferred action is qualify alternative supplier, redesign input or prepare for hold.",
+        ),
+        "market_pricing_or_shortage_signal": (
+            "Shortage and price signals show whether scarcity pressure is tightening beyond background concentration risk.",
+            "Supports timing of stockpile or allocation decisions.",
+            "Supports stockpile and procurement acceleration decisions where shortage signals intensify.",
+        ),
+        "contrary_or_easing_evidence": (
+            "Easing evidence helps prevent one-way escalation where licences, supply expansion or alternative routes improve the picture.",
+            "Supports relaxing controls only when the operational evidence genuinely improves.",
+            "Supports the threshold for stepping back from stockpile, allocation or hold recommendations.",
+        ),
+        "company_data_requirements_and_anti_overclaiming_controls": (
+            "Public evidence can screen exposure, but company data determines whether the recommendation is operationally valid.",
+            "Supports anti-overclaiming controls across BOM, inventory, suppliers and delivery commitments.",
+            "Supports stating what company-specific information is required before using the model commercially.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _business_user_relevance("advanced_manufacturer", ""), "Supports production-continuity review and sourcing control decisions."),
     )
     return {
         "commercial_meaning": commercial,

@@ -36,6 +36,21 @@ class SourceStrategyTests(unittest.TestCase):
         self.assertIn("GOV.UK UK ETS domestic maritime", queries)
         self.assertIn("IMO marine gas oil emission factor", queries)
 
+    def test_critical_minerals_strategy_uses_advanced_manufacturer_domain(self):
+        strategy = create_source_strategy(
+            topic="Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers",
+            region="UK advanced manufacturer exposed to global rare earth magnet supply chains",
+            time_horizon="1-6 months",
+            business_user="advanced_manufacturer",
+            domain="critical_minerals_supply_chain",
+        )
+
+        self.assertEqual(strategy["domain"], "critical_minerals_supply_chain")
+        self.assertGreaterEqual(len(strategy["source_requirements"]), 9)
+        queries = " ".join(query for item in strategy["categories"] for query in item["queries"])
+        self.assertIn("site:gov.uk UK critical minerals strategy", queries)
+        self.assertIn("site:reuters.com China rare earth magnet export controls", queries)
+
 
 if __name__ == "__main__":
     unittest.main()

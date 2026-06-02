@@ -45,6 +45,22 @@ class SourceRequirementsTests(unittest.TestCase):
             self.assertTrue(requirement["why_required"])
             self.assertTrue(requirement["decision_questions_supported"])
 
+    def test_critical_minerals_advanced_manufacturer_requirements_exist(self):
+        requirements = generate_source_requirements(
+            topic="Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers",
+            business_user="advanced_manufacturer",
+            region="UK advanced manufacturer exposed to global rare earth magnet supply chains",
+            time_horizon="1-6 months",
+            concerns=["production continuity"],
+            domain_pack={"domain": "critical_minerals_supply_chain"},
+        )
+
+        names = {item["requirement_name"] for item in requirements}
+        self.assertIn("uk_critical_minerals_policy_and_manufacturing_resilience", names)
+        self.assertIn("supply_concentration_and_dependency_data", names)
+        self.assertIn("company_data_requirements_and_anti_overclaiming_controls", names)
+        self.assertGreaterEqual(len(requirements), 9)
+
 
 if __name__ == "__main__":
     unittest.main()

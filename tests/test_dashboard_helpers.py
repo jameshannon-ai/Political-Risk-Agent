@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import subprocess
 from pathlib import Path
 
 from dashboard_helpers import (
@@ -15,8 +16,10 @@ class DashboardHelperTests(unittest.TestCase):
     def setUp(self):
         self.uk_ets_brief = Path("showcase/uk_ets_shipping_operator_brief.md")
         self.hormuz_brief = Path("showcase/hormuz_shipping_operator_brief.md")
+        self.critical_minerals_brief = Path("showcase/critical_minerals_advanced_manufacturer_brief.md")
         self.uk_ets_pack = Path("showcase/uk_ets_evidence_pack.json")
         self.hormuz_pack = Path("showcase/hormuz_evidence_pack.json")
+        self.critical_minerals_pack = Path("showcase/critical_minerals_evidence_pack.json")
 
     def test_loaders_read_files(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -49,8 +52,18 @@ class DashboardHelperTests(unittest.TestCase):
         self.assertEqual(get_nested_value(data, [["a", "b"], ["x"]], 0), 7)
         self.assertEqual(get_nested_value(data, [["x", "y"]], 5), 5)
 
-    def test_saved_showcase_files_exist_for_both_cases(self):
-        for path in [self.uk_ets_brief, self.hormuz_brief, self.uk_ets_pack, self.hormuz_pack]:
+    def test_saved_showcase_files_exist_for_all_three_cases(self):
+        for path in [
+            self.uk_ets_brief,
+            self.hormuz_brief,
+            self.critical_minerals_brief,
+            self.uk_ets_pack,
+            self.hormuz_pack,
+            self.critical_minerals_pack,
+            Path("showcase/uk_ets_source_audit.md"),
+            Path("showcase/hormuz_source_audit.md"),
+            Path("showcase/critical_minerals_source_audit.md"),
+        ]:
             self.assertTrue(path.exists(), f"Missing saved showcase file: {path}")
 
     def test_hormuz_sections_can_be_extracted(self):
@@ -69,17 +82,49 @@ class DashboardHelperTests(unittest.TestCase):
             self.assertTrue(section, f"Expected section to be extractable: {heading}")
             self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
 
-    def test_helpers_work_for_both_case_briefs(self):
+    def test_critical_minerals_sections_can_be_extracted(self):
+        brief = load_markdown(self.critical_minerals_brief)
+        for heading in [
+            "3. Dashboard Summary",
+            "1. Decision Recommendation",
+            "4. Exposure Summary",
+            "5. Controlled Input Assessment",
+            "6. Supplier Concentration Assessment",
+            "7. Production Continuity Model",
+            "8. Inventory Runway vs Supplier Qualification Gap",
+            "9. Mitigation Options",
+            "13. Source Quality Notes",
+            "12. Source Requirement Coverage",
+        ]:
+            section = extract_markdown_section(brief, heading)
+            self.assertTrue(section, f"Expected section to be extractable: {heading}")
+            self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
+
+    def test_helpers_work_for_all_three_case_briefs(self):
         uk_ets = load_markdown(self.uk_ets_brief)
         hormuz = load_markdown(self.hormuz_brief)
+        critical_minerals = load_markdown(self.critical_minerals_brief)
 
         uk_section = extract_markdown_section(uk_ets, "1. Operator Stance")
         hormuz_section = extract_markdown_section(hormuz, "1. Decision Recommendation")
+        critical_section = extract_markdown_section(critical_minerals, "1. Decision Recommendation")
 
         self.assertTrue(extract_markdown_table(uk_section))
         self.assertTrue(extract_markdown_table(hormuz_section))
+        self.assertTrue(extract_markdown_table(critical_section))
         self.assertIn("Current stance", str(extract_markdown_table(uk_section)[0][0]))
         self.assertIn("Preferred option", str(extract_markdown_table(hormuz_section)[0][0]))
+        self.assertIn("Recommended action", str(extract_markdown_table(critical_section)[0][0]))
+
+    def test_dashboard_file_check_script_passes(self):
+        result = subprocess.run(
+            ["python3", "scripts/check_dashboard_files.py"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("Dashboard file check passed.", result.stdout)
 
 
 if __name__ == "__main__":

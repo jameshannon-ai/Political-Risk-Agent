@@ -39,6 +39,8 @@ def infer_domain(topic, business_user, domain=None):
     if domain:
         return domain
     text = f"{topic} {business_user}".lower()
+    if "critical minerals" in text or "rare earth" in text or "magnet supply" in text or business_user == "advanced_manufacturer":
+        return "critical_minerals_supply_chain"
     if "hormuz" in text or "maritime" in text or "shipping" in text:
         if "uk ets" in text or "carbon" in text or "emissions trading" in text:
             return "regulatory_carbon_shipping"
@@ -148,6 +150,42 @@ def _queries_for_requirement(topic, region, time_horizon, requirement):
         "contrary_or_de_escalation_evidence": [
             "Reuters Strait of Hormuz reopening conditions shipping de-escalation",
             "AP Strait of Hormuz de-escalation vessel flows reopening",
+        ],
+        "uk_critical_minerals_policy_and_manufacturing_resilience": [
+            "site:gov.uk UK critical minerals strategy vision 2035 rare earth magnets manufacturing",
+            "site:parliament.uk UK critical minerals manufacturing resilience rare earth magnets",
+        ],
+        "export_control_direction_and_live_trigger": [
+            "site:reuters.com China rare earth magnet export controls licences Reuters",
+            "site:apnews.com rare earth export controls magnets licences AP",
+        ],
+        "rare_earth_magnet_or_controlled_input_classification": [
+            "site:usgs.gov rare earth permanent magnets supply chain NdFeB dysprosium terbium",
+            "site:iea.org rare earth permanent magnets supply chain manufacturing",
+        ],
+        "supply_concentration_and_dependency_data": [
+            "site:oecd.org export restrictions critical raw materials rare earth magnets China",
+            "site:usgs.gov rare earths production concentration China permanent magnets",
+        ],
+        "uk_industry_exposure_and_advanced_manufacturing_relevance": [
+            "site:hvm.catapult.org.uk rare earth magnets UK advanced manufacturing exposure",
+            "site:bgs.ac.uk rare earth magnets UK industry exposure",
+        ],
+        "substitution_feasibility_and_alternative_supplier_qualification": [
+            "site:csis.org rare earth magnet substitution qualification alternative suppliers",
+            "site:rusi.org rare earth magnets alternative supplier qualification manufacturing",
+        ],
+        "market_pricing_or_shortage_signal": [
+            "site:reuters.com rare earth magnet shortage prices manufacturing Reuters",
+            "site:reuters.com rare earth magnet users paying premium prices ex China supply Reuters",
+        ],
+        "contrary_or_easing_evidence": [
+            "site:reuters.com rare earth export controls easing licence approvals magnet supply",
+            "site:reuters.com alternative rare earth magnet supply easing capacity Reuters",
+        ],
+        "company_data_requirements_and_anti_overclaiming_controls": [
+            "site:hvm.catapult.org.uk advanced manufacturer rare earth magnet supply chain inventory supplier qualification",
+            "site:csis.org rare earth magnet supply chain company data qualification inventory risk",
         ],
     }
     queries.extend(targeted_queries.get(requirement_name, []))

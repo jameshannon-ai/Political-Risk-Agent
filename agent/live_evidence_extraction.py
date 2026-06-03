@@ -167,6 +167,8 @@ def _commercial_relevance(text, source_type):
 
 
 def _business_user_relevance(business_user, text):
+    if business_user == "customer_facing_operator":
+        return "Relevant to downtime tolerance, revenue-at-risk, regulatory notification, customer harm, insurance claim readiness and recovery controls."
     if business_user == "marine_insurer":
         return "Relevant to war-risk pricing, accumulation control, policy wording, and claims scenarios."
     if business_user == "shipping_operator":
@@ -219,6 +221,15 @@ def _caveat(source_type, fetch_status):
 
 
 def _decision_profile(requirement_name, source_type, business_user):
+    if business_user == "customer_facing_operator" or requirement_name.startswith("uk_official_cyber") or requirement_name.startswith("cyber_") or requirement_name in {
+        "uk_cyber_breach_prevalence_data",
+        "board_cyber_governance_and_resilience_expectations",
+        "ransomware_or_operational_disruption_evidence",
+        "incident_reporting_and_regulatory_notification_guidance",
+        "supplier_msp_dependency_risk",
+        "contrary_or_mitigation_evidence",
+    }:
+        return _cyber_business_interruption_decision_profile(requirement_name, source_type)
     if business_user == "advanced_manufacturer":
         return _advanced_manufacturer_decision_profile(requirement_name, source_type)
     if business_user == "trade_finance_lender":
@@ -333,6 +344,65 @@ def _advanced_manufacturer_decision_profile(requirement_name, source_type):
     commercial, implication, decision = profiles.get(
         requirement_name,
         (_commercial_relevance("", source_type), _business_user_relevance("advanced_manufacturer", ""), "Supports production-continuity review and sourcing control decisions."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+
+def _cyber_business_interruption_decision_profile(requirement_name, source_type):
+    profiles = {
+        "uk_official_cyber_threat_ncsc_evidence": (
+            "Official UK threat evidence anchors the ransomware, state-linked and cyber disruption environment.",
+            "Supports CFO/COO escalation and likelihood scoring for a UK customer-facing operator.",
+            "Supports whether heightened operational resilience and incident readiness controls are justified.",
+        ),
+        "uk_cyber_breach_prevalence_data": (
+            "Prevalence data turns cyber threat into a measurable UK business interruption likelihood signal.",
+            "Supports board and risk-manager prioritisation of resilience investment and response readiness.",
+            "Supports likelihood scoring and the case for testing recovery assumptions.",
+        ),
+        "board_cyber_governance_and_resilience_expectations": (
+            "Governance evidence defines what senior management should do before and during cyber disruption.",
+            "Supports escalation from IT issue to board-level operational resilience decision.",
+            "Supports incident response activation and resilience investment decisions.",
+        ),
+        "ransomware_or_operational_disruption_evidence": (
+            "Live disruption evidence connects cyber incidents to downtime, customer harm and recovery pressure.",
+            "Supports manual contingency, restoration priority and pause decisions where digital operations are impaired.",
+            "Supports incident response, manual fallback and restoration prioritisation.",
+        ),
+        "cyber_insurance_business_interruption_evidence": (
+            "Insurance evidence shows how waiting periods, notice conditions, exclusions and policy wording affect recovery economics.",
+            "Supports claim notification and policy-wording review before assuming insured recovery.",
+            "Supports triggering the cyber insurance claim process and checking coverage readiness.",
+        ),
+        "incident_reporting_and_regulatory_notification_guidance": (
+            "Notification guidance defines when personal data, customer harm or sector thresholds require legal/compliance review.",
+            "Supports ICO, sector-regulator and affected-customer notification escalation.",
+            "Supports regulator/customer notification review triggers.",
+        ),
+        "supplier_msp_dependency_risk": (
+            "Supplier and MSP evidence shows when third-party technology, payment, cloud or fulfilment dependencies block recovery.",
+            "Supports supplier escalation and recovery bottleneck management.",
+            "Supports supplier/MSP dependency escalation before returning to normal operations.",
+        ),
+        "contrary_or_mitigation_evidence": (
+            "Mitigation evidence identifies recovery, backup, continuity or resilience controls that can reduce impact.",
+            "Supports moving from manual contingency or incident response back toward normal operations only when controls are validated.",
+            "Supports relaxation triggers and resilience-control validation.",
+        ),
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": (
+            "Public evidence can screen exposure, but company systems, revenue, policy wording and recovery data determine operational use.",
+            "Caps confidence until the operator provides incident, systems, revenue, supplier and policy data.",
+            "Supports anti-overclaiming and company-data requirements before operational use.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (_commercial_relevance("", source_type), _business_user_relevance("customer_facing_operator", ""), "Supports business interruption review and operational resilience controls."),
     )
     return {
         "commercial_meaning": commercial,
@@ -583,6 +653,15 @@ def _risk_driver(requirement_name, source_type):
         "financial_institution_trade_finance_operating_impact": "Trade-finance operating impact",
         "contrary_clearance_or_de_escalation_evidence": "Clearance and de-escalation evidence",
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Company data and anti-overclaiming controls",
+        "uk_official_cyber_threat_ncsc_evidence": "UK cyber threat and ransomware prevalence",
+        "uk_cyber_breach_prevalence_data": "UK cyber breach prevalence",
+        "board_cyber_governance_and_resilience_expectations": "Board governance and operational resilience",
+        "ransomware_or_operational_disruption_evidence": "Ransomware and operational disruption",
+        "cyber_insurance_business_interruption_evidence": "Cyber insurance and claims readiness",
+        "incident_reporting_and_regulatory_notification_guidance": "Regulatory notification exposure",
+        "supplier_msp_dependency_risk": "Supplier and MSP dependency",
+        "contrary_or_mitigation_evidence": "Mitigation and recovery evidence",
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": "Company data and anti-overclaiming controls",
     }
     source_type_mapping = {
         "official_primary": "Maritime security and transit risk",
@@ -635,6 +714,15 @@ def _judgement_supported(requirement_name, source_type):
         "financial_institution_trade_finance_operating_impact": "Sanctions risk affects drawdown, payment and facility controls",
         "contrary_clearance_or_de_escalation_evidence": "Clean evidence can support approval after enhanced due diligence",
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Transaction-specific data is required before clearance",
+        "uk_official_cyber_threat_ncsc_evidence": "UK cyber threat supports business interruption likelihood",
+        "uk_cyber_breach_prevalence_data": "Prevalence evidence supports likelihood scoring",
+        "board_cyber_governance_and_resilience_expectations": "Senior management should treat cyber disruption as operational resilience risk",
+        "ransomware_or_operational_disruption_evidence": "Cyber incidents can cause downtime and recovery pressure",
+        "cyber_insurance_business_interruption_evidence": "Insurance recovery depends on policy wording and claim conditions",
+        "incident_reporting_and_regulatory_notification_guidance": "Notification triggers require legal and compliance review",
+        "supplier_msp_dependency_risk": "Third-party dependencies can block recovery",
+        "contrary_or_mitigation_evidence": "Validated recovery controls can reduce impact",
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": "Company-specific systems, revenue, policy and recovery data are required",
     }
     return mapping.get(requirement_name, _risk_driver(requirement_name, source_type))
 
@@ -679,6 +767,15 @@ def _refresh_requirement(requirement_name, source_type):
         "financial_institution_trade_finance_operating_impact": "Refresh before approval, drawdown, payment execution or credit/insurance commitment.",
         "contrary_clearance_or_de_escalation_evidence": "Refresh before moving a held transaction back to enhanced due diligence or approval.",
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Refresh when transaction-specific goods, counterparty, ownership, route, payment, licence or document data becomes available.",
+        "uk_official_cyber_threat_ncsc_evidence": "Refresh if NCSC threat, ransomware or state-linked cyber guidance changes.",
+        "uk_cyber_breach_prevalence_data": "Refresh when the latest UK cyber breach prevalence data is published.",
+        "board_cyber_governance_and_resilience_expectations": "Refresh if board cyber governance or operational resilience expectations change.",
+        "ransomware_or_operational_disruption_evidence": "Refresh if sector-peer, supplier, MSP or live incident reporting changes.",
+        "cyber_insurance_business_interruption_evidence": "Refresh if policy wording, waiting periods, exclusions, ransomware treatment or claim-notice expectations change.",
+        "incident_reporting_and_regulatory_notification_guidance": "Refresh if ICO, customer-notification or sector-regulator guidance changes.",
+        "supplier_msp_dependency_risk": "Refresh when supplier, MSP, cloud, payment or fulfilment dependency data changes.",
+        "contrary_or_mitigation_evidence": "Refresh before relaxing incident controls or returning exposed digital operations to normal.",
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": "Refresh when systems, revenue, RTO/RPO, backup, supplier, policy or incident facts become available.",
     }
     return mapping.get(requirement_name, "Refresh before major underwriting or commercial decisions.")
 

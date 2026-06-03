@@ -1,4 +1,6 @@
 def generate_source_requirements(topic, business_user, region, time_horizon, concerns, domain_pack=None):
+    if _is_cyber_business_interruption(topic, business_user, domain_pack):
+        return _cyber_business_interruption_requirements()
     if _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
         return _critical_minerals_advanced_manufacturer_requirements()
     if _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
@@ -39,6 +41,17 @@ def _is_sanctions_trade_finance(topic, business_user, domain_pack):
     )
 
 
+def _is_cyber_business_interruption(topic, business_user, domain_pack):
+    lowered = f"{topic} {business_user}".lower()
+    return (
+        "cyber business interruption" in lowered
+        or "operational resilience" in lowered and "cyber" in lowered
+        or "ransomware" in lowered and "business" in lowered
+        or (domain_pack or {}).get("domain") == "cyber_business_interruption"
+        or business_user in {"customer_facing_operator", "uk_retailer", "critical_services_operator"}
+    )
+
+
 def _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
     return (
         business_user == "shipping_operator"
@@ -58,6 +71,136 @@ def _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pac
         or "magnet supply" in lowered
         or (domain_pack or {}).get("domain") == "critical_minerals_supply_chain"
     )
+
+
+def _cyber_business_interruption_requirements():
+    return [
+        {
+            "requirement_id": "REQ-CYB-A",
+            "requirement_name": "uk_official_cyber_threat_ncsc_evidence",
+            "why_required": "Anchors the UK cyber threat, ransomware and state-linked risk environment for business interruption decisions.",
+            "preferred_source_types": ["official_primary"],
+            "preferred_domains": ["ncsc.gov.uk", "gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Is the UK cyber threat environment severe enough to justify heightened operational resilience controls?",
+                "Does ransomware or state-linked cyber activity create a credible interruption risk?",
+            ],
+            "freshness_expectation": "Current or maintained NCSC/GOV.UK threat evidence, preferably checked within 30 days before operational use.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CYB-B",
+            "requirement_name": "uk_cyber_breach_prevalence_data",
+            "why_required": "Quantifies prevalence and relevance of cyber incidents, ransomware and breach exposure for UK businesses.",
+            "preferred_source_types": ["official_primary", "specialist_analysis"],
+            "preferred_domains": ["gov.uk", "dcms.gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "How common are cyber breaches or ransomware incidents for UK organisations?",
+                "Does prevalence support likelihood scoring for a UK customer-facing operator?",
+            ],
+            "freshness_expectation": "Latest official UK survey or maintained data source.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CYB-C",
+            "requirement_name": "board_cyber_governance_and_resilience_expectations",
+            "why_required": "Shows what senior management is expected to do on cyber governance, incident readiness and operational resilience.",
+            "preferred_source_types": ["official_primary", "official_guidance"],
+            "preferred_domains": ["gov.uk", "ncsc.gov.uk", "fca.org.uk", "bankofengland.co.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What should boards and senior managers do before or during cyber disruption?",
+                "Which governance expectations support resilience investment or escalation?",
+            ],
+            "freshness_expectation": "Current or maintained governance/resilience guidance.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CYB-D",
+            "requirement_name": "ransomware_or_operational_disruption_evidence",
+            "why_required": "Connects cyber events to downtime, customer disruption, supplier compromise and recovery pressure.",
+            "preferred_source_types": ["reputable_news", "official_primary"],
+            "preferred_domains": ["reuters.com", "apnews.com", "ncsc.gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Do live or recent incidents show cyber attacks causing operational downtime or customer-service disruption?",
+                "Should the operator activate incident response, manual fallback or restoration prioritisation?",
+            ],
+            "freshness_expectation": "Current or recent incident reporting, preferably within 90 days.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CYB-E",
+            "requirement_name": "cyber_insurance_business_interruption_evidence",
+            "why_required": "Shows claim, coverage, waiting-period, exclusion, incident-response panel or market implications for business interruption.",
+            "preferred_source_types": ["insurance_market_evidence", "specialist_analysis"],
+            "preferred_domains": ["marsh.com", "aon.com", "wtwco.com", "allianz.com", "howdengroup.com", "reuters.com"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Does the incident trigger cyber insurance notice or claim readiness?",
+                "How should waiting periods, exclusions and policy wording affect the business decision?",
+            ],
+            "freshness_expectation": "Current insurance-market evidence or maintained broker/insurer guidance.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CYB-F",
+            "requirement_name": "incident_reporting_and_regulatory_notification_guidance",
+            "why_required": "Captures ICO, affected-customer and sector-regulator notification triggers.",
+            "preferred_source_types": ["official_primary", "official_guidance"],
+            "preferred_domains": ["ico.org.uk", "gov.uk", "fca.org.uk", "bankofengland.co.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Does personal data exposure or service disruption require regulator or affected-customer notification review?",
+                "Which source-supported notification triggers must be escalated to legal/compliance review?",
+            ],
+            "freshness_expectation": "Current official regulator guidance, checked before incident use.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-CYB-G",
+            "requirement_name": "supplier_msp_dependency_risk",
+            "why_required": "Captures third-party technology, cloud, payment, fulfilment or managed-service disruption as a recovery blocker.",
+            "preferred_source_types": ["specialist_analysis", "reputable_news", "official_primary"],
+            "preferred_domains": ["ncsc.gov.uk", "fca.org.uk", "bankofengland.co.uk", "reuters.com", "apnews.com"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Could supplier, MSP, cloud, payment or fulfilment dependency block recovery?",
+                "Should third-party dependency risk be escalated before normal operations resume?",
+            ],
+            "freshness_expectation": "Current third-party/supplier cyber risk evidence or maintained operational resilience guidance.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CYB-H",
+            "requirement_name": "contrary_or_mitigation_evidence",
+            "why_required": "Shows resilience measures, recovery practices, controls or stabilising evidence that reduce impact and prevent overstatement.",
+            "preferred_source_types": ["contrary_or_stabilising_evidence", "official_primary", "specialist_analysis"],
+            "preferred_domains": ["ncsc.gov.uk", "gov.uk", "ico.org.uk", "fca.org.uk", "bankofengland.co.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What evidence would justify moving from incident response or manual contingency back toward normal operations?",
+                "Which resilience measures reduce business interruption impact?",
+            ],
+            "freshness_expectation": "Current official or specialist mitigation evidence.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-CYB-I",
+            "requirement_name": "cyber_company_data_requirements_and_anti_overclaiming_controls",
+            "why_required": "Shows what cannot be concluded from public sources alone and which company facts are required for operational use.",
+            "preferred_source_types": ["specialist_analysis", "official_primary"],
+            "preferred_domains": ["ncsc.gov.uk", "gov.uk", "ico.org.uk", "marsh.com", "aon.com"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What company-specific systems, revenue, policy wording, supplier and recovery data is needed before relying on the model?",
+            ],
+            "freshness_expectation": "Maintained guidance or implementation evidence.",
+            "strength_threshold": "high",
+        },
+    ]
 
 
 def _critical_minerals_advanced_manufacturer_requirements():

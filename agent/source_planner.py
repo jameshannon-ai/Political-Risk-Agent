@@ -39,6 +39,8 @@ def infer_domain(topic, business_user, domain=None):
     if domain:
         return domain
     text = f"{topic} {business_user}".lower()
+    if "cyber business interruption" in text or ("cyber" in text and "operational resilience" in text) or business_user in {"customer_facing_operator", "uk_retailer", "critical_services_operator"}:
+        return "cyber_business_interruption"
     if "critical minerals" in text or "rare earth" in text or "magnet supply" in text or business_user == "advanced_manufacturer":
         return "critical_minerals_supply_chain"
     if "hormuz" in text or "maritime" in text or "shipping" in text:
@@ -222,6 +224,43 @@ def _queries_for_requirement(topic, region, time_horizon, requirement):
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": [
             "site:wolfsberg-principles.com trade finance sanctions due diligence customer transaction data",
             "site:iccwbo.org trade finance due diligence transaction documents sanctions",
+        ],
+        "uk_official_cyber_threat_ncsc_evidence": [
+            "site:ncsc.gov.uk annual review ransomware UK organisations operational disruption",
+            "site:ncsc.gov.uk ransomware cyber threat UK organisations operational resilience",
+        ],
+        "uk_cyber_breach_prevalence_data": [
+            "site:gov.uk Cyber Security Breaches Survey 2026 UK business ransomware",
+            "site:gov.uk Cyber Security Breaches Survey UK businesses cyber breach prevalence ransomware",
+        ],
+        "board_cyber_governance_and_resilience_expectations": [
+            "site:gov.uk Cyber Governance Code of Practice board cyber risk operational resilience",
+            "site:ncsc.gov.uk board cyber governance operational resilience incident response",
+        ],
+        "ransomware_or_operational_disruption_evidence": [
+            "site:reuters.com UK retailer cyber attack operational disruption ransomware",
+            "site:apnews.com UK ransomware operational disruption retailer customer service",
+        ],
+        "cyber_insurance_business_interruption_evidence": [
+            "site:marsh.com cyber insurance business interruption waiting period ransomware UK",
+            "site:aon.com cyber insurance business interruption ransomware waiting period claims",
+            "site:wtwco.com cyber insurance business interruption ransomware claims",
+        ],
+        "incident_reporting_and_regulatory_notification_guidance": [
+            "site:ico.org.uk personal data breach notification 72 hours UK cyber incident",
+            "site:ico.org.uk ransomware personal data breach notification customers",
+        ],
+        "supplier_msp_dependency_risk": [
+            "site:ncsc.gov.uk managed service provider cyber attack supply chain UK business disruption",
+            "site:fca.org.uk operational resilience third party supplier cyber incident outage",
+        ],
+        "contrary_or_mitigation_evidence": [
+            "site:ncsc.gov.uk ransomware recovery backup business continuity guidance",
+            "site:gov.uk cyber resilience actions business continuity recovery",
+        ],
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": [
+            "site:ncsc.gov.uk incident response plan business continuity recovery time objectives",
+            "site:marsh.com cyber insurance claim notice policy wording business interruption",
         ],
     }
     queries.extend(targeted_queries.get(requirement_name, []))

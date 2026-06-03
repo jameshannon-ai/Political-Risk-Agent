@@ -216,6 +216,114 @@
       "licence delays or refusals"
     ]
   },
+  "cyber_business_interruption": {
+    "source_requirements": [
+      "uk_official_cyber_threat_ncsc_evidence",
+      "uk_cyber_breach_prevalence_data",
+      "board_cyber_governance_and_resilience_expectations",
+      "ransomware_or_operational_disruption_evidence",
+      "cyber_insurance_business_interruption_evidence",
+      "incident_reporting_and_regulatory_notification_guidance",
+      "supplier_msp_dependency_risk",
+      "contrary_or_mitigation_evidence",
+      "cyber_company_data_requirements_and_anti_overclaiming_controls"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "official_guidance",
+      "reputable_news",
+      "specialist_analysis",
+      "insurance_market_evidence",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "ncsc.gov.uk",
+      "gov.uk",
+      "ico.org.uk",
+      "fca.org.uk",
+      "bankofengland.co.uk",
+      "reuters.com",
+      "apnews.com",
+      "marsh.com",
+      "aon.com",
+      "wtwco.com",
+      "allianz.com",
+      "howdengroup.com"
+    ],
+    "required_source_mix": [
+      "UK official cyber threat / NCSC evidence",
+      "UK cyber breach prevalence data",
+      "board cyber governance / operational resilience expectations",
+      "ransomware or operational disruption evidence",
+      "cyber insurance / business interruption evidence",
+      "incident reporting / regulatory notification guidance",
+      "supplier / MSP dependency risk",
+      "contrary / mitigation evidence",
+      "company-data requirements / anti-overclaiming controls"
+    ],
+    "risk_drivers": [
+      "UK cyber threat and ransomware prevalence",
+      "operational dependency and downtime exposure",
+      "revenue at risk",
+      "regulatory notification exposure",
+      "cyber insurance and claims readiness",
+      "supplier and MSP dependency",
+      "resilience mitigation evidence"
+    ],
+    "decision_questions": [
+      "Can the operator absorb and recover from a cyber incident without unacceptable downtime, revenue loss, regulatory exposure, customer harm or insurance coverage failure?",
+      "Do outage, notification, insurance, supplier or customer-harm triggers require incident response, manual contingency, pause or resilience investment?",
+      "What evidence would justify moving from incident response or manual contingency back toward normal operations?"
+    ],
+    "client_decision_outputs": [
+      "continue / incident response / notify / claim / manual fallback / pause exposed operations stance",
+      "business interruption exposure",
+      "resilience gap",
+      "notification and claims trigger review",
+      "supplier/MSP escalation",
+      "resilience investment priority"
+    ],
+    "watchlist_indicators": [
+      "NCSC threat updates",
+      "ransomware incident reporting",
+      "retail or critical-service outage reporting",
+      "ICO notification guidance",
+      "cyber insurance market changes",
+      "supplier/MSP compromise reporting"
+    ],
+    "scoring_emphasis": [
+      "impact",
+      "immediacy",
+      "confidence"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "reputable_news",
+      "specialist_analysis",
+      "insurance_market_evidence",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "cyber threat",
+      "business interruption",
+      "regulatory notification",
+      "insurance claim readiness",
+      "supplier dependency"
+    ],
+    "likely_business_users": [
+      "customer_facing_operator",
+      "uk_retailer",
+      "critical_services_operator",
+      "insurer"
+    ],
+    "example_watchlist_indicators": [
+      "NCSC threat updates",
+      "ransomware activity",
+      "retail outage reporting",
+      "ICO notification guidance",
+      "policy wording changes"
+    ]
+  },
   "election_investor_risk": {
     "source_requirements": [
       "official_election_calendar",

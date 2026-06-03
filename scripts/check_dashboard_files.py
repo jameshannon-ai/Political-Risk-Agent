@@ -81,6 +81,29 @@ CASES = {
     },
 }
 
+SAVED_SHOWCASE_ONLY_CASES = {
+    "Cyber Business Interruption": {
+        "files": [
+            SHOWCASE / "cyber_business_interruption_brief.md",
+            SHOWCASE / "cyber_source_audit.md",
+            SHOWCASE / "cyber_evidence_pack.json",
+        ],
+        "brief": SHOWCASE / "cyber_business_interruption_brief.md",
+        "sections": [
+            "1. Decision Recommendation",
+            "3. Dashboard Summary",
+            "6. Business Interruption Model",
+            "7. Downtime / Revenue-at-Risk Assessment",
+            "8. Regulatory Notification Assessment",
+            "9. Insurance and Claims Readiness Assessment",
+            "13. Evidence-To-Score Bridge",
+            "14. Source Requirement Coverage",
+            "15. Source Quality Notes",
+            "16. Selected Sources",
+        ],
+    },
+}
+
 
 def main():
     failures = []
@@ -142,6 +165,26 @@ def main():
                     title = row.get("Title", "")
                     if ("ICCT" in title or "Stephenson Harwood" in title) and row.get("Source type") == "official_primary":
                         failures.append(f"UK ETS source taxonomy overstates specialist source as official_primary: {title}")
+
+    for case_name, config in SAVED_SHOWCASE_ONLY_CASES.items():
+        for path in config["files"]:
+            if not path.exists():
+                failures.append(f"{case_name} missing saved showcase file: {path.relative_to(ROOT)}")
+        if config["brief"].exists():
+            brief = load_markdown(config["brief"])
+            for section in config["sections"]:
+                if not extract_markdown_section(brief, section):
+                    failures.append(f"{case_name} brief missing saved-showcase section: {section}")
+        pack_path = config["files"][2]
+        if pack_path.exists():
+            rows = build_selected_source_rows(load_json(pack_path))
+            if not rows:
+                failures.append(f"{case_name} selected source table has no rows")
+            for row in rows:
+                if not row.get("URL"):
+                    failures.append(f"{case_name} selected source missing URL: {row.get('Source ID')}")
+                if not row.get("Source role") or row.get("Source role") == "source_role_unclassified":
+                    failures.append(f"{case_name} selected source missing conservative source role: {row.get('Source ID')}")
 
     if failures:
         for failure in failures:

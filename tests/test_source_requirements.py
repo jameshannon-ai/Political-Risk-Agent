@@ -65,6 +65,25 @@ class SourceRequirementsTests(unittest.TestCase):
         self.assertIn("company_data_requirements_and_anti_overclaiming_controls", names)
         self.assertGreaterEqual(len(requirements), 9)
 
+    def test_cyber_business_interruption_requirements_exist(self):
+        requirements = generate_source_requirements(
+            topic="Cyber Business Interruption Engine: Operational Resilience and Insurance Exposure for UK Retail / Critical Services",
+            business_user="customer_facing_operator",
+            region="UK business exposed to ransomware and supplier/MSP compromise",
+            time_horizon="1-6 months",
+            concerns=["business interruption"],
+            domain_pack={"domain": "cyber_business_interruption"},
+        )
+
+        names = {item["requirement_name"] for item in requirements}
+        self.assertIn("uk_official_cyber_threat_ncsc_evidence", names)
+        self.assertIn("uk_cyber_breach_prevalence_data", names)
+        self.assertIn("cyber_insurance_business_interruption_evidence", names)
+        self.assertIn("incident_reporting_and_regulatory_notification_guidance", names)
+        self.assertIn("supplier_msp_dependency_risk", names)
+        self.assertIn("cyber_company_data_requirements_and_anti_overclaiming_controls", names)
+        self.assertGreaterEqual(len(requirements), 9)
+
 
 if __name__ == "__main__":
     unittest.main()

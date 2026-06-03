@@ -54,6 +54,9 @@ def _files_exist():
         "sanctions_trade_finance_sample.md",
         "sanctions_source_audit.md",
         "sanctions_evidence_pack.json",
+        "cyber_business_interruption_brief.md",
+        "cyber_source_audit.md",
+        "cyber_evidence_pack.json",
     ]:
         if not (SHOWCASE / name).exists():
             failures.append(f"Missing showcase/{name}")
@@ -83,6 +86,7 @@ def _brief_sections():
     critical_minerals = _read("critical_minerals_advanced_manufacturer_brief.md")
     uk_ets = _read("uk_ets_shipping_operator_brief.md")
     sanctions = _read("sanctions_trade_finance_exposure_brief.md")
+    cyber = _read("cyber_business_interruption_brief.md")
     for phrase in ["Operator Decision Stance", "Voyage Decision Matrix", "Sanctions and Safe-Passage Risk", "Dynamic Route-Cost Assessment"]:
         if phrase in hormuz:
             failures.append(f"Hormuz brief still contains old section {phrase}")
@@ -227,12 +231,61 @@ def _brief_sections():
     for phrase in ["Hull war", "Cargo war", "War-risk premium", "Marine Insurance Implications"]:
         if phrase in sanctions:
             failures.append(f"Sanctions brief contains marine-insurance-only phrase: {phrase}")
+    for phrase in [
+        "Cyber Business Interruption Engine",
+        "Decision Recommendation",
+        "Scope and Specificity",
+        "Dashboard Summary",
+        "Incident Exposure Summary",
+        "Operational Dependency Assessment",
+        "Business Interruption Model",
+        "Downtime / Revenue-at-Risk Assessment",
+        "Regulatory Notification Assessment",
+        "Insurance and Claims Readiness Assessment",
+        "Supplier / MSP Dependency Risk",
+        "Mitigation Options",
+        "Risk Scorecard",
+        "Evidence-To-Score Bridge",
+        "Source Requirement Coverage",
+        "Source Quality Notes",
+        "Selected Sources",
+        "Evidence Appendix",
+        "Source Audit Summary",
+        "Methodology and Review Controls",
+        "resilience gap",
+        "business interruption exposure",
+        "This is a client-type cyber business interruption exposure screen, not technical cybersecurity advice, legal advice or an insurance coverage determination.",
+        "Company-specific use requires",
+        "affected systems and process map",
+        "daily revenue by channel / service",
+        "RTO / RPO",
+        "cyber insurance policy wording",
+        "supplier / MSP dependency map",
+        "negative three-day resilience gap",
+    ]:
+        if phrase not in cyber:
+            failures.append(f"Cyber brief missing {phrase}")
+    for phrase in [
+        "firewall configuration",
+        "malware reverse engineering",
+        "exploit remediation",
+        "network hardening",
+        "technical cybersecurity advice:",
+        "voyage",
+        "demurrage",
+        "vessel",
+        "charter",
+        "cargo",
+        "trade finance",
+    ]:
+        if phrase in cyber:
+            failures.append(f"Cyber brief contains technical or cross-domain wording: {phrase}")
     return failures
 
 
 def _evidence_packs():
     failures = []
-    for name in ["hormuz_evidence_pack.json", "uk_ets_evidence_pack.json", "sanctions_evidence_pack.json"]:
+    for name in ["hormuz_evidence_pack.json", "uk_ets_evidence_pack.json", "sanctions_evidence_pack.json", "cyber_evidence_pack.json"]:
         pack = json.loads((SHOWCASE / name).read_text(encoding="utf-8"))
         for key in ["source_plan", "source_requirements", "requirement_coverage", "quantified_evidence_readout"]:
             if key not in pack:
@@ -314,6 +367,46 @@ def _evidence_packs():
             failures.append(f"Sanctions evidence claim still looks like boilerplate for {evidence.get('source_id')}")
         if evidence.get("decision_use") in ("Supports transaction review and compliance controls.", "", None):
             failures.append(f"Sanctions evidence needs specific decision use for {evidence.get('source_id')}")
+    cyber_pack = json.loads((SHOWCASE / "cyber_evidence_pack.json").read_text(encoding="utf-8"))
+    if cyber_pack.get("search_provider") != "tavily" or cyber_pack.get("source_provider") != "tavily":
+        failures.append("Cyber showcase pack is not marked as tavily/tavily")
+    if cyber_pack.get("fallback_used") or cyber_pack.get("fallback_demo_data_used"):
+        failures.append("Cyber showcase pack incorrectly shows fallback data")
+    if cyber_pack.get("evidence_mode") != "Live source retrieval":
+        failures.append("Cyber showcase pack is not marked as live source retrieval")
+    if len(cyber_pack.get("source_requirements", [])) < 9:
+        failures.append("Cyber showcase pack should include nine source requirements")
+    model = cyber_pack.get("cyber_business_interruption_model", {})
+    if model.get("business_interruption_exposure") != 10000000:
+        failures.append("Cyber business interruption exposure should be 10,000,000 in the illustrative scenario")
+    if model.get("resilience_gap_days") != -3:
+        failures.append("Cyber resilience gap should be -3 days in the illustrative scenario")
+    labels = json.dumps(cyber_pack.get("scenario_inputs", {}))
+    for phrase in ['"label": "illustrative"', '"label": "derived"', '"label": "source-supported"', '"label": "company-provided"']:
+        if phrase not in labels:
+            failures.append(f"Cyber scenario inputs missing label {phrase}")
+    confidence_score = cyber_pack.get("evidence_to_score_bridge", {}).get("confidence", {}).get("score")
+    if confidence_score is not None and confidence_score >= 5:
+        failures.append("Cyber confidence should remain below 5")
+    for source in cyber_pack.get("selected_sources", []):
+        for field in ["source_role", "source_value_explanation", "decision_use", "evidence_weight", "requirement_name", "url"]:
+            if not source.get(field):
+                failures.append(f"Cyber selected source missing {field}: {source.get('source_id')}")
+    for evidence in cyber_pack.get("evidence", []):
+        claim = evidence.get("claim_supported", "")
+        if not claim or len(claim.split()) < 8:
+            failures.append(f"Cyber evidence claim is not readable for {evidence.get('source_id')}")
+        if any(fragment in claim for fragment in ["We use some essential", "cookie", "<script", "<html", "Skip to main content"]):
+            failures.append(f"Cyber evidence claim still looks like boilerplate for {evidence.get('source_id')}")
+        if evidence.get("decision_use") in ("Supports exposure review, control adjustment and monitoring triggers.", "", None):
+            failures.append(f"Cyber evidence needs specific decision use for {evidence.get('source_id')}")
+    for source in cyber_pack.get("selected_sources", []):
+        publisher = source.get("publisher", "")
+        if publisher in {"Marsh", "Aon", "WTW", "Allianz", "Howden"} and source.get("source_role") == "official_anchor":
+            failures.append(f"Cyber insurer/broker source is overstated as official anchor: {source.get('source_id')}")
+        if publisher in {"National Cyber Security Centre", "GOV.UK / Department for Science, Innovation and Technology", "Information Commissioner’s Office", "Financial Conduct Authority"}:
+            if source.get("source_role") not in {"official_anchor", "regulatory_guidance", "data_or_indicator_source", "contrary_scope_limit"}:
+                failures.append(f"Cyber official/regulator source has overstated or inaccurate role: {source.get('source_id')}")
     hormuz_pack = json.loads((SHOWCASE / "hormuz_evidence_pack.json").read_text(encoding="utf-8"))
     if hormuz_pack.get("search_provider") != "tavily" or hormuz_pack.get("source_provider") != "tavily":
         failures.append("Hormuz showcase pack is not marked as tavily/tavily")
@@ -352,6 +445,7 @@ def _selected_source_display_checks():
         ("Hormuz", "hormuz_evidence_pack.json"),
         ("Critical minerals", "critical_minerals_evidence_pack.json"),
         ("Sanctions", "sanctions_evidence_pack.json"),
+        ("Cyber", "cyber_evidence_pack.json"),
     ]:
         pack = json.loads((SHOWCASE / name).read_text(encoding="utf-8"))
         rows = build_selected_source_rows(pack)
@@ -382,6 +476,7 @@ def _source_audits():
     hormuz_audit = _read("hormuz_source_audit.md")
     critical_audit = _read("critical_minerals_source_audit.md")
     sanctions_audit = _read("sanctions_source_audit.md")
+    cyber_audit = _read("cyber_source_audit.md")
     for phrase in [
         "Refresh UKA price before pricing or contract decisions.",
         "Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.",
@@ -416,6 +511,19 @@ def _source_audits():
     ]:
         if phrase not in sanctions_audit:
             failures.append(f"Sanctions audit missing phrase: {phrase}")
+    for phrase in [
+        "Research Plan",
+        "Source Requirement Coverage",
+        "Quantified Evidence Summary",
+        "Source Quality Notes",
+        "Business interruption exposure",
+        "Resilience gap",
+        "Refresh if cyber insurance waiting periods, exclusions or claims conditions change.",
+        "Refresh if NCSC threat posture or ransomware reporting changes.",
+        "Refresh when company systems map, revenue exposure, policy wording, recovery time or supplier/MSP dependency data becomes available.",
+    ]:
+        if phrase not in cyber_audit:
+            failures.append(f"Cyber audit missing phrase: {phrase}")
     return failures
 
 
@@ -585,6 +693,9 @@ def _no_api_keys():
         ROOT / "showcase" / "sanctions_trade_finance_sample.md",
         ROOT / "showcase" / "sanctions_source_audit.md",
         ROOT / "showcase" / "sanctions_evidence_pack.json",
+        ROOT / "showcase" / "cyber_business_interruption_brief.md",
+        ROOT / "showcase" / "cyber_source_audit.md",
+        ROOT / "showcase" / "cyber_evidence_pack.json",
     ]
     for path in paths:
         text = path.read_text(encoding="utf-8")

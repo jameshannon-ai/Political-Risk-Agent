@@ -35,6 +35,14 @@ TRUSTED_DOMAINS = [
     "wolfsberg-principles.com",
     "iccwbo.org",
     "baft.org",
+    "ncsc.gov.uk",
+    "ico.org.uk",
+    "bankofengland.co.uk",
+    "marsh.com",
+    "aon.com",
+    "wtwco.com",
+    "allianz.com",
+    "howdengroup.com",
 ]
 
 USEFUL_TERMS = [
@@ -57,6 +65,15 @@ USEFUL_TERMS = [
     "export control",
     "inventory",
     "qualification",
+    "cyber",
+    "ransomware",
+    "outage",
+    "incident response",
+    "business interruption",
+    "operational resilience",
+    "notification",
+    "managed service provider",
+    "msp",
 ]
 
 REQUIREMENT_BY_SOURCE_TYPE = {
@@ -222,6 +239,15 @@ def _decision_use(candidate):
         "financial_institution_trade_finance_operating_impact": "Supports facility conditions, drawdown controls, credit exposure review and operational escalation.",
         "contrary_clearance_or_de_escalation_evidence": "Supports approval or enhanced due diligence only where clean counterparties, licences, exemptions and documents resolve red flags.",
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing the transaction data still required before clearance.",
+        "uk_official_cyber_threat_ncsc_evidence": "Anchors the UK cyber threat and ransomware environment for business-interruption likelihood scoring.",
+        "uk_cyber_breach_prevalence_data": "Supports likelihood scoring by quantifying cyber incident and breach prevalence among UK organisations.",
+        "board_cyber_governance_and_resilience_expectations": "Supports board, CFO/COO and risk-manager escalation for operational resilience readiness.",
+        "ransomware_or_operational_disruption_evidence": "Supports incident-response, manual contingency and restoration-priority decisions where cyber events cause downtime.",
+        "cyber_insurance_business_interruption_evidence": "Supports claim-notice, waiting-period, coverage and policy-wording review before relying on insurance recovery.",
+        "incident_reporting_and_regulatory_notification_guidance": "Supports ICO, sector-regulator and affected-customer notification review triggers.",
+        "supplier_msp_dependency_risk": "Supports supplier, MSP, cloud, payment or fulfilment escalation where third-party recovery blocks operations.",
+        "contrary_or_mitigation_evidence": "Supports the evidence threshold for reducing controls when resilience, recovery or mitigation evidence is strong.",
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing which systems, revenue, policy and recovery data is still required.",
     }
     if requirement_name in requirement_uses:
         return requirement_uses[requirement_name]
@@ -269,6 +295,15 @@ def _source_role(candidate):
         "financial_institution_trade_finance_operating_impact": "financial_sector_guidance",
         "contrary_clearance_or_de_escalation_evidence": "contrary_scope_limit",
         "sanctions_company_data_requirements_and_anti_overclaiming_controls": "company_required_data",
+        "uk_official_cyber_threat_ncsc_evidence": "official_anchor",
+        "uk_cyber_breach_prevalence_data": "data_or_indicator_source",
+        "board_cyber_governance_and_resilience_expectations": "regulatory_guidance",
+        "ransomware_or_operational_disruption_evidence": "live_event_reporting",
+        "cyber_insurance_business_interruption_evidence": "insurance_market_evidence",
+        "incident_reporting_and_regulatory_notification_guidance": "regulatory_guidance",
+        "supplier_msp_dependency_risk": "specialist_interpretation",
+        "contrary_or_mitigation_evidence": "contrary_scope_limit",
+        "cyber_company_data_requirements_and_anti_overclaiming_controls": "company_required_data",
     }
     return mapping.get(requirement_name, candidate.get("source_type", "unknown"))
 
@@ -293,6 +328,12 @@ def _source_value_explanation(candidate):
         "enforcement_evidence": "Shows regulatory consequences and control expectations when sanctions checks fail.",
         "financial_sector_guidance": "Translates sanctions exposure into trade-finance document, payment, drawdown and facility controls.",
         "company_required_data": "Identifies transaction-specific data needed before a lender can move from exposure screen to clearance decision.",
+        "official_anchor": "Anchors the official threat, policy or regulatory baseline for the client decision.",
+        "regulatory_guidance": "Shows notification, governance or resilience expectations that convert cyber disruption into management action.",
+        "live_event_reporting": "Shows whether cyber incidents are causing live downtime, customer harm or recovery pressure.",
+        "insurance_market_evidence": "Shows claim, coverage, waiting-period, exclusion or market evidence relevant to insurance response.",
+        "data_or_indicator_source": "Quantifies threat prevalence, outage exposure or other indicators needed for scoring.",
+        "contrary_scope_limit": "Identifies mitigation, recovery or resilience evidence that prevents overstating the downside case.",
     }
     return explanations.get(role, _evidence_value(candidate))
 
@@ -381,7 +422,7 @@ def _specificity_score(candidate):
     signals += 1 if any(term in text for term in INSURANCE_SIGNAL_TERMS) else 0
     signals += 1 if any(term in text for term in VESSEL_SIGNAL_TERMS) else 0
     signals += 1 if any(char.isdigit() for char in text) else 0
-    signals += 1 if any(term in text for term in ["premium", "rate", "percent", "%", "barrels", "lng", "cargo"]) else 0
+    signals += 1 if any(term in text for term in ["premium", "rate", "percent", "%", "barrels", "lng", "cargo", "outage", "ransomware", "incident", "72 hours"]) else 0
     return min(5, max(2, signals + 1))
 
 
@@ -391,6 +432,8 @@ def _decision_value_score(candidate):
         "stance", "pricing", "premium", "referral", "aggregation", "wording",
         "sanctions", "reinsurance", "capacity", "route", "transit", "relax",
         "reopen", "de-escalation", "operations",
+        "outage", "incident", "notification", "claim", "resilience", "downtime",
+        "recovery", "ransomware", "manual", "supplier", "msp",
     ]
     matches = sum(1 for term in decision_terms if term in text)
     if candidate.get("source_type") in {"official_primary", "insurance_market_evidence", "company_update"}:

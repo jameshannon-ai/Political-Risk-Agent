@@ -44,6 +44,20 @@ class UKETSShowcaseTests(unittest.TestCase):
         self.assertFalse(pack["fallback_demo_data_used"])
         self.assertEqual(pack["evidence_mode"], "Live source retrieval")
 
+    def test_uk_ets_selected_source_taxonomy_is_conservative(self):
+        pack = json.loads(self.pack_path.read_text(encoding="utf-8"))
+        for source in pack["selected_sources"]:
+            title = source["title"]
+            if "ICCT" in title or "Stephenson Harwood" in title or "Azolla" in title:
+                self.assertNotEqual(source["source_type"], "official_primary", title)
+            self.assertTrue(source.get("source_role"), title)
+            self.assertTrue(source.get("source_value_explanation"), title)
+            self.assertTrue(source.get("url"), title)
+
+        gov_source = next(source for source in pack["selected_sources"] if "GOV.UK" in source["title"])
+        self.assertEqual(gov_source["source_type"], "official_primary")
+        self.assertEqual(gov_source["source_role"], "official_anchor")
+
     def test_generate_brief_for_uk_ets(self):
         brief = generate_brief(
             topic="UK ETS Maritime Expansion",

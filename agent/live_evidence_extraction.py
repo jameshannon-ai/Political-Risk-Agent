@@ -451,6 +451,51 @@ def _uk_ets_shipping_operator_decision_profile(requirement_name, source_type):
 
 def _trade_finance_decision_profile(requirement_name, source_type):
     profiles = {
+        "uk_sanctions_ofsi_official_guidance": (
+            "Anchors UK sanctions and OFSI relevance for transaction approval, escalation, legal hold or rejection.",
+            "Determines whether a UK lender can rely on routine approval or must escalate to sanctions/compliance review.",
+            "Anchors UK sanctions screening, OFSI escalation and legal-hold thresholds.",
+        ),
+        "sanctions_end_use_controls_and_controlled_goods_risk": (
+            "Identifies controlled goods, dual-use technology, licence and end-use red flags.",
+            "Drives goods classification, licence checks and legal hold where controlled goods or prohibited end-use cannot be cleared.",
+            "Supports goods, end-use and licence checks before approval or drawdown.",
+        ),
+        "counterparty_and_ownership_exposure": (
+            "Tests buyer, seller, consignee, bank, intermediary and beneficial ownership exposure.",
+            "Opaque ownership or sanctions-screening uncertainty blocks routine approval.",
+            "Supports counterparty screening and ownership escalation.",
+        ),
+        "jurisdiction_route_and_diversion_exposure": (
+            "Identifies route, port, transshipment, diversion and jurisdiction indicators.",
+            "Raises escalation risk where route facts suggest sanctions evasion or diversion.",
+            "Supports route and diversion red-flag escalation.",
+        ),
+        "documentation_and_transaction_quality_evidence": (
+            "Defines the documents needed to test goods, end-use, ownership, route and payment claims.",
+            "Weak or missing documents should trigger escalation or hold before approval.",
+            "Supports document-request and missing-data controls.",
+        ),
+        "enforcement_penalty_and_regulatory_expectations": (
+            "Shows regulator expectations and consequences when sanctions controls fail.",
+            "Raises the cost of unresolved red flags and supports conservative legal-hold triggers.",
+            "Supports enforcement-aware legal hold, rejection and confidence discipline.",
+        ),
+        "financial_institution_trade_finance_operating_impact": (
+            "Translates sanctions exposure into facility, drawdown, payment, credit and insurance controls.",
+            "Shows why sanctions risk affects financing approval and operational execution.",
+            "Supports trade-finance due diligence actions and facility controls.",
+        ),
+        "contrary_clearance_or_de_escalation_evidence": (
+            "Identifies evidence that could support approval or de-escalation, such as clean screening, licence evidence or exemptions.",
+            "Prevents over-escalation where facts are clean and documents are reliable.",
+            "Defines evidence needed to move from hold/escalation to approval or enhanced due diligence.",
+        ),
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": (
+            "Identifies transaction-specific data required before public evidence can support a clearance decision.",
+            "Caps confidence until goods, counterparties, ownership, route, payment, licence and documents are validated.",
+            "Supports anti-overclaiming and company-data requirements before operational use.",
+        ),
         "official_sanctions_guidance": (
             "Defines the legal basis for end-use exposure, notification, licensing and transaction escalation.",
             "Determines whether the lender should approve, hold, escalate or decline a transaction.",
@@ -529,6 +574,15 @@ def _risk_driver(requirement_name, source_type):
         "trade_route_and_diversion_risk": "Trade route and diversion risk",
         "banking_and_payment_risk": "Payment and documentation risk",
         "contrary_or_scope_limited_evidence": "Scope-limited approval evidence",
+        "uk_sanctions_ofsi_official_guidance": "UK sanctions and OFSI guidance",
+        "sanctions_end_use_controls_and_controlled_goods_risk": "Goods and end-use risk",
+        "counterparty_and_ownership_exposure": "Counterparty and ownership exposure",
+        "jurisdiction_route_and_diversion_exposure": "Jurisdiction, route and diversion exposure",
+        "documentation_and_transaction_quality_evidence": "Documentation quality",
+        "enforcement_penalty_and_regulatory_expectations": "Enforcement and regulatory expectations",
+        "financial_institution_trade_finance_operating_impact": "Trade-finance operating impact",
+        "contrary_clearance_or_de_escalation_evidence": "Clearance and de-escalation evidence",
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Company data and anti-overclaiming controls",
     }
     source_type_mapping = {
         "official_primary": "Maritime security and transit risk",
@@ -572,6 +626,15 @@ def _judgement_supported(requirement_name, source_type):
         "trade_route_and_diversion_risk": "Diversion indicators should drive enhanced due diligence",
         "banking_and_payment_risk": "Payment and correspondent banking risk can crystallise early",
         "contrary_or_scope_limited_evidence": "Scope-limited evidence can support approval after enhanced due diligence",
+        "uk_sanctions_ofsi_official_guidance": "UK sanctions and OFSI guidance anchor the transaction decision",
+        "sanctions_end_use_controls_and_controlled_goods_risk": "Goods and end-use controls can trigger legal hold",
+        "counterparty_and_ownership_exposure": "Counterparty and ownership opacity should drive escalation",
+        "jurisdiction_route_and_diversion_exposure": "Route and diversion indicators should drive enhanced due diligence",
+        "documentation_and_transaction_quality_evidence": "Weak documents prevent routine approval",
+        "enforcement_penalty_and_regulatory_expectations": "Enforcement expectations justify conservative controls",
+        "financial_institution_trade_finance_operating_impact": "Sanctions risk affects drawdown, payment and facility controls",
+        "contrary_clearance_or_de_escalation_evidence": "Clean evidence can support approval after enhanced due diligence",
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Transaction-specific data is required before clearance",
     }
     return mapping.get(requirement_name, _risk_driver(requirement_name, source_type))
 
@@ -607,6 +670,15 @@ def _refresh_requirement(requirement_name, source_type):
         "trade_route_and_diversion_risk": "Refresh when routing, intermediary, end user or destination changes.",
         "banking_and_payment_risk": "Refresh before payment execution or facility drawdown.",
         "contrary_or_scope_limited_evidence": "Refresh before approving transactions previously held for scope or documentation gaps.",
+        "uk_sanctions_ofsi_official_guidance": "Refresh before approval if OFSI or UK sanctions guidance changes.",
+        "sanctions_end_use_controls_and_controlled_goods_risk": "Refresh if goods classification, end-use controls, licence or authorisation status changes.",
+        "counterparty_and_ownership_exposure": "Refresh if buyer, seller, beneficial owner, bank, intermediary, vessel or consignee data changes.",
+        "jurisdiction_route_and_diversion_exposure": "Refresh if route, port, transshipment, diversion or sanctioned-jurisdiction indicators change.",
+        "documentation_and_transaction_quality_evidence": "Refresh when invoices, bills of lading, end-use statements, ownership declarations or payment instructions change.",
+        "enforcement_penalty_and_regulatory_expectations": "Refresh if OFSI, FCA or other enforcement expectations change.",
+        "financial_institution_trade_finance_operating_impact": "Refresh before approval, drawdown, payment execution or credit/insurance commitment.",
+        "contrary_clearance_or_de_escalation_evidence": "Refresh before moving a held transaction back to enhanced due diligence or approval.",
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Refresh when transaction-specific goods, counterparty, ownership, route, payment, licence or document data becomes available.",
     }
     return mapping.get(requirement_name, "Refresh before major underwriting or commercial decisions.")
 

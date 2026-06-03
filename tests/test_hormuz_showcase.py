@@ -106,9 +106,10 @@ class HormuzShowcaseTests(unittest.TestCase):
         self.assertNotIn(".env", dashboard)
 
     def test_sanctions_showcase_remains_intact(self):
-        sanctions = Path("showcase/sanctions_trade_finance_sample.md").read_text(encoding="utf-8")
-        self.assertIn("Transaction Stance", sanctions)
-        self.assertIn("Payment and Documentation Risk", sanctions)
+        sanctions = Path("showcase/sanctions_trade_finance_exposure_brief.md").read_text(encoding="utf-8")
+        self.assertIn("Sanctions Trade Finance Exposure Engine", sanctions)
+        self.assertIn("Transaction Decision Engine", sanctions)
+        self.assertIn("Documentation Quality Assessment", sanctions)
 
     def test_sanctions_red_flag_forces_legal_hold(self):
         result = evaluate_hormuz_route_decision(

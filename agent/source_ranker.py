@@ -27,6 +27,14 @@ TRUSTED_DOMAINS = [
     "howdenre.com",
     "spglobal.com",
     "axios.com",
+    "ofsi.blog.gov.uk",
+    "ofac.treasury.gov",
+    "treasury.gov",
+    "fca.org.uk",
+    "fatf-gafi.org",
+    "wolfsberg-principles.com",
+    "iccwbo.org",
+    "baft.org",
 ]
 
 USEFUL_TERMS = [
@@ -205,6 +213,15 @@ def _decision_use(candidate):
         "market_pricing_or_shortage_signal": "Supports stockpile, allocation and accelerated sourcing decisions when shortage signals tighten.",
         "contrary_or_easing_evidence": "Supports the threshold for relaxing a high-control sourcing stance back toward normal procurement.",
         "company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing which company facts are still required before operational decisions.",
+        "uk_sanctions_ofsi_official_guidance": "Anchors UK sanctions/OFSI relevance and the approve, escalate, legal-hold or reject decision frame.",
+        "sanctions_end_use_controls_and_controlled_goods_risk": "Supports goods, technology, end-use and licence checks before approval or drawdown.",
+        "counterparty_and_ownership_exposure": "Supports counterparty, beneficial ownership, intermediary, bank, vessel and consignee screening decisions.",
+        "jurisdiction_route_and_diversion_exposure": "Supports escalation where jurisdiction, route, transshipment or diversion indicators are unresolved.",
+        "documentation_and_transaction_quality_evidence": "Supports document-request and hold triggers for invoices, bills of lading, end-use statements and payment instructions.",
+        "enforcement_penalty_and_regulatory_expectations": "Supports legal-hold and rejection thresholds by showing regulatory consequences and expected controls.",
+        "financial_institution_trade_finance_operating_impact": "Supports facility conditions, drawdown controls, credit exposure review and operational escalation.",
+        "contrary_clearance_or_de_escalation_evidence": "Supports approval or enhanced due diligence only where clean counterparties, licences, exemptions and documents resolve red flags.",
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing the transaction data still required before clearance.",
     }
     if requirement_name in requirement_uses:
         return requirement_uses[requirement_name]
@@ -243,6 +260,15 @@ def _source_role(candidate):
         "market_pricing_or_shortage_signal": "market_pricing",
         "contrary_or_easing_evidence": "contrary_scope_limit",
         "company_data_requirements_and_anti_overclaiming_controls": "specialist_interpretation",
+        "uk_sanctions_ofsi_official_guidance": "official_anchor",
+        "sanctions_end_use_controls_and_controlled_goods_risk": "regulatory_guidance",
+        "counterparty_and_ownership_exposure": "regulatory_guidance",
+        "jurisdiction_route_and_diversion_exposure": "live_event_reporting",
+        "documentation_and_transaction_quality_evidence": "financial_sector_guidance",
+        "enforcement_penalty_and_regulatory_expectations": "enforcement_evidence",
+        "financial_institution_trade_finance_operating_impact": "financial_sector_guidance",
+        "contrary_clearance_or_de_escalation_evidence": "contrary_scope_limit",
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": "company_required_data",
     }
     return mapping.get(requirement_name, candidate.get("source_type", "unknown"))
 
@@ -263,6 +289,10 @@ def _source_value_explanation(candidate):
         "specialist_interpretation": "Explains qualification lag, substitution limits and the company-data conditions for using the model responsibly.",
         "market_pricing": "Shows whether scarcity or pricing pressure is strong enough to justify stockpile, allocation or accelerated sourcing action.",
         "contrary_scope_limit": "Tests whether easing, alternative supply or licence clarification narrows the need for severe mitigation action.",
+        "regulatory_guidance": "Explains regulatory controls that turn goods, end-use, ownership or payment red flags into escalation or hold decisions.",
+        "enforcement_evidence": "Shows regulatory consequences and control expectations when sanctions checks fail.",
+        "financial_sector_guidance": "Translates sanctions exposure into trade-finance document, payment, drawdown and facility controls.",
+        "company_required_data": "Identifies transaction-specific data needed before a lender can move from exposure screen to clearance decision.",
     }
     return explanations.get(role, _evidence_value(candidate))
 

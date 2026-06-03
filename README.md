@@ -17,13 +17,16 @@ What it demonstrates:
 - an offline Streamlit dashboard that reads saved showcase artefacts only
 - clean export hygiene and no API key exposure in public/shareable files
 
-### Case Portfolio
+### Current Case Portfolio
 
 | Case | Client type | Risk pattern | Decision output | Evidence mode |
 |---|---|---|---|---|
 | UK ETS Maritime Expansion | UK shipping operator | regulatory policy / carbon cost | route-level carbon cost exposure | saved Tavily-backed showcase |
 | Hormuz Route Decision Engine | shipping operator | geopolitical/security/sanctions/insurance | transit, delay, reroute or legal hold | saved Tavily-backed showcase |
 | Critical Minerals Exposure Engine | UK advanced manufacturer | strategic competition / supply-chain concentration | stockpile, qualify supplier, redesign, allocate or hold | saved Tavily-backed showcase |
+| Sanctions Trade Finance Exposure Engine | UK trade finance lender / bank / credit insurer | sanctions / export controls | transaction approval, escalation, legal hold or rejection | saved Tavily-backed showcase |
+
+The dashboard is designed as an expandable case portfolio. New cases can be added by saving a brief, source audit and evidence pack, then wiring that saved-showcase pattern into the dashboard.
 
 Run the dashboard:
 
@@ -95,19 +98,16 @@ Reviewers should look at:
 - watchlist indicators
 - report templates
 
-### Showcase case
-
-- Strait of Hormuz Transit Controls: Shipping Operator Exposure
-- business user: `shipping_operator`
-- region: Persian Gulf / UK shipping operators
-- time horizon: 1-3 months
-
-### Third showcase case
+### Current saved-showcase portfolio
 
 - UK ETS Maritime Expansion: Carbon Cost Exposure
-- business user: `shipping_operator`
-- region: UK domestic maritime
-- time horizon: 1-12 months
+- Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs
+- Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers
+- Sanctions Trade Finance Exposure Engine: Transaction Approval, Escalation and Legal-Hold Risk
+
+These are current saved dashboard cases, not the final limits of the framework. Additional saved samples can remain available in `showcase/`, but they should be clearly labelled unless upgraded into the active dashboard portfolio.
+
+Showcase case artefacts are saved briefs, source audits and evidence packs that can be reviewed without running live retrieval.
 
 ## Who It Is For
 
@@ -170,36 +170,31 @@ python3 main.py
 
 Choose `live_search_mode`. If Tavily is not configured, the app will try `SERPAPI_API_KEY`; if neither is configured, it will use the curated fallback pack.
 
-## Sample Hormuz Input
+## Example Live-Run Input
 
 ```text
-Topic: Strait of Hormuz Transit Controls
+Topic: Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs
 Business user: shipping_operator
 Region: Persian Gulf / UK shipping operators
 Time horizon: 1-3 months
 Concerns: transit controls, vessel detention, safe-passage demands, sanctions exposure, war-risk insurance premiums, AIS/transponder disruption, route delay, rerouting cost, charterparty exposure, crew safety, de-escalation uncertainty
 ```
 
-## How To Interpret The Sample Hormuz Brief
+## How To Interpret The Saved Showcase Briefs
 
-The flagship Hormuz brief is structured as a shipping-operator decision case:
+The active dashboard briefs are structured as decision products:
 
-- operator decision stance first
+- client decision stance first
 - key judgements linked to evidence
-- risk scorecard with evidence-specific rationale
-- quantified evidence readout and evidence-to-score bridge
-- voyage decision matrix
-- sanctions and safe-passage risk
-- insurance and route-cost pressure
-- dynamic route-cost assessment
-- operator actions and watchlist
-- evidence appendix and methodology at the end
+- risk scorecards with evidence-specific rationale
+- quantified readouts or scenario models where useful
+- evidence-to-score bridges
+- source requirement coverage
+- selected sources, caveats, refresh triggers and source audits
 
-The case assesses whether a UK shipping operator should transit, delay, reroute or escalate a Hormuz-linked voyage for legal/compliance review. It links source evidence to operating stance, sanctions red flags, war-risk insurance pressure, vessel-flow signals, route-cost trade-offs and practical escalation/relaxation triggers.
+UK ETS converts regulatory policy into route-level carbon cost exposure. Hormuz converts geopolitical, sanctions, insurance and vessel-flow signals into transit, delay, reroute or legal-hold logic. Critical Minerals converts export-control and supplier concentration evidence into production-continuity decisions. Sanctions Trade Finance converts sanctions/export-control evidence into transaction approval, escalation, legal-hold or rejection logic.
 
-The sanctions showcase remains a trade-finance lender case, and generic political risk outputs still use a shorter reusable template so the project does not become shipping-only.
-
-The third showcase applies the same reusable agent to UK ETS maritime expansion, proving the workflow can convert regulatory policy text into quantified operational carbon-cost exposure for UK shipowners/operators.
+Generic political risk outputs still use a shorter reusable template so the project does not become a single-case report generator.
 
 ## Domain Packs
 
@@ -237,7 +232,17 @@ Run:
 streamlit run dashboard_app.py
 ```
 
-The dashboard displays the saved UK ETS, Hormuz and Critical Minerals showcase outputs. It does not call Tavily or spend search credits.
+The dashboard displays the saved UK ETS, Hormuz, Critical Minerals and Sanctions Trade Finance showcase outputs. It does not call Tavily or spend search credits.
+
+## Clean Export
+
+Create a shareable project zip without local secrets, virtual environments, git metadata, generated `outputs/` files or local caches:
+
+```bash
+python3 scripts/create_clean_project_zip.py
+```
+
+The export is written to `dist/political-risk-agent-clean.zip`.
 
 ## Agent / Codex instructions
 

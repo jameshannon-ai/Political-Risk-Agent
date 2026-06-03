@@ -1,218 +1,124 @@
 # Source Audit
+## Sanctions Trade Finance Exposure Engine: Transaction Approval, Escalation and Legal-Hold Risk
 
 ## Search Configuration
 
-- Topic: Sanctions End-Use Controls affecting trade finance
-- Business user: trade_finance_lender
-- Region: UK / EU
-- Time horizon: 1-3 months
-- Concerns: sanctions exposure, diversion through third countries, counterparty risk, payment disruption, documentation risk, collateral risk, licensing delay, regulatory penalties
-- Search provider used: fallback_demo_search
-- Fallback data used: true
-- Retrieval timestamp: 2026-05-28T12:34:42
+| Item | Value |
+| --- | --- |
+| Topic | Sanctions Trade Finance Exposure Engine: Transaction Approval, Escalation and Legal-Hold Risk |
+| Business user | trade_finance_lender |
+| Region | UK trade finance / cross-border transaction screening |
+| Time horizon | 1-3 months |
+| Search provider used | tavily |
+| Evidence mode | Live source retrieval |
+| Fallback data used | false |
+| Total queries run | 36 |
+| Candidate sources | 76 |
+| Selected sources | 9 |
+| Rejected sources | 67 |
 
 ## Research Plan
 
-- Research objective: Build a governed evidence base for trade_finance_lender decision-making on Sanctions End-Use Controls affecting trade finance in UK / EU over 1-3 months, using the sanctions_trade_finance domain pack.
-- Decision questions:
-  - Does the transaction create sanctions end-use exposure?
-  - Does the route, counterparty or goods profile suggest diversion risk?
-  - Could payment be delayed, blocked or rejected?
-  - What evidence would justify approval after enhanced due diligence?
-  - Has a government notification or licensing trigger been identified?
-  - Does the lender need to hold, escalate or decline the transaction?
-  - Is the transaction connected to a sanctioned destination, person or restricted trade route?
-  - Does the transaction raise Russia or sanctioned-territory diversion risk?
-  - Are the goods or technology sensitive enough to require enhanced due diligence?
-  - Does the lender need specialist export-control review before financing?
-  - What practical checks should the lender require?
-  - Which transaction features should trigger legal/compliance escalation?
-  - Does the transaction involve a route, counterparty or goods profile associated with diversion?
-  - Should the lender require enhanced end-use documentation?
-  - Should the lender require sanctions screening, correspondent-bank confirmation or facility conditions?
-  - Is the risk specific and controllable rather than automatically prohibitive?
-- Required source mix:
-  - official sanctions guidance
-  - sanctions regime context
-  - export-control / dual-use guidance
-  - legal practical analysis
-  - trade-route / diversion evidence
-  - banking and payment-risk evidence
-  - scope-limited or contrary evidence
-- Expected evidence types: official_primary, official_guidance, specialist_analysis, reputable_news, contrary_or_stabilising_evidence
-- Minimum acceptable coverage: {'minimum_total_requirements': 7, 'minimum_high_priority_requirements': 3, 'high_priority_requirements': ['official_sanctions_guidance', 'sanctions_regime_context', 'export_control_and_dual_use_risk'], 'minimum_sources_per_requirement': {'REQ-STF-A': 1, 'REQ-STF-B': 1, 'REQ-STF-C': 1, 'REQ-STF-D': 1, 'REQ-STF-E': 1, 'REQ-STF-F': 1, 'REQ-STF-G': 1}}
-- Refresh priorities:
-  - official_sanctions_guidance: Current official guidance, preferably checked within 30 days before transaction approval.
-  - sanctions_regime_context: Current sanctions regime guidance, preferably checked within 30 days.
-  - export_control_and_dual_use_risk: Current official goods classification or export-control evidence.
-  - legal_practical_analysis: Recent legal or compliance analysis, preferably within 90 days.
-  - trade_route_and_diversion_risk: Recent diversion typology or sanctions evasion reporting, preferably within 90 days.
-  - banking_and_payment_risk: Current banking compliance guidance or payment-risk evidence.
-  - contrary_or_scope_limited_evidence: Current official or legal scope analysis.
-
-## Source Strategy
-
-### official_primary
-
-- Why it matters: Establishes verified safety, security or regulatory baseline.
-- Source requirement: official_sanctions_guidance
-- Evidence question: Does the transaction create sanctions end-use exposure?
-- Preferred domains: gov.uk, ofsi.gov.uk, businessandtrade.gov.uk
-- Preferred source types: official_primary, official_guidance
-- Generated queries:
-  - site:gov.uk Sanctions End-Use Controls affecting trade finance official sanctions guidance 1-3 months
-- Minimum acceptable evidence: 1
-- Refresh expectation: Current official guidance, preferably checked within 30 days before transaction approval.
-
-### official_primary
-
-- Why it matters: Establishes verified safety, security or regulatory baseline.
-- Source requirement: sanctions_regime_context
-- Evidence question: Is the transaction connected to a sanctioned destination, person or restricted trade route?
-- Preferred domains: gov.uk, legislation.gov.uk, ofsi.gov.uk
-- Preferred source types: official_primary, official_guidance
-- Generated queries:
-  - site:gov.uk Sanctions End-Use Controls affecting trade finance sanctions regime context 1-3 months
-- Minimum acceptable evidence: 1
-- Refresh expectation: Current sanctions regime guidance, preferably checked within 30 days.
-
-### official_primary
-
-- Why it matters: Establishes verified safety, security or regulatory baseline.
-- Source requirement: export_control_and_dual_use_risk
-- Evidence question: Are the goods or technology sensitive enough to require enhanced due diligence?
-- Preferred domains: gov.uk, great.gov.uk, legislation.gov.uk
-- Preferred source types: official_primary, official_guidance
-- Generated queries:
-  - site:gov.uk Sanctions End-Use Controls affecting trade finance export control and dual use risk 1-3 months
-- Minimum acceptable evidence: 1
-- Refresh expectation: Current official goods classification or export-control evidence.
-
-### specialist_analysis
-
-- Why it matters: Adds market interpretation and scenario framing.
-- Source requirement: legal_practical_analysis
-- Evidence question: What practical checks should the lender require?
-- Preferred domains: skadden.com, akingump.com, bakermckenzie.com, eversheds-sutherland.com, ashurst.com, osborneclarke.com
-- Preferred source types: specialist_analysis
-- Generated queries:
-  - site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis 1-3 months
-  - site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis
-- Minimum acceptable evidence: 1
-- Refresh expectation: Recent legal or compliance analysis, preferably within 90 days.
-
-### reputable_news
-
-- Why it matters: Corroborates current events and commercial impacts.
-- Source requirement: trade_route_and_diversion_risk
-- Evidence question: Does the transaction involve a route, counterparty or goods profile associated with diversion?
-- Preferred domains: reuters.com, ft.com, theguardian.com, gov.uk, sanctions-related official advisories
-- Preferred source types: reputable_news, official_primary, specialist_analysis
-- Generated queries:
-  - site:reuters.com Sanctions End-Use Controls affecting trade finance trade route and diversion risk 1-3 months
-  - Sanctions End-Use Controls affecting trade finance trade route and diversion risk specialist analysis
-  - site:reuters.com Sanctions End-Use Controls affecting trade finance trade route and diversion risk
-- Minimum acceptable evidence: 1
-- Refresh expectation: Recent diversion typology or sanctions evasion reporting, preferably within 90 days.
-
-### specialist_analysis
-
-- Why it matters: Adds market interpretation and scenario framing.
-- Source requirement: banking_and_payment_risk
-- Evidence question: Could payment be delayed, blocked or rejected?
-- Preferred domains: wolfsberg-principles.com, fatf-gafi.org, ofsi.gov.uk, reuters.com, legal/compliance analysis sources
-- Preferred source types: specialist_analysis, official_primary, reputable_news
-- Generated queries:
-  - site:wolfsberg-principles.com Sanctions End-Use Controls affecting trade finance banking and payment risk 1-3 months
-  - Sanctions End-Use Controls affecting trade finance banking and payment risk specialist analysis
-  - site:reuters.com Sanctions End-Use Controls affecting trade finance banking and payment risk
-- Minimum acceptable evidence: 1
-- Refresh expectation: Current banking compliance guidance or payment-risk evidence.
-
-### contrary_or_stabilising_evidence
-
-- Why it matters: Tests the downside case and supports confidence discipline.
-- Source requirement: contrary_or_scope_limited_evidence
-- Evidence question: What evidence would justify approval after enhanced due diligence?
-- Preferred domains: gov.uk, legal analysis sources, official guidance
-- Preferred source types: contrary_or_stabilising_evidence, official_primary, specialist_analysis
-- Generated queries:
-  - site:gov.uk Sanctions End-Use Controls affecting trade finance contrary or scope limited evidence 1-3 months
-  - Sanctions End-Use Controls affecting trade finance contrary or scope limited evidence specialist analysis
-  - Sanctions End-Use Controls affecting trade finance contrary or scope limited evidence scope limited stabilising contrary evidence
-- Minimum acceptable evidence: 1
-- Refresh expectation: Current official or legal scope analysis.
-
-## Search Results Summary
-
-- Total candidate sources found: 27
-- Total selected sources: 6
-- Duplicate URLs removed: 0
-- Source categories covered: contrary_or_stabilising_evidence, official_primary, specialist_analysis
-- Source categories missing: reputable_news
-- Fetch failures: 0
+- Research objective: Create a governed evidence base for UK trade finance transaction approval, escalation, legal hold or rejection decisions.
+- Core decision: should the lender approve, approve with enhanced due diligence, escalate, legally hold or reject the transaction?
+- Required evidence: UK sanctions/OFSI guidance; controlled-goods/end-use evidence; counterparty and ownership exposure; route/diversion risk; documentation controls; enforcement expectations; financial-sector operating impact; contrary/clearance evidence; company-data requirements.
 
 ## Quantified Evidence Summary
 
-- Source count: 6
-- Source coverage: 100%
-- High-weight source count: 0
-- Quantified facts: 2
-- Score support summary: Scores are supported by 6 selected sources, 100% requirement coverage and 2 extracted quantified facts.
-- Confidence cap reason: Confidence capped below 5 because evidence came from a reproducible curated source pack rather than live retrieval.
+| Item | Value |
+| --- | --- |
+| Selected sources | 9 |
+| Source requirement coverage | 100% with caveated partial areas |
+| Live queries run | 36 |
+| Candidate sources reviewed | 76 |
+| Quantified / concrete signals | 9 labelled source signals |
+| Confidence cap reason | Confidence capped at 3/5 because public evidence does not include transaction-specific goods, counterparty, ownership, route, payment, licence or document data. |
 
 ## Source Requirement Coverage
 
-| Requirement | Why Required | Covered By | Evidence Weight | Decision Questions Supported | Remaining Gap |
-| --- | --- | --- | --- | --- | --- |
-| official_sanctions_guidance | Defines the legal and regulatory basis for sanctions end-use controls, including when exporters or counterparties may need a licence or compliance escalation. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003 | high | Does the transaction create sanctions end-use exposure?; Has a government notification or licensing trigger been identified?; Does the lender need to hold, escalate or decline the transaction? | No immediate coverage gap; analyst should still verify recency and source content. |
-| sanctions_regime_context | Shows how end-use controls sit inside wider UK sanctions regimes, especially Russia-related trade restrictions and circumvention controls. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003 | high | Is the transaction connected to a sanctioned destination, person or restricted trade route?; Does the transaction raise Russia or sanctioned-territory diversion risk? | No immediate coverage gap; analyst should still verify recency and source content. |
-| export_control_and_dual_use_risk | Identifies whether goods or technology may be sensitive, dual-use, strategically controlled or vulnerable to diversion. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003 | high | Are the goods or technology sensitive enough to require enhanced due diligence?; Does the lender need specialist export-control review before financing? | No immediate coverage gap; analyst should still verify recency and source content. |
-| legal_practical_analysis | Explains how the rules operate in practice, including timing, notification, licensing, due diligence and business obligations. | SANCTIONS-004, SANCTIONS-007 | medium | What practical checks should the lender require?; Which transaction features should trigger legal/compliance escalation? | No immediate coverage gap; analyst should still verify recency and source content. |
-| trade_route_and_diversion_risk | Identifies third-country diversion patterns, suspicious routing, end-use opacity and circumvention indicators. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003, SANCTIONS-004, SANCTIONS-007 | medium | Does the transaction involve a route, counterparty or goods profile associated with diversion?; Should the lender require enhanced end-use documentation? | No immediate coverage gap; analyst should still verify recency and source content. |
-| banking_and_payment_risk | Links sanctions exposure to payment execution, correspondent banking, blocked payment risk, facility drawdown and transaction settlement. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003, SANCTIONS-004, SANCTIONS-007 | medium | Could payment be delayed, blocked or rejected?; Should the lender require sanctions screening, correspondent-bank confirmation or facility conditions? | No immediate coverage gap; analyst should still verify recency and source content. |
-| contrary_or_scope_limited_evidence | Prevents over-escalation by identifying where controls apply only after a notification, where goods are outside scope, or where documentation mitigates risk. | SANCTIONS-001, SANCTIONS-002, SANCTIONS-003, SANCTIONS-004, SANCTIONS-007, SANCTIONS-008 | medium | What evidence would justify approval after enhanced due diligence?; Is the risk specific and controllable rather than automatically prohibitive? | No immediate coverage gap; analyst should still verify recency and source content. |
+| Requirement | Coverage | Strongest source | Source role | Evidence weight | Decision supported | Gap / refresh need |
+| --- | --- | --- | --- | --- | --- | --- |
+| uk_sanctions_ofsi_official_guidance | Covered | L1 — GOV.UK Sanctions End-Use Controls Guidance for Businesses (GOV.UK) | official_anchor | high | Should the lender approve, escalate, legally hold or reject the transaction? | Official guidance is strong, but must be refreshed before live transaction approval. |
+| sanctions_end_use_controls_and_controlled_goods_risk | Covered | L1 — GOV.UK Sanctions End-Use Controls Guidance for Businesses (GOV.UK) | official_anchor | high | Do goods, technology, dual-use status or end-use controls create a legal hold or rejection trigger? | Goods classification and licence status still require transaction-specific validation. |
+| counterparty_and_ownership_exposure | Covered | L3 — GOV.UK UK Financial Sanctions General Guidance (GOV.UK / OFSI) | regulatory_guidance | high | Are counterparties, beneficial owners, banks, intermediaries, vessels or consignees clean enough for approval? | Public guidance cannot clear named parties; sanctions screening and ownership records are required. |
+| jurisdiction_route_and_diversion_exposure | Partially covered | L4 — Reuters Practical Law Sanctions and Export Controls Compliance Roadmap (Reuters Practical Law) | specialist_interpretation | medium | Do countries, ports, transshipment patterns, diversion indicators or logistics route create a red flag? | Requires current route, port, transshipment and diversion checks before operational use. |
+| documentation_and_transaction_quality_evidence | Covered | L5 — ICC Academy Sanctions and Letters of Credit: What Banks Must Know (ICC Academy) | financial_sector_guidance | medium | Are transaction documents strong enough for approval or do gaps trigger escalation or hold? | Actual invoices, bills of lading, contracts, end-use statements and payment instructions are required. |
+| enforcement_penalty_and_regulatory_expectations | Covered | L6 — OFSI Strategy 2026-29 (Office of Financial Sanctions Implementation) | enforcement_evidence | medium | What enforcement or penalty expectations make unresolved red flags unacceptable? | Regulatory expectations are clear; transaction-specific breach exposure requires legal review. |
+| financial_institution_trade_finance_operating_impact | Partially covered | L5 — ICC Academy Sanctions and Letters of Credit: What Banks Must Know (ICC Academy) | financial_sector_guidance | medium | How does sanctions risk affect transaction approval, drawdown, credit exposure, insurance or operational controls? | BAFT source is weaker; use internal policy and formal ICC/Wolfsberg/BAFT principles before operational use. |
+| contrary_clearance_or_de_escalation_evidence | Covered | L8 — GOV.UK How to Use Exceptions and Licences to Comply With Sanctions (GOV.UK) | contrary_scope_limit | medium | What evidence would justify approval or enhanced due diligence rather than legal hold? | Exceptions or licences support de-escalation only if they match exact transaction facts. |
+| sanctions_company_data_requirements_and_anti_overclaiming_controls | Covered | L9 — Wolfsberg Group, ICC and BAFT Trade Finance Principles (Wolfsberg Group / ICC / BAFT) | company_required_data | high | What transaction-specific goods, ownership, route, payment, licence and document data is required before a clearance decision? | Transaction-specific goods, counterparty, ownership, route, payment, licence and document data remain required. |
 
 ## Selected Sources
 
-| Source ID | Requirement | Query | Decision Question | Title | Reliability | Relevance | Recency | Specificity | Decision value | Independence | Evidence weight | Selection reason | Decision use | Fetch Status | Caveat |
-| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- | --- |
-| SANCTIONS-001 | official_sanctions_guidance | site:gov.uk Sanctions End-Use Controls affecting trade finance official sanctions guidance 1-3 months | Does the transaction create sanctions end-use exposure? | Sanctions end-use controls guidance for businesses | 4 | 5 | 4 | 2 | 4 | 5 | medium | direct topic match, fits official_primary, recent source | Supports enhanced referral and route-level controls. | demo | Official guidance should be checked for updates before approving live transactions. |
-| SANCTIONS-002 | sanctions_regime_context | site:gov.uk Sanctions End-Use Controls affecting trade finance official sanctions guidance 1-3 months | Does the transaction create sanctions end-use exposure? | Russia sanctions: guidance | 4 | 5 | 5 | 2 | 3 | 5 | medium | direct topic match, fits official_primary, recent source | Supports enhanced referral and route-level controls. | demo | Regime guidance is broad; transaction-specific legal analysis may still be required. |
-| SANCTIONS-003 | export_control_and_dual_use_risk | site:gov.uk Sanctions End-Use Controls affecting trade finance official sanctions guidance 1-3 months | Does the transaction create sanctions end-use exposure? | UK Trade Tariff | 4 | 5 | 5 | 2 | 2 | 5 | medium | direct topic match, fits official_primary, recent source | Supports enhanced referral and route-level controls. | demo | Tariff classification is an input to controls review and does not replace specialist export-control advice. |
-| SANCTIONS-004 | legal_practical_analysis | site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis 1-3 months | What practical checks should the lender require? | UK Introduces Sanctions End-Use Controls | 3 | 5 | 5 | 2 | 2 | 5 | medium | direct topic match, fits specialist_analysis, recent source | Supports scenario framing and market interpretation. | demo | Legal analysis should support but not replace internal counsel or official guidance. |
-| SANCTIONS-007 | banking_and_payment_risk | site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis 1-3 months | What practical checks should the lender require? | OFSI Strategy 2026-29 | 3 | 5 | 4 | 3 | 2 | 5 | medium | direct topic match, fits specialist_analysis, recent source | Supports scenario framing and market interpretation. | demo | OFSI strategy is a control and enforcement signal rather than transaction-specific payment evidence. |
-| SANCTIONS-008 | contrary_or_scope_limited_evidence | site:gov.uk Sanctions End-Use Controls affecting trade finance contrary or scope limited evidence 1-3 months | What evidence would justify approval after enhanced due diligence? | UK Introduces Sanctions End-Use Controls | 3 | 5 | 5 | 2 | 2 | 5 | medium | direct topic match, fits contrary_or_stabilising_evidence, recent source | Informs relaxation triggers without automatically reducing controls. | demo | Scope-limited evidence must be validated against official guidance and transaction-specific facts. |
+| Source ID | Title | Publisher | Source role | Source type | Requirement | Weight | Decision use | URL |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| L1 | GOV.UK Sanctions End-Use Controls Guidance for Businesses | GOV.UK | official_anchor | official_primary | uk_sanctions_ofsi_official_guidance | medium | Anchors UK sanctions screening, OFSI escalation and legal-hold thresholds for trade finance approval. | https://www.gov.uk/government/publications/sanctions-end-use-controls-guidance-for-businesses/sanctions-end-use-controls-guidance-for-businesses |
+| L2 | GOV.UK Notices to Exporters | GOV.UK / Export Control Joint Unit | regulatory_guidance | official_primary | sanctions_end_use_controls_and_controlled_goods_risk | medium | Supports goods classification, controlled-goods checks and licence/authorisation hold triggers before drawdown. | https://www.gov.uk/government/collections/notices-to-exporters |
+| L3 | GOV.UK UK Financial Sanctions General Guidance | GOV.UK / OFSI | regulatory_guidance | official_primary | counterparty_and_ownership_exposure | medium | Supports counterparty, beneficial ownership, intermediary, bank and consignee screening decisions. | https://www.gov.uk/government/publications/financial-sanctions-general-guidance/uk-financial-sanctions-general-guidance |
+| L4 | Reuters Practical Law Sanctions and Export Controls Compliance Roadmap | Reuters Practical Law | specialist_interpretation | reputable_news | jurisdiction_route_and_diversion_exposure | medium | Supports escalation where jurisdiction, route, transshipment or diversion indicators are unresolved. | https://www.reuters.com/practical-law-the-journal/transactional/sanctions-export-controls-compliance-roadmap-2025-10-01 |
+| L5 | ICC Academy Sanctions and Letters of Credit: What Banks Must Know | ICC Academy | financial_sector_guidance | specialist_analysis | documentation_and_transaction_quality_evidence | medium | Supports document-request and hold triggers for invoices, bills of lading, end-use statements and payment instructions. | https://academy.iccwbo.org/trade-finance/article/sanctions-and-letters-of-credit |
+| L6 | OFSI Strategy 2026-29 | Office of Financial Sanctions Implementation | enforcement_evidence | official_primary | enforcement_penalty_and_regulatory_expectations | medium | Supports legal-hold and rejection thresholds by showing regulatory consequences and expected controls. | https://ofsi.blog.gov.uk/2026/04/15/ofsi-strategy-2026-29 |
+| L7 | BAFT Trade Finance Compliance and KYC Resources | BAFT | financial_sector_guidance | specialist_analysis | financial_institution_trade_finance_operating_impact | medium | Supports facility conditions, drawdown controls, credit exposure review and operational escalation. | https://baft.org/page/5?search=KYC |
+| L8 | GOV.UK How to Use Exceptions and Licences to Comply With Sanctions | GOV.UK | contrary_scope_limit | contrary_or_stabilising_evidence | contrary_clearance_or_de_escalation_evidence | medium | Supports approval or enhanced due diligence only where clean counterparties, licences, exemptions and documents resolve red flags. | https://www.gov.uk/guidance/how-to-use-exceptions-and-licences-to-comply-with-sanctions |
+| L9 | Wolfsberg Group, ICC and BAFT Trade Finance Principles | Wolfsberg Group / ICC / BAFT | company_required_data | specialist_analysis | sanctions_company_data_requirements_and_anti_overclaiming_controls | medium | Supports anti-overclaiming controls by showing the transaction data still required before clearance. | https://library.iccwbo.org/content/tfb/pdf/trade-finance-principles-2019-amendments-wolfsberg-icc-baft-final.pdf |
+
+## Source Quality Notes
+
+| Evidence area | Current source quality | Action before operational use |
+| --- | --- | --- |
+| UK sanctions / OFSI guidance | Strong: GOV.UK/OFSI official sources anchor the legal/compliance baseline. | Refresh GOV.UK/OFSI guidance before approving a live transaction. |
+| Controlled goods / end-use controls | Strong policy anchor, but goods-specific application is transaction-dependent. | Validate goods description, HS/commodity classification, end-use and licence status. |
+| Counterparty and ownership | Medium-high: official guidance supports ownership/control review, but no named-party screening is included. | Run sanctions screening and beneficial ownership checks on all transaction parties. |
+| Jurisdiction / route / diversion | Medium: Reuters Practical Law supports compliance framing; live route/diversion evidence should be refreshed. | Refresh current Reuters/AP/official diversion reporting and validate ports, vessel and transshipment data. |
+| Documentation quality | Medium-high: ICC/Wolfsberg/BAFT style guidance supports document controls. | Review actual invoices, bills of lading, contracts, end-user statements and payment instructions. |
+| Financial-sector operating impact | Medium: BAFT source is weaker/secondary, while ICC/Wolfsberg principles are stronger. | Use internal bank policy, formal principles and legal/compliance sign-off before operational use. |
+| Contrary / clearance evidence | Medium: GOV.UK licence/exception evidence supports de-escalation only where exact conditions are met. | Treat licences, exceptions or exemptions as transaction-specific evidence, not an all-clear. |
+| Company-data requirements | Strong as an anti-overclaiming control. | Obtain goods, counterparty, ownership, route, payment, licence and document data before clearance. |
+
+## Evidence-To-Score Bridge
+
+| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
+| --- | --- | --- | --- | --- |
+| Likelihood | 4/5 | Likelihood is driven by official UK sanctions/end-use guidance, controlled-goods risk, ownership/counterparty exposure and live route/diversion indicators. | Higher only with current transaction screening and licence data; lower would understate official/legal control evidence. | Refresh if sanctions designations, OFSI guidance or export-control rules change. |
+| Impact | 4/5 | Impact is driven by legal hold/rejection risk, payment blockage, documentation failure, credit exposure, insurance/underwriting exclusion and regulatory penalty consequences. | Higher if a sanctioned party/prohibited end-use is confirmed; lower if clean documents and licences resolve red flags. | Refresh when payment, credit, insurance or document risk changes. |
+| Immediacy | 4/5 | Immediacy is high because checks must be resolved before approval, drawdown, document honouring or payment execution. | Higher if drawdown/payment is imminent; lower if transaction is only early-stage pipeline. | Refresh before approval, drawdown or payment execution. |
+| Confidence | 3/5 | Confidence is capped because public evidence does not include transaction-specific goods, ownership, screening, route, payment, licence or document data. | Public sources support a screen, not transaction clearance. | Increase only after BOM/goods, counterparty, ownership, route, payment and document data are supplied. |
 
 ## Rejected Sources
 
-| Title | Requirement | Query | Total score | Lowest scoring dimension | Rejection reason | Stronger source covered same requirement |
-| --- | --- | --- | ---: | --- | --- | --- |
-| Sanctions end-use controls guidance for businesses | official_sanctions_guidance | site:gov.uk Sanctions End-Use Controls affecting trade finance sanctions regime context 1-3 months | 25 | independence_score | duplicate or near-duplicate | no |
-| Russia sanctions: guidance | sanctions_regime_context | site:gov.uk Sanctions End-Use Controls affecting trade finance sanctions regime context 1-3 months | 25 | independence_score | duplicate or near-duplicate | no |
-| UK Trade Tariff | export_control_and_dual_use_risk | site:gov.uk Sanctions End-Use Controls affecting trade finance sanctions regime context 1-3 months | 24 | independence_score | duplicate or near-duplicate | no |
-| Sanctions end-use controls guidance for businesses | official_sanctions_guidance | site:gov.uk Sanctions End-Use Controls affecting trade finance export control and dual use risk 1-3 months | 25 | independence_score | duplicate or near-duplicate | no |
-| Russia sanctions: guidance | sanctions_regime_context | site:gov.uk Sanctions End-Use Controls affecting trade finance export control and dual use risk 1-3 months | 25 | independence_score | duplicate or near-duplicate | no |
-| UK Trade Tariff | export_control_and_dual_use_risk | site:gov.uk Sanctions End-Use Controls affecting trade finance export control and dual use risk 1-3 months | 24 | independence_score | duplicate or near-duplicate | no |
-| UK Introduces Sanctions End-Use Controls | legal_practical_analysis | site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis | 23 | independence_score | duplicate or near-duplicate | no |
-| UK Introduces Sanctions End-Use Controls | legal_practical_analysis | site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis | 23 | independence_score | duplicate or near-duplicate | no |
-| OFSI Strategy 2026-29 | banking_and_payment_risk | site:skadden.com Sanctions End-Use Controls affecting trade finance legal practical analysis | 23 | independence_score | duplicate or near-duplicate | no |
-| UK Introduces Sanctions End-Use Controls | legal_practical_analysis | site:wolfsberg-principles.com Sanctions End-Use Controls affecting trade finance banking and payment risk 1-3 months | 23 | independence_score | duplicate or near-duplicate | no |
+| Title | Requirement | URL | Total score | Rejection reason |
+| --- | --- | --- | --- | --- |
+| Sanctions End-Use Controls: guidance for businesses - GOV.UK | sanctions_end_use_controls_and_controlled_goods_risk | https://www.gov.uk/government/publications/sanctions-end-use-controls-guidance-for-businesses/sanctions-end-use-controls-guidance-for-businesses | 25 | duplicate or near-duplicate |
+| Sanctions End-Use Controls: guidance for businesses - GOV.UK | sanctions_end_use_controls_and_controlled_goods_risk | https://www.gov.uk/government/publications/sanctions-end-use-controls-guidance-for-businesses/sanctions-end-use-controls-guidance-for-businesses | 25 | duplicate or near-duplicate |
+| Assembly Questions with the Index Term Departmental responsibilities | counterparty_and_ownership_exposure | https://aims.niassembly.gov.uk/terms/PrintResults.aspx?se=&so=Ascending&tb=&per=&sp=&fd=&td=&cb1=&cb2=&itn1=ySrULvCABBqYWwYDoiwEdNNquqw5bItTvrvj2jVT4pM%3D&itn2=jc7icOHu4kg%3D&itn3=jc7icOHu4kg%3D&pid=4&pm=&pg=2&tn=1&ito2=&ito3=&ks=jc7icOHu4kg%3D&st=1&pi=0&m=0&mn=All+Questions | 22 | duplicate or near-duplicate |
+| Sanctions End-Use Controls: guidance for businesses - GOV.UK | jurisdiction_route_and_diversion_exposure | https://www.gov.uk/government/publications/sanctions-end-use-controls-guidance-for-businesses/sanctions-end-use-controls-guidance-for-businesses | 22 | duplicate or near-duplicate |
+| Wolfsberg Group: Home | documentation_and_transaction_quality_evidence | https://www.wolfsberg-principles.com | 21 | duplicate or near-duplicate |
+| Sanctions in Trade Finance Masterclass: Real World Examples | documentation_and_transaction_quality_evidence | https://www.youtube.com/watch?v=jBtXT42LG_s | 21 | duplicate or near-duplicate |
+| Financial sanctions enforcement and monetary penalties guidance | enforcement_penalty_and_regulatory_expectations | https://www.gov.uk/government/publications/financial-sanctions-enforcement-and-monetary-penalties-guidance/financial-sanctions-enforcement-and-monetary-penalties-guidance | 23 | duplicate or near-duplicate |
+| Assembly Questions with the Index Term Departmental responsibilities | enforcement_penalty_and_regulatory_expectations | https://aims.niassembly.gov.uk/terms/PrintResults.aspx?se=&so=Ascending&tb=&per=&sp=&fd=&td=&cb1=&cb2=&itn1=ySrULvCABBqYWwYDoiwEdNNquqw5bItTvrvj2jVT4pM%3D&itn2=jc7icOHu4kg%3D&itn3=jc7icOHu4kg%3D&pid=4&pm=&pg=2&tn=1&ito2=&ito3=&ks=jc7icOHu4kg%3D&st=1&pi=0&m=0&mn=All+Questions | 22 | duplicate or near-duplicate |
+| Assembly Questions with the Index Term Children - AIMS Portal | enforcement_penalty_and_regulatory_expectations | https://aims.niassembly.gov.uk/terms/PrintResults.aspx?se=&so=Ascending&tb=&per=&sp=&fd=&td=&cb1=&cb2=&itn1=2OIfEXqLqNgwmfZ3YZr53Q%3D%3D&itn2=jc7icOHu4kg%3D&itn3=jc7icOHu4kg%3D&pid=4&pm=&pg=2&tn=1&ito2=&ito3=&ks=jc7icOHu4kg%3D&st=1&pi=0&m=0&mn=All+Questions | 22 | duplicate or near-duplicate |
+| Sanctions Risk | enforcement_penalty_and_regulatory_expectations | https://www.sanctions-risk.com | 23 | duplicate or near-duplicate |
+| Wolfsberg Group: Home | financial_institution_trade_finance_operating_impact | https://www.wolfsberg-principles.com | 21 | duplicate or near-duplicate |
+| The Sanctions Minefield in Trade Finance: How to Stay Ahead \| sanctions.io | financial_institution_trade_finance_operating_impact | https://www.sanctions.io/blog/the-sanctions-minefield-in-trade-finance-how-to-stay-ahead | 21 | duplicate or near-duplicate |
+| Assembly Questions with the Index Term Departmental responsibilities | contrary_clearance_or_de_escalation_evidence | https://aims.niassembly.gov.uk/terms/PrintResults.aspx?se=&so=Ascending&tb=&per=&sp=&fd=&td=&cb1=&cb2=&itn1=ySrULvCABBqYWwYDoiwEdNNquqw5bItTvrvj2jVT4pM%3D&itn2=jc7icOHu4kg%3D&itn3=jc7icOHu4kg%3D&pid=4&pm=&pg=2&tn=1&ito2=&ito3=&ks=jc7icOHu4kg%3D&st=1&pi=0&m=0&mn=All+Questions | 25 | duplicate or near-duplicate |
+| Forensic Science Regulator: Code of Practice (accessible) - GOV.UK | contrary_clearance_or_de_escalation_evidence | https://www.gov.uk/government/publications/statutory-code-of-practice-for-forensic-science-activities/forensic-science-regulator-code-of-practice-accessible | 25 | duplicate or near-duplicate |
+| Assembly Questions with the Index Term Children - AIMS Portal | contrary_clearance_or_de_escalation_evidence | https://aims.niassembly.gov.uk/terms/PrintResults.aspx?se=&so=Ascending&tb=&per=&sp=&fd=&td=&cb1=&cb2=&itn1=2OIfEXqLqNgwmfZ3YZr53Q%3D%3D&itn2=jc7icOHu4kg%3D&itn3=jc7icOHu4kg%3D&pid=4&pm=&pg=2&tn=1&ito2=&ito3=&ks=jc7icOHu4kg%3D&st=1&pi=0&m=0&mn=All+Questions | 25 | duplicate or near-duplicate |
+| Sanctions in Trade Finance Masterclass - YouTube | contrary_clearance_or_de_escalation_evidence | https://www.youtube.com/watch?v=1i_t-PaJsEM | 25 | duplicate or near-duplicate |
+| The Sanctions Minefield in Trade Finance: How to Stay ... | contrary_clearance_or_de_escalation_evidence | https://www.sanctions.io/blog/the-sanctions-minefield-in-trade-finance-how-to-stay-ahead | 25 | duplicate or near-duplicate |
+| Wolfsberg Group: Home | sanctions_company_data_requirements_and_anti_overclaiming_controls | https://www.wolfsberg-principles.com | 21 | duplicate or near-duplicate |
+| load more loading... no more news - ICC Digital Library | sanctions_company_data_requirements_and_anti_overclaiming_controls | https://library.iccwbo.org/content/tfb/news/tfb-news-loadMore.htm | 22 | duplicate or near-duplicate |
+| Sanctions in Trade Finance Masterclass - YouTube | sanctions_company_data_requirements_and_anti_overclaiming_controls | https://www.youtube.com/watch?v=QB1Fnvn_yfw | 21 | duplicate or near-duplicate |
 
-## Evidence Coverage Assessment
+## Refresh Priorities
 
-- Strongest evidence category: official_primary
-- Weakest evidence category: reputable_news
-- Missing evidence: reputable_news
-- Contrary/stabilising evidence: Present
-- Confidence impact: Confidence capped because the run used a curated fallback source pack rather than live API retrieval.
+| Risk driver | Refresh trigger | Highest-weight sources |
+| --- | --- | --- |
+| UK sanctions / OFSI guidance | Refresh before approval if OFSI or UK sanctions guidance changes. | L1, L6 |
+| Goods and end-use risk | Refresh if goods classification, licence, authorisation or end-use status changes. | L1, L2 |
+| Counterparty and ownership exposure | Refresh if sanctions screening, beneficial ownership, bank or intermediary data changes. | L3, L9 |
+| Documentation quality | Refresh when invoices, bills of lading, contracts, end-use statements or payment instructions change. | L5, L9 |
+| Clearance evidence | Refresh before moving from legal hold or escalation back to approval. | L8 |
 
-## Analyst Review Controls
+## Methodology and Review Controls
 
-- Verify publication dates.
-- Verify fetched content against source page.
-- Check source freshness.
-- Check carrier/company updates remain current.
-- Check market pricing recency.
-- Check de-escalation reporting.
-- Check sanctions/legal implications.
+The source audit preserves the live Tavily search trail, selected/rejected source reasoning, coverage gaps and confidence limits. Law-firm or trade-association analysis is treated as specialist or financial-sector guidance, not official legal clearance. Transaction-specific use requires goods, counterparty, ownership, route, payment, licence and document data. Public-source evidence cannot replace transaction-specific screening, ownership review, document checks, licence validation or legal/compliance sign-off.

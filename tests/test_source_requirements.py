@@ -37,10 +37,14 @@ class SourceRequirementsTests(unittest.TestCase):
             concerns=["sanctions exposure"],
         )
 
-        self.assertGreaterEqual(len(requirements), 7)
+        self.assertGreaterEqual(len(requirements), 9)
         names = {item["requirement_name"] for item in requirements}
-        self.assertIn("official_sanctions_guidance", names)
-        self.assertIn("banking_and_payment_risk", names)
+        self.assertIn("uk_sanctions_ofsi_official_guidance", names)
+        self.assertIn("sanctions_end_use_controls_and_controlled_goods_risk", names)
+        self.assertIn("counterparty_and_ownership_exposure", names)
+        self.assertIn("jurisdiction_route_and_diversion_exposure", names)
+        self.assertIn("documentation_and_transaction_quality_evidence", names)
+        self.assertIn("sanctions_company_data_requirements_and_anti_overclaiming_controls", names)
         for requirement in requirements:
             self.assertTrue(requirement["why_required"])
             self.assertTrue(requirement["decision_questions_supported"])

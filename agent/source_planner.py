@@ -187,6 +187,42 @@ def _queries_for_requirement(topic, region, time_horizon, requirement):
             "site:hvm.catapult.org.uk advanced manufacturer rare earth magnet supply chain inventory supplier qualification",
             "site:csis.org rare earth magnet supply chain company data qualification inventory risk",
         ],
+        "uk_sanctions_ofsi_official_guidance": [
+            "site:gov.uk OFSI financial sanctions guidance UK trade finance sanctions compliance",
+            "site:gov.uk sanctions end-use controls guidance businesses UK",
+        ],
+        "sanctions_end_use_controls_and_controlled_goods_risk": [
+            "site:gov.uk sanctions end-use controls controlled goods licence notification",
+            "site:gov.uk strategic export controls dual-use goods end-use sanctions",
+        ],
+        "counterparty_and_ownership_exposure": [
+            "site:gov.uk OFSI ownership and control sanctions guidance counterparty beneficial ownership",
+            "site:wolfsberg-principles.com sanctions screening trade finance beneficial ownership",
+        ],
+        "jurisdiction_route_and_diversion_exposure": [
+            "site:reuters.com sanctions diversion third country route trade finance export controls",
+            "site:gov.uk sanctions circumvention diversion third countries export controls",
+        ],
+        "documentation_and_transaction_quality_evidence": [
+            "site:iccwbo.org trade finance sanctions due diligence documents bills of lading invoices",
+            "site:wolfsberg-principles.com trade finance sanctions due diligence documents",
+        ],
+        "enforcement_penalty_and_regulatory_expectations": [
+            "site:gov.uk OFSI financial sanctions enforcement penalties guidance",
+            "site:ofsi.blog.gov.uk OFSI strategy enforcement financial sanctions compliance",
+        ],
+        "financial_institution_trade_finance_operating_impact": [
+            "site:wolfsberg-principles.com trade finance sanctions controls financial institutions",
+            "site:baft.org trade finance sanctions compliance controls",
+        ],
+        "contrary_clearance_or_de_escalation_evidence": [
+            "site:gov.uk sanctions licence exemption authorisation guidance trade goods",
+            "site:bakermckenzie.com UK sanctions end-use controls licence exemption scope analysis",
+        ],
+        "sanctions_company_data_requirements_and_anti_overclaiming_controls": [
+            "site:wolfsberg-principles.com trade finance sanctions due diligence customer transaction data",
+            "site:iccwbo.org trade finance due diligence transaction documents sanctions",
+        ],
     }
     queries.extend(targeted_queries.get(requirement_name, []))
 

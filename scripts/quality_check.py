@@ -1,10 +1,14 @@
 import json
 import re
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SHOWCASE = ROOT / "showcase"
+sys.path.insert(0, str(ROOT))
+
+from dashboard_helpers import build_selected_source_rows  # noqa: E402
 
 
 def main():
@@ -13,6 +17,7 @@ def main():
         _framework_guidance,
         _brief_sections,
         _evidence_packs,
+        _selected_source_display_checks,
         _dashboard_checks,
         _dashboard_file_check,
         _source_audits,
@@ -45,6 +50,7 @@ def _files_exist():
         "uk_ets_shipping_operator_brief.md",
         "uk_ets_source_audit.md",
         "uk_ets_evidence_pack.json",
+        "sanctions_trade_finance_exposure_brief.md",
         "sanctions_trade_finance_sample.md",
         "sanctions_source_audit.md",
         "sanctions_evidence_pack.json",
@@ -76,7 +82,7 @@ def _brief_sections():
     hormuz = _read("hormuz_shipping_operator_brief.md")
     critical_minerals = _read("critical_minerals_advanced_manufacturer_brief.md")
     uk_ets = _read("uk_ets_shipping_operator_brief.md")
-    sanctions = _read("sanctions_trade_finance_sample.md")
+    sanctions = _read("sanctions_trade_finance_exposure_brief.md")
     for phrase in ["Operator Decision Stance", "Voyage Decision Matrix", "Sanctions and Safe-Passage Risk", "Dynamic Route-Cost Assessment"]:
         if phrase in hormuz:
             failures.append(f"Hormuz brief still contains old section {phrase}")
@@ -114,9 +120,33 @@ def _brief_sections():
             failures.append(f"Hormuz brief missing review flag: {phrase}")
     if "Preferred option | Legal hold if any sanctions/payment trigger is present; otherwise delay or reroute until insurance, AIS/vessel-flow and official guidance conditions support conditional transit." not in hormuz:
         failures.append("Hormuz preferred option wording is not trigger-based")
-    for phrase in ["Transaction Stance", "Quantified Evidence Readout", "Evidence-To-Score Bridge", "Payment and Documentation Risk"]:
+    for phrase in [
+        "Sanctions Trade Finance Exposure Engine",
+        "Decision Recommendation",
+        "Dashboard Summary",
+        "Transaction Exposure Summary",
+        "Goods and End-Use Risk Assessment",
+        "Counterparty and Ownership Risk Assessment",
+        "Jurisdiction, Route and Payment Risk Assessment",
+        "Documentation Quality Assessment",
+        "Transaction Decision Engine",
+        "Due Diligence Actions",
+        "Risk Scorecard",
+        "Evidence-To-Score Bridge",
+        "Source Requirement Coverage",
+        "Source Quality Notes",
+        "Selected Sources",
+        "Evidence Appendix",
+        "Source Audit Summary",
+        "Methodology and Review Controls",
+        "This is a client-type sanctions and trade-finance exposure screen, not legal advice and not a transaction clearance decision.",
+        "Transaction-specific use requires",
+    ]:
         if phrase not in sanctions:
             failures.append(f"Sanctions brief missing {phrase}")
+    for phrase in ["We use some essential", "cookie", "<script", "<html", "Supports transaction review and compliance controls."]:
+        if phrase in sanctions:
+            failures.append(f"Sanctions brief contains boilerplate or generic wording: {phrase}")
     for phrase in ["Operator Stance", "Applicability Check", "Carbon Cost Estimate"]:
         if phrase not in uk_ets:
             failures.append(f"UK ETS brief missing {phrase}")
@@ -125,6 +155,9 @@ def _brief_sections():
         "Vessel threshold: 5,000 GT",
         "Estimated cost: £2,770 per voyage",
         "Refresh UKA price before pricing or contract decisions.",
+        "Source Quality Notes",
+        "Legal / compliance interpretation",
+        "International-route exposure",
     ]:
         if phrase not in uk_ets:
             failures.append(f"UK ETS brief missing polished phrase: {phrase}")
@@ -246,6 +279,41 @@ def _evidence_packs():
             failures.append(f"UK ETS evidence claim contains raw HTML for {evidence.get('source_id')}")
         if not any(":" in fact for fact in evidence.get("quantified_facts", [])):
             failures.append(f"UK ETS quantified facts are not labelled for {evidence.get('source_id')}")
+    for source in uk_ets_pack.get("selected_sources", []):
+        title = source.get("title", "")
+        if ("ICCT" in title or "Stephenson Harwood" in title or "Azolla" in title) and source.get("source_type") == "official_primary":
+            failures.append(f"UK ETS selected source taxonomy overstates specialist source as official_primary: {title}")
+        for field in ["source_role", "source_value_explanation", "decision_use", "evidence_weight", "requirement_name", "url"]:
+            if not source.get(field):
+                failures.append(f"UK ETS selected source missing {field}: {source.get('source_id')}")
+    sanctions_pack = json.loads((SHOWCASE / "sanctions_evidence_pack.json").read_text(encoding="utf-8"))
+    if sanctions_pack.get("search_provider") != "tavily" or sanctions_pack.get("source_provider") != "tavily":
+        failures.append("Sanctions showcase pack is not marked as tavily/tavily")
+    if sanctions_pack.get("fallback_used") or sanctions_pack.get("fallback_demo_data_used"):
+        failures.append("Sanctions showcase pack incorrectly shows fallback data")
+    if sanctions_pack.get("evidence_mode") != "Live source retrieval":
+        failures.append("Sanctions showcase pack is not marked as live source retrieval")
+    if len(sanctions_pack.get("source_requirements", [])) < 9:
+        failures.append("Sanctions showcase pack should include nine source requirements")
+    if not sanctions_pack.get("transaction_decision_model"):
+        failures.append("Sanctions showcase pack missing transaction decision model")
+    confidence_score = sanctions_pack.get("evidence_to_score_bridge", {}).get("confidence", {}).get("score")
+    if confidence_score is not None and confidence_score >= 5:
+        failures.append("Sanctions confidence should remain below 5")
+    for source in sanctions_pack.get("selected_sources", []):
+        for field in ["source_role", "source_value_explanation", "decision_use", "evidence_weight", "requirement_name", "url"]:
+            if not source.get(field):
+                failures.append(f"Sanctions selected source missing {field}: {source.get('source_id')}")
+        if source.get("publisher") in {"Skadden", "Baker McKenzie Global Sanctions and Export Controls Blog"} and source.get("source_type") == "official_primary":
+            failures.append(f"Sanctions specialist source is incorrectly official_primary: {source.get('title')}")
+    for evidence in sanctions_pack.get("evidence", []):
+        claim = evidence.get("claim_supported", "")
+        if not claim or len(claim.split()) < 8:
+            failures.append(f"Sanctions evidence claim is not readable for {evidence.get('source_id')}")
+        if any(fragment in claim for fragment in ["We use some essential", "cookie", "<script", "<html", "Skip to main content"]):
+            failures.append(f"Sanctions evidence claim still looks like boilerplate for {evidence.get('source_id')}")
+        if evidence.get("decision_use") in ("Supports transaction review and compliance controls.", "", None):
+            failures.append(f"Sanctions evidence needs specific decision use for {evidence.get('source_id')}")
     hormuz_pack = json.loads((SHOWCASE / "hormuz_evidence_pack.json").read_text(encoding="utf-8"))
     if hormuz_pack.get("search_provider") != "tavily" or hormuz_pack.get("source_provider") != "tavily":
         failures.append("Hormuz showcase pack is not marked as tavily/tavily")
@@ -277,6 +345,32 @@ def _evidence_packs():
     return failures
 
 
+def _selected_source_display_checks():
+    failures = []
+    for label, name in [
+        ("UK ETS", "uk_ets_evidence_pack.json"),
+        ("Hormuz", "hormuz_evidence_pack.json"),
+        ("Critical minerals", "critical_minerals_evidence_pack.json"),
+        ("Sanctions", "sanctions_evidence_pack.json"),
+    ]:
+        pack = json.loads((SHOWCASE / name).read_text(encoding="utf-8"))
+        rows = build_selected_source_rows(pack)
+        if not rows:
+            failures.append(f"{label} selected source dashboard table has no rows")
+            continue
+        for row in rows:
+            if not row.get("URL"):
+                failures.append(f"{label} selected source missing URL: {row.get('Source ID')}")
+            if not row.get("Source role") or row.get("Source role") == "source_role_unclassified":
+                failures.append(f"{label} selected source missing conservative source role: {row.get('Source ID')}")
+            if not row.get("Source type"):
+                failures.append(f"{label} selected source missing source type: {row.get('Source ID')}")
+            if label == "UK ETS" and ("ICCT" in row.get("Title", "") or "Stephenson Harwood" in row.get("Title", "")):
+                if row.get("Source type") == "official_primary":
+                    failures.append(f"UK ETS display taxonomy overstates specialist source as official_primary: {row.get('Title')}")
+    return failures
+
+
 def _source_audits():
     failures = []
     for name in ["hormuz_source_audit.md", "uk_ets_source_audit.md", "sanctions_source_audit.md"]:
@@ -287,12 +381,14 @@ def _source_audits():
     uk_ets_audit = _read("uk_ets_source_audit.md")
     hormuz_audit = _read("hormuz_source_audit.md")
     critical_audit = _read("critical_minerals_source_audit.md")
+    sanctions_audit = _read("sanctions_source_audit.md")
     for phrase in [
         "Refresh UKA price before pricing or contract decisions.",
         "Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.",
         "Validate operator-specific fuel burn and route classification before using the cost estimate commercially.",
         "Refresh future-scope assumptions if UK-international maritime expansion policy changes.",
         "Review emissions factor methodology with verifier / MRV process.",
+        "Source Quality Notes",
     ]:
         if phrase not in uk_ets_audit:
             failures.append(f"UK ETS audit missing refresh priority: {phrase}")
@@ -311,6 +407,15 @@ def _source_audits():
     for phrase in ["carrier/company updates", "underwriting", "cargo", "voyage", "demurrage"]:
         if phrase in critical_audit:
             failures.append(f"Critical minerals audit contains irrelevant wording: {phrase}")
+    for phrase in [
+        "Source Quality Notes",
+        "Evidence-To-Score Bridge",
+        "Selected Sources",
+        "Transaction-specific use requires",
+        "Refresh if sanctions designations, OFSI guidance or export-control rules change.",
+    ]:
+        if phrase not in sanctions_audit:
+            failures.append(f"Sanctions audit missing phrase: {phrase}")
     return failures
 
 
@@ -336,17 +441,46 @@ def _dashboard_checks():
         'SHOWCASE / "critical_minerals_evidence_pack.json"',
         'SHOWCASE / "critical_minerals_advanced_manufacturer_brief.md"',
         'SHOWCASE / "critical_minerals_source_audit.md"',
+        'SHOWCASE / "sanctions_evidence_pack.json"',
+        'SHOWCASE / "sanctions_trade_finance_exposure_brief.md"',
+        'SHOWCASE / "sanctions_source_audit.md"',
         'st.sidebar.radio("Cases"',
         "Hormuz Route Decision Engine",
         "Critical Minerals Exposure Engine",
+        "Sanctions Trade Finance Exposure Engine",
         "saved showcase artefacts only",
         "UK ETS Maritime Expansion: Carbon Cost Exposure",
+        "Current showcase cases:",
+        "The dashboard is designed as an expandable case portfolio.",
+        "UK ETS: regulatory policy into route-level carbon cost exposure",
+        "Hormuz: geopolitical/security risk into transit, delay, reroute or legal-hold decision",
+        "Critical Minerals: strategic competition into production-continuity risk",
+        "Sanctions Trade Finance: sanctions/export controls into transaction approval, escalation, legal hold or rejection",
+        "Decision Summary",
+        "Source Governance Summary",
+        "Selected Sources",
+        "build_selected_source_rows",
+        "LinkColumn",
+        "Continuity Summary",
+        "Risk",
+        "Confidence",
+        "Cost/voyage",
+        "Annual cost",
+        "Break-even",
+        "Gap",
+        "Inventory",
+        "Qualification",
+        "Legal hold",
+        "Missing data",
         "Production continuity gap",
         "substitution feasibility needs stronger magnet-specific engineering",
         "company BOM, supplier ownership/country, inventory, contracts and qualification data are required before operational use",
     ]:
         if phrase not in dashboard:
             failures.append(f"dashboard_app.py does not read the expected showcase file: {phrase}")
+    for phrase in ["TavilyClient", "live_search_mode", 'st.json', 'st.write(pack)', 'st.markdown("empty', "st.markdown('empty"]:
+        if phrase in dashboard:
+            failures.append(f"dashboard_app.py contains forbidden dashboard presentation fragment: {phrase}")
     return failures
 
 
@@ -398,6 +532,16 @@ def _repo_hygiene():
             )
             if result.stdout.strip():
                 failures.append(".env is tracked by git and should remain untracked")
+            generated = subprocess.run(
+                ["git", "ls-files", "outputs/*.md", "outputs/*.json"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            tracked_generated = [line for line in generated.stdout.splitlines() if line.strip()]
+            if tracked_generated:
+                failures.append("Generated output files are tracked by git and should remain untracked")
         except Exception:
             failures.append("Unable to verify whether .env is tracked")
     export_script = (ROOT / "scripts" / "create_clean_project_zip.py").read_text(encoding="utf-8")
@@ -437,6 +581,7 @@ def _no_api_keys():
         ROOT / "showcase" / "uk_ets_shipping_operator_brief.md",
         ROOT / "showcase" / "uk_ets_source_audit.md",
         ROOT / "showcase" / "uk_ets_evidence_pack.json",
+        ROOT / "showcase" / "sanctions_trade_finance_exposure_brief.md",
         ROOT / "showcase" / "sanctions_trade_finance_sample.md",
         ROOT / "showcase" / "sanctions_source_audit.md",
         ROOT / "showcase" / "sanctions_evidence_pack.json",

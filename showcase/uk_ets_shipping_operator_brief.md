@@ -165,29 +165,38 @@ Carbon cost does not automatically become recoverable revenue. The practical que
 
 | Requirement | Coverage | Evidence weight | Strongest source | Decision supported | Gap / refresh need |
 | --- | --- | --- | --- | --- | --- |
-| official_policy_scope | Covered by 4 source(s): L1, L2, L4, L7 | high | L2 — Stephenson Harwood UK ETS Maritime Detail Note | Does UK ETS apply to this vessel and route? | No immediate coverage gap; analyst should still verify recency and source content. |
-| reporting_surrender_timeline | Covered by 5 source(s): L1, L2, L4, L6, L7 | high | L2 — Stephenson Harwood UK ETS Maritime Detail Note | When must emissions be reported? | No immediate coverage gap; analyst should still verify recency and source content. |
+| official_policy_scope | Covered by 4 source(s): L1, L2, L4, L7 | high | L7 — GOV.UK UK ETS Maritime Scope Expansion | Does UK ETS apply to this vessel and route? | Use GOV.UK / UK ETS Authority evidence as the policy anchor; treat specialist commentary as interpretation. |
+| reporting_surrender_timeline | Covered by 5 source(s): L1, L2, L4, L6, L7 | high | L2 — Stephenson Harwood UK ETS Maritime Detail Note | When must emissions be reported? | Specialist interpretation should be checked against current UK ETS Authority guidance before operational use. |
 | carbon_price_evidence | Covered by 2 source(s): L3, L6 | medium | L3 — Lloyd's List UK ETS Domestic Shipping Consultation Report | What UKA price should be used? | No immediate coverage gap; analyst should still verify recency and source content. |
-| emissions_factor_evidence | Covered by 5 source(s): L1, L2, L4, L6, L7 | medium | L2 — Stephenson Harwood UK ETS Maritime Detail Note | Which emissions factor should be used for the selected fuel? | No immediate coverage gap; analyst should still verify recency and source content. |
+| emissions_factor_evidence | Covered by 5 source(s): L1, L2, L4, L6, L7 | medium | L4 — Azolla UK ETS Shipping Scope, Costs and Compliance Note | Which emissions factor should be used for the selected fuel? | Emissions factor and verifier methodology must be confirmed before commercial costing. |
 | operator_guidance | Covered by 3 source(s): L3, L5, L6 | medium | L5 — Lloyd's List UK Shipping ETS Preparation Report | How are operators preparing? | No immediate coverage gap; analyst should still verify recency and source content. |
 | legal_practical_analysis | Covered by 5 source(s): L1, L2, L4, L6, L7 | medium | L2 — Stephenson Harwood UK ETS Maritime Detail Note | Which entity is responsible? | No immediate coverage gap; analyst should still verify recency and source content. |
-| future_scope_or_international_extension | Covered by 6 source(s): L1, L2, L4, L6, L7, L8 | medium | L2 — Stephenson Harwood UK ETS Maritime Detail Note | Could future expansion affect UK-international routes? | No immediate coverage gap; analyst should still verify recency and source content. |
-| contrary_or_scope_limited_evidence | Covered by 6 source(s): L1, L2, L4, L6, L7, L8 | medium | L2 — Stephenson Harwood UK ETS Maritime Detail Note | Is this route outside confirmed 2026 scope? | No immediate coverage gap; analyst should still verify recency and source content. |
+| future_scope_or_international_extension | Covered by 6 source(s): L1, L2, L4, L6, L7, L8 | medium | L7 — GOV.UK UK ETS Maritime Scope Expansion | Could future expansion affect UK-international routes? | International-route exposure should remain scenario-only unless confirmed by official evidence. |
+| contrary_or_scope_limited_evidence | Covered by 6 source(s): L1, L2, L4, L6, L7, L8 | medium | L8 — Stephenson Harwood UK ETS Maritime Scope Update | Is this route outside confirmed 2026 scope? | Use as scope-limiting specialist interpretation; refresh official scope guidance before applying to live routes. |
 
-## 15. Evidence Appendix
+## 15. Source Quality Notes
+
+| Evidence area | Current source quality | Dashboard caveat |
+| --- | --- | --- |
+| Official / policy scope | Strong where GOV.UK / UK ETS Authority evidence is present. | Use official sources for implementation date, scope and vessel threshold. |
+| Legal / compliance interpretation | Specialist analysis, not official policy. | Treat law-firm commentary as interpretation requiring legal review before operational use. |
+| Carbon cost inputs | Illustrative until operator fuel burn, verifier methodology and current UKA price are confirmed. | Replace manual UKA price and illustrative fuel burn before commercial pricing decisions. |
+| International-route exposure | Scenario-only unless confirmed by official evidence. | Keep UK-international exposure assumptions separate from confirmed domestic scope. |
+
+## 16. Evidence Appendix
 
 | Source ID | Requirement | Weight | Source Type | Risk Driver | Judgement Supported | Claim | Decision Use | Caveat |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| L1 | official_policy_scope | high | official_primary | policy_scope_and_route_applicability | Confirmed scope should be separated from future scenario exposure | ICCT says the UK ETS is moving beyond its original sectors and that domestic shipping enters scope from 2026 while international maritime treatment remains a later policy question. | Supports confirmed-versus-scenario scope classification for route economics. | Policy context is useful, but operators should anchor live scope decisions in the latest UK ETS Authority wording. |
-| L2 | reporting_surrender_timeline | high | official_primary | reporting_and_surrender_readiness | Reporting and surrender timing create a live readiness issue | Stephenson Harwood says the confirmed maritime design includes a 5,000 GT threshold, no de minimis emissions threshold and simplified monitoring for ships making more than 300 similar domestic voyages a year. | Supports reporting, monitoring and surrender-readiness planning. | Legal commentary helps with implementation detail, but final compliance steps should still be checked against Authority guidance. |
+| L1 | official_policy_scope | high | specialist_analysis | policy_scope_and_route_applicability | Confirmed scope should be separated from future scenario exposure | ICCT says the UK ETS is moving beyond its original sectors and that domestic shipping enters scope from 2026 while international maritime treatment remains a later policy question. | Supports confirmed-versus-scenario scope classification for route economics. | Policy context is useful, but operators should anchor live scope decisions in the latest UK ETS Authority wording. |
+| L2 | reporting_surrender_timeline | high | specialist_analysis | reporting_and_surrender_readiness | Reporting and surrender timing create a live readiness issue | Stephenson Harwood says the confirmed maritime design includes a 5,000 GT threshold, no de minimis emissions threshold and simplified monitoring for ships making more than 300 similar domestic voyages a year. | Supports reporting, monitoring and surrender-readiness planning. | Legal commentary helps with implementation detail, but final compliance steps should still be checked against Authority guidance. |
 | L3 | carbon_price_evidence | medium | reputable_news | carbon_price_and_allowance_cost | UKA pricing can materially alter route economics | Lloyd's List reports that the UK government consulted on expanding the ETS to domestic shipping, reinforcing that operators may face carbon-cost exposure before a live UKA market feed is embedded in this model. | Supports manual UKA price governance and allowance-cost sensitivity discussion. | This source supports policy and operator context rather than a live UKA market quote, so the calculator still uses a manual price input. |
-| L4 | emissions_factor_evidence | medium | official_primary | emissions_factor_and_voyage_calculation | Fuel burn can be translated into deterministic tCO2e exposure | Azolla summarises the July 2026 maritime start date, the domestic scope and the need to plan for compliance costs beyond the raw allowance purchase. | Supports emissions-factor choice and voyage-level carbon-cost calculation structure. | Secondary guidance is helpful for framing assumptions, but the emissions factor should still be checked against verifier-approved methodology. |
+| L4 | emissions_factor_evidence | medium | specialist_analysis | emissions_factor_and_voyage_calculation | Fuel burn can be translated into deterministic tCO2e exposure | Azolla summarises the July 2026 maritime start date, the domestic scope and the need to plan for compliance costs beyond the raw allowance purchase. | Supports emissions-factor choice and voyage-level carbon-cost calculation structure. | Secondary guidance is helpful for framing assumptions, but the emissions factor should still be checked against verifier-approved methodology. |
 | L5 | operator_guidance | medium | company_update | operator_margin_and_pass_through_pressure | Operators face margin and pass-through pressure | Lloyd's List highlights that UK shipping operators are being drawn into the ETS policy process, which raises pass-through, competitiveness and implementation questions for domestic services. | Supports pass-through, customer-pricing and operator-readiness discussion. | Operator-readiness commentary is commercially useful, but route-specific pass-through still depends on contract and customer terms. |
 | L6 | legal_practical_analysis | medium | specialist_analysis | Legal and practical controls | Official guidance should anchor practical controls | HFW explains that domestic maritime inclusion creates compliance responsibilities from 2026 and that operators still need clarity on accountable entities, MRV process and cost recovery. | Supports accountable-entity, MRV and compliance-governance review. | Legal analysis should be read alongside current Authority guidance and the operator's MRV process. |
 | L7 | future_scope_or_international_extension | high | official_primary | future_international_expansion_risk | International exposure should remain scenario-only unless confirmed | GOV.UK says the final domestic maritime policy detail is being set ahead of July 2026 inclusion, while international-voyage expansion remains under separate consultation. | Supports core policy confirmation for start date, route scope and future-scope separation. | This is the strongest live scope anchor, but reporting and surrender detail should still be monitored for updates. |
 | L8 | contrary_or_scope_limited_evidence | medium | contrary_or_stabilising_evidence | Scope-limited approval evidence | Scope-limited evidence can support approval after enhanced due diligence | Stephenson Harwood says vessels sailing to, from and between UK ports could face new emissions costs from 1 July 2026, while international-voyage inclusion remains a future policy issue. | Supports scope-limiting caveats and scenario-only treatment for future international expansion. | Helpful for scope-limiting interpretation, but future international treatment remains policy-contingent. |
 
-## 16. Source Audit Summary
+## 17. Source Audit Summary
 
 | Item | Value |
 | --- | --- |
@@ -201,14 +210,14 @@ Carbon cost does not automatically become recoverable revenue. The practical que
 | Candidate sources | 78 |
 | Selected sources | 8 |
 | Rejected sources | 70 |
-| Strongest sources | L2 — Stephenson Harwood UK ETS Maritime Detail Note (high weight) |
+| Strongest sources | L7 — GOV.UK UK ETS Maritime Scope Expansion (high weight policy anchor); L2 — Stephenson Harwood UK ETS Maritime Detail Note (specialist interpretation) |
 | Weakest evidence area | Lowest selected score: L6 / legal_practical_analysis |
 | Missing or stale evidence | None flagged |
 | Source hierarchy coverage | 100% requirement coverage |
 | Confidence cap reason | Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed. |
 | Refresh priorities | Refresh UKA price before pricing or contract decisions.; Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.; Validate operator-specific fuel burn and route classification before using the cost estimate commercially.; Refresh future-scope assumptions if UK-international maritime expansion policy changes.; Review emissions factor methodology with verifier / MRV process. |
 
-## 17. Methodology and Review Controls
+## 18. Methodology and Review Controls
 
 Method: source plan, source requirements, source ranking, claim extraction, quantified fact extraction, risk-driver synthesis, score bridge and review controls. Scoring is rule-based and transparent; changes to official, market, legal or operational evidence should trigger refresh.
 

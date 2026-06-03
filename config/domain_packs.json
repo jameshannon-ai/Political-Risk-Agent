@@ -111,13 +111,15 @@
   },
   "sanctions_trade_finance": {
     "source_requirements": [
-      "official_sanctions_guidance",
-      "sanctions_regime_context",
-      "export_control_and_dual_use_risk",
-      "legal_practical_analysis",
-      "trade_route_and_diversion_risk",
-      "banking_and_payment_risk",
-      "contrary_or_scope_limited_evidence"
+      "uk_sanctions_ofsi_official_guidance",
+      "sanctions_end_use_controls_and_controlled_goods_risk",
+      "counterparty_and_ownership_exposure",
+      "jurisdiction_route_and_diversion_exposure",
+      "documentation_and_transaction_quality_evidence",
+      "enforcement_penalty_and_regulatory_expectations",
+      "financial_institution_trade_finance_operating_impact",
+      "contrary_clearance_or_de_escalation_evidence",
+      "sanctions_company_data_requirements_and_anti_overclaiming_controls"
     ],
     "preferred_source_types": [
       "official_primary",
@@ -142,31 +144,32 @@
     ],
     "required_source_mix": [
       "official sanctions guidance",
-      "sanctions regime context",
-      "export-control / dual-use guidance",
-      "legal practical analysis",
-      "trade-route / diversion evidence",
-      "banking and payment-risk evidence",
-      "scope-limited or contrary evidence"
+      "sanctions export-control end-use controls / controlled-goods risk",
+      "counterparty and ownership exposure",
+      "jurisdiction and route exposure",
+      "documentation and transaction-quality evidence",
+      "enforcement / penalty / regulatory expectation evidence",
+      "financial institution / trade finance operating impact",
+      "contrary / clearance evidence",
+      "company-data requirements / anti-overclaiming controls"
     ],
     "risk_drivers": [
-      "official sanctions guidance",
-      "sanctions regime context",
+      "UK sanctions and OFSI guidance",
       "goods and end-use risk",
-      "trade route and diversion risk",
-      "payment and documentation risk",
-      "collateral risk",
+      "counterparty and ownership exposure",
+      "jurisdiction, route and payment risk",
+      "documentation quality",
+      "enforcement and legal-hold consequences",
       "scope-limited approval evidence"
     ],
     "decision_questions": [
-      "Does the transaction create sanctions end-use exposure?",
-      "Does the route, counterparty or goods profile suggest diversion risk?",
-      "Could payment be delayed, blocked or rejected?",
-      "What evidence would justify approval after enhanced due diligence?"
+      "Should the lender approve, approve with enhanced due diligence, escalate, legally hold or reject the transaction?",
+      "Do goods, end-use, counterparty, ownership, route, payment or documentation red flags require escalation?",
+      "What evidence would justify approval or de-escalation after enhanced due diligence?"
     ],
     "client_decision_outputs": [
-      "approve / hold / decline stance",
-      "counterparty escalation",
+      "approve / enhanced due diligence / escalation / legal hold / reject stance",
+      "counterparty and ownership escalation",
       "goods classification review",
       "licence position",
       "payment controls",

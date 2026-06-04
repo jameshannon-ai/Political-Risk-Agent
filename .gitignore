@@ -11,5 +11,7 @@ env/
 outputs/*.md
 outputs/*.json
 !outputs/.gitkeep
+dist/
 .DS_Store
 *.zip
+docs/screenshots/

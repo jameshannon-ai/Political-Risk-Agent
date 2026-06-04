@@ -113,11 +113,14 @@ Showcase case artefacts are saved briefs, source audits and evidence packs that 
 
 ## Who It Is For
 
-- `shipping_operator`
-- `marine_insurer`
-- `importer_exporter`
-- `trade_finance_lender`
-- `consultant`
+This project is most relevant to teams that need to translate political risk into commercial decisions, including:
+
+- Shipping and logistics operators
+- Marine and trade credit insurers
+- Importers, exporters and manufacturers
+- Trade finance lenders
+- Sanctions, compliance and risk teams
+- Political risk, strategy and resilience consultants
 
 ## Live vs Fallback Evidence Status
 

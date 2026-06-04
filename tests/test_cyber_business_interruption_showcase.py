@@ -133,10 +133,17 @@ class CyberBusinessInterruptionShowcaseTests(unittest.TestCase):
         ]:
             self.assertTrue(path.exists())
 
-    def test_dashboard_not_extended_to_cyber_yet(self):
+    def test_dashboard_includes_offline_cyber_showcase(self):
         dashboard = Path("dashboard_app.py").read_text(encoding="utf-8")
-        self.assertNotIn('SHOWCASE / "cyber_evidence_pack.json"', dashboard)
-        self.assertNotIn("Cyber Business Interruption Engine", dashboard)
+        self.assertIn('SHOWCASE / "cyber_evidence_pack.json"', dashboard)
+        self.assertIn('SHOWCASE / "cyber_business_interruption_brief.md"', dashboard)
+        self.assertIn('SHOWCASE / "cyber_source_audit.md"', dashboard)
+        self.assertIn("Cyber Business Interruption Engine", dashboard)
+        self.assertIn("First-Reader Summary", dashboard)
+        self.assertIn("Resilience Gap Summary", dashboard)
+        self.assertNotIn("TavilyClient", dashboard)
+        self.assertNotIn("live_search_mode", dashboard)
+        self.assertNotIn(".env", dashboard)
 
 
 if __name__ == "__main__":

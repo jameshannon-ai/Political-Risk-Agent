@@ -28,6 +28,9 @@ CRITICAL_MINERALS_AUDIT = SHOWCASE / "critical_minerals_source_audit.md"
 SANCTIONS_PACK = SHOWCASE / "sanctions_evidence_pack.json"
 SANCTIONS_BRIEF = SHOWCASE / "sanctions_trade_finance_exposure_brief.md"
 SANCTIONS_AUDIT = SHOWCASE / "sanctions_source_audit.md"
+CYBER_PACK = SHOWCASE / "cyber_evidence_pack.json"
+CYBER_BRIEF = SHOWCASE / "cyber_business_interruption_brief.md"
+CYBER_AUDIT = SHOWCASE / "cyber_source_audit.md"
 
 CASES = {
     "UK ETS Maritime Expansion": {
@@ -57,6 +60,13 @@ CASES = {
         "pack": SANCTIONS_PACK,
         "title": "Sanctions Trade Finance Exposure Engine: Transaction Approval, Escalation and Legal-Hold Risk",
         "description": "Transaction decision workflow for approve, enhanced due diligence, escalation, legal hold or rejection under sanctions, end-use, counterparty, route, payment and documentation risk.",
+    },
+    "Cyber Business Interruption Engine": {
+        "brief": CYBER_BRIEF,
+        "audit": CYBER_AUDIT,
+        "pack": CYBER_PACK,
+        "title": "Cyber Business Interruption Engine: Operational Resilience and Insurance Exposure for UK Retail / Critical Services",
+        "description": "Business-interruption decision workflow for incident response, notification, insurance claim readiness, manual fallback, supplier escalation and resilience investment.",
     },
 }
 
@@ -107,10 +117,12 @@ def main():
         - Hormuz: geopolitical/security risk into transit, delay, reroute or legal-hold decision
         - Critical Minerals: strategic competition into production-continuity risk
         - Sanctions Trade Finance: sanctions/export controls into transaction approval, escalation, legal hold or rejection
+        - Cyber Business Interruption: geopolitical cyber and ransomware risk into downtime, notification, insurance and recovery decisions
 
         The dashboard is designed as an expandable case portfolio. Future cases can be added using the same saved-showcase pattern.
         """
     )
+    _render_how_to_read_dashboard()
     st.markdown(f"## {case['title']}")
     st.caption(case["description"])
 
@@ -120,14 +132,17 @@ def main():
         _render_hormuz(pack, brief, audit)
     elif case_name == "Critical Minerals Exposure Engine":
         _render_critical_minerals(pack, brief, audit)
-    else:
+    elif case_name == "Sanctions Trade Finance Exposure Engine":
         _render_sanctions(pack, brief, audit)
+    else:
+        _render_cyber(pack, brief, audit)
 
 
 def _render_uk_ets(pack, brief, audit):
     carbon_cost = _build_carbon_cost_metrics(pack, brief)
     overview = _build_uk_ets_overview_metrics(pack, brief, carbon_cost)
     _render_metrics(overview)
+    _render_first_reader_summary("uk_ets")
 
     tab1, tab2, tab3, tab4 = st.tabs(
         ["Operator Decision", "Carbon Cost", "Evidence & Scores", "Source Audit"]
@@ -175,6 +190,7 @@ def _render_uk_ets(pack, brief, audit):
 def _render_hormuz(pack, brief, audit):
     overview = _build_hormuz_overview_metrics(pack, brief)
     _render_metrics(overview)
+    _render_first_reader_summary("hormuz")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         ["Decision", "Route-Cost and Insurance", "Sanctions and Vessel Signals", "Evidence and Sources", "Full Brief / Source Audit"]
@@ -224,6 +240,7 @@ def _render_hormuz(pack, brief, audit):
 def _render_critical_minerals(pack, brief, audit):
     overview = _build_critical_minerals_overview_metrics(pack, brief)
     _render_metrics(overview)
+    _render_first_reader_summary("critical_minerals")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         ["Decision", "Production Continuity", "Mitigation Options", "Evidence and Sources", "Full Brief / Source Audit"]
@@ -274,6 +291,7 @@ def _render_critical_minerals(pack, brief, audit):
 def _render_sanctions(pack, brief, audit):
     overview = _build_sanctions_overview_metrics(pack, brief)
     _render_metrics(overview)
+    _render_first_reader_summary("sanctions")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         ["Decision", "Transaction Risk", "Decision Engine", "Evidence and Sources", "Full Brief / Source Audit"]
@@ -305,6 +323,54 @@ def _render_sanctions(pack, brief, audit):
         _render_selected_sources(pack)
         with st.expander("Evidence Appendix", expanded=False):
             _render_markdown_table_section(brief, "16. Evidence Appendix")
+
+    with tab5:
+        with st.expander("Full brief markdown", expanded=False):
+            st.markdown(brief)
+        _render_audit_detail_expanders(audit)
+        with st.expander("Full source audit markdown", expanded=False):
+            st.markdown(audit)
+
+
+def _render_cyber(pack, brief, audit):
+    overview = _build_cyber_overview_metrics(pack, brief)
+    _render_metrics(overview)
+    _render_first_reader_summary("cyber")
+    st.info(
+        "This is a client-type cyber business interruption exposure screen, not technical cybersecurity advice, legal advice or an insurance coverage determination."
+    )
+
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        ["Decision", "Business Interruption", "Notification, Insurance and Recovery", "Evidence and Sources", "Full Brief / Source Audit"]
+    )
+
+    with tab1:
+        _render_markdown_table_section(brief, "3. Dashboard Summary")
+        _render_markdown_table_section(brief, "1. Decision Recommendation")
+        _render_text_section(brief, "2. Scope and Specificity")
+        _render_markdown_table_section(brief, "4. Incident Exposure Summary")
+
+    with tab2:
+        _render_cyber_resilience_gap_summary()
+        _render_markdown_table_section(brief, "5. Operational Dependency Assessment")
+        _render_markdown_table_section(brief, "6. Business Interruption Model")
+        _render_markdown_table_section(brief, "7. Downtime / Revenue-at-Risk Assessment")
+
+    with tab3:
+        _render_markdown_table_section(brief, "8. Regulatory Notification Assessment")
+        _render_markdown_table_section(brief, "9. Insurance and Claims Readiness Assessment")
+        _render_markdown_table_section(brief, "10. Supplier / MSP Dependency Risk")
+        _render_markdown_table_section(brief, "11. Mitigation Options")
+        _render_text_section(brief, "19. Methodology and Review Controls")
+
+    with tab4:
+        _render_markdown_table_section(brief, "12. Risk Scorecard")
+        _render_markdown_table_section(brief, "13. Evidence-To-Score Bridge")
+        _render_markdown_table_section(brief, "14. Source Requirement Coverage")
+        _render_markdown_table_section(brief, "15. Source Quality Notes")
+        _render_selected_sources(pack)
+        with st.expander("Evidence Appendix", expanded=False):
+            _render_markdown_table_section(brief, "17. Evidence Appendix")
 
     with tab5:
         with st.expander("Full brief markdown", expanded=False):
@@ -391,6 +457,116 @@ def _render_critical_minerals_company_data_controls(brief):
 def _render_table(title, rows):
     st.markdown(f"### {title}")
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def _render_how_to_read_dashboard():
+    _render_table(
+        "How to read this dashboard",
+        [
+            {"Step": "1", "Action": "Start with the decision recommendation."},
+            {"Step": "2", "Action": "Check the model output and key trigger."},
+            {
+                "Step": "3",
+                "Action": "Review source caveats and company-data requirements before treating the result as operational.",
+            },
+        ],
+    )
+
+
+def _render_first_reader_summary(case_key):
+    rows_by_case = {
+        "uk_ets": [
+            {
+                "Item": "Business problem",
+                "Value": "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Identify route applicability, estimate carbon cost exposure, and decide how to reflect that cost in voyage economics, surcharge strategy and compliance preparation.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "Official policy evidence defines scope and timing; scenario inputs convert fuel burn, emissions factors and UKA pricing into cost per voyage and annualised exposure.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Route list, vessel fuel burn, voyage frequency, verifier methodology and current allowance price.",
+            },
+        ],
+        "hormuz": [
+            {
+                "Item": "Business problem",
+                "Value": "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Decide whether to transit, delay, reroute or place the voyage on legal hold.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "Source evidence is mapped to legal triggers, war-risk pricing, AIS/vessel-flow signals and route-cost assumptions.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Vessel value, insurance quote, charter terms, route plan, cargo details and legal/compliance clearance.",
+            },
+        ],
+        "critical_minerals": [
+            {
+                "Item": "Business problem",
+                "Value": "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Decide whether to stockpile, qualify an alternative supplier, redesign the input, allocate scarce inventory or prepare a production hold.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "Export-control, concentration and industry evidence is converted into an inventory runway versus supplier qualification gap.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Bill of materials, supplier country/ownership, inventory by input, customer commitments and qualification status.",
+            },
+        ],
+        "sanctions": [
+            {
+                "Item": "Business problem",
+                "Value": "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Decide whether to approve, apply enhanced due diligence, escalate, place on legal hold or reject.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "Official sanctions guidance, end-use controls and source evidence are mapped to transaction red flags and due-diligence actions.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Goods classification, end-user statement, counterparty screening, beneficial ownership, payment route, logistics data and transaction documents.",
+            },
+        ],
+        "cyber": [
+            {
+                "Item": "Business problem",
+                "Value": "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Whether to activate incident response, notify, trigger insurance claim process, use manual fallback, pause exposed operations or invest in resilience.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "Threat, prevalence, incident, notification and insurance evidence is converted into a resilience-gap and revenue-at-risk screen.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Systems map, revenue exposure, RTO/RPO, policy wording, incident facts and supplier/MSP dependency data.",
+            },
+        ],
+    }
+    _render_table("First-Reader Summary", rows_by_case[case_key])
 
 
 def _render_hormuz_decision_summary():
@@ -493,6 +669,18 @@ def _render_sanctions_decision_summary():
     )
 
 
+def _render_cyber_resilience_gap_summary():
+    _render_table(
+        "Resilience Gap Summary",
+        [
+            {"Metric": "Expected outage", "Value": "5 days", "Meaning": "Illustrative recovery duration"},
+            {"Metric": "Maximum tolerable downtime", "Value": "2 days", "Meaning": "Company-required tolerance threshold"},
+            {"Metric": "Resilience gap", "Value": "-3 days", "Meaning": "Expected recovery exceeds tolerance"},
+            {"Metric": "Revenue at risk", "Value": "£10m", "Meaning": "Illustrative gross revenue disruption"},
+        ],
+    )
+
+
 def _render_critical_minerals_continuity_summary():
     _render_table(
         "Continuity Summary",
@@ -563,6 +751,22 @@ def _build_sanctions_overview_metrics(pack, brief):
         "Sources": str(pack.get("selected_count", len(pack.get("selected_sources", [])))),
         "Legal hold": "Yes" if model.get("legal_hold_required") else "Review",
         "Missing data": str(len(model.get("missing_documents", []))) if model else "",
+    }
+
+
+def _build_cyber_overview_metrics(pack, brief):
+    model = pack.get("cyber_business_interruption_model", {})
+    return {
+        "Decision": "Resilience controls",
+        "Risk": _extract_field_value(brief, "Overall risk level"),
+        "Confidence": _extract_field_value(brief, "Confidence"),
+        "Evidence": "Live",
+        "Provider": _title_value(pack.get("source_provider", "")),
+        "Fallback": _yes_no(pack.get("fallback_used", pack.get("fallback_demo_data_used", ""))),
+        "Sources": str(pack.get("selected_count", len(pack.get("selected_sources", [])))),
+        "Resilience gap": f"{model.get('resilience_gap_days', '')} days",
+        "Revenue at risk": "£10m",
+        "Expected outage": f"{model.get('expected_outage_days', '')} days",
     }
 
 

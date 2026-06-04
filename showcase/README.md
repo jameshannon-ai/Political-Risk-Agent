@@ -8,6 +8,7 @@ These saved artefacts are the dashboard inputs. They preserve the brief, source 
 | Hormuz Route Decision Engine | shipping operator | `showcase/hormuz_shipping_operator_brief.md` | `showcase/hormuz_source_audit.md` | `showcase/hormuz_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 | Critical Minerals Exposure Engine | UK advanced manufacturer | `showcase/critical_minerals_advanced_manufacturer_brief.md` | `showcase/critical_minerals_source_audit.md` | `showcase/critical_minerals_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 | Sanctions Trade Finance Exposure Engine | UK trade finance lender / bank / credit insurer | `showcase/sanctions_trade_finance_exposure_brief.md` | `showcase/sanctions_source_audit.md` | `showcase/sanctions_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
+| Cyber Business Interruption Engine | UK customer-facing operator / retailer / critical services operator | `showcase/cyber_business_interruption_brief.md` | `showcase/cyber_source_audit.md` | `showcase/cyber_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 
 Additional earlier samples may remain in this folder for reference, but they are not active dashboard cases unless listed as included above.
 `showcase/sanctions_trade_finance_sample.md` is a legacy curated sample retained for reference; the active sanctions dashboard case uses `showcase/sanctions_trade_finance_exposure_brief.md`.

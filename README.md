@@ -25,6 +25,7 @@ What it demonstrates:
 | Hormuz Route Decision Engine | shipping operator | geopolitical/security/sanctions/insurance | transit, delay, reroute or legal hold | saved Tavily-backed showcase |
 | Critical Minerals Exposure Engine | UK advanced manufacturer | strategic competition / supply-chain concentration | stockpile, qualify supplier, redesign, allocate or hold | saved Tavily-backed showcase |
 | Sanctions Trade Finance Exposure Engine | UK trade finance lender / bank / credit insurer | sanctions / export controls | transaction approval, escalation, legal hold or rejection | saved Tavily-backed showcase |
+| Cyber Business Interruption Engine | UK customer-facing operator / retailer / critical services operator | geopolitical cyber / ransomware / operational resilience | downtime, notification, insurance and recovery decision | saved Tavily-backed showcase |
 
 The dashboard is designed as an expandable case portfolio. New cases can be added by saving a brief, source audit and evidence pack, then wiring that saved-showcase pattern into the dashboard.
 
@@ -104,6 +105,7 @@ Reviewers should look at:
 - Hormuz Route Decision Engine: Sanctions, Insurance and Delay-Cost Trade-Offs
 - Critical Minerals Exposure Engine: Rare Earth Magnet Supply Risk for UK Advanced Manufacturers
 - Sanctions Trade Finance Exposure Engine: Transaction Approval, Escalation and Legal-Hold Risk
+- Cyber Business Interruption Engine: Operational Resilience and Insurance Exposure for UK Retail / Critical Services
 
 These are current saved dashboard cases, not the final limits of the framework. Additional saved samples can remain available in `showcase/`, but they should be clearly labelled unless upgraded into the active dashboard portfolio.
 
@@ -192,7 +194,7 @@ The active dashboard briefs are structured as decision products:
 - source requirement coverage
 - selected sources, caveats, refresh triggers and source audits
 
-UK ETS converts regulatory policy into route-level carbon cost exposure. Hormuz converts geopolitical, sanctions, insurance and vessel-flow signals into transit, delay, reroute or legal-hold logic. Critical Minerals converts export-control and supplier concentration evidence into production-continuity decisions. Sanctions Trade Finance converts sanctions/export-control evidence into transaction approval, escalation, legal-hold or rejection logic.
+UK ETS converts regulatory policy into route-level carbon cost exposure. Hormuz converts geopolitical, sanctions, insurance and vessel-flow signals into transit, delay, reroute or legal-hold logic. Critical Minerals converts export-control and supplier concentration evidence into production-continuity decisions. Sanctions Trade Finance converts sanctions/export-control evidence into transaction approval, escalation, legal-hold or rejection logic. Cyber Business Interruption converts geopolitical cyber/ransomware and resilience evidence into downtime, notification, insurance and recovery decisions.
 
 Generic political risk outputs still use a shorter reusable template so the project does not become a single-case report generator.
 
@@ -232,7 +234,7 @@ Run:
 streamlit run dashboard_app.py
 ```
 
-The dashboard displays the saved UK ETS, Hormuz, Critical Minerals and Sanctions Trade Finance showcase outputs. It does not call Tavily or spend search credits.
+The dashboard displays the saved UK ETS, Hormuz, Critical Minerals, Sanctions Trade Finance and Cyber Business Interruption showcase outputs. It does not call Tavily or spend search credits.
 
 ## Clean Export
 

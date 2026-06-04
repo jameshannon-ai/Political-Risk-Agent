@@ -79,9 +79,6 @@ CASES = {
             "15. Selected Sources",
         ],
     },
-}
-
-SAVED_SHOWCASE_ONLY_CASES = {
     "Cyber Business Interruption": {
         "files": [
             SHOWCASE / "cyber_business_interruption_brief.md",
@@ -90,16 +87,17 @@ SAVED_SHOWCASE_ONLY_CASES = {
         ],
         "brief": SHOWCASE / "cyber_business_interruption_brief.md",
         "sections": [
-            "1. Decision Recommendation",
             "3. Dashboard Summary",
+            "1. Decision Recommendation",
+            "4. Incident Exposure Summary",
+            "5. Operational Dependency Assessment",
             "6. Business Interruption Model",
             "7. Downtime / Revenue-at-Risk Assessment",
             "8. Regulatory Notification Assessment",
             "9. Insurance and Claims Readiness Assessment",
-            "13. Evidence-To-Score Bridge",
-            "14. Source Requirement Coverage",
+            "10. Supplier / MSP Dependency Risk",
             "15. Source Quality Notes",
-            "16. Selected Sources",
+            "14. Source Requirement Coverage",
         ],
     },
 }
@@ -118,12 +116,29 @@ def main():
         for phrase in [
             "Current showcase cases:",
             "The dashboard is designed as an expandable case portfolio.",
+            "How to read this dashboard",
+            "Start with the decision recommendation.",
+            "Check the model output and key trigger.",
+            "Review source caveats and company-data requirements before treating the result as operational.",
             "UK ETS: regulatory policy into route-level carbon cost exposure",
             "Hormuz: geopolitical/security risk into transit, delay, reroute or legal-hold decision",
             "Critical Minerals: strategic competition into production-continuity risk",
             "Sanctions Trade Finance: sanctions/export controls into transaction approval, escalation, legal hold or rejection",
+            "Cyber Business Interruption: geopolitical cyber and ransomware risk into downtime, notification, insurance and recovery decisions",
             "Sanctions Trade Finance Exposure Engine",
+            "Cyber Business Interruption Engine",
             "Decision Summary",
+            "First-Reader Summary",
+            "Business problem",
+            "Decision supported",
+            "Evidence-to-output logic",
+            "Company data needed",
+            "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
+            "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
+            "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
+            "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
+            "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+            "Resilience Gap Summary",
             "Source Governance Summary",
             "Selected Sources",
             "build_selected_source_rows",
@@ -131,6 +146,7 @@ def main():
             "Continuity Summary",
             "Dashboard caveats: substitution feasibility needs stronger magnet-specific engineering",
             "saved showcase artefacts only",
+            "This is a client-type cyber business interruption exposure screen, not technical cybersecurity advice, legal advice or an insurance coverage determination.",
         ]:
             if phrase not in dashboard:
                 failures.append(f"dashboard_app.py missing presentation phrase: {phrase}")
@@ -165,26 +181,6 @@ def main():
                     title = row.get("Title", "")
                     if ("ICCT" in title or "Stephenson Harwood" in title) and row.get("Source type") == "official_primary":
                         failures.append(f"UK ETS source taxonomy overstates specialist source as official_primary: {title}")
-
-    for case_name, config in SAVED_SHOWCASE_ONLY_CASES.items():
-        for path in config["files"]:
-            if not path.exists():
-                failures.append(f"{case_name} missing saved showcase file: {path.relative_to(ROOT)}")
-        if config["brief"].exists():
-            brief = load_markdown(config["brief"])
-            for section in config["sections"]:
-                if not extract_markdown_section(brief, section):
-                    failures.append(f"{case_name} brief missing saved-showcase section: {section}")
-        pack_path = config["files"][2]
-        if pack_path.exists():
-            rows = build_selected_source_rows(load_json(pack_path))
-            if not rows:
-                failures.append(f"{case_name} selected source table has no rows")
-            for row in rows:
-                if not row.get("URL"):
-                    failures.append(f"{case_name} selected source missing URL: {row.get('Source ID')}")
-                if not row.get("Source role") or row.get("Source role") == "source_role_unclassified":
-                    failures.append(f"{case_name} selected source missing conservative source role: {row.get('Source ID')}")
 
     if failures:
         for failure in failures:

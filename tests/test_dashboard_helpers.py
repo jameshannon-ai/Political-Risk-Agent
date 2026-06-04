@@ -19,10 +19,12 @@ class DashboardHelperTests(unittest.TestCase):
         self.hormuz_brief = Path("showcase/hormuz_shipping_operator_brief.md")
         self.critical_minerals_brief = Path("showcase/critical_minerals_advanced_manufacturer_brief.md")
         self.sanctions_brief = Path("showcase/sanctions_trade_finance_exposure_brief.md")
+        self.cyber_brief = Path("showcase/cyber_business_interruption_brief.md")
         self.uk_ets_pack = Path("showcase/uk_ets_evidence_pack.json")
         self.hormuz_pack = Path("showcase/hormuz_evidence_pack.json")
         self.critical_minerals_pack = Path("showcase/critical_minerals_evidence_pack.json")
         self.sanctions_pack = Path("showcase/sanctions_evidence_pack.json")
+        self.cyber_pack = Path("showcase/cyber_evidence_pack.json")
 
     def test_loaders_read_files(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -61,14 +63,17 @@ class DashboardHelperTests(unittest.TestCase):
             self.hormuz_brief,
             self.critical_minerals_brief,
             self.sanctions_brief,
+            self.cyber_brief,
             self.uk_ets_pack,
             self.hormuz_pack,
             self.critical_minerals_pack,
             self.sanctions_pack,
+            self.cyber_pack,
             Path("showcase/uk_ets_source_audit.md"),
             Path("showcase/hormuz_source_audit.md"),
             Path("showcase/critical_minerals_source_audit.md"),
             Path("showcase/sanctions_source_audit.md"),
+            Path("showcase/cyber_source_audit.md"),
         ]:
             self.assertTrue(path.exists(), f"Missing saved showcase file: {path}")
 
@@ -129,25 +134,48 @@ class DashboardHelperTests(unittest.TestCase):
             if heading != "10. Due Diligence Actions":
                 self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
 
+    def test_cyber_sections_can_be_extracted(self):
+        brief = load_markdown(self.cyber_brief)
+        for heading in [
+            "3. Dashboard Summary",
+            "1. Decision Recommendation",
+            "4. Incident Exposure Summary",
+            "5. Operational Dependency Assessment",
+            "6. Business Interruption Model",
+            "7. Downtime / Revenue-at-Risk Assessment",
+            "8. Regulatory Notification Assessment",
+            "9. Insurance and Claims Readiness Assessment",
+            "10. Supplier / MSP Dependency Risk",
+            "15. Source Quality Notes",
+            "14. Source Requirement Coverage",
+        ]:
+            section = extract_markdown_section(brief, heading)
+            self.assertTrue(section, f"Expected section to be extractable: {heading}")
+            self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
+
     def test_helpers_work_for_all_active_case_briefs(self):
         uk_ets = load_markdown(self.uk_ets_brief)
         hormuz = load_markdown(self.hormuz_brief)
         critical_minerals = load_markdown(self.critical_minerals_brief)
         sanctions = load_markdown(self.sanctions_brief)
+        cyber = load_markdown(self.cyber_brief)
 
         uk_section = extract_markdown_section(uk_ets, "1. Operator Stance")
         hormuz_section = extract_markdown_section(hormuz, "1. Decision Recommendation")
         critical_section = extract_markdown_section(critical_minerals, "1. Decision Recommendation")
         sanctions_section = extract_markdown_section(sanctions, "1. Decision Recommendation")
+        cyber_section = extract_markdown_section(cyber, "1. Decision Recommendation")
 
         self.assertTrue(extract_markdown_table(uk_section))
         self.assertTrue(extract_markdown_table(hormuz_section))
         self.assertTrue(extract_markdown_table(critical_section))
         self.assertTrue(extract_markdown_table(sanctions_section))
+        self.assertTrue(extract_markdown_table(cyber_section))
         self.assertIn("Current stance", str(extract_markdown_table(uk_section)[0][0]))
         self.assertIn("Preferred option", str(extract_markdown_table(hormuz_section)[0][0]))
         self.assertIn("Recommended action", str(extract_markdown_table(critical_section)[0][0]))
         self.assertIn("Recommended decision", str(extract_markdown_table(sanctions_section)[0][0]))
+        self.assertIn("Recommended stance", str(extract_markdown_table(cyber_section)[0][0]))
 
     def test_dashboard_file_check_script_passes(self):
         result = subprocess.run(
@@ -164,6 +192,10 @@ class DashboardHelperTests(unittest.TestCase):
         for phrase in [
             "Current showcase cases:",
             "The dashboard is designed as an expandable case portfolio.",
+            "How to read this dashboard",
+            "Start with the decision recommendation.",
+            "Check the model output and key trigger.",
+            "Review source caveats and company-data requirements before treating the result as operational.",
             "Decision Summary",
             "Source Governance Summary",
             "Selected Sources",
@@ -177,8 +209,24 @@ class DashboardHelperTests(unittest.TestCase):
             "Inventory",
             "Qualification",
             "Sanctions Trade Finance Exposure Engine",
+            "Cyber Business Interruption Engine",
             "Legal hold",
             "Missing data",
+            "Resilience gap",
+            "Revenue at risk",
+            "Expected outage",
+            "First-Reader Summary",
+            "Business problem",
+            "Decision supported",
+            "Evidence-to-output logic",
+            "Company data needed",
+            "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
+            "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
+            "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
+            "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
+            "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+            "Resilience Gap Summary",
+            "technical cybersecurity advice, legal advice or an insurance coverage determination",
         ]:
             self.assertIn(phrase, dashboard)
         for phrase in ["TavilyClient", "live_search_mode", "st.json", "st.write(pack)", 'st.markdown("empty']:
@@ -196,7 +244,7 @@ class DashboardHelperTests(unittest.TestCase):
             "Decision use",
             "URL",
         }
-        for pack_path in [self.uk_ets_pack, self.hormuz_pack, self.critical_minerals_pack, self.sanctions_pack]:
+        for pack_path in [self.uk_ets_pack, self.hormuz_pack, self.critical_minerals_pack, self.sanctions_pack, self.cyber_pack]:
             rows = build_selected_source_rows(load_json(pack_path))
             self.assertTrue(rows, f"Expected selected source rows for {pack_path}")
             for row in rows:
@@ -224,6 +272,7 @@ class DashboardHelperTests(unittest.TestCase):
         self.assertIn("Source Governance Summary", Path("dashboard_app.py").read_text(encoding="utf-8"))
         self.assertIn("Source Quality Notes", load_markdown(self.critical_minerals_brief))
         self.assertIn("Source Quality Notes", load_markdown(self.sanctions_brief))
+        self.assertIn("Source Quality Notes", load_markdown(self.cyber_brief))
 
 
 if __name__ == "__main__":

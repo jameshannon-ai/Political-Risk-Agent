@@ -34,6 +34,8 @@ class ExportHygieneTests(unittest.TestCase):
             "*.zip",
             "outputs",
             "political-risk-agent-clean.zip",
+            "output_name",
+            "Relative paths are written under dist/.",
         ]:
             self.assertIn(phrase, script)
 

@@ -2,7 +2,7 @@
 
 Political Risk Agent is a reusable, source-audited intelligence workflow for converting political, geopolitical and regulatory disruption into decision-grade commercial risk briefs. It uses governed source planning, source ranking, evidence extraction, qualitative-to-quantitative scoring, risk-driver synthesis and review controls.
 
-## Employer Quick Read
+## Summary
 
 Political Risk Agent is a portfolio project showing how public political, geopolitical and regulatory evidence can be converted into decision-useful commercial risk outputs. It is not a single report: it is a reusable workflow for defining a client decision, planning sources, ranking evidence, extracting claims, scoring risk and producing a brief, source audit, evidence pack and offline dashboard view.
 

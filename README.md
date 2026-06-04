@@ -4,7 +4,7 @@ Political Risk Agent is a reusable, source-governed workflow that turns public p
 
 It is not a single report generator. The project shows how a repeatable workflow can define a business decision, plan source requirements, retrieve and rank public evidence, extract decision-relevant claims, label assumptions, score risk, expose confidence limits and present the result in an offline dashboard.
 
-## Employer Quick Read
+## Summary
 
 ### What is this?
 

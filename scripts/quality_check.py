@@ -678,7 +678,7 @@ def _dashboard_file_check():
 def _repo_hygiene():
     failures = []
     gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
-    for phrase in [".env", ".venv/", ".DS_Store", "*.zip", "outputs/*.md", "outputs/*.json", "!outputs/.gitkeep"]:
+    for phrase in [".env", ".venv/", ".DS_Store", "*.zip", "outputs/*.md", "outputs/*.json", "!outputs/.gitkeep", "dist/"]:
         if phrase not in gitignore:
             failures.append(f".gitignore missing {phrase}")
     tracked = (ROOT / ".git").exists()
@@ -713,7 +713,7 @@ def _repo_hygiene():
         except Exception:
             failures.append("Unable to verify whether .env is tracked")
     export_script = (ROOT / "scripts" / "create_clean_project_zip.py").read_text(encoding="utf-8")
-    for phrase in [".env", ".venv", ".git", "outputs", "political-risk-agent-clean.zip"]:
+    for phrase in [".env", ".venv", ".git", "outputs", "dist", "political-risk-agent-clean.zip"]:
         if phrase not in export_script:
             failures.append(f"create_clean_project_zip.py missing export exclusion or output reference: {phrase}")
     return failures

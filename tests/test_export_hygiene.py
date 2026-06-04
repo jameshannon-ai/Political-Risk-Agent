@@ -20,6 +20,7 @@ class ExportHygieneTests(unittest.TestCase):
             "outputs/*.md",
             "outputs/*.json",
             "!outputs/.gitkeep",
+            "dist/",
         ]:
             self.assertIn(phrase, gitignore)
 
@@ -33,6 +34,7 @@ class ExportHygieneTests(unittest.TestCase):
             ".DS_Store",
             "*.zip",
             "outputs",
+            "dist",
             "political-risk-agent-clean.zip",
             "output_name",
             "Relative paths are written under dist/.",

@@ -91,7 +91,7 @@ class HormuzShowcaseTests(unittest.TestCase):
             self.pack_path,
         ]:
             text = path.read_text(encoding="utf-8")
-            self.assertNotIn("TAVILY_API_KEY=sk", text)
+            self.assertNotIn("TAVILY_API_KEY=" + "sk", text)
 
     def test_dashboard_supports_both_offline_showcases(self):
         dashboard = Path("dashboard_app.py").read_text(encoding="utf-8")

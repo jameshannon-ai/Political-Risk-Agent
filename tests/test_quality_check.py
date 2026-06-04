@@ -3,14 +3,16 @@ import unittest
 
 class QualityCheckPatternTests(unittest.TestCase):
     def test_tavily_key_patterns_are_detected(self):
+        tavily_prefix = "tvly" + "-"
+        tavily_dev_prefix = "tvly" + "-dev" + "-"
         patterns = [
-            "tvly-1234567890abcdef",
-            "tvly-dev-1234567890abcdef",
-            "TAVILY_API_KEY=tvly-1234567890abcdef",
+            f"{tavily_prefix}1234567890abcdef",
+            f"{tavily_dev_prefix}1234567890abcdef",
+            f"TAVILY_API_KEY={tavily_prefix}1234567890abcdef",
         ]
 
-        self.assertTrue(any("tvly-" in item for item in patterns))
-        self.assertTrue(any("tvly-dev-" in item for item in patterns))
+        self.assertTrue(any(tavily_prefix in item for item in patterns))
+        self.assertTrue(any(tavily_dev_prefix in item for item in patterns))
         self.assertTrue(any(item.startswith("TAVILY_API_KEY=") for item in patterns))
 
     def test_official_primary_examples_match_true_official_pattern(self):

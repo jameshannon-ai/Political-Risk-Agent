@@ -583,10 +583,7 @@ def _dashboard_checks():
         "Current showcase cases:",
         "The dashboard is designed as an expandable case portfolio.",
         "This dashboard demonstrates a reusable political-risk workflow: identify a political, geopolitical, regulatory or state-linked trigger; map it to business exposure; assess the evidence base; and convert it into a decision-support output with source caveats and company-data requirements.",
-        "How to read this dashboard",
-        "Start with the decision recommendation.",
-        "Check the model output and key trigger.",
-        "Review source caveats and company-data requirements before treating the result as operational.",
+        "Each case starts with the business decision, then shows the model output, evidence base, source caveats and company-data needed for operational use.",
         "UK ETS: regulatory policy into route-level carbon cost exposure",
         "Hormuz: geopolitical/security risk into transit, delay, reroute or legal-hold decision",
         "Critical Minerals: strategic competition into production-continuity risk",
@@ -643,6 +640,14 @@ def _dashboard_checks():
     for phrase in ["TavilyClient", "live_search_mode", 'st.json', 'st.write(pack)', 'st.markdown("empty', "st.markdown('empty"]:
         if phrase in dashboard:
             failures.append(f"dashboard_app.py contains forbidden dashboard presentation fragment: {phrase}")
+    for phrase in [
+        "How to read this dashboard",
+        "Start with the decision recommendation.",
+        "Check the model output and key trigger.",
+        "Review source caveats and company-data requirements before treating the result as operational.",
+    ]:
+        if phrase in dashboard:
+            failures.append(f"dashboard_app.py still contains old reading guidance phrase: {phrase}")
     if '"Decision": "Resilience controls"' in dashboard:
         failures.append("Cyber decision metric should use short display text, not Resilience controls")
     if "def _build_cyber_overview_metrics" in dashboard:

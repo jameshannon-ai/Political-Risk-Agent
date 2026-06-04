@@ -484,16 +484,8 @@ def _normalise_display_rows(rows):
 
 
 def _render_how_to_read_dashboard():
-    _render_table(
-        "How to read this dashboard",
-        [
-            {"Step": "1", "Action": "Start with the decision recommendation."},
-            {"Step": "2", "Action": "Check the model output and key trigger."},
-            {
-                "Step": "3",
-                "Action": "Review source caveats and company-data requirements before treating the result as operational.",
-            },
-        ],
+    st.markdown(
+        "Each case starts with the business decision, then shows the model output, evidence base, source caveats and company-data needed for operational use."
     )
 
 

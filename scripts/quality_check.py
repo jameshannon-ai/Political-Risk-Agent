@@ -77,6 +77,65 @@ def _framework_guidance():
     for phrase in ["## Agent / Codex instructions", "AGENTS.md", "docs/FRAMEWORK_PRINCIPLES.md", "docs/TASK_BRIEF_TEMPLATE.md"]:
         if phrase not in readme:
             failures.append(f"README.md missing framework guidance reference: {phrase}")
+    for phrase in [
+        "A political-risk-to-business-decision framework.",
+        "The active dashboard cases are saved Tavily-backed showcase outputs.",
+        "fallback_used/fallback_demo_data_used: false",
+        "It does not call Tavily, run `live_search_mode`, require `.env`, or spend live-search credits when viewed.",
+        "Fallback/demo evidence is not used in the active dashboard cases",
+        "How Reviewers Should Evaluate This Project",
+        "New Case Workflow",
+    ]:
+        if phrase not in readme:
+            failures.append(f"README.md missing public-readiness phrase: {phrase}")
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    for phrase in [
+        "Current public showcase standard",
+        "active dashboard cases are saved Tavily-backed showcase outputs",
+        "dashboard must not call Tavily",
+        "fallback_used` and `fallback_demo_data_used` should be false",
+        "New case lifecycle",
+        "business decision",
+        "political-risk trigger",
+    ]:
+        if phrase not in agents:
+            failures.append(f"AGENTS.md missing current active-case standard phrase: {phrase}")
+    principles = (ROOT / "docs" / "FRAMEWORK_PRINCIPLES.md").read_text(encoding="utf-8")
+    for phrase in [
+        "Repeatable Case Lifecycle",
+        "Political-Risk Trigger To Business Decision",
+        "Source Requirement Design",
+        "Evidence-To-Score Bridge",
+        "Assumption Provenance",
+        "Dashboard As Saved-Showcase Presentation Layer",
+        "The active showcase cases are saved Tavily-backed outputs.",
+        "Fallback/demo evidence is not part of the current active dashboard evidence base.",
+    ]:
+        if phrase not in principles:
+            failures.append(f"FRAMEWORK_PRINCIPLES.md missing framework principle phrase: {phrase}")
+    template = (ROOT / "docs" / "TASK_BRIEF_TEMPLATE.md").read_text(encoding="utf-8")
+    for phrase in [
+        "## Political Risk Trigger",
+        "## Business Decision",
+        "## Source Requirements",
+        "requirement_id",
+        "question it answers",
+        "preferred source role",
+        "decision use",
+        "## Evidence-To-Score Logic",
+        "## Company Data Required",
+        "## Anti-Overclaiming Controls",
+    ]:
+        if phrase not in template:
+            failures.append(f"TASK_BRIEF_TEMPLATE.md missing reusable case-template phrase: {phrase}")
+    showcase_readme = (ROOT / "showcase" / "README.md").read_text(encoding="utf-8")
+    for phrase in [
+        "five active cases are saved Tavily-backed outputs",
+        "fallback_used/fallback_demo_data_used: false",
+        "does not call Tavily, run `live_search_mode` or spend live-search credits",
+    ]:
+        if phrase not in showcase_readme:
+            failures.append(f"showcase/README.md missing active showcase phrase: {phrase}")
     return failures
 
 

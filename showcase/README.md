@@ -1,6 +1,8 @@
 # Showcase Cases
 
-These saved artefacts are the dashboard inputs. They preserve the brief, source audit and structured evidence pack for each showcase without requiring a live source run.
+These saved artefacts are the dashboard inputs. They preserve the brief, source audit and structured evidence pack for each active showcase without requiring a live source run when the dashboard is viewed.
+
+The five active cases are saved Tavily-backed outputs. Their evidence packs should show `search_provider/source_provider: tavily`, `evidence_mode: Live source retrieval`, and `fallback_used/fallback_demo_data_used: false`.
 
 | Case | Client type | Brief path | Source audit path | Evidence pack path | Evidence mode | Confidence score | Dashboard status |
 |---|---|---|---|---|---|---|---|
@@ -19,4 +21,4 @@ Additional earlier samples may remain in this folder for reference, but they are
 - Source audits show the research plan, source strategy, selected/rejected sources, coverage gaps and refresh priorities.
 - Evidence packs preserve machine-readable source requirements, extracted claims, quantified facts, confidence caps and metadata.
 
-The Streamlit dashboard reads these saved files only. It does not call Tavily or spend live-search credits.
+The Streamlit dashboard reads these saved files only. It does not call Tavily, run `live_search_mode` or spend live-search credits.

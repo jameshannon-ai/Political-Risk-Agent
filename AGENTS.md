@@ -11,18 +11,36 @@ It supports client-type outputs such as:
 
 It should not become a single-case report generator.
 
+## Current public showcase standard
+The active dashboard cases are saved Tavily-backed showcase outputs:
+- UK ETS Maritime Expansion
+- Hormuz Route Decision Engine
+- Critical Minerals Exposure Engine
+- Sanctions Trade Finance Exposure Engine
+- Cyber Business Interruption Engine
+
+For active dashboard cases:
+- dashboard files must read saved showcase artefacts only
+- the dashboard must not call Tavily, `live_search_mode` or `.env`
+- evidence packs should show `search_provider/source_provider: tavily`
+- `fallback_used` and `fallback_demo_data_used` should be false
+- selected source URLs, source audit trails, confidence caps and caveats must remain visible
+
+Fallback/demo evidence may exist in code as a defensive or historical concept, but it is not the active public showcase evidence standard. Do not describe fallback/demo evidence as normal for current active dashboard cases.
+
 ## Core workflow
 Preserve this workflow:
 1. define client decision
-2. create source plan
-3. retrieve or load sources
-4. rank sources
-5. extract evidence and quantified signals
-6. assess evidence sufficiency
-7. convert evidence into scores
-8. generate decision brief / dashboard artefact
-9. produce source audit and evidence pack
-10. run quality checks
+2. define political-risk trigger
+3. create source plan and source requirements
+4. retrieve live sources for deliberate generation tasks or load saved showcase artefacts for dashboard display
+5. rank sources
+6. extract evidence and quantified signals
+7. assess evidence sufficiency
+8. convert evidence into scores
+9. generate decision brief / dashboard artefact
+10. produce source audit and evidence pack
+11. run quality checks
 
 ## Output standard
 Every serious output should answer:
@@ -41,21 +59,25 @@ Outputs should be client-type decision briefs unless company data is explicitly 
 Do not claim company-specific precision without company-specific data.
 Label assumptions clearly.
 Separate:
-- public/live evidence
-- curated fallback evidence
+- public evidence
+- live retrieval evidence
 - manual/user-provided inputs
 - illustrative assumptions
 - derived calculations
+- company-required data
 
 ## Source gathering principles
 The source planner should seek a balanced source role mix where relevant:
 - official_anchor
+- regulatory_guidance
 - specialist_interpretation
 - operator_or_industry_guidance
 - market_pricing
+- insurance_market_evidence
 - live_event_reporting
 - contrary_scope_limit
 - data_or_indicator_source
+- company_required_data
 
 Official sources anchor rules and facts.
 Specialist sources explain practical implications.
@@ -81,7 +103,7 @@ Avoid generic decision-use wording such as:
 Scores must be domain-specific.
 Do not use generic geopolitical score rationales where specific regulatory, sanctions, maritime, operational or financial logic is needed.
 Confidence must be capped where:
-- evidence is fallback/curated
+- evidence is fallback/demo or curated in a non-active run
 - calculation inputs are illustrative
 - live market/pricing data is missing
 - source categories are missing
@@ -90,7 +112,7 @@ Confidence must be capped where:
 
 ## Dashboard rules
 Dashboards should display saved showcase artefacts by default.
-Dashboards should not call Tavily or spend credits unless explicitly requested.
+Dashboards should not call Tavily, run `live_search_mode`, read `.env` or spend credits unless explicitly requested in a separate generation task.
 Dashboards should show:
 - decision stance
 - quantified outputs
@@ -98,6 +120,23 @@ Dashboards should show:
 - source requirement coverage
 - source audit summary
 - assumptions and data limits
+
+## New case lifecycle
+Future cases should follow:
+1. task brief
+2. critique before implementation
+3. targeted live source run when justified
+4. offline source-quality and output-polish pass
+5. tests and quality checks
+6. dashboard integration only after the saved case meets the standard
+
+Future cases must begin with:
+- business decision
+- political-risk trigger
+- client type and practical users
+- source requirements
+- evidence-to-score logic
+- company-data boundary
 
 ## Security rules
 Never expose API keys.
@@ -125,6 +164,9 @@ Before editing, summarise:
 Run where relevant:
 python3 -m unittest discover tests
 python3 scripts/quality_check.py
+
+For dashboard or public-readiness tasks, also run:
+python3 scripts/check_dashboard_files.py
 
 If a task touches the dashboard, also ensure:
 streamlit run dashboard_app.py

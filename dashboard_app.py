@@ -843,8 +843,10 @@ def _build_carbon_cost_metrics(pack, brief):
     policy_inputs = tables[0] if len(tables) > 0 else []
     assumptions = tables[1] if len(tables) > 1 else []
     market_inputs = _format_uk_ets_market_inputs(tables[2] if len(tables) > 2 else [])
-    derived_outputs = _format_uk_ets_derived_outputs(tables[3] if len(tables) > 3 else [])
-    sensitivity = _format_uk_ets_sensitivity(tables[4] if len(tables) > 4 else [])
+    derived_source_rows = tables[3] if len(tables) > 3 else []
+    derived_outputs = _format_uk_ets_derived_outputs(derived_source_rows)
+    sensitivity_source_rows = tables[4] if len(tables) > 4 else derived_source_rows
+    sensitivity = _format_uk_ets_sensitivity(sensitivity_source_rows)
 
     cost_per_voyage = _row_value(derived_outputs, "Output", "cost per voyage")
     annualised_cost = _row_value(derived_outputs, "Output", "annualised cost")
@@ -899,7 +901,7 @@ def _format_uk_ets_derived_outputs(rows):
         key = str(item.get("Output", "")).strip().lower()
         if key in display_values:
             item["Value"] = display_values[key]
-        formatted.append(item)
+            formatted.append(item)
     return formatted
 
 
@@ -911,7 +913,7 @@ def _format_uk_ets_sensitivity(rows):
     }
     formatted = []
     for row in rows:
-        scenario = row.get("Sensitivity") or row.get("Scenario", "")
+        scenario = row.get("Sensitivity") or row.get("Scenario") or row.get("Output", "")
         values = display_rows.get(scenario)
         if values:
             formatted.append(

@@ -271,6 +271,37 @@ class DashboardHelperTests(unittest.TestCase):
         for phrase in ["firewall configuration", "malware reverse engineering", "network hardening"]:
             self.assertNotIn(phrase, cyber_render_block)
 
+    def test_uk_ets_carbon_cost_sensitivity_is_separate_from_derived_outputs(self):
+        import dashboard_app
+
+        carbon_cost = dashboard_app._build_carbon_cost_metrics(
+            load_json(self.uk_ets_pack),
+            load_markdown(self.uk_ets_brief),
+        )
+
+        derived_outputs = carbon_cost["derived_outputs"]
+        sensitivity = carbon_cost["sensitivity"]
+
+        self.assertEqual(
+            [row["Output"] for row in derived_outputs],
+            [
+                "estimated tCO2e per voyage",
+                "cost per voyage",
+                "weekly cost",
+                "monthly cost",
+                "annualised cost",
+            ],
+        )
+        self.assertFalse(any("Sensitivity" in str(row) or "UKA -20%" in str(row) for row in derived_outputs))
+        self.assertEqual(
+            sensitivity,
+            [
+                {"Scenario": "UKA -20%", "UKA price": "£38.40/tCO2e", "Estimated cost per voyage": "£2,215.99"},
+                {"Scenario": "UKA base", "UKA price": "£48.00/tCO2e", "Estimated cost per voyage": "£2,769.98"},
+                {"Scenario": "UKA +20%", "UKA price": "£57.60/tCO2e", "Estimated cost per voyage": "£3,323.98"},
+            ],
+        )
+
     def test_selected_source_rows_build_for_all_active_cases(self):
         required_columns = {
             "Source ID",

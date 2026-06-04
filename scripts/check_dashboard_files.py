@@ -116,6 +116,7 @@ def main():
         for phrase in [
             "Current showcase cases:",
             "The dashboard is designed as an expandable case portfolio.",
+            "This dashboard demonstrates a reusable political-risk workflow: identify a political, geopolitical, regulatory or state-linked trigger; map it to business exposure; assess the evidence base; and convert it into a decision-support output with source caveats and company-data requirements.",
             "How to read this dashboard",
             "Start with the decision recommendation.",
             "Check the model output and key trigger.",
@@ -127,12 +128,26 @@ def main():
             "Cyber Business Interruption: geopolitical cyber and ransomware risk into downtime, notification, insurance and recovery decisions",
             "Sanctions Trade Finance Exposure Engine",
             "Cyber Business Interruption Engine",
+            "Activate controls",
+            "£2,770 per voyage",
+            "£866,562 annualised",
             "Decision Summary",
             "First-Reader Summary",
             "Business problem",
+            "Political risk trigger",
+            "UK carbon regulation is expanding into maritime emissions, creating new compliance and cost exposure for in-scope shipping routes.",
+            "State-linked disruption, transit-control threats, sanctions/payment risk and regional security escalation can change whether a voyage remains commercially and legally viable.",
+            "Export controls, strategic competition and concentration of rare earth magnet supply can interrupt production-critical inputs for UK manufacturers.",
+            "Government sanctions, end-use controls and enforcement expectations can turn transaction exposure into approval, escalation, legal-hold or rejection risk.",
+            "State-linked cyber activity, ransomware ecosystems, national resilience policy and supplier/MSP dependency can turn cyber disruption into business interruption, notification and insurance-response risk.",
             "Decision supported",
             "Evidence-to-output logic",
             "Company data needed",
+            "Evidence Category Guide",
+            "Political/regulatory trigger evidence",
+            "Business exposure evidence",
+            "Illustrative scenario assumptions",
+            "Company-required data",
             "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
             "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
             "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
@@ -153,6 +168,12 @@ def main():
         for phrase in ['st.json', 'st.write(pack)', 'st.write(brief)', 'st.write(audit)', 'st.markdown("empty', "st.markdown('empty"]:
             if phrase in dashboard:
                 failures.append(f"dashboard_app.py contains raw dump or visible empty marker: {phrase}")
+        if '"Decision": "Resilience controls"' in dashboard:
+            failures.append("Cyber decision metric should use short display text, not Resilience controls")
+        if '"Risk": _extract_field_value(brief, "Overall risk level")' in dashboard and "def _build_cyber_overview_metrics" in dashboard:
+            cyber_metric_block = dashboard.split("def _build_cyber_overview_metrics", 1)[1].split("def _build_carbon_cost_metrics", 1)[0]
+            if '"Risk": _extract_field_value(brief, "Overall risk level")' in cyber_metric_block:
+                failures.append("Cyber risk metric should not render an empty unsupported risk card")
 
     for case_name, config in CASES.items():
         for path in config["files"]:

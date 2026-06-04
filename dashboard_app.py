@@ -111,6 +111,9 @@ def main():
     st.subheader("Source-audited political risk workflow for turning public/live evidence into decision-useful commercial risk outputs.")
     st.caption("This dashboard displays saved showcase artefacts only. It does not call Tavily or spend live-search credits.")
     st.markdown(
+        "This dashboard demonstrates a reusable political-risk workflow: identify a political, geopolitical, regulatory or state-linked trigger; map it to business exposure; assess the evidence base; and convert it into a decision-support output with source caveats and company-data requirements."
+    )
+    st.markdown(
         """
         **Current showcase cases:**
         - UK ETS: regulatory policy into route-level carbon cost exposure
@@ -169,6 +172,7 @@ def _render_uk_ets(pack, brief, audit):
             st.dataframe(pd.DataFrame(carbon_cost["sensitivity"]), use_container_width=True, hide_index=True)
 
     with tab3:
+        _render_evidence_category_guide()
         for heading in [
             "5. Risk Scorecard",
             "6. Quantified Evidence Readout",
@@ -179,6 +183,7 @@ def _render_uk_ets(pack, brief, audit):
 
     with tab4:
         _render_source_audit_metrics(pack)
+        _render_evidence_category_guide()
         _render_markdown_table_section(brief, "15. Source Quality Notes")
         _render_selected_sources(pack)
         st.markdown("### Refresh priorities")
@@ -218,6 +223,7 @@ def _render_hormuz(pack, brief, audit):
             _render_text_section(brief, "13. Relaxation and Escalation Triggers")
 
     with tab4:
+        _render_evidence_category_guide()
         _render_hormuz_source_governance_summary()
         _render_markdown_table_section(brief, "9. Risk Scorecard")
         _render_markdown_table_section(brief, "10. Evidence-To-Score Bridge")
@@ -267,6 +273,7 @@ def _render_critical_minerals(pack, brief, audit):
         _render_critical_minerals_company_data_controls(brief)
 
     with tab4:
+        _render_evidence_category_guide()
         _render_markdown_table_section(brief, "10. Risk Scorecard")
         _render_markdown_table_section(brief, "11. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "12. Source Requirement Coverage")
@@ -316,6 +323,7 @@ def _render_sanctions(pack, brief, audit):
         _render_text_section(brief, "18. Methodology and Review Controls")
 
     with tab4:
+        _render_evidence_category_guide()
         _render_markdown_table_section(brief, "11. Risk Scorecard")
         _render_markdown_table_section(brief, "12. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "13. Source Requirement Coverage")
@@ -364,6 +372,7 @@ def _render_cyber(pack, brief, audit):
         _render_text_section(brief, "19. Methodology and Review Controls")
 
     with tab4:
+        _render_evidence_category_guide()
         _render_markdown_table_section(brief, "12. Risk Scorecard")
         _render_markdown_table_section(brief, "13. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "14. Source Requirement Coverage")
@@ -397,10 +406,10 @@ def _render_markdown_table_section(markdown, heading):
     tables = extract_markdown_table(section)
     text_only = "\n".join(line for line in section.splitlines() if not line.startswith("|")).strip()
     if text_only:
-        st.markdown(text_only)
+        st.markdown(_normalise_display_text(text_only))
     for table in tables:
         if table:
-            st.dataframe(pd.DataFrame(table), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(_normalise_display_rows(table)), use_container_width=True, hide_index=True)
 
 
 def _render_text_section(markdown, heading):
@@ -408,7 +417,7 @@ def _render_text_section(markdown, heading):
     if section:
         label = heading.split(". ", 1)[1] if ". " in heading else heading
         st.markdown(f"### {label}")
-        st.markdown(section)
+        st.markdown(_normalise_display_text(section))
 
 
 def _render_source_audit_metrics(pack):
@@ -459,6 +468,21 @@ def _render_table(title, rows):
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 
+def _normalise_display_text(value):
+    return (
+        str(value)
+        .replace(" 2,770 per voyage", " £2,770 per voyage")
+        .replace(" 866,562 annualised", " £866,562 annualised")
+    )
+
+
+def _normalise_display_rows(rows):
+    return [
+        {key: _normalise_display_text(value) if isinstance(value, str) else value for key, value in row.items()}
+        for row in rows
+    ]
+
+
 def _render_how_to_read_dashboard():
     _render_table(
         "How to read this dashboard",
@@ -473,12 +497,40 @@ def _render_how_to_read_dashboard():
     )
 
 
+def _render_evidence_category_guide():
+    _render_table(
+        "Evidence Category Guide",
+        [
+            {
+                "Category": "Political/regulatory trigger evidence",
+                "Meaning": "Public sources anchoring the policy, sanctions, geopolitical, state-linked or regulatory driver.",
+            },
+            {
+                "Category": "Business exposure evidence",
+                "Meaning": "Sources or model outputs linking the trigger to cost, continuity, routing, transaction or recovery decisions.",
+            },
+            {
+                "Category": "Illustrative scenario assumptions",
+                "Meaning": "Labelled values used to demonstrate the decision model, not company-specific facts.",
+            },
+            {
+                "Category": "Company-required data",
+                "Meaning": "Private route, vessel, transaction, supplier, systems, contract or policy data needed before operational use.",
+            },
+        ],
+    )
+
+
 def _render_first_reader_summary(case_key):
     rows_by_case = {
         "uk_ets": [
             {
                 "Item": "Business problem",
                 "Value": "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
+            },
+            {
+                "Item": "Political risk trigger",
+                "Value": "UK carbon regulation is expanding into maritime emissions, creating new compliance and cost exposure for in-scope shipping routes.",
             },
             {
                 "Item": "Decision supported",
@@ -499,6 +551,10 @@ def _render_first_reader_summary(case_key):
                 "Value": "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
             },
             {
+                "Item": "Political risk trigger",
+                "Value": "State-linked disruption, transit-control threats, sanctions/payment risk and regional security escalation can change whether a voyage remains commercially and legally viable.",
+            },
+            {
                 "Item": "Decision supported",
                 "Value": "Decide whether to transit, delay, reroute or place the voyage on legal hold.",
             },
@@ -515,6 +571,10 @@ def _render_first_reader_summary(case_key):
             {
                 "Item": "Business problem",
                 "Value": "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
+            },
+            {
+                "Item": "Political risk trigger",
+                "Value": "Export controls, strategic competition and concentration of rare earth magnet supply can interrupt production-critical inputs for UK manufacturers.",
             },
             {
                 "Item": "Decision supported",
@@ -535,6 +595,10 @@ def _render_first_reader_summary(case_key):
                 "Value": "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
             },
             {
+                "Item": "Political risk trigger",
+                "Value": "Government sanctions, end-use controls and enforcement expectations can turn transaction exposure into approval, escalation, legal-hold or rejection risk.",
+            },
+            {
                 "Item": "Decision supported",
                 "Value": "Decide whether to approve, apply enhanced due diligence, escalate, place on legal hold or reject.",
             },
@@ -551,6 +615,10 @@ def _render_first_reader_summary(case_key):
             {
                 "Item": "Business problem",
                 "Value": "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+            },
+            {
+                "Item": "Political risk trigger",
+                "Value": "State-linked cyber activity, ransomware ecosystems, national resilience policy and supplier/MSP dependency can turn cyber disruption into business interruption, notification and insurance-response risk.",
             },
             {
                 "Item": "Decision supported",
@@ -757,8 +825,7 @@ def _build_sanctions_overview_metrics(pack, brief):
 def _build_cyber_overview_metrics(pack, brief):
     model = pack.get("cyber_business_interruption_model", {})
     return {
-        "Decision": "Resilience controls",
-        "Risk": _extract_field_value(brief, "Overall risk level"),
+        "Decision": "Activate controls",
         "Confidence": _extract_field_value(brief, "Confidence"),
         "Evidence": "Live",
         "Provider": _title_value(pack.get("source_provider", "")),

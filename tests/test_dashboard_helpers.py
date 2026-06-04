@@ -192,6 +192,7 @@ class DashboardHelperTests(unittest.TestCase):
         for phrase in [
             "Current showcase cases:",
             "The dashboard is designed as an expandable case portfolio.",
+            "This dashboard demonstrates a reusable political-risk workflow: identify a political, geopolitical, regulatory or state-linked trigger; map it to business exposure; assess the evidence base; and convert it into a decision-support output with source caveats and company-data requirements.",
             "How to read this dashboard",
             "Start with the decision recommendation.",
             "Check the model output and key trigger.",
@@ -210,6 +211,9 @@ class DashboardHelperTests(unittest.TestCase):
             "Qualification",
             "Sanctions Trade Finance Exposure Engine",
             "Cyber Business Interruption Engine",
+            "Activate controls",
+            "£2,770 per voyage",
+            "£866,562 annualised",
             "Legal hold",
             "Missing data",
             "Resilience gap",
@@ -217,9 +221,20 @@ class DashboardHelperTests(unittest.TestCase):
             "Expected outage",
             "First-Reader Summary",
             "Business problem",
+            "Political risk trigger",
+            "UK carbon regulation is expanding into maritime emissions, creating new compliance and cost exposure for in-scope shipping routes.",
+            "State-linked disruption, transit-control threats, sanctions/payment risk and regional security escalation can change whether a voyage remains commercially and legally viable.",
+            "Export controls, strategic competition and concentration of rare earth magnet supply can interrupt production-critical inputs for UK manufacturers.",
+            "Government sanctions, end-use controls and enforcement expectations can turn transaction exposure into approval, escalation, legal-hold or rejection risk.",
+            "State-linked cyber activity, ransomware ecosystems, national resilience policy and supplier/MSP dependency can turn cyber disruption into business interruption, notification and insurance-response risk.",
             "Decision supported",
             "Evidence-to-output logic",
             "Company data needed",
+            "Evidence Category Guide",
+            "Political/regulatory trigger evidence",
+            "Business exposure evidence",
+            "Illustrative scenario assumptions",
+            "Company-required data",
             "UK ETS maritime expansion turns carbon policy into a route-level operating cost for in-scope UK voyages.",
             "Strait of Hormuz disruption can turn a voyage decision into a combined sanctions, insurance, detention and route-cost problem.",
             "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
@@ -231,6 +246,15 @@ class DashboardHelperTests(unittest.TestCase):
             self.assertIn(phrase, dashboard)
         for phrase in ["TavilyClient", "live_search_mode", "st.json", "st.write(pack)", 'st.markdown("empty']:
             self.assertNotIn(phrase, dashboard)
+        self.assertNotIn('"Decision": "Resilience controls"', dashboard)
+        cyber_metric_block = dashboard.split("def _build_cyber_overview_metrics", 1)[1].split(
+            "def _build_carbon_cost_metrics", 1
+        )[0]
+        self.assertNotIn('"Risk": _extract_field_value(brief, "Overall risk level")', cyber_metric_block)
+        cyber_render_block = dashboard.split("def _render_cyber", 1)[1].split("def _render_metrics", 1)[0]
+        self.assertIn("business interruption exposure screen", cyber_render_block)
+        for phrase in ["firewall configuration", "malware reverse engineering", "network hardening"]:
+            self.assertNotIn(phrase, cyber_render_block)
 
     def test_selected_source_rows_build_for_all_active_cases(self):
         required_columns = {

@@ -2,7 +2,7 @@
 
 These saved artefacts are the dashboard inputs. They preserve the brief, source audit and structured evidence pack for each active showcase without requiring a live source run when the dashboard is viewed.
 
-The five active cases are saved Tavily-backed outputs. Their evidence packs should show `search_provider/source_provider: tavily`, `evidence_mode: Live source retrieval`, and `fallback_used/fallback_demo_data_used: false`.
+The six active cases are saved Tavily-backed outputs. Their evidence packs should show `search_provider/source_provider: tavily`, `evidence_mode: Live source retrieval`, and `fallback_used/fallback_demo_data_used: false`.
 
 | Case | Client type | Brief path | Source audit path | Evidence pack path | Evidence mode | Confidence score | Dashboard status |
 |---|---|---|---|---|---|---|---|
@@ -11,17 +11,10 @@ The five active cases are saved Tavily-backed outputs. Their evidence packs shou
 | Critical Minerals Exposure Engine | UK advanced manufacturer | `showcase/critical_minerals_advanced_manufacturer_brief.md` | `showcase/critical_minerals_source_audit.md` | `showcase/critical_minerals_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 | Sanctions Trade Finance Exposure Engine | UK trade finance lender / bank / credit insurer | `showcase/sanctions_trade_finance_exposure_brief.md` | `showcase/sanctions_source_audit.md` | `showcase/sanctions_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 | Cyber Business Interruption Engine | UK customer-facing operator / retailer / critical services operator | `showcase/cyber_business_interruption_brief.md` | `showcase/cyber_source_audit.md` | `showcase/cyber_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
+| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | `showcase/uk_fiscal_instability_procurement_brief.md` | `showcase/uk_fiscal_instability_procurement_source_audit.md` | `showcase/uk_fiscal_instability_procurement_evidence_pack.json` | saved Tavily-backed showcase | 3/5 | included |
 
 Additional earlier samples may remain in this folder for reference, but they are not active dashboard cases unless listed as included above.
 `showcase/sanctions_trade_finance_sample.md` is a legacy curated sample retained for reference; the active sanctions dashboard case uses `showcase/sanctions_trade_finance_exposure_brief.md`.
-
-## Saved Portfolio Case Outside The Dashboard
-
-This saved case demonstrates the reusable fresh-topic workflow. It is a portfolio case, but it has not yet been added as an active dashboard tab.
-
-| Case | Client type | Brief path | Source audit path | Evidence pack path | Evidence mode | Confidence score | Dashboard status |
-|---|---|---|---|---|---|---|---|
-| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | `showcase/uk_fiscal_instability_procurement_brief.md` | `showcase/uk_fiscal_instability_procurement_source_audit.md` | `showcase/uk_fiscal_instability_procurement_evidence_pack.json` | saved Tavily-backed portfolio case | 3/5 | saved portfolio case; not yet included |
 
 ## What To Review
 

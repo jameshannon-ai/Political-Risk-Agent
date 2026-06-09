@@ -65,6 +65,9 @@ SANCTIONS_AUDIT = SHOWCASE / "sanctions_source_audit.md"
 CYBER_PACK = SHOWCASE / "cyber_evidence_pack.json"
 CYBER_BRIEF = SHOWCASE / "cyber_business_interruption_brief.md"
 CYBER_AUDIT = SHOWCASE / "cyber_source_audit.md"
+FISCAL_PACK = SHOWCASE / "uk_fiscal_instability_procurement_evidence_pack.json"
+FISCAL_BRIEF = SHOWCASE / "uk_fiscal_instability_procurement_brief.md"
+FISCAL_AUDIT = SHOWCASE / "uk_fiscal_instability_procurement_source_audit.md"
 
 CASES = {
     "UK ETS Maritime Expansion": {
@@ -101,6 +104,13 @@ CASES = {
         "pack": CYBER_PACK,
         "title": "Cyber Business Interruption Engine: Operational Resilience and Insurance Exposure for UK Retail / Critical Services",
         "description": "Business-interruption decision workflow for incident response, notification, insurance claim readiness, manual fallback, supplier escalation and resilience investment.",
+    },
+    "UK Fiscal Instability & Procurement Delay Risk": {
+        "brief": FISCAL_BRIEF,
+        "audit": FISCAL_AUDIT,
+        "pack": FISCAL_PACK,
+        "title": "UK Fiscal Instability & Procurement Delay Risk",
+        "description": "Political economy risk for a UK infrastructure contractor bidding for government-funded transport and energy projects.",
     },
 }
 
@@ -155,6 +165,7 @@ def main():
         - Critical Minerals: strategic competition into production-continuity risk
         - Sanctions Trade Finance: sanctions/export controls into transaction approval, escalation, legal hold or rejection
         - Cyber Business Interruption: geopolitical cyber and ransomware risk into downtime, notification, insurance and recovery decisions
+        - UK Fiscal: political economy risk into bid pipeline review, delay contingency, repricing and board exposure reporting
 
         The dashboard is designed as an expandable case portfolio. Future cases can be added using the same saved-showcase pattern.
         """
@@ -171,8 +182,10 @@ def main():
         _render_critical_minerals(pack, brief, audit)
     elif case_name == "Sanctions Trade Finance Exposure Engine":
         _render_sanctions(pack, brief, audit)
-    else:
+    elif case_name == "Cyber Business Interruption Engine":
         _render_cyber(pack, brief, audit)
+    else:
+        _render_fiscal_procurement(pack, brief, audit)
 
 
 def _render_uk_ets(pack, brief, audit):
@@ -423,6 +436,52 @@ def _render_cyber(pack, brief, audit):
             st.markdown(audit)
 
 
+def _render_fiscal_procurement(pack, brief, audit):
+    overview = _build_fiscal_overview_metrics(pack, brief)
+    _render_metrics(overview)
+    _render_first_reader_summary("fiscal_procurement")
+    st.info(
+        "This is a client-type political economy and procurement exposure screen, not a contract-specific payment, bid or legal determination."
+    )
+
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        ["Decision", "Procurement Exposure", "Scores & Traceability", "Evidence and Sources", "Full Brief / Source Audit"]
+    )
+
+    with tab1:
+        _render_fiscal_decision_summary()
+        _render_text_section(brief, "Decision Question")
+        _render_text_section(brief, "Executive Judgement")
+        _render_text_section(brief, "Human Review And Company Data Required")
+
+    with tab2:
+        _render_fiscal_coverage_summary(pack)
+        _render_text_section(brief, "Key Risks")
+        _render_text_section(brief, "Exposure Map")
+        _render_text_section(brief, "Review Controls")
+
+    with tab3:
+        _render_evidence_category_guide()
+        _render_markdown_table_section(brief, "Risk Scorecard")
+        _render_markdown_table_section(brief, "Evidence-To-Score Bridge")
+        _render_markdown_table_section(brief, "Scoring Traceability")
+
+    with tab4:
+        _render_evidence_category_guide()
+        _render_markdown_table_section(brief, "Source Governance")
+        _render_markdown_table_section(brief, "Source Requirement Coverage")
+        _render_selected_sources(pack)
+        with st.expander("Evidence Appendix", expanded=False):
+            _render_markdown_table_section(brief, "Evidence Appendix")
+
+    with tab5:
+        with st.expander("Full brief markdown", expanded=False):
+            st.markdown(brief)
+        _render_audit_detail_expanders(audit)
+        with st.expander("Full source audit markdown", expanded=False):
+            st.markdown(audit)
+
+
 def _render_metrics(overview):
     cols = st.columns(3)
     items = list(overview.items())
@@ -659,6 +718,28 @@ def _render_first_reader_summary(case_key):
                 "Value": "Systems map, revenue exposure, RTO/RPO, policy wording, incident facts and supplier/MSP dependency data.",
             },
         ],
+        "fiscal_procurement": [
+            {
+                "Item": "Business problem",
+                "Value": "Fiscal credibility, gilt-market sensitivity and departmental budget uncertainty can affect public-sector infrastructure awards, payment assumptions and working-capital exposure.",
+            },
+            {
+                "Item": "Political risk trigger",
+                "Value": "UK fiscal pressure, public spending trade-offs, gilt-market sensitivity and political budget choices can change procurement confidence and programme timing.",
+            },
+            {
+                "Item": "Decision supported",
+                "Value": "Decide whether to review bid pipeline, plan delay contingencies, reprice contracts, monitor payment risk, stress-test working capital and escalate board reporting.",
+            },
+            {
+                "Item": "Evidence-to-output logic",
+                "Value": "OBR, ONS, HM Treasury, Bank of England, NAO, IFS and sector evidence are mapped to fiscal pressure, procurement timing, payment risk and confidence limits.",
+            },
+            {
+                "Item": "Company data needed",
+                "Value": "Order book by public customer, bid pipeline, payment terms, retentions, margins, working-capital exposure and programme-level contract data.",
+            },
+        ],
     }
     _render_table("First-Reader Summary", rows_by_case[case_key])
 
@@ -775,6 +856,32 @@ def _render_cyber_resilience_gap_summary():
     )
 
 
+def _render_fiscal_decision_summary():
+    _render_table(
+        "Decision Summary",
+        [
+            {"Item": "Current stance", "Value": "Heightened monitoring and bid-pipeline review"},
+            {"Item": "Decision supported", "Value": "Review bids, repricing, payment risk, delay contingency and board exposure"},
+            {"Item": "Primary trigger", "Value": "Fiscal pressure, gilt sensitivity or departmental budget uncertainty"},
+            {"Item": "Confidence limit", "Value": "Needs contractor order book, customer mix, terms, margins and working-capital data"},
+        ],
+    )
+
+
+def _render_fiscal_coverage_summary(pack):
+    grades = {}
+    for requirement in pack.get("requirement_coverage", []):
+        grade = requirement.get("coverage_grade", "ungraded")
+        grades[grade] = grades.get(grade, 0) + 1
+    rows = [
+        {"Metric": "Requirements identified", "Value": str(len(pack.get("requirement_coverage", []))), "Meaning": "Mapped source requirements in the fiscal case"},
+        {"Metric": "Strong direct full text", "Value": str(grades.get("strong_direct_full_text", 0)), "Meaning": "Direct evidence with stored full text"},
+        {"Metric": "Direct snippet only", "Value": str(grades.get("direct_snippet_only", 0)), "Meaning": "Mapped evidence that needs source verification"},
+        {"Metric": "Confidence effect", "Value": "Capped 3/5", "Meaning": "Snippet-only evidence and missing contractor data limit confidence"},
+    ]
+    _render_table("Requirement Coverage Summary", rows)
+
+
 def _render_critical_minerals_continuity_summary():
     _render_table(
         "Continuity Summary",
@@ -860,6 +967,23 @@ def _build_cyber_overview_metrics(pack, brief):
         "Resilience gap": f"{model.get('resilience_gap_days', '')} days",
         "Revenue at risk": "£10m",
         "Expected outage": f"{model.get('expected_outage_days', '')} days",
+    }
+
+
+def _build_fiscal_overview_metrics(pack, brief):
+    coverage = pack.get("requirement_coverage", [])
+    strong = sum(1 for item in coverage if item.get("coverage_grade") == "strong_direct_full_text")
+    snippet = sum(1 for item in coverage if item.get("coverage_grade") == "direct_snippet_only")
+    return {
+        "Risk": _extract_field_value(brief, "Overall risk rating"),
+        "Confidence": _extract_field_value(brief, "Confidence score"),
+        "Evidence": "Live",
+        "Provider": _title_value(pack.get("source_provider", "")),
+        "Fallback": _yes_no(pack.get("fallback_used", pack.get("fallback_demo_data_used", ""))),
+        "Sources": str(pack.get("selected_count", len(pack.get("selected_sources", [])))),
+        "Strong coverage": f"{strong}/{len(coverage)}" if coverage else "",
+        "Snippet-only": f"{snippet}/{len(coverage)}" if coverage else "",
+        "Decision": "Monitor bids",
     }
 
 

@@ -140,7 +140,7 @@ def _framework_guidance():
             failures.append(f"TASK_BRIEF_TEMPLATE.md missing reusable case-template phrase: {phrase}")
     showcase_readme = (ROOT / "showcase" / "README.md").read_text(encoding="utf-8")
     for phrase in [
-        "five active cases are saved Tavily-backed outputs",
+        "six active cases are saved Tavily-backed outputs",
         "fallback_used/fallback_demo_data_used: false",
         "does not call Tavily, run `live_search_mode` or spend live-search credits",
     ]:
@@ -595,6 +595,7 @@ def _selected_source_display_checks():
         ("Critical minerals", "critical_minerals_evidence_pack.json"),
         ("Sanctions", "sanctions_evidence_pack.json"),
         ("Cyber", "cyber_evidence_pack.json"),
+        ("Fiscal", "uk_fiscal_instability_procurement_evidence_pack.json"),
     ]:
         pack = json.loads((SHOWCASE / name).read_text(encoding="utf-8"))
         rows = build_selected_source_rows(pack)
@@ -718,11 +719,16 @@ def _dashboard_checks():
         'SHOWCASE / "cyber_evidence_pack.json"',
         'SHOWCASE / "cyber_business_interruption_brief.md"',
         'SHOWCASE / "cyber_source_audit.md"',
+        'SHOWCASE / "uk_fiscal_instability_procurement_evidence_pack.json"',
+        'SHOWCASE / "uk_fiscal_instability_procurement_brief.md"',
+        'SHOWCASE / "uk_fiscal_instability_procurement_source_audit.md"',
         'st.sidebar.radio("Cases"',
         "Hormuz Route Decision Engine",
         "Critical Minerals Exposure Engine",
         "Sanctions Trade Finance Exposure Engine",
         "Cyber Business Interruption Engine",
+        "UK Fiscal Instability & Procurement Delay Risk",
+        "Political economy risk for a UK infrastructure contractor bidding for government-funded transport and energy projects.",
         "Activate controls",
         "£2,770 per voyage",
         "£866,562 annualised",
@@ -752,6 +758,7 @@ def _dashboard_checks():
         "Critical Minerals: strategic competition into production-continuity risk",
         "Sanctions Trade Finance: sanctions/export controls into transaction approval, escalation, legal hold or rejection",
         "Cyber Business Interruption: geopolitical cyber and ransomware risk into downtime, notification, insurance and recovery decisions",
+        "UK Fiscal: political economy risk into bid pipeline review, delay contingency, repricing and board exposure reporting",
         "Decision Summary",
         "First-Reader Summary",
         "Business problem",
@@ -761,6 +768,7 @@ def _dashboard_checks():
         "Export controls, strategic competition and concentration of rare earth magnet supply can interrupt production-critical inputs for UK manufacturers.",
         "Government sanctions, end-use controls and enforcement expectations can turn transaction exposure into approval, escalation, legal-hold or rejection risk.",
         "State-linked cyber activity, ransomware ecosystems, national resilience policy and supplier/MSP dependency can turn cyber disruption into business interruption, notification and insurance-response risk.",
+        "UK fiscal pressure, public spending trade-offs, gilt-market sensitivity and political budget choices can change procurement confidence and programme timing.",
         "Decision supported",
         "Evidence-to-output logic",
         "Company data needed",
@@ -774,7 +782,10 @@ def _dashboard_checks():
         "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
         "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
         "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+        "Fiscal credibility, gilt-market sensitivity and departmental budget uncertainty can affect public-sector infrastructure awards, payment assumptions and working-capital exposure.",
         "Resilience Gap Summary",
+        "Requirement Coverage Summary",
+        "Scoring Traceability",
         "Source Governance Summary",
         "Selected Sources",
         "build_selected_source_rows",

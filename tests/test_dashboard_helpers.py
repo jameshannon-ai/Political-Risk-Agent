@@ -20,11 +20,13 @@ class DashboardHelperTests(unittest.TestCase):
         self.critical_minerals_brief = Path("showcase/critical_minerals_advanced_manufacturer_brief.md")
         self.sanctions_brief = Path("showcase/sanctions_trade_finance_exposure_brief.md")
         self.cyber_brief = Path("showcase/cyber_business_interruption_brief.md")
+        self.fiscal_brief = Path("showcase/uk_fiscal_instability_procurement_brief.md")
         self.uk_ets_pack = Path("showcase/uk_ets_evidence_pack.json")
         self.hormuz_pack = Path("showcase/hormuz_evidence_pack.json")
         self.critical_minerals_pack = Path("showcase/critical_minerals_evidence_pack.json")
         self.sanctions_pack = Path("showcase/sanctions_evidence_pack.json")
         self.cyber_pack = Path("showcase/cyber_evidence_pack.json")
+        self.fiscal_pack = Path("showcase/uk_fiscal_instability_procurement_evidence_pack.json")
 
     def test_loaders_read_files(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -64,16 +66,19 @@ class DashboardHelperTests(unittest.TestCase):
             self.critical_minerals_brief,
             self.sanctions_brief,
             self.cyber_brief,
+            self.fiscal_brief,
             self.uk_ets_pack,
             self.hormuz_pack,
             self.critical_minerals_pack,
             self.sanctions_pack,
             self.cyber_pack,
+            self.fiscal_pack,
             Path("showcase/uk_ets_source_audit.md"),
             Path("showcase/hormuz_source_audit.md"),
             Path("showcase/critical_minerals_source_audit.md"),
             Path("showcase/sanctions_source_audit.md"),
             Path("showcase/cyber_source_audit.md"),
+            Path("showcase/uk_fiscal_instability_procurement_source_audit.md"),
         ]:
             self.assertTrue(path.exists(), f"Missing saved showcase file: {path}")
 
@@ -153,29 +158,51 @@ class DashboardHelperTests(unittest.TestCase):
             self.assertTrue(section, f"Expected section to be extractable: {heading}")
             self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
 
+    def test_fiscal_sections_can_be_extracted(self):
+        brief = load_markdown(self.fiscal_brief)
+        for heading in [
+            "Decision Question",
+            "Executive Judgement",
+            "Risk Scorecard",
+            "Evidence-To-Score Bridge",
+            "Scoring Traceability",
+            "Source Governance",
+            "Source Requirement Coverage",
+            "Evidence Appendix",
+            "Human Review And Company Data Required",
+        ]:
+            section = extract_markdown_section(brief, heading)
+            self.assertTrue(section, f"Expected section to be extractable: {heading}")
+            if heading not in {"Decision Question", "Executive Judgement", "Human Review And Company Data Required"}:
+                self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
+
     def test_helpers_work_for_all_active_case_briefs(self):
         uk_ets = load_markdown(self.uk_ets_brief)
         hormuz = load_markdown(self.hormuz_brief)
         critical_minerals = load_markdown(self.critical_minerals_brief)
         sanctions = load_markdown(self.sanctions_brief)
         cyber = load_markdown(self.cyber_brief)
+        fiscal = load_markdown(self.fiscal_brief)
 
         uk_section = extract_markdown_section(uk_ets, "1. Operator Stance")
         hormuz_section = extract_markdown_section(hormuz, "1. Decision Recommendation")
         critical_section = extract_markdown_section(critical_minerals, "1. Decision Recommendation")
         sanctions_section = extract_markdown_section(sanctions, "1. Decision Recommendation")
         cyber_section = extract_markdown_section(cyber, "1. Decision Recommendation")
+        fiscal_section = extract_markdown_section(fiscal, "Risk Scorecard")
 
         self.assertTrue(extract_markdown_table(uk_section))
         self.assertTrue(extract_markdown_table(hormuz_section))
         self.assertTrue(extract_markdown_table(critical_section))
         self.assertTrue(extract_markdown_table(sanctions_section))
         self.assertTrue(extract_markdown_table(cyber_section))
+        self.assertTrue(extract_markdown_table(fiscal_section))
         self.assertIn("Current stance", str(extract_markdown_table(uk_section)[0][0]))
         self.assertIn("Preferred option", str(extract_markdown_table(hormuz_section)[0][0]))
         self.assertIn("Recommended action", str(extract_markdown_table(critical_section)[0][0]))
         self.assertIn("Recommended decision", str(extract_markdown_table(sanctions_section)[0][0]))
         self.assertIn("Recommended stance", str(extract_markdown_table(cyber_section)[0][0]))
+        self.assertIn("Likelihood", str(extract_markdown_table(fiscal_section)[0][0]))
 
     def test_dashboard_file_check_script_passes(self):
         result = subprocess.run(
@@ -208,6 +235,8 @@ class DashboardHelperTests(unittest.TestCase):
             "Qualification",
             "Sanctions Trade Finance Exposure Engine",
             "Cyber Business Interruption Engine",
+            "UK Fiscal Instability & Procurement Delay Risk",
+            "Political economy risk for a UK infrastructure contractor bidding for government-funded transport and energy projects.",
             "Activate controls",
             "£2,770 per voyage",
             "£866,562 annualised",
@@ -239,6 +268,7 @@ class DashboardHelperTests(unittest.TestCase):
             "Export controls, strategic competition and concentration of rare earth magnet supply can interrupt production-critical inputs for UK manufacturers.",
             "Government sanctions, end-use controls and enforcement expectations can turn transaction exposure into approval, escalation, legal-hold or rejection risk.",
             "State-linked cyber activity, ransomware ecosystems, national resilience policy and supplier/MSP dependency can turn cyber disruption into business interruption, notification and insurance-response risk.",
+            "UK fiscal pressure, public spending trade-offs, gilt-market sensitivity and political budget choices can change procurement confidence and programme timing.",
             "Decision supported",
             "Evidence-to-output logic",
             "Company data needed",
@@ -252,7 +282,10 @@ class DashboardHelperTests(unittest.TestCase):
             "A UK manufacturer may lose access to rare earth magnet inputs before an alternative supplier can be qualified.",
             "A trade finance transaction can become unacceptable where goods, counterparties, ownership, route, payment or documentation create sanctions/export-control exposure.",
             "Cyber disruption can turn digital trading, payment, fulfilment or service dependency into downtime, customer harm and revenue loss.",
+            "Fiscal credibility, gilt-market sensitivity and departmental budget uncertainty can affect public-sector infrastructure awards, payment assumptions and working-capital exposure.",
             "Resilience Gap Summary",
+            "Requirement Coverage Summary",
+            "Scoring Traceability",
             "technical cybersecurity advice, legal advice or an insurance coverage determination",
         ]:
             self.assertIn(phrase, dashboard)
@@ -318,7 +351,14 @@ class DashboardHelperTests(unittest.TestCase):
             "Decision use",
             "URL",
         }
-        for pack_path in [self.uk_ets_pack, self.hormuz_pack, self.critical_minerals_pack, self.sanctions_pack, self.cyber_pack]:
+        for pack_path in [
+            self.uk_ets_pack,
+            self.hormuz_pack,
+            self.critical_minerals_pack,
+            self.sanctions_pack,
+            self.cyber_pack,
+            self.fiscal_pack,
+        ]:
             rows = build_selected_source_rows(load_json(pack_path))
             self.assertTrue(rows, f"Expected selected source rows for {pack_path}")
             for row in rows:

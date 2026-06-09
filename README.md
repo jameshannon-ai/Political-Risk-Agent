@@ -47,16 +47,11 @@ The active dashboard cases are saved Tavily-backed showcase outputs. Their evide
 | Critical Minerals Exposure Engine | UK advanced manufacturer | strategic competition / supply-chain concentration | stockpile, qualify supplier, redesign, allocate or hold | saved Tavily-backed showcase |
 | Sanctions Trade Finance Exposure Engine | UK trade finance lender / bank / credit insurer | sanctions / export controls | transaction approval, escalation, legal hold or rejection | saved Tavily-backed showcase |
 | Cyber Business Interruption Engine | UK customer-facing operator / retailer / critical services operator | geopolitical cyber / ransomware / operational resilience | downtime, notification, insurance and recovery decision | saved Tavily-backed showcase |
+| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | political economy / fiscal credibility / public procurement | bid pipeline review, delay contingency, repricing checks, payment-risk monitoring and board exposure reporting | saved Tavily-backed showcase |
 
 The portfolio is expandable. Future cases can follow the same saved-showcase pattern after a task brief, source run, offline polish pass, tests and dashboard integration.
 
-### Saved Portfolio Case Outside The Dashboard
-
-| Case | Client type | Risk pattern | Decision output | Evidence mode |
-|---|---|---|---|---|
-| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | political economy / fiscal credibility / public procurement | bid pipeline review, delay contingency, repricing checks, payment-risk monitoring and board exposure reporting | saved Tavily-backed portfolio case |
-
-This case is a proper saved portfolio case and is useful for reviewing the fresh-topic workflow because it was generated through `main.py run-topic`, refreshed with a targeted Tavily run, then polished offline to improve source quality, graded requirement coverage, provenance, evidence separation and scoring traceability. It is not yet an active dashboard tab.
+The UK fiscal instability case is useful for reviewing the fresh-topic workflow because it was generated through `main.py run-topic`, refreshed with a targeted Tavily run, then polished offline to improve source quality, graded requirement coverage, provenance, evidence separation and scoring traceability.
 
 ## How The Workflow Works
 

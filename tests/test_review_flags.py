@@ -74,6 +74,24 @@ class ReviewFlagsTests(unittest.TestCase):
         self.assertNotIn("Missing company_update source.", flags)
         self.assertNotIn("Missing insurance evidence in live evidence.", flags)
 
+    def test_uk_fiscal_procurement_flags_are_domain_specific(self):
+        evidence_pack = {
+            "source_strategy": {"domain": "uk_fiscal_procurement_risk"},
+            "evidence": [],
+            "fetch_failures": [],
+        }
+
+        flags = generate_review_flags([], evidence_pack=evidence_pack, today=date(2026, 6, 4))
+
+        self.assertIn(
+            "Contractor-specific order book, customer mix, payment terms, margins and working-capital data are required.",
+            flags,
+        )
+        self.assertIn("Departmental and programme-level bid pipeline exposure should be reviewed before changing bid/no-bid stance.", flags)
+        self.assertNotIn("Missing insurance evidence in live evidence.", flags)
+        self.assertNotIn("Missing energy chokepoint evidence in live evidence.", flags)
+        self.assertNotIn("Missing company_update source.", flags)
+
 
 if __name__ == "__main__":
     unittest.main()

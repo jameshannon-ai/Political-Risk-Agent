@@ -2,6 +2,8 @@ from datetime import datetime
 from pathlib import Path
 import json
 
+from agent.core.provenance import enrich_source_provenance
+from agent.core.scoring import build_traceable_scores
 from agent.live_evidence_extraction import extract_live_evidence
 from agent.quantitative_assessment import build_evidence_to_score_bridge, build_quantified_evidence_readout
 from agent.risk_driver_synthesis import synthesize_risk_drivers
@@ -32,6 +34,14 @@ def build_evidence_pack(
     source_requirements = source_strategy.get("source_requirements", [])
     requirement_coverage = _requirement_coverage(source_requirements, evidence)
     retrieval_timestamp = datetime.now().isoformat(timespec="seconds")
+    selected_sources = [
+        enrich_source_provenance(source, search_result["fallback_demo_data_used"], retrieval_timestamp)
+        for source in selected_sources
+    ]
+    rejected_sources = [
+        enrich_source_provenance(source, search_result["fallback_demo_data_used"], retrieval_timestamp)
+        for source in rejected_sources
+    ]
     partial_pack = {
         "source_strategy": source_strategy,
         "selected_sources": selected_sources,
@@ -46,6 +56,7 @@ def build_evidence_pack(
     risk_scores = score_risk(topic=topic, concerns=concerns, region=region, time_horizon=time_horizon, sources=evidence)
     quantified_readout = build_quantified_evidence_readout(partial_pack)
     score_bridge = build_evidence_to_score_bridge(partial_pack, risk_scores)
+    traceable_scores = build_traceable_scores(risk_scores, {**partial_pack, "confidence_cap_reason": quantified_readout["confidence_cap"]})
     return {
         "topic": topic,
         "business_user": business_user,
@@ -83,6 +94,8 @@ def build_evidence_pack(
         "refresh_priorities": _refresh_priorities(risk_drivers),
         "quantified_evidence_readout": quantified_readout,
         "evidence_to_score_bridge": score_bridge,
+        "traceable_scores": traceable_scores,
+        "scoring_method_note": "Structured analyst score; evidence-backed decision support, not a predictive or statistically validated model.",
         "quantified_facts_by_source": {
             item.get("source_id", ""): item.get("quantified_facts", [])
             for item in evidence
@@ -147,11 +160,24 @@ def _coverage_summary(covered, missing):
 def _requirement_coverage(requirements, evidence):
     coverage = []
     for requirement in requirements:
-        matching = [
+        exact_matching = [
             item for item in evidence
-            if item.get("source_type") in _normalised_source_types(requirement["preferred_source_types"])
-            or _requirement_name_matches(requirement["requirement_name"], item)
+            if item.get("requirement_id") == requirement.get("requirement_id")
+            or item.get("requirement_name") == requirement.get("requirement_name")
         ]
+        if exact_matching:
+            matching = exact_matching
+        else:
+            unmapped_evidence = [
+                item for item in evidence
+                if not item.get("requirement_id") and not item.get("requirement_name")
+            ]
+            matching = [
+                item for item in unmapped_evidence
+                if item.get("source_type") in _normalised_source_types(requirement["preferred_source_types"])
+                or _requirement_name_matches(requirement["requirement_name"], item)
+            ]
+        grade = _coverage_grade(requirement, matching)
         coverage.append(
             {
                 "requirement_id": requirement["requirement_id"],
@@ -160,11 +186,98 @@ def _requirement_coverage(requirements, evidence):
                 "covered_by": [item["source_id"] for item in matching],
                 "covered_by_count": len(matching),
                 "evidence_weight": _evidence_weight(len(matching), requirement),
-                "decision_questions_supported": requirement["decision_questions_supported"],
-                "remaining_gap": _remaining_gap(len(matching), requirement),
+                "coverage_grade": grade["coverage_grade"],
+                "coverage_grade_reason": grade["coverage_grade_reason"],
+                "confidence_impact": grade["confidence_impact"],
+                "gap_affects_confidence": grade["gap_affects_confidence"],
+                "decision_questions_supported": requirement.get("decision_questions_supported", []),
+                "remaining_gap": _graded_remaining_gap(len(matching), requirement, grade),
             }
         )
     return coverage
+
+
+def _coverage_grade(requirement, matching):
+    if not matching:
+        return {
+            "coverage_grade": "missing",
+            "coverage_grade_reason": "No selected source is mapped to this requirement.",
+            "confidence_impact": "High: this missing requirement should cap confidence.",
+            "gap_affects_confidence": True,
+        }
+
+    strongest = sorted(matching, key=_coverage_strength, reverse=True)[0]
+    mode = strongest.get("evidence_source_mode", "")
+    inference = strongest.get("inference_strength", "")
+    source_type = strongest.get("source_type", "")
+    title = " ".join([strongest.get("title", ""), strongest.get("source_title", "")]).lower()
+    caveat_text = " ".join([strongest.get("caveat", ""), strongest.get("source_limitations", "")]).lower()
+
+    if _historical_context_only(strongest, title):
+        return {
+            "coverage_grade": "historical_context_only",
+            "coverage_grade_reason": f"{strongest.get('source_id', '')} is useful as historical/contextual evidence but does not provide a current direct signal.",
+            "confidence_impact": "Medium-high: historical evidence supports analogy only and should not drive current scoring alone.",
+            "gap_affects_confidence": True,
+        }
+
+    if mode in {"full_text", "pdf_text"} and inference in {"direct", "moderate"} and source_type != "unknown" and "snippet" not in caveat_text:
+        return {
+            "coverage_grade": "strong_direct_full_text",
+            "coverage_grade_reason": f"{strongest.get('source_id', '')} provides direct full-text or PDF-text evidence for the requirement.",
+            "confidence_impact": "Lower: this requirement is strongly covered, subject to normal recency and context review.",
+            "gap_affects_confidence": False,
+        }
+
+    if mode == "snippet_only":
+        return {
+            "coverage_grade": "direct_snippet_only",
+            "coverage_grade_reason": f"{strongest.get('source_id', '')} is mapped to the requirement but only snippet/metadata evidence is available.",
+            "confidence_impact": "Medium: source should be verified before operational use.",
+            "gap_affects_confidence": True,
+        }
+
+    return {
+        "coverage_grade": "partial_or_indirect",
+        "coverage_grade_reason": f"{strongest.get('source_id', '')} is relevant but indirect, low-specificity or not operationally sufficient by itself.",
+        "confidence_impact": "Medium: partial coverage supports screening but caps operational confidence.",
+        "gap_affects_confidence": True,
+    }
+
+
+def _coverage_strength(item):
+    mode_score = {"full_text": 4, "pdf_text": 3, "manual_input": 2, "snippet_only": 1, "fallback": 0}.get(item.get("evidence_source_mode", ""), 1)
+    inference_score = {"direct": 3, "moderate": 2, "weak": 1}.get(item.get("inference_strength", ""), 1)
+    weight_score = {"high": 3, "medium": 2, "low": 1}.get(item.get("evidence_weight", ""), 1)
+    return (mode_score, inference_score, weight_score, item.get("total_score") or 0)
+
+
+def _historical_context_only(item, title):
+    text = " ".join(
+        [
+            title,
+            item.get("source_claim", ""),
+            item.get("extracted_evidence", ""),
+            item.get("analyst_inference", ""),
+            item.get("caveat", ""),
+        ]
+    ).lower()
+    if "historical" in text or "precedent" in text or "context only" in text:
+        return True
+    date_value = item.get("publication_date") or item.get("date") or ""
+    return date_value.startswith(("2020", "2021", "2022", "2023")) and any(term in text for term in ["precedent", "case study", "u-turn", "temporary gilt"])
+
+
+def _graded_remaining_gap(count, requirement, grade):
+    if count == 0:
+        return _remaining_gap(count, requirement)
+    if grade["coverage_grade"] == "strong_direct_full_text":
+        return "No major source-coverage gap; verify recency, context and operational applicability."
+    if grade["coverage_grade"] == "direct_snippet_only":
+        return "Mapped source is snippet-only; verify full source text before using this requirement operationally."
+    if grade["coverage_grade"] == "historical_context_only":
+        return "Evidence is historical/contextual; refresh with current direct evidence before increasing confidence."
+    return "Evidence is partial or indirect; add a stronger current direct source before treating this requirement as operationally sufficient."
 
 
 def _evidence_by_requirement(requirement_coverage):

@@ -1,4 +1,6 @@
 def generate_source_requirements(topic, business_user, region, time_horizon, concerns, domain_pack=None):
+    if _is_uk_fiscal_procurement_risk(topic, business_user, domain_pack):
+        return _uk_fiscal_procurement_requirements()
     if _is_cyber_business_interruption(topic, business_user, domain_pack):
         return _cyber_business_interruption_requirements()
     if _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
@@ -32,6 +34,140 @@ def generate_source_requirements(topic, business_user, region, time_horizon, con
             }
         )
     return requirements
+
+
+def _is_uk_fiscal_procurement_risk(topic, business_user, domain_pack):
+    lowered = f"{topic} {business_user}".lower()
+    return (
+        "uk_fiscal_procurement_risk" == (domain_pack or {}).get("domain")
+        or "fiscal instability" in lowered
+        or "public-sector procurement" in lowered
+        or "public sector procurement" in lowered
+        or "gilt" in lowered and "procurement" in lowered
+        or "infrastructure contractor" in lowered
+    )
+
+
+def _uk_fiscal_procurement_requirements():
+    return [
+        {
+            "requirement_id": "REQ-FISC-A",
+            "requirement_name": "obr_fiscal_outlook_and_fiscal_risks",
+            "why_required": "Anchors fiscal headroom, debt interest, borrowing and fiscal-risk constraints that can affect public spending confidence.",
+            "preferred_source_types": ["official_primary", "economic_data"],
+            "preferred_domains": ["obr.uk", "obr.uk/docs"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Does official fiscal-risk evidence show constrained headroom or spending pressure that could affect public procurement confidence?",
+            ],
+            "freshness_expectation": "Latest OBR outlook, fiscal risks or maintained fiscal sustainability evidence.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-FISC-B",
+            "requirement_name": "ons_public_finances_data",
+            "why_required": "Provides official public finances data on borrowing, debt and debt-interest conditions.",
+            "preferred_source_types": ["official_primary", "economic_data"],
+            "preferred_domains": ["ons.gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Do official public-finance indicators support monitoring of payment, award or departmental-budget pressure?",
+            ],
+            "freshness_expectation": "Latest ONS public sector finances release.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-FISC-C",
+            "requirement_name": "hm_treasury_fiscal_policy_and_spending_control",
+            "why_required": "Shows government fiscal policy, spending-control or departmental-budget signals that can affect procurement pipelines.",
+            "preferred_source_types": ["official_primary", "official_guidance"],
+            "preferred_domains": ["gov.uk", "hmtreasury.gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Does HM Treasury or government policy indicate spending constraints, reprioritisation or budget uncertainty relevant to bids?",
+            ],
+            "freshness_expectation": "Current Budget, Spending Review, fiscal statement or departmental spending material.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-FISC-D",
+            "requirement_name": "bank_of_england_gilt_market_and_financial_stability",
+            "why_required": "Connects fiscal credibility and gilt-market sensitivity to rates, financing conditions and market confidence.",
+            "preferred_source_types": ["official_primary", "market_indicator"],
+            "preferred_domains": ["bankofengland.co.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Are gilt-market, rates or financial-stability conditions sensitive enough to affect public-sector financing confidence?",
+            ],
+            "freshness_expectation": "Current or recent Bank of England market, financial stability or monetary-policy material.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-FISC-E",
+            "requirement_name": "credible_market_analysis_on_gilts_and_fiscal_credibility",
+            "why_required": "Adds market interpretation of gilt-yield sensitivity, investor confidence and fiscal credibility constraints.",
+            "preferred_source_types": ["specialist_analysis", "reputable_news", "market_indicator"],
+            "preferred_domains": ["reuters.com", "ft.com", "ifs.org.uk", "resolutionfoundation.org", "niesr.ac.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Does credible market analysis show fiscal credibility or gilt-yield risk that should trigger board monitoring?",
+            ],
+            "freshness_expectation": "Recent market analysis or live reporting where it adds current context.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-FISC-F",
+            "requirement_name": "public_procurement_and_infrastructure_delay_evidence",
+            "why_required": "Connects fiscal pressure to public-sector contract awards, project deferrals, procurement delays and infrastructure delivery.",
+            "preferred_source_types": ["official_primary", "industry_guidance", "specialist_analysis", "reputable_news"],
+            "preferred_domains": ["nao.org.uk", "ipa.gov.uk", "gov.uk", "cabinetoffice.gov.uk", "constructionleadershipcouncil.co.uk", "reuters.com"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Is there evidence that public procurement, infrastructure awards or departmental programmes face delay or deferral pressure?",
+            ],
+            "freshness_expectation": "Current procurement, infrastructure pipeline, NAO/IPA or sector evidence.",
+            "strength_threshold": "high",
+        },
+        {
+            "requirement_id": "REQ-FISC-G",
+            "requirement_name": "contractor_industry_working_capital_and_payment_risk",
+            "why_required": "Shows how fiscal and procurement uncertainty translates into contractor cash flow, payment, bid/no-bid and repricing exposure.",
+            "preferred_source_types": ["industry_guidance", "company_update", "specialist_analysis"],
+            "preferred_domains": ["builduk.org", "civilengineeringcontractors.com", "constructionleadershipcouncil.co.uk", "icaew.com"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "Should contractors monitor working-capital, payment and repricing exposure across public-sector counterparties?",
+            ],
+            "freshness_expectation": "Recent or maintained industry/business evidence.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-FISC-H",
+            "requirement_name": "contrary_or_stabilising_fiscal_evidence",
+            "why_required": "Prevents overstatement by identifying fiscal stabilisation, committed capital budgets, policy credibility or stronger pipeline evidence.",
+            "preferred_source_types": ["contrary_or_stabilising_evidence", "official_primary", "specialist_analysis"],
+            "preferred_domains": ["gov.uk", "obr.uk", "bankofengland.co.uk", "ifs.org.uk", "ipa.gov.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What evidence would justify easing from heightened bid-pipeline and payment-risk monitoring?",
+            ],
+            "freshness_expectation": "Current official or credible stabilising evidence.",
+            "strength_threshold": "medium",
+        },
+        {
+            "requirement_id": "REQ-FISC-I",
+            "requirement_name": "company_data_requirements_for_contractor_exposure",
+            "why_required": "Defines contractor-specific data needed before applying the screen operationally.",
+            "preferred_source_types": ["specialist_analysis", "industry_guidance", "company_update"],
+            "preferred_domains": ["builduk.org", "icaew.com", "constructionleadershipcouncil.co.uk"],
+            "minimum_sources": 1,
+            "decision_questions_supported": [
+                "What contract backlog, customer mix, payment terms, bid pipeline and working-capital data is needed before operational use?",
+            ],
+            "freshness_expectation": "Maintained commercial guidance plus company-specific data before operational use.",
+            "strength_threshold": "high",
+        },
+    ]
 
 
 def _is_sanctions_trade_finance(topic, business_user, domain_pack):

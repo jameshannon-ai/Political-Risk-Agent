@@ -4,6 +4,8 @@ Political Risk Agent is a reusable, source-governed workflow that turns public p
 
 It is not a single report generator. The project shows how a repeatable workflow can define a business decision, plan source requirements, retrieve and rank public evidence, extract decision-relevant claims, label assumptions, score risk, expose confidence limits and present the result in an offline dashboard.
 
+This is a reusable, governed political risk decision-support prototype. It is designed to structure public evidence, source provenance, analyst scoring and commercial decision outputs. It is not a fully autonomous risk oracle and requires human review before operational use.
+
 ## Summary
 
 ### What is this?
@@ -48,6 +50,14 @@ The active dashboard cases are saved Tavily-backed showcase outputs. Their evide
 
 The portfolio is expandable. Future cases can follow the same saved-showcase pattern after a task brief, source run, offline polish pass, tests and dashboard integration.
 
+### Saved Portfolio Case Outside The Dashboard
+
+| Case | Client type | Risk pattern | Decision output | Evidence mode |
+|---|---|---|---|---|
+| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | political economy / fiscal credibility / public procurement | bid pipeline review, delay contingency, repricing checks, payment-risk monitoring and board exposure reporting | saved Tavily-backed portfolio case |
+
+This case is a proper saved portfolio case and is useful for reviewing the fresh-topic workflow because it was generated through `main.py run-topic`, refreshed with a targeted Tavily run, then polished offline to improve source quality, graded requirement coverage, provenance, evidence separation and scoring traceability. It is not yet an active dashboard tab.
+
 ## How The Workflow Works
 
 1. Define the business decision.
@@ -88,11 +98,23 @@ The scorecard is a structured decision-support rubric, not a predictive or stati
 
 Each serious output should include an evidence-to-score bridge explaining why the scores were assigned and what would cap or change them.
 
+Generated evidence packs also include traceable scoring fields showing evidence supporting the score, evidence weakening the score, missing evidence, cap reasons, confidence and review requirements.
+
+Current traceable score objects separate:
+
+- `supporting_evidence`: evidence that supports the score
+- `contrary_evidence`: evidence that pushes against the risk judgement or supports relaxation
+- `evidence_quality_limits`: snippet-only, indirect, low-confidence or review-required evidence
+- `missing_evidence`: evidence needed for operational use or a stronger score
+
+This distinction prevents weak source quality from being mislabeled as contrary evidence.
+
 ## How Caveats Are Handled
 
 The framework makes uncertainty visible through:
 
 - confidence caps
+- graded source requirement coverage
 - source quality notes
 - source requirement coverage
 - selected and rejected source lists
@@ -101,6 +123,8 @@ The framework makes uncertainty visible through:
 - assumption labels for source-supported, illustrative, manual, derived and company-required inputs
 
 Illustrative scenario values are not presented as company-specific facts. Company-specific use requires internal data such as contracts, routes, counterparties, bills of materials, supplier records, policy wording, inventory or operational plans depending on the case.
+
+Requirement coverage is graded rather than binary. Coverage grades include `strong_direct_full_text`, `direct_snippet_only`, `partial_or_indirect`, `historical_context_only` and `missing`. Snippet-only or indirect evidence triggers human-review controls and should cap confidence until verified.
 
 ## Dashboard
 
@@ -131,6 +155,7 @@ Showcase case artefacts follow the same three-file pattern: brief, source audit 
 - Critical Minerals: `showcase/critical_minerals_advanced_manufacturer_brief.md`, `showcase/critical_minerals_source_audit.md`, `showcase/critical_minerals_evidence_pack.json`
 - Sanctions Trade Finance: `showcase/sanctions_trade_finance_exposure_brief.md`, `showcase/sanctions_source_audit.md`, `showcase/sanctions_evidence_pack.json`
 - Cyber Business Interruption: `showcase/cyber_business_interruption_brief.md`, `showcase/cyber_source_audit.md`, `showcase/cyber_evidence_pack.json`
+- UK Fiscal Instability And Procurement Delay Risk: `showcase/uk_fiscal_instability_procurement_brief.md`, `showcase/uk_fiscal_instability_procurement_source_audit.md`, `showcase/uk_fiscal_instability_procurement_evidence_pack.json` 
 
 `showcase/sanctions_trade_finance_sample.md` is a legacy curated sample retained for reference. It is not the active sanctions dashboard case.
 
@@ -145,6 +170,22 @@ Showcase case artefacts follow the same three-file pattern: brief, source audit 
 7. Add dashboard integration only after the saved case meets the source, scoring and caveat standard.
 
 New cases should follow the pattern: task brief, critique, live source run, offline polish, dashboard integration.
+
+For an offline fresh-topic structure run using analyst notes:
+
+```bash
+python3 main.py run-topic \
+  --topic "Example political risk issue" \
+  --business-user trade_finance_lender \
+  --decision-context "Approve, escalate or hold a transaction" \
+  --region UK \
+  --time-horizon "1-3 months" \
+  --concerns "sanctions exposure, documentation quality" \
+  --source-notes-file path/to/source-notes.txt \
+  --output-dir outputs
+```
+
+Add `--live` only when deliberately running a live source generation pass.
 
 ## How Reviewers Should Evaluate This Project
 
@@ -169,6 +210,24 @@ Then inspect the implementation:
 - saved outputs: `showcase/`
 - dashboard: `dashboard_app.py` and `dashboard_helpers.py`
 - quality and export checks: `scripts/quality_check.py`, `scripts/check_dashboard_files.py` and `scripts/create_clean_project_zip.py`
+
+To evaluate the newer fresh-topic workflow, inspect the UK Fiscal Instability And Procurement Delay Risk files in `showcase/`. A reviewer should check the evidence pack JSON for `source_claim`, `extracted_evidence`, `analyst_inference`, provenance fields, snippet-only review flags and `traceable_scores`; then compare the source audit and brief to see whether the scoring, caveats and company-data limits remain readable.
+
+For this fiscal case, also check requirement coverage grades in the source audit. A good review should ask how many requirements are strongly covered by direct full text, how many are snippet-only, and which gaps affect confidence.
+
+The fiscal case can be regenerated deliberately with:
+
+```bash
+python3 main.py run-topic \
+  --topic "UK fiscal instability and public-sector procurement delay risk" \
+  --business-user "UK infrastructure contractor" \
+  --decision-context "Assess whether fiscal pressure, gilt-market sensitivity, political instability and departmental budget uncertainty should trigger bid pipeline review, payment-risk monitoring, contract repricing, project-delay contingency planning and board-level exposure reporting" \
+  --domain uk_fiscal_procurement_risk \
+  --output-dir outputs/showcase/uk_fiscal_instability_procurement_risk \
+  --live
+```
+
+Only run this command when a live source refresh is intentional and a valid API key is available.
 
 ## Architecture
 

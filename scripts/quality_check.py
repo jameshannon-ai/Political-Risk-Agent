@@ -57,6 +57,9 @@ def _files_exist():
         "cyber_business_interruption_brief.md",
         "cyber_source_audit.md",
         "cyber_evidence_pack.json",
+        "uk_fiscal_instability_procurement_brief.md",
+        "uk_fiscal_instability_procurement_source_audit.md",
+        "uk_fiscal_instability_procurement_evidence_pack.json",
     ]:
         if not (SHOWCASE / name).exists():
             failures.append(f"Missing showcase/{name}")
@@ -70,6 +73,9 @@ def _framework_guidance():
         ROOT / "docs" / "FRAMEWORK_PRINCIPLES.md",
         ROOT / "docs" / "TASK_BRIEF_TEMPLATE.md",
         ROOT / "scripts" / "create_clean_project_zip.py",
+        ROOT / "agent" / "core" / "workflow.py",
+        ROOT / "agent" / "core" / "provenance.py",
+        ROOT / "agent" / "core" / "scoring.py",
     ]:
         if not path.exists():
             failures.append(f"Missing {path.relative_to(ROOT)}")
@@ -85,6 +91,10 @@ def _framework_guidance():
         "Fallback/demo evidence is not used in the active dashboard cases",
         "How Reviewers Should Evaluate This Project",
         "New Case Workflow",
+        "reusable, governed political risk decision-support prototype",
+        "not a fully autonomous risk oracle",
+        "python3 main.py run-topic",
+        "traceable scoring fields",
     ]:
         if phrase not in readme:
             failures.append(f"README.md missing public-readiness phrase: {phrase}")
@@ -146,6 +156,7 @@ def _brief_sections():
     uk_ets = _read("uk_ets_shipping_operator_brief.md")
     sanctions = _read("sanctions_trade_finance_exposure_brief.md")
     cyber = _read("cyber_business_interruption_brief.md")
+    fiscal = _read("uk_fiscal_instability_procurement_brief.md")
     for phrase in ["Operator Decision Stance", "Voyage Decision Matrix", "Sanctions and Safe-Passage Risk", "Dynamic Route-Cost Assessment"]:
         if phrase in hormuz:
             failures.append(f"Hormuz brief still contains old section {phrase}")
@@ -339,6 +350,35 @@ def _brief_sections():
     ]:
         if phrase in cyber:
             failures.append(f"Cyber brief contains technical or cross-domain wording: {phrase}")
+    for phrase in [
+        "UK fiscal instability and public-sector procurement delay risk",
+        "UK infrastructure contractor",
+        "political-economy risk",
+        "bid pipeline",
+        "payment-risk monitoring",
+        "contract repricing",
+        "working-capital exposure",
+        "Scoring Traceability",
+        "Source Governance",
+        "Human Review And Company Data Required",
+    ]:
+        if phrase not in fiscal:
+            failures.append(f"Fiscal procurement brief missing {phrase}")
+    for phrase in [
+        "Missing insurance evidence",
+        "energy chokepoint",
+        "underwriting",
+        "carrier/company updates",
+        "Illustrative Route-Cost Scenario",
+        "voyage",
+        "cargo",
+        "We use some essential",
+        "<script",
+    ]:
+        if phrase in fiscal:
+            failures.append(f"Fiscal procurement brief contains irrelevant or raw wording: {phrase}")
+    if "| Confidence | 4/5" in fiscal or "| Confidence score | 4/5 |" in fiscal:
+        failures.append("Fiscal procurement confidence should remain capped at 3/5")
     return failures
 
 
@@ -466,6 +506,56 @@ def _evidence_packs():
         if publisher in {"National Cyber Security Centre", "GOV.UK / Department for Science, Innovation and Technology", "Information Commissioner’s Office", "Financial Conduct Authority"}:
             if source.get("source_role") not in {"official_anchor", "regulatory_guidance", "data_or_indicator_source", "contrary_scope_limit"}:
                 failures.append(f"Cyber official/regulator source has overstated or inaccurate role: {source.get('source_id')}")
+    fiscal_pack = json.loads((SHOWCASE / "uk_fiscal_instability_procurement_evidence_pack.json").read_text(encoding="utf-8"))
+    if fiscal_pack.get("search_provider") != "tavily" or fiscal_pack.get("source_provider") != "tavily":
+        failures.append("Fiscal procurement showcase pack is not marked as tavily/tavily")
+    if fiscal_pack.get("fallback_used") or fiscal_pack.get("fallback_demo_data_used"):
+        failures.append("Fiscal procurement showcase pack incorrectly shows fallback data")
+    if fiscal_pack.get("evidence_mode") != "Live source retrieval":
+        failures.append("Fiscal procurement showcase pack is not marked as live source retrieval")
+    if fiscal_pack.get("traceable_scores", {}).get("confidence", {}).get("score", 5) > 3:
+        failures.append("Fiscal procurement confidence should remain capped at 3/5")
+    l6 = next((source for source in fiscal_pack.get("selected_sources", []) if source.get("source_id") == "L6"), {})
+    if l6.get("source_type") != "official_primary" or "nao.org.uk" not in l6.get("url", ""):
+        failures.append("Fiscal procurement programme-delay source should be NAO official evidence")
+    l9 = next((source for source in fiscal_pack.get("selected_sources", []) if source.get("source_id") == "L9"), {})
+    if l9.get("source_type") == "official_primary":
+        failures.append("Fiscal procurement industry/payment source is overstated as official_primary")
+    if not any(item.get("coverage_grade") in {"direct_snippet_only", "partial_or_indirect", "historical_context_only"} for item in fiscal_pack.get("requirement_coverage", [])):
+        failures.append("Fiscal procurement coverage should be graded beyond binary full coverage")
+    for source in fiscal_pack.get("selected_sources", []):
+        for field in ["source_role", "source_value_explanation", "decision_use", "evidence_weight", "requirement_name", "url"]:
+            if not source.get(field):
+                failures.append(f"Fiscal procurement selected source missing {field}: {source.get('source_id')}")
+    for evidence in fiscal_pack.get("evidence", []):
+        for field in [
+            "source_claim",
+            "extracted_evidence",
+            "analyst_inference",
+            "inference_strength",
+            "evidence_type",
+            "quoted_excerpt_used",
+            "extraction_confidence",
+            "evidence_source_mode",
+            "source_limitations",
+            "why_source_was_selected",
+            "why_source_matters_for_decision",
+        ]:
+            if not evidence.get(field):
+                failures.append(f"Fiscal procurement evidence missing {field}: {evidence.get('source_id')}")
+        claim = " ".join([evidence.get("source_claim", ""), evidence.get("extracted_evidence", ""), evidence.get("analyst_inference", "")])
+        if any(fragment in claim for fragment in ["We use some essential", "cookie", "<script", "<html"]):
+            failures.append(f"Fiscal procurement evidence claim still looks like boilerplate for {evidence.get('source_id')}")
+        if evidence.get("evidence_source_mode") == "snippet_only" and not evidence.get("requires_human_review"):
+            failures.append(f"Fiscal procurement snippet-only evidence should require review: {evidence.get('source_id')}")
+        refresh = evidence.get("refresh_trigger") or evidence.get("refresh_requirement", "")
+        if any(term in refresh for term in ["underwriting", "voyage", "cargo", "chokepoint"]):
+            failures.append(f"Fiscal procurement refresh trigger contains irrelevant wording for {evidence.get('source_id')}")
+    for dimension, score in fiscal_pack.get("traceable_scores", {}).items():
+        if not score.get("evidence_supporting_score"):
+            failures.append(f"Fiscal procurement traceable score missing supporting evidence: {dimension}")
+        if not score.get("reason_score_is_capped"):
+            failures.append(f"Fiscal procurement traceable score missing cap reason: {dimension}")
     hormuz_pack = json.loads((SHOWCASE / "hormuz_evidence_pack.json").read_text(encoding="utf-8"))
     if hormuz_pack.get("search_provider") != "tavily" or hormuz_pack.get("source_provider") != "tavily":
         failures.append("Hormuz showcase pack is not marked as tavily/tavily")
@@ -526,7 +616,7 @@ def _selected_source_display_checks():
 
 def _source_audits():
     failures = []
-    for name in ["hormuz_source_audit.md", "uk_ets_source_audit.md", "sanctions_source_audit.md"]:
+    for name in ["hormuz_source_audit.md", "uk_ets_source_audit.md", "sanctions_source_audit.md", "uk_fiscal_instability_procurement_source_audit.md"]:
         text = _read(name)
         for phrase in ["Research Plan", "Source Requirement Coverage", "Quantified Evidence Summary"]:
             if phrase not in text:
@@ -536,6 +626,7 @@ def _source_audits():
     critical_audit = _read("critical_minerals_source_audit.md")
     sanctions_audit = _read("sanctions_source_audit.md")
     cyber_audit = _read("cyber_source_audit.md")
+    fiscal_audit = _read("uk_fiscal_instability_procurement_source_audit.md")
     for phrase in [
         "Refresh UKA price before pricing or contract decisions.",
         "Refresh UK ETS Authority guidance if maritime scope, reporting or surrender deadlines change.",
@@ -583,6 +674,19 @@ def _source_audits():
     ]:
         if phrase not in cyber_audit:
             failures.append(f"Cyber audit missing phrase: {phrase}")
+    for phrase in [
+        "Provenance And Extraction Limits",
+        "Scoring Traceability",
+        "Scenario And Exposure Limits",
+        "Refresh OBR outlook and ONS public-finance data after new releases.",
+        "Replace public evidence with contractor order book, customer mix, payment terms, margin and working-capital data before operational use.",
+        "Validate payment terms, retentions, aged receivables, margins and working-capital exposure with company data.",
+    ]:
+        if phrase not in fiscal_audit:
+            failures.append(f"Fiscal procurement audit missing phrase: {phrase}")
+    for phrase in ["underwriting", "cargo", "voyage", "carrier/company updates", "Illustrative Route-Cost Scenario"]:
+        if phrase in fiscal_audit:
+            failures.append(f"Fiscal procurement audit contains irrelevant wording: {phrase}")
     return failures
 
 

@@ -38,6 +38,18 @@ TRUSTED_DOMAINS = [
     "ncsc.gov.uk",
     "ico.org.uk",
     "bankofengland.co.uk",
+    "obr.uk",
+    "ons.gov.uk",
+    "nao.org.uk",
+    "ipa.gov.uk",
+    "ifs.org.uk",
+    "resolutionfoundation.org",
+    "niesr.ac.uk",
+    "builduk.org",
+    "constructionleadershipcouncil.co.uk",
+    "civilengineeringcontractors.com",
+    "ice.org.uk",
+    "icaew.com",
     "marsh.com",
     "aon.com",
     "wtwco.com",
@@ -74,6 +86,16 @@ USEFUL_TERMS = [
     "notification",
     "managed service provider",
     "msp",
+    "fiscal",
+    "gilt",
+    "borrowing",
+    "debt interest",
+    "public finances",
+    "procurement",
+    "infrastructure",
+    "contract award",
+    "payment risk",
+    "working capital",
 ]
 
 REQUIREMENT_BY_SOURCE_TYPE = {
@@ -86,6 +108,9 @@ REQUIREMENT_BY_SOURCE_TYPE = {
     "specialist_analysis": ("REQ-E", "vessel_flow_freight_market"),
     "sanctions_compliance": ("REQ-F", "sanctions_compliance"),
     "contrary_or_stabilising_evidence": ("REQ-G", "contrary_de_escalation"),
+    "economic_data": ("REQ-FISC-B", "ons_public_finances_data"),
+    "market_indicator": ("REQ-FISC-D", "bank_of_england_gilt_market_and_financial_stability"),
+    "industry_guidance": ("REQ-FISC-F", "public_procurement_and_infrastructure_delay_evidence"),
 }
 
 
@@ -248,6 +273,15 @@ def _decision_use(candidate):
         "supplier_msp_dependency_risk": "Supports supplier, MSP, cloud, payment or fulfilment escalation where third-party recovery blocks operations.",
         "contrary_or_mitigation_evidence": "Supports the evidence threshold for reducing controls when resilience, recovery or mitigation evidence is strong.",
         "cyber_company_data_requirements_and_anti_overclaiming_controls": "Supports anti-overclaiming controls by showing which systems, revenue, policy and recovery data is still required.",
+        "obr_fiscal_outlook_and_fiscal_risks": "Supports fiscal-pressure likelihood scoring by showing official headroom, borrowing, debt-interest and fiscal-risk constraints.",
+        "ons_public_finances_data": "Supports public-finance monitoring by grounding borrowing, debt and debt-interest conditions in official data.",
+        "hm_treasury_fiscal_policy_and_spending_control": "Supports bid-pipeline review by showing government spending priorities, constraints and departmental budget signals.",
+        "bank_of_england_gilt_market_and_financial_stability": "Supports board monitoring where gilt-market sensitivity, rates or financial-stability conditions affect fiscal credibility.",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "Supports the market-confidence lens by interpreting gilt-yield and fiscal-credibility pressure.",
+        "public_procurement_and_infrastructure_delay_evidence": "Supports procurement-delay and project-deferral controls for public-sector contract pipelines.",
+        "contractor_industry_working_capital_and_payment_risk": "Supports payment-risk monitoring, repricing and working-capital controls for public-sector exposure.",
+        "contrary_or_stabilising_fiscal_evidence": "Supports relaxation triggers where fiscal stability, committed budgets or market conditions reduce procurement-delay risk.",
+        "company_data_requirements_for_contractor_exposure": "Supports anti-overclaiming by identifying order book, customer mix, payment terms and working-capital data still required.",
     }
     if requirement_name in requirement_uses:
         return requirement_uses[requirement_name]
@@ -304,11 +338,34 @@ def _source_role(candidate):
         "supplier_msp_dependency_risk": "specialist_interpretation",
         "contrary_or_mitigation_evidence": "contrary_scope_limit",
         "cyber_company_data_requirements_and_anti_overclaiming_controls": "company_required_data",
+        "obr_fiscal_outlook_and_fiscal_risks": "official_anchor",
+        "ons_public_finances_data": "data_or_indicator_source",
+        "hm_treasury_fiscal_policy_and_spending_control": "official_anchor",
+        "bank_of_england_gilt_market_and_financial_stability": "official_anchor",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "specialist_interpretation",
+        "public_procurement_and_infrastructure_delay_evidence": "operator_or_industry_guidance",
+        "contractor_industry_working_capital_and_payment_risk": "operator_or_industry_guidance",
+        "contrary_or_stabilising_fiscal_evidence": "contrary_scope_limit",
+        "company_data_requirements_for_contractor_exposure": "company_required_data",
     }
     return mapping.get(requirement_name, candidate.get("source_type", "unknown"))
 
 
 def _source_value_explanation(candidate):
+    requirement_name = candidate.get("requirement_name", "")
+    fiscal_explanations = {
+        "obr_fiscal_outlook_and_fiscal_risks": "Anchors fiscal headroom, borrowing and debt-interest constraints that can affect procurement confidence.",
+        "ons_public_finances_data": "Provides official borrowing, debt and debt-interest indicators for fiscal-pressure monitoring.",
+        "hm_treasury_fiscal_policy_and_spending_control": "Shows government spending priorities and departmental budget constraints relevant to bid pipelines.",
+        "bank_of_england_gilt_market_and_financial_stability": "Connects gilt-market sensitivity and financial stability to board-level monitoring triggers.",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "Interprets market confidence and gilt-yield pressure that may affect fiscal credibility.",
+        "public_procurement_and_infrastructure_delay_evidence": "Connects fiscal pressure to contract awards, procurement delays and project-deferral risk.",
+        "contractor_industry_working_capital_and_payment_risk": "Translates procurement uncertainty into payment-risk, repricing and working-capital controls.",
+        "contrary_or_stabilising_fiscal_evidence": "Tests whether stabilising fiscal, market or committed-budget evidence should reduce escalation.",
+        "company_data_requirements_for_contractor_exposure": "Identifies contractor-specific backlog, customer mix, payment terms and working-capital data needed before operational use.",
+    }
+    if requirement_name in fiscal_explanations:
+        return fiscal_explanations[requirement_name]
     role = _source_role(candidate)
     explanations = {
         "official_anchor": "Anchors whether official guidance still supports transit or requires enhanced warning or restriction.",
@@ -375,7 +432,7 @@ def _reliability_score(candidate):
     if any(term in domain for term in ["facebook.com", "linkedin.com", "x.com", "twitter.com", "instagram.com"]):
         return 1
     trusted = _trusted_domain(candidate.get("url", ""))
-    if source_type in {"official_primary", "company_update", "energy_chokepoint_data", "insurance_market_evidence"}:
+    if source_type in {"official_primary", "official_guidance", "company_update", "energy_chokepoint_data", "insurance_market_evidence", "economic_data", "market_indicator", "industry_guidance"}:
         return 5 if trusted else 4
     if source_type in {"vessel_flow_or_freight_market_evidence", "specialist_analysis", "reputable_news", "contrary_or_stabilising_evidence"}:
         return 4 if trusted else 3
@@ -422,7 +479,7 @@ def _specificity_score(candidate):
     signals += 1 if any(term in text for term in INSURANCE_SIGNAL_TERMS) else 0
     signals += 1 if any(term in text for term in VESSEL_SIGNAL_TERMS) else 0
     signals += 1 if any(char.isdigit() for char in text) else 0
-    signals += 1 if any(term in text for term in ["premium", "rate", "percent", "%", "barrels", "lng", "cargo", "outage", "ransomware", "incident", "72 hours"]) else 0
+    signals += 1 if any(term in text for term in ["premium", "rate", "percent", "%", "barrels", "lng", "cargo", "outage", "ransomware", "incident", "72 hours", "gilt", "borrowing", "procurement", "debt", "infrastructure"]) else 0
     return min(5, max(2, signals + 1))
 
 
@@ -434,6 +491,8 @@ def _decision_value_score(candidate):
         "reopen", "de-escalation", "operations",
         "outage", "incident", "notification", "claim", "resilience", "downtime",
         "recovery", "ransomware", "manual", "supplier", "msp",
+        "fiscal", "gilt", "borrowing", "debt", "procurement", "contract",
+        "infrastructure", "payment", "working capital", "bid", "pipeline",
     ]
     matches = sum(1 for term in decision_terms if term in text)
     if candidate.get("source_type") in {"official_primary", "insurance_market_evidence", "company_update"}:

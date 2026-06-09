@@ -187,6 +187,28 @@ def _display_scores(topic, time_horizon, scores, confidence, evidence_pack):
             "rationale": "Confidence is limited by missing company-specific BOM, supplier, inventory and contract data even where source coverage is strong.",
         }
 
+    if ((evidence_pack or {}).get("source_strategy") or {}).get("domain") == "uk_fiscal_procurement_risk":
+        display["likelihood"] = {
+            "score": 4,
+            "direction": "Elevated",
+            "rationale": "Fiscal pressure, gilt-market sensitivity and departmental budget uncertainty create a credible pathway to continued procurement caution.",
+        }
+        display["impact"] = {
+            "score": 4,
+            "direction": "High",
+            "rationale": "Impact can be material for infrastructure contractors because public-sector awards, project timing, payment assumptions, bid pricing and working capital can all be affected.",
+        }
+        display["immediacy"] = {
+            "score": 3,
+            "direction": "Moderate-high",
+            "rationale": "Timing pressure is moderate-high: procurement and payment effects may not be immediate across all departments, but bid pipeline and board monitoring should be refreshed near-term.",
+        }
+        display["confidence"] = {
+            "score": 3,
+            "direction": "Moderate",
+            "rationale": "Confidence is capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions.",
+        }
+
     return display
 
 
@@ -713,6 +735,17 @@ def _review_controls(evidence_pack):
             ("AIS and routing review", "Review", "Validate transponder behaviour, routing instructions and detention indicators before sailing."),
             ("Cost assumption validation", "Warning", "Replace illustrative vessel value, delay and reroute assumptions with operator-specific data before commercial use."),
             ("Relaxation gate", "Warning", "Move from hold or reroute to conditional transit only when official guidance, insurer appetite and vessel-flow recovery align."),
+        ]
+        return _table(["Control", "Status", "Required action"], rows)
+    if domain == "uk_fiscal_procurement_risk":
+        rows = [
+            ("Evidence mode", "Review" if fallback else "Passed", "Keep live-source provenance visible and refresh before board or bid-committee use."),
+            ("Official fiscal evidence", "Review", "Refresh OBR, ONS, HM Treasury and Bank of England material after new releases or market stress."),
+            ("Procurement evidence", "Warning", "Validate programme, department and public-body pipeline exposure before changing bid/no-bid stance."),
+            ("Market confidence signal", "Review", "Refresh gilt-market and fiscal-credibility evidence if yields or fiscal statements move materially."),
+            ("Payment and working capital", "Warning", "Replace public evidence with contractor receivables, payment terms, retention and cash-conversion data."),
+            ("Contract pricing", "Warning", "Check indexation, variation, termination and repricing terms before changing assumptions."),
+            ("Human review boundary", "Passed", "Treat this as a client-type screen until legal, commercial and finance teams validate company-specific data."),
         ]
         return _table(["Control", "Status", "Required action"], rows)
     rows = [
@@ -1883,22 +1916,28 @@ def _sanctions_watchlist():
 
 def _generate_generic_brief(topic, business_user, region, time_horizon, sources, evidence_pack, scores, review_flags, generated_at):
     exposure_map = get_exposure_map(business_user)
-    return f"""# Marine & Trade Risk Brief
+    decision_context = (evidence_pack or {}).get("decision_context", "")
+    return f"""# Political Risk Brief
 ## {topic} — {business_user.replace("_", " ")} exposure
 
 | Field | Value |
 | --- | --- |
 | Generated date | {generated_at} |
 | Business user | `{business_user}` |
+| Decision context | {decision_context or "Not supplied"} |
 | Region | {region} |
 | Time horizon | {time_horizon} |
 | Overall risk rating | {_overall_rating(scores)} |
 | Confidence score | {scores["confidence"]["score"]}/5 |
 | Evidence status | {_evidence_status(evidence_pack)} |
 
+## Decision Question
+
+{decision_context or f"Assess how {topic} should affect {business_user.replace('_', ' ')} decisions over {time_horizon}."}
+
 ## Executive Judgement
 
-{topic} presents a commercial risk over {time_horizon}. The priority for `{business_user}` is to identify exposed contracts, counterparties, assets and timelines, then adjust controls where the evidence supports a material disruption pathway.
+{_generic_executive_judgement(topic, business_user, time_horizon, evidence_pack)}
 
 ## Key Risks
 
@@ -1912,9 +1951,29 @@ def _generate_generic_brief(topic, business_user, region, time_horizon, sources,
 
 {_risk_scorecard(scores)}
 
+## Evidence-To-Score Bridge
+
+{_evidence_to_score_bridge(evidence_pack, scores)}
+
+## Scoring Traceability
+
+{_traceable_scores_table(evidence_pack)}
+
+## Source Governance
+
+{_source_governance_table(evidence_pack)}
+
+## Source Requirement Coverage
+
+{_source_requirement_coverage_table(evidence_pack)}
+
 ## Evidence Appendix
 
 {_evidence_appendix(sources)}
+
+## Human Review And Company Data Required
+
+{_generic_company_data_required(business_user, topic)}
 
 ## Review Controls
 
@@ -1924,7 +1983,145 @@ def _generate_generic_brief(topic, business_user, region, time_horizon, sources,
 """
 
 
+def _generic_executive_judgement(topic, business_user, time_horizon, evidence_pack):
+    domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "uk_fiscal_procurement_risk":
+        return (
+            f"{topic} is a political-economy risk for a UK infrastructure contractor because fiscal credibility, gilt-market sensitivity, "
+            "departmental budget uncertainty and public spending trade-offs can affect procurement confidence. The commercial question is not whether UK macro conditions are good or bad in general; it is whether public-sector awards, project timing, payment assumptions, contract pricing and working-capital exposure need active review.\n\n"
+            "The recommended stance is heightened monitoring: review bid pipeline exposure by department or public body, test contract pricing and indexation assumptions, monitor payment-risk indicators, prepare project-delay contingencies and report concentrated public-sector exposure to the board. Confidence remains capped until contractor-specific order book, bid pipeline, customer mix, payment terms, margins and working-capital data are supplied."
+        )
+    return (
+        f"{topic} presents a commercial risk over {time_horizon}. The priority for `{business_user}` is to identify exposed contracts, counterparties, assets and timelines, then adjust controls where the evidence supports a material disruption pathway."
+    )
+
+
+def _traceable_scores_table(evidence_pack):
+    traceable = (evidence_pack or {}).get("traceable_scores", {})
+    if not traceable:
+        return "Traceable score object is not available."
+    rows = []
+    for dimension, item in traceable.items():
+        rows.append(
+            (
+                dimension,
+                f"{item.get('score', '')}/5",
+                item.get("score_label", ""),
+                _evidence_ids(item.get("supporting_evidence", item.get("evidence_supporting_score", []))) or "None",
+                _evidence_ids(item.get("contrary_evidence", item.get("evidence_weakening_score", []))) or "None",
+                _evidence_ids(item.get("evidence_quality_limits", [])) or "None",
+                ", ".join(item.get("missing_evidence", [])) or "None",
+                item.get("reason_score_is_capped", ""),
+            )
+        )
+    return _table(["Dimension", "Score", "Label", "Supporting evidence", "Contrary evidence", "Evidence quality limits", "Missing evidence", "Cap / review reason"], rows)
+
+
+def _evidence_ids(rows):
+    return ", ".join(row.get("source_id", "") for row in rows if row.get("source_id"))
+
+
+def _source_governance_table(evidence_pack):
+    evidence = (evidence_pack or {}).get("evidence", [])
+    if not evidence:
+        return "No evidence rows available."
+    rows = []
+    for item in evidence:
+        rows.append(
+            (
+                item.get("source_id", ""),
+                item.get("publisher", ""),
+                item.get("evidence_source_mode", ""),
+                item.get("fetch_status", ""),
+                item.get("inference_strength", ""),
+                item.get("extraction_confidence", ""),
+                str(item.get("requires_human_review", False)).lower(),
+                item.get("source_limitations", ""),
+            )
+        )
+    return _table(["Source", "Publisher", "Mode", "Fetch", "Inference", "Extraction confidence", "Review", "Limitation"], rows)
+
+
+def _source_requirement_coverage_table(evidence_pack):
+    coverage = (evidence_pack or {}).get("requirement_coverage", [])
+    if not coverage:
+        return "No source requirement coverage available."
+    graded = _brief_coverage_counts(coverage)
+    summary = "\n".join(
+        [
+            f"- Requirements identified: {graded['identified']}/{graded['identified']}",
+            f"- Strongly covered: {graded['strong_direct_full_text']}/{graded['identified']}",
+            f"- Direct snippet-only: {graded['direct_snippet_only']}/{graded['identified']}",
+            f"- Partial or indirect: {graded['partial_or_indirect']}/{graded['identified']}",
+            f"- Historical/context only: {graded['historical_context_only']}/{graded['identified']}",
+            f"- Missing: {graded['missing']}/{graded['identified']}",
+            "",
+        ]
+    )
+    rows = [
+        (
+            item.get("requirement_name", ""),
+            item.get("coverage_grade", item.get("evidence_weight", "")),
+            ", ".join(item.get("covered_by", [])) or "None",
+            item.get("coverage_grade_reason", ""),
+            item.get("remaining_gap", ""),
+            str(item.get("gap_affects_confidence", item.get("covered_by_count", 0) == 0)).lower(),
+        )
+        for item in coverage
+    ]
+    return summary + _table(["Requirement", "Coverage grade", "Sources", "Reason for grade", "Gap / refresh need", "Gap affects confidence"], rows)
+
+
+def _brief_coverage_counts(coverage):
+    counts = {
+        "identified": len(coverage),
+        "strong_direct_full_text": 0,
+        "direct_snippet_only": 0,
+        "partial_or_indirect": 0,
+        "historical_context_only": 0,
+        "missing": 0,
+    }
+    for item in coverage:
+        grade = item.get("coverage_grade") or ("missing" if item.get("covered_by_count", 0) == 0 else "partial_or_indirect")
+        if grade in counts:
+            counts[grade] += 1
+    return counts
+
+
+def _generic_company_data_required(business_user, topic):
+    if business_user in {
+        "UK infrastructure contractor",
+        "UK infrastructure contractor bidding for government-funded transport and energy projects",
+        "uk_infrastructure_contractor",
+        "infrastructure_contractor",
+    }:
+        return _format_bullets(
+            [
+                "Public-sector order book by department, agency, local authority and publicly funded programme.",
+                "Bid pipeline by procurement stage, expected award date and funding source.",
+                "Contract payment terms, retention, indexation, variation and termination provisions.",
+                "Working-capital exposure, aged receivables and cash conversion by public-sector customer.",
+                "Margin sensitivity to delay, repricing failure, input cost movement and financing costs.",
+                "Board-approved thresholds for bid/no-bid review, repricing escalation and exposure reporting.",
+            ]
+        )
+    return _format_bullets(
+        [
+            "Company-specific exposure data.",
+            "Relevant contracts, counterparties, operational dependencies and financial exposure.",
+            "Legal, regulatory or operational review before real-world use.",
+        ]
+    )
+
+
 def _generic_key_risks(topic):
+    if "fiscal instability" in topic.lower() and "procurement" in topic.lower():
+        return [
+            "Fiscal credibility and gilt-market sensitivity can weaken departmental spending confidence.",
+            "Budget uncertainty can delay public-sector awards, defer projects or change procurement timing.",
+            "Payment, repricing and working-capital exposure depend on contractor-specific customer mix and contract terms.",
+            "Board-level monitoring is warranted where public-sector order book exposure is concentrated.",
+        ]
     return [
         f"Commercial disruption linked to {topic}.",
         "Potential cost, timing, contractual or counterparty effects.",

@@ -53,16 +53,89 @@ def build_evidence_to_score_bridge(evidence_pack, risk_scores):
         score = score_data.get("score", "")
         bridge[dimension] = {
             "score": score,
+            "score_label": _score_label(score),
+            "score_type": "Evidence-backed decision-support score",
             "evidence_basis": _dimension_basis(dimension, evidence_pack, score_data, domain),
             "supporting_sources": _supporting_sources_for_dimension(dimension, evidence),
             "quantified_facts_used": _bridge_quantified_facts(evidence_pack, dimension),
             "why_score_not_higher": _why_not_higher(dimension, score, fallback),
             "why_score_not_lower": _why_not_lower(dimension, score, evidence_pack),
             "review_trigger": _review_trigger(dimension, evidence_pack),
+            "supporting_evidence": _evidence_refs(_supporting_sources_for_dimension(dimension, evidence), evidence),
+            "contrary_evidence": _contrary_refs(evidence),
+            "evidence_quality_limits": _quality_limit_refs(evidence),
+            "missing_evidence": evidence_pack.get("requirements_missing", []),
+            "reason_for_score": _dimension_basis(dimension, evidence_pack, score_data, domain),
+            "reason_score_is_capped": _why_not_higher(dimension, score, fallback),
+            "confidence": _bridge_confidence(dimension, evidence_pack),
+            "review_required": bool(evidence_pack.get("requirements_missing") or fallback),
         }
+        bridge[dimension]["evidence_supporting_score"] = bridge[dimension]["supporting_evidence"]
+        bridge[dimension]["evidence_weakening_score"] = bridge[dimension]["contrary_evidence"]
         if not bridge[dimension]["supporting_sources"]:
             bridge[dimension]["supporting_sources"] = source_ids
     return bridge
+
+
+def _score_label(score):
+    labels = {1: "Low", 2: "Guarded", 3: "Moderate", 4: "High", 5: "Severe"}
+    return labels.get(score, "Unscored")
+
+
+def _evidence_refs(source_ids, evidence):
+    by_id = {item.get("source_id"): item for item in evidence}
+    refs = []
+    for source_id in source_ids:
+        item = by_id.get(source_id)
+        if item:
+            refs.append(
+                {
+                    "source_id": source_id,
+                    "source_title": item.get("source_title") or item.get("title", ""),
+                    "claim": item.get("source_claim") or item.get("claim_supported", ""),
+                    "inference_strength": item.get("inference_strength", ""),
+                }
+            )
+    return refs
+
+
+def _weakening_refs(evidence):
+    return _contrary_refs(evidence)
+
+
+def _contrary_refs(evidence):
+    return [
+        {
+            "source_id": item.get("source_id", ""),
+            "source_title": item.get("source_title") or item.get("title", ""),
+            "reason": item.get("caveat", "") or "Contrary or stabilising evidence.",
+        }
+        for item in evidence
+        if item.get("contrary_signal") or item.get("source_type") in {"contrary_or_stabilising_evidence", "contrary_scope_limit"}
+    ][:5]
+
+
+def _quality_limit_refs(evidence):
+    return [
+        {
+            "source_id": item.get("source_id", ""),
+            "source_title": item.get("source_title") or item.get("title", ""),
+            "reason": item.get("source_limitations", "") or item.get("caveat", "") or "Evidence quality limit.",
+        }
+        for item in evidence
+        if item.get("evidence_source_mode") in {"snippet_only", "fallback", "manual_input"}
+        or item.get("requires_human_review")
+        or item.get("inference_strength") == "weak"
+        or item.get("extraction_confidence") == "low"
+    ][:8]
+
+
+def _bridge_confidence(dimension, evidence_pack):
+    if evidence_pack.get("fallback_demo_data_used") or evidence_pack.get("requirements_missing"):
+        return "medium" if dimension != "confidence" else "low"
+    if any(item.get("evidence_source_mode") == "snippet_only" for item in evidence_pack.get("evidence", [])):
+        return "medium"
+    return "high"
 
 
 def _all_quantified_facts(evidence):
@@ -99,6 +172,8 @@ def _confidence_cap_reason(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "critical_minerals_supply_chain":
         return "Confidence capped because live evidence can screen client-type exposure, but BOM, supplier, inventory and contract data are still required for company-specific production decisions."
+    if domain == "uk_fiscal_procurement_risk":
+        return "Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions."
     if domain == "regulatory_carbon_shipping":
         return "Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed."
     if evidence_pack.get("fallback_demo_data_used"):
@@ -112,6 +187,8 @@ def _display_quantified_facts(evidence_pack):
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "critical_minerals_supply_chain":
         return _critical_minerals_display_facts()
+    if domain == "uk_fiscal_procurement_risk":
+        return _uk_fiscal_procurement_display_facts(evidence_pack)
     if domain == "regulatory_carbon_shipping":
         return _uk_ets_display_facts(evidence_pack)
     if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
@@ -145,6 +222,30 @@ def _bridge_quantified_facts(evidence_pack, dimension):
             ],
         }
         return facts[dimension]
+    if domain == "uk_fiscal_procurement_risk":
+        facts = {
+            "likelihood": [
+                "Fiscal pressure indicator: OBR / ONS / HMT evidence required",
+                "Market confidence indicator: gilt-market or fiscal credibility evidence required",
+                "Political economy trigger: fiscal rules, tax/spending trade-offs and departmental budgets",
+            ],
+            "impact": [
+                "Commercial channels: contract awards, procurement delays, deferrals and repricing",
+                "Contractor exposure: public-sector customer mix and order book required",
+                "Working-capital channel: payment terms and cash conversion require company data",
+            ],
+            "immediacy": [
+                "Decision horizon: bid pipeline and board reporting should be refreshed near-term",
+                "Procurement timing: department and programme evidence required",
+                "Payment-risk monitoring: customer-level exposure required",
+            ],
+            "confidence": [
+                "Company data missing: order book, departmental exposure, margins and payment terms",
+                "Source coverage must include official fiscal, market and procurement evidence",
+                "Snippet-only evidence triggers human review",
+            ],
+        }
+        return facts.get(dimension, [])
     if domain == "maritime_trade" and "hormuz" in evidence_pack.get("topic", "").lower():
         facts = {
             "likelihood": [
@@ -298,6 +399,15 @@ def _why_not_lower(dimension, score, evidence_pack):
 
 
 def _review_trigger(dimension, evidence_pack):
+    domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "uk_fiscal_procurement_risk":
+        if dimension == "confidence":
+            return "Refresh live sources and add contractor order book, customer mix, payment terms and working-capital data before increasing confidence."
+        if dimension == "immediacy":
+            return "Refresh if fiscal statements, OBR/ONS releases, gilt-market stress or departmental budget signals change the near-term picture."
+        if dimension == "impact":
+            return "Refresh if procurement pipeline, project deferral, payment-risk or contract-pricing evidence changes."
+        return "Refresh if official fiscal evidence, market confidence signals or credible stabilising evidence changes the risk direction."
     if dimension == "confidence":
         return "Refresh live sources or resolve missing requirements before increasing confidence."
     if dimension == "immediacy":
@@ -338,6 +448,16 @@ def _critical_minerals_display_facts():
         "Exposed product-line revenue: £50m illustrative",
         "Substitution difficulty: high",
     ]
+
+
+def _uk_fiscal_procurement_display_facts(evidence_pack):
+    facts = _all_quantified_facts(evidence_pack.get("evidence", []))
+    labelled = [
+        "Political economy trigger: fiscal credibility, gilt-market sensitivity and departmental budget uncertainty",
+        "Commercial channels: public-sector awards, procurement delay, project deferral, repricing and payment-risk monitoring",
+        "Company data required: order book, department/customer mix, bid pipeline, payment terms, margins and working-capital exposure",
+    ]
+    return labelled + facts[:6]
 
 
 def _calculator_value(evidence_pack, key):

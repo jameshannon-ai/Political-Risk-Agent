@@ -809,5 +809,119 @@
       "supplier-country disruption",
       "qualification status"
     ]
+  },
+  "uk_fiscal_procurement_risk": {
+    "source_requirements": [
+      "obr_fiscal_outlook_and_fiscal_risks",
+      "ons_public_finances_data",
+      "hm_treasury_fiscal_policy_and_spending_control",
+      "bank_of_england_gilt_market_and_financial_stability",
+      "credible_market_analysis_on_gilts_and_fiscal_credibility",
+      "public_procurement_and_infrastructure_delay_evidence",
+      "contractor_industry_working_capital_and_payment_risk",
+      "contrary_or_stabilising_fiscal_evidence",
+      "company_data_requirements_for_contractor_exposure"
+    ],
+    "preferred_source_types": [
+      "official_primary",
+      "official_guidance",
+      "economic_data",
+      "market_indicator",
+      "specialist_analysis",
+      "industry_guidance",
+      "reputable_news",
+      "contrary_or_stabilising_evidence"
+    ],
+    "preferred_domains": [
+      "obr.uk",
+      "ons.gov.uk",
+      "gov.uk",
+      "bankofengland.co.uk",
+      "nao.org.uk",
+      "ipa.gov.uk",
+      "reuters.com",
+      "ifs.org.uk",
+      "resolutionfoundation.org",
+      "builduk.org",
+      "constructionleadershipcouncil.co.uk",
+      "civilengineeringcontractors.com"
+    ],
+    "required_source_mix": [
+      "official fiscal outlook / fiscal risks",
+      "official public finances data",
+      "government fiscal policy / spending control",
+      "gilt-market or financial-stability evidence",
+      "market analysis on fiscal credibility",
+      "public procurement / infrastructure delay evidence",
+      "contractor industry payment or working-capital evidence",
+      "contrary or stabilising fiscal evidence"
+    ],
+    "risk_drivers": [
+      "fiscal_headroom_pressure",
+      "gilt_market_sensitivity",
+      "departmental_budget_uncertainty",
+      "procurement_delay_risk",
+      "project_deferral_risk",
+      "public_sector_payment_risk",
+      "contract_pricing_assumption_risk",
+      "working_capital_exposure"
+    ],
+    "decision_questions": [
+      "Should the contractor review its public-sector bid pipeline because fiscal pressure may slow or defer awards?",
+      "Do gilt-market sensitivity and fiscal credibility concerns justify board-level exposure monitoring?",
+      "Could departmental budget uncertainty affect project timing, payment assumptions or contract repricing?",
+      "Which public-sector customers, departments or programmes require payment-risk monitoring?",
+      "What contractor-specific order book, margin and working-capital data is needed before operational use?",
+      "What evidence would justify relaxing from heightened monitoring back to normal bid governance?"
+    ],
+    "client_decision_outputs": [
+      "bid pipeline review stance",
+      "payment-risk monitoring trigger",
+      "contract repricing review",
+      "project-delay contingency trigger",
+      "board-level exposure reporting",
+      "company-data requirements"
+    ],
+    "watchlist_indicators": [
+      "OBR fiscal headroom and fiscal-risk updates",
+      "ONS public sector borrowing and debt interest",
+      "HM Treasury spending review or departmental budget changes",
+      "Bank of England gilt-market or financial-stability signals",
+      "NAO / IPA infrastructure delay evidence",
+      "public-sector payment or procurement stress indicators"
+    ],
+    "scoring_emphasis": [
+      "likelihood",
+      "impact",
+      "confidence"
+    ],
+    "default_source_categories": [
+      "official_primary",
+      "economic_data",
+      "market_indicator",
+      "specialist_analysis",
+      "industry_guidance",
+      "reputable_news",
+      "contrary_or_stabilising_evidence"
+    ],
+    "default_risk_drivers": [
+      "fiscal_headroom_pressure",
+      "gilt_market_sensitivity",
+      "procurement_delay_risk",
+      "payment_risk"
+    ],
+    "likely_business_users": [
+      "UK infrastructure contractor",
+      "uk_infrastructure_contractor",
+      "infrastructure_contractor",
+      "consultant"
+    ],
+    "example_watchlist_indicators": [
+      "gilt-yield movement",
+      "fiscal headroom changes",
+      "departmental budget updates",
+      "infrastructure pipeline changes",
+      "payment delay indicators"
+    ]
   }
 }

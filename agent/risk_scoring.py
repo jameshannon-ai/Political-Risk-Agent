@@ -69,6 +69,34 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
             },
         }
 
+    if _is_uk_fiscal_procurement_risk(combined_text):
+        return {
+            "likelihood": {
+                "score": 4,
+                "rationale": "Fiscal pressure, gilt-market sensitivity and departmental budget uncertainty create a credible pathway to continued procurement caution.",
+            },
+            "impact": {
+                "score": 4,
+                "rationale": "Impact can be material for infrastructure contractors because public-sector awards, project timing, payment assumptions, bid pricing and working capital can all be affected.",
+            },
+            "immediacy": {
+                "score": 3,
+                "rationale": "Timing pressure is moderate-high: procurement and payment effects may not be immediate across all departments, but bid pipeline and board monitoring should be refreshed near-term.",
+            },
+            "exposure": {
+                "score": 4,
+                "rationale": "Exposure is potentially high for contractors with concentrated public-sector order books, but cannot be finalised without customer mix, backlog, payment terms and margin data.",
+            },
+            "decision_urgency": {
+                "score": 4,
+                "rationale": "The issue warrants bid-pipeline review, payment-risk monitoring, contract repricing checks and board-level exposure reporting rather than passive monitoring.",
+            },
+            "confidence": {
+                "score": 3,
+                "rationale": "Confidence is capped because public evidence can screen political-economy risk, but contractor-specific order book, departmental exposure, payment terms and working-capital data are missing.",
+            },
+        }
+
     if _is_uk_ets_maritime(combined_text):
         return {
             "likelihood": {
@@ -158,5 +186,18 @@ def _is_critical_minerals_supply_chain(text):
         "magnet supply",
         "advanced manufacturer",
         "production continuity",
+    ]
+    return sum(1 for term in triggers if term in text) >= 2
+
+
+def _is_uk_fiscal_procurement_risk(text):
+    triggers = [
+        "fiscal instability",
+        "public-sector procurement",
+        "public sector procurement",
+        "gilt",
+        "infrastructure contractor",
+        "procurement delay",
+        "departmental budget",
     ]
     return sum(1 for term in triggers if term in text) >= 2

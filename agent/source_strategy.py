@@ -3,6 +3,7 @@ from agent.source_planner import create_source_plan, infer_domain
 
 SOURCE_CATEGORIES = [
     "official_primary",
+    "official_guidance",
     "company_update",
     "energy_chokepoint_data",
     "insurance_market_evidence",
@@ -10,6 +11,9 @@ SOURCE_CATEGORIES = [
     "reputable_news",
     "specialist_analysis",
     "contrary_or_stabilising_evidence",
+    "economic_data",
+    "market_indicator",
+    "industry_guidance",
 ]
 
 SOURCE_TYPE_ALIASES = {

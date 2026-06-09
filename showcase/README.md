@@ -15,10 +15,19 @@ The five active cases are saved Tavily-backed outputs. Their evidence packs shou
 Additional earlier samples may remain in this folder for reference, but they are not active dashboard cases unless listed as included above.
 `showcase/sanctions_trade_finance_sample.md` is a legacy curated sample retained for reference; the active sanctions dashboard case uses `showcase/sanctions_trade_finance_exposure_brief.md`.
 
+## Saved Portfolio Case Outside The Dashboard
+
+This saved case demonstrates the reusable fresh-topic workflow. It is a portfolio case, but it has not yet been added as an active dashboard tab.
+
+| Case | Client type | Brief path | Source audit path | Evidence pack path | Evidence mode | Confidence score | Dashboard status |
+|---|---|---|---|---|---|---|---|
+| UK Fiscal Instability And Procurement Delay Risk | UK infrastructure contractor bidding for government-funded transport and energy projects | `showcase/uk_fiscal_instability_procurement_brief.md` | `showcase/uk_fiscal_instability_procurement_source_audit.md` | `showcase/uk_fiscal_instability_procurement_evidence_pack.json` | saved Tavily-backed portfolio case | 3/5 | saved portfolio case; not yet included |
+
 ## What To Review
 
 - Briefs show the client decision, scorecard, evidence-to-score bridge, assumptions and recommended actions.
 - Source audits show the research plan, source strategy, selected/rejected sources, coverage gaps and refresh priorities.
 - Evidence packs preserve machine-readable source requirements, extracted claims, quantified facts, confidence caps and metadata.
+- The UK fiscal instability evidence pack is especially useful for reviewing the newer provenance, graded source requirement coverage and traceable-scoring fields.
 
 The Streamlit dashboard reads these saved files only. It does not call Tavily, run `live_search_mode` or spend live-search credits.

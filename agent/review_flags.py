@@ -14,6 +14,8 @@ def generate_review_flags(sources, today=None, evidence_pack=None):
         return _uk_ets_flags(evidence_pack, today) or ["No major evidence review flags identified."]
     if domain == "maritime_trade":
         return _hormuz_flags(evidence_pack, today) or ["No major evidence review flags identified."]
+    if domain == "uk_fiscal_procurement_risk":
+        return _uk_fiscal_procurement_flags(evidence_pack, today) or ["No major evidence review flags identified."]
 
     flags = []
 
@@ -53,6 +55,8 @@ def _live_evidence_flags(live_source_types, evidence_pack, today):
         return _uk_ets_flags(evidence_pack, today)
     if domain == "maritime_trade":
         return _hormuz_flags(evidence_pack, today)
+    if domain == "uk_fiscal_procurement_risk":
+        return _uk_fiscal_procurement_flags(evidence_pack, today)
     flags = []
     if "official_primary" not in live_source_types:
         flags.append("Missing official source in live evidence.")
@@ -126,4 +130,21 @@ def _critical_minerals_flags(evidence_pack, today):
         flags.append("One or more live sources appear older than 90 days.")
     if evidence_pack.get("fetch_failures"):
         flags.append("Snippet-based or failed fetch evidence should be validated before operational use.")
+    return flags
+
+
+def _uk_fiscal_procurement_flags(evidence_pack, today):
+    flags = [
+        "Refresh OBR, ONS, HM Treasury and Bank of England evidence before board or bid-committee use.",
+        "Verify snippet-only market, procurement and industry sources before operational decisions.",
+        "Contractor-specific order book, customer mix, payment terms, margins and working-capital data are required.",
+        "Departmental and programme-level bid pipeline exposure should be reviewed before changing bid/no-bid stance.",
+        "Board monitoring should be refreshed after fiscal statements, gilt-market stress or material spending-policy updates.",
+    ]
+    if any(_is_stale(source.get("publication_date", ""), today) for source in evidence_pack.get("evidence", [])):
+        flags.append("One or more live sources appear older than 90 days.")
+    if evidence_pack.get("fetch_failures"):
+        flags.append("One or more source fetch failures occurred; affected rows require manual verification.")
+    if evidence_pack.get("fallback_demo_data_used"):
+        flags.append("Fallback/demo evidence used; do not treat this as a live-source-backed portfolio case.")
     return flags

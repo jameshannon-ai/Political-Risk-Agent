@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 from urllib.parse import urlparse
 
+from agent.core.provenance import normalize_evidence_record
+
 
 INSURANCE_TERMS = ["insurance", "war-risk", "war risk", "premium", "underwriting", "claims"]
 VESSEL_FLOW_TERMS = ["vessel", "tanker", "traffic", "transit", "flows", "freight", "shipping"]
@@ -37,7 +39,7 @@ def _extract_source(source, index, business_user):
     requirement_name = source.get("requirement_name", "")
     decision_profile = _decision_profile(requirement_name, source_type, business_user)
 
-    return {
+    evidence = {
         "source_id": source.get("source_id", f"L{index}"),
         "requirement_id": source.get("requirement_id", ""),
         "requirement_name": requirement_name,
@@ -76,6 +78,12 @@ def _extract_source(source, index, business_user):
         "decision_value_score": source.get("decision_value_score", ""),
         "fetch_status": source.get("fetch_status", ""),
     }
+    return normalize_evidence_record(
+        evidence,
+        source=source,
+        fallback_demo_data_used=source.get("evidence_source_mode") == "fallback" or source.get("fetch_status") == "demo",
+        retrieval_timestamp=source.get("retrieval_timestamp"),
+    )
 
 
 def _claim_supported(text):
@@ -100,7 +108,9 @@ def _best_claim(source, text):
 def _clean_extracted_text(text):
     text = re.sub(r"(?is)<(script|style|nav|footer|header|noscript|form|aside)\b.*?</\1>", " ", text or "")
     text = re.sub(r"<[^>]+>", " ", text or "")
-    text = re.sub(r"\b(cookie|cookies|privacy policy|accept all|skip to content)\b", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\b(cookie|cookies|privacy policy|accept all|skip to content|on GOV\.UK)\b", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\bWe (use|would like to set) (some )?(essential|necessary|additional)?\s*(cookies?)?.{0,120}?(website work|site work|government services|settings)\.?", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\bOur use of\s+We use necessary to make our site work\.?", " ", text, flags=re.IGNORECASE)
     text = re.sub(r"\b(function|var|return|data-[a-z0-9_-]+)\b.*", " ", text, flags=re.IGNORECASE)
     text = " ".join(text.split())
     return text[:5000]
@@ -113,7 +123,7 @@ def _looks_like_bad_claim(text):
     bad_prefixes = ("<script", "<!doctype", "<html", "data-", "var", "function", "cookie")
     if lowered.startswith(bad_prefixes):
         return True
-    if any(token in lowered for token in ["<!doctype", "<html", "<script", "javascript", "window.dataLayer"]):
+    if any(token in lowered for token in ["<!doctype", "<html", "<script", "javascript", "window.datalayer", "we use some essential", "we use necessary", "we'd like to set additional cookies", "our use of we use necessary"]):
         return True
     return False
 
@@ -139,6 +149,7 @@ def _quantified_facts(text):
         r"\b\d{4}-\d{2}-\d{2}\b",
         r"\b(?:13 May 2026|22 April 2026|1-3 months)\b",
         r"\b(?:licen[cs]e|notification|penalt(?:y|ies)|payment|collateral)\s.{0,40}?\d+(?:\.\d+)?%?",
+        r"\b(?:borrowing|debt|debt interest|gilt yield|gilts|spending|capital budget|procurement|infrastructure)\s.{0,60}?(?:\$|£|€)?\d+(?:\.\d+)?\s?(?:%|m|mn|million|bn|billion)?",
     ]
     facts = []
     for pattern in patterns:
@@ -167,6 +178,8 @@ def _commercial_relevance(text, source_type):
 
 
 def _business_user_relevance(business_user, text):
+    if business_user in {"UK infrastructure contractor", "uk_infrastructure_contractor", "infrastructure_contractor"}:
+        return "Relevant to public-sector bid pipeline, contract-award timing, payment risk, repricing assumptions, working-capital exposure and board monitoring."
     if business_user == "customer_facing_operator":
         return "Relevant to downtime tolerance, revenue-at-risk, regulatory notification, customer harm, insurance claim readiness and recovery controls."
     if business_user == "marine_insurer":
@@ -221,6 +234,8 @@ def _caveat(source_type, fetch_status):
 
 
 def _decision_profile(requirement_name, source_type, business_user):
+    if business_user in {"UK infrastructure contractor", "uk_infrastructure_contractor", "infrastructure_contractor"} or requirement_name.startswith(("obr_", "ons_", "hm_treasury", "bank_of_england", "credible_market_analysis", "public_procurement", "contractor_industry", "contrary_or_stabilising_fiscal", "company_data_requirements_for_contractor")):
+        return _uk_fiscal_procurement_decision_profile(requirement_name, source_type)
     if business_user == "customer_facing_operator" or requirement_name.startswith("uk_official_cyber") or requirement_name.startswith("cyber_") or requirement_name in {
         "uk_cyber_breach_prevalence_data",
         "board_cyber_governance_and_resilience_expectations",
@@ -344,6 +359,68 @@ def _advanced_manufacturer_decision_profile(requirement_name, source_type):
     commercial, implication, decision = profiles.get(
         requirement_name,
         (_commercial_relevance("", source_type), _business_user_relevance("advanced_manufacturer", ""), "Supports production-continuity review and sourcing control decisions."),
+    )
+    return {
+        "commercial_meaning": commercial,
+        "business_user_implication": implication,
+        "decision_use": decision,
+    }
+
+def _uk_fiscal_procurement_decision_profile(requirement_name, source_type):
+    profiles = {
+        "obr_fiscal_outlook_and_fiscal_risks": (
+            "Fiscal headroom, borrowing and debt-interest constraints can weaken confidence in public spending commitments.",
+            "Supports bid-pipeline review and board monitoring of public-sector exposure.",
+            "Supports likelihood scoring for continued fiscal pressure and departmental budget uncertainty.",
+        ),
+        "ons_public_finances_data": (
+            "Official borrowing, debt and debt-interest data grounds the fiscal-pressure baseline.",
+            "Supports payment-risk and procurement-confidence monitoring using official public-finance indicators.",
+            "Supports evidence-backed monitoring of fiscal deterioration or stabilisation.",
+        ),
+        "hm_treasury_fiscal_policy_and_spending_control": (
+            "Fiscal rules, spending controls and departmental budgets shape public-sector contract-award confidence.",
+            "Supports bid/no-bid review, contract-pricing assumptions and programme-delay contingency planning.",
+            "Supports assessment of whether spending constraints may affect awards, deferrals or repricing.",
+        ),
+        "bank_of_england_gilt_market_and_financial_stability": (
+            "Gilt-market sensitivity and financial-stability conditions can transmit fiscal credibility concerns into financing pressure.",
+            "Supports board-level monitoring of market-confidence and rate-sensitive procurement risk.",
+            "Supports immediacy and confidence scoring where market stress affects fiscal room for manoeuvre.",
+        ),
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": (
+            "Market analysis interprets gilt-yield and fiscal-credibility signals beyond official data releases.",
+            "Supports scenario monitoring and management escalation where investor confidence becomes politically salient.",
+            "Supports market-confidence evidence, with caveats if analysis is indirect or snippet-only.",
+        ),
+        "public_procurement_and_infrastructure_delay_evidence": (
+            "Procurement and infrastructure delivery evidence links fiscal pressure to awards, deferrals and project delays.",
+            "Supports bid-pipeline review, project-delay contingencies and contract repricing controls.",
+            "Supports impact scoring for public-sector contract and programme exposure.",
+        ),
+        "contractor_industry_working_capital_and_payment_risk": (
+            "Industry evidence translates public-sector uncertainty into payment, cash-flow and working-capital exposure.",
+            "Supports payment-risk monitoring, repricing and exposure reporting by customer or department.",
+            "Supports exposure and decision-urgency scoring for contractor cash-flow controls.",
+        ),
+        "contrary_or_stabilising_fiscal_evidence": (
+            "Stabilising evidence can narrow the downside case if funding commitments, market conditions or fiscal credibility improve.",
+            "Supports conditions for relaxing heightened bid, payment and board-reporting controls.",
+            "Supports confidence discipline and prevents one-way escalation.",
+        ),
+        "company_data_requirements_for_contractor_exposure": (
+            "Company-specific backlog, customer mix, payment terms, margin and working-capital data are required before operational use.",
+            "Supports anti-overclaiming controls and confidence caps.",
+            "Supports review requirements before using the screen for a contractor-specific board decision.",
+        ),
+    }
+    commercial, implication, decision = profiles.get(
+        requirement_name,
+        (
+            "Fiscal and procurement evidence may affect public-sector contracting confidence.",
+            "Relevant to bid pipeline, payment-risk and board monitoring decisions.",
+            "Supports contractor exposure review and human verification before operational use.",
+        ),
     )
     return {
         "commercial_meaning": commercial,
@@ -662,6 +739,15 @@ def _risk_driver(requirement_name, source_type):
         "supplier_msp_dependency_risk": "Supplier and MSP dependency",
         "contrary_or_mitigation_evidence": "Mitigation and recovery evidence",
         "cyber_company_data_requirements_and_anti_overclaiming_controls": "Company data and anti-overclaiming controls",
+        "obr_fiscal_outlook_and_fiscal_risks": "Fiscal headroom and debt-interest pressure",
+        "ons_public_finances_data": "Public finances and borrowing indicators",
+        "hm_treasury_fiscal_policy_and_spending_control": "Fiscal policy and departmental spending control",
+        "bank_of_england_gilt_market_and_financial_stability": "Gilt-market sensitivity and financial stability",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "Fiscal credibility and market confidence",
+        "public_procurement_and_infrastructure_delay_evidence": "Procurement delay and infrastructure deferral risk",
+        "contractor_industry_working_capital_and_payment_risk": "Contractor payment and working-capital risk",
+        "contrary_or_stabilising_fiscal_evidence": "Stabilising fiscal or market evidence",
+        "company_data_requirements_for_contractor_exposure": "Contractor-specific data requirements",
     }
     source_type_mapping = {
         "official_primary": "Maritime security and transit risk",
@@ -723,6 +809,15 @@ def _judgement_supported(requirement_name, source_type):
         "supplier_msp_dependency_risk": "Third-party dependencies can block recovery",
         "contrary_or_mitigation_evidence": "Validated recovery controls can reduce impact",
         "cyber_company_data_requirements_and_anti_overclaiming_controls": "Company-specific systems, revenue, policy and recovery data are required",
+        "obr_fiscal_outlook_and_fiscal_risks": "Fiscal constraints can affect public spending confidence and procurement timing",
+        "ons_public_finances_data": "Official public finance data supports fiscal-pressure monitoring",
+        "hm_treasury_fiscal_policy_and_spending_control": "Spending controls can affect departmental procurement confidence",
+        "bank_of_england_gilt_market_and_financial_stability": "Gilt-market sensitivity can justify board-level fiscal-risk monitoring",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "Market confidence evidence helps test fiscal credibility risk",
+        "public_procurement_and_infrastructure_delay_evidence": "Procurement and infrastructure evidence supports delay and deferral controls",
+        "contractor_industry_working_capital_and_payment_risk": "Payment and working-capital evidence supports contractor cash-flow controls",
+        "contrary_or_stabilising_fiscal_evidence": "Stabilising evidence can reduce but not remove monitoring requirements",
+        "company_data_requirements_for_contractor_exposure": "Contractor-specific order book and working-capital data are required",
     }
     return mapping.get(requirement_name, _risk_driver(requirement_name, source_type))
 
@@ -776,6 +871,15 @@ def _refresh_requirement(requirement_name, source_type):
         "supplier_msp_dependency_risk": "Refresh when supplier, MSP, cloud, payment or fulfilment dependency data changes.",
         "contrary_or_mitigation_evidence": "Refresh before relaxing incident controls or returning exposed digital operations to normal.",
         "cyber_company_data_requirements_and_anti_overclaiming_controls": "Refresh when systems, revenue, RTO/RPO, backup, supplier, policy or incident facts become available.",
+        "obr_fiscal_outlook_and_fiscal_risks": "Refresh when the OBR updates fiscal outlook, fiscal risks, headroom or debt-interest assumptions.",
+        "ons_public_finances_data": "Refresh when ONS publishes new public sector finances data.",
+        "hm_treasury_fiscal_policy_and_spending_control": "Refresh after Budgets, fiscal statements, Spending Reviews or departmental budget changes.",
+        "bank_of_england_gilt_market_and_financial_stability": "Refresh when gilt-market, rates or financial-stability signals materially change.",
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": "Refresh if market confidence, gilt-yield or fiscal-credibility analysis changes.",
+        "public_procurement_and_infrastructure_delay_evidence": "Refresh when infrastructure pipeline, procurement or project-delay evidence changes.",
+        "contractor_industry_working_capital_and_payment_risk": "Refresh when payment-risk, retentions, working-capital or contractor-industry evidence changes.",
+        "contrary_or_stabilising_fiscal_evidence": "Refresh before relaxing heightened bid or payment-risk monitoring.",
+        "company_data_requirements_for_contractor_exposure": "Refresh when order book, customer mix, payment terms, margins or working-capital data becomes available.",
     }
     return mapping.get(requirement_name, "Refresh before major underwriting or commercial decisions.")
 

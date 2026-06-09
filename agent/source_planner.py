@@ -39,6 +39,14 @@ def infer_domain(topic, business_user, domain=None):
     if domain:
         return domain
     text = f"{topic} {business_user}".lower()
+    if (
+        "fiscal instability" in text
+        or "public-sector procurement" in text
+        or "public sector procurement" in text
+        or "gilt" in text
+        or business_user in {"uk_infrastructure_contractor", "infrastructure_contractor", "UK infrastructure contractor"}
+    ):
+        return "uk_fiscal_procurement_risk"
     if "cyber business interruption" in text or ("cyber" in text and "operational resilience" in text) or business_user in {"customer_facing_operator", "uk_retailer", "critical_services_operator"}:
         return "cyber_business_interruption"
     if "critical minerals" in text or "rare earth" in text or "magnet supply" in text or business_user == "advanced_manufacturer":
@@ -261,6 +269,53 @@ def _queries_for_requirement(topic, region, time_horizon, requirement):
         "cyber_company_data_requirements_and_anti_overclaiming_controls": [
             "site:ncsc.gov.uk incident response plan business continuity recovery time objectives",
             "site:marsh.com cyber insurance claim notice policy wording business interruption",
+        ],
+        "obr_fiscal_outlook_and_fiscal_risks": [
+            "site:obr.uk Economic and fiscal outlook 2026 fiscal headroom debt interest borrowing",
+            "site:obr.uk Fiscal risks and sustainability 2025 UK debt interest spending pressures",
+            "site:obr.uk welfare trends spending pressures fiscal outlook public finances 2026",
+        ],
+        "ons_public_finances_data": [
+            "site:ons.gov.uk public sector finances UK latest borrowing debt interest 2026",
+            "site:ons.gov.uk public sector finances borrowing debt UK fiscal position May 2026",
+        ],
+        "hm_treasury_fiscal_policy_and_spending_control": [
+            "site:gov.uk Spending Review 2025 departmental budgets infrastructure HM Treasury",
+            "site:gov.uk Spring Statement 2025 fiscal rules departmental spending public investment",
+            "site:gov.uk HM Treasury fiscal rules public spending infrastructure pipeline",
+        ],
+        "bank_of_england_gilt_market_and_financial_stability": [
+            "site:bankofengland.co.uk financial stability report gilt market government bonds 2025 2026",
+            "site:bankofengland.co.uk gilt market conditions financial stability UK rates 2026",
+            "site:bankofengland.co.uk monetary policy report gilt yields UK government bonds",
+        ],
+        "credible_market_analysis_on_gilts_and_fiscal_credibility": [
+            "site:reuters.com UK gilt yields fiscal credibility public finances 2026",
+            "site:ifs.org.uk UK fiscal outlook spending review debt interest 2026",
+            "site:resolutionfoundation.org UK fiscal headroom gilt yields public finances 2026",
+        ],
+        "public_procurement_and_infrastructure_delay_evidence": [
+            "site:nao.org.uk infrastructure projects delay public procurement major projects 2025 2026",
+            "site:ipa.gov.uk annual report on major projects infrastructure delays government portfolio 2025",
+            "site:gov.uk National Infrastructure and Construction Pipeline 2025 procurement projects",
+            "site:gov.uk Construction Pipeline public procurement infrastructure projects 2026",
+            "site:cabinetoffice.gov.uk public procurement pipeline infrastructure government contracts",
+        ],
+        "contractor_industry_working_capital_and_payment_risk": [
+            "site:builduk.org construction payment performance public sector working capital 2025 2026",
+            "site:civilengineeringcontractors.com infrastructure contractor procurement delay payment risk 2025",
+            "site:constructionleadershipcouncil.co.uk payment performance construction working capital procurement",
+            "site:icaew.com late payments construction working capital public sector 2025",
+        ],
+        "contrary_or_stabilising_fiscal_evidence": [
+            "site:gov.uk National Infrastructure and Construction Pipeline committed projects 2025",
+            "site:gov.uk 10 Year Infrastructure Strategy pipeline certainty 2025",
+            "site:obr.uk fiscal headroom debt falling forecast public finances 2026",
+            "site:bankofengland.co.uk gilt market functioning stable financial stability 2025",
+        ],
+        "company_data_requirements_for_contractor_exposure": [
+            "site:builduk.org construction contractor working capital payment terms public sector clients",
+            "site:icaew.com construction working capital public sector contract payment risk",
         ],
     }
     queries.extend(targeted_queries.get(requirement_name, []))

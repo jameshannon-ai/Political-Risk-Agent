@@ -55,6 +55,14 @@ def generate_source_audit(evidence_pack):
 
 {_quantified_evidence_summary(evidence_pack)}
 
+## Provenance And Extraction Limits
+
+{_provenance_limits(evidence_pack)}
+
+## Scoring Traceability
+
+{_scoring_traceability(evidence_pack)}
+
 ## Source Requirement Coverage
 
 {_requirement_coverage(evidence_pack)}
@@ -75,7 +83,7 @@ def generate_source_audit(evidence_pack):
 - Contrary/stabilising evidence: {_contrary_status(evidence_pack)}
 - Confidence impact: {_confidence_impact(evidence_pack)}
 
-## Illustrative Route-Cost Scenario
+## {_assumption_section_title(domain)}
 
 {_route_cost_assumptions(evidence_pack)}
 
@@ -150,9 +158,15 @@ def _research_plan(evidence_pack):
 def _quantified_evidence_summary(evidence_pack):
     assessment = calculate_quantitative_assessment(evidence_pack)
     readout = evidence_pack.get("quantified_evidence_readout", {})
+    graded = _coverage_grade_counts(evidence_pack)
     rows = [
         ("Source count", assessment["total_selected_sources"]),
-        ("Source coverage", f"{assessment['required_source_coverage_percentage']}%"),
+        ("Requirements identified", f"{graded['identified']}/{graded['identified']}"),
+        ("Strongly covered", f"{graded['strong_direct_full_text']}/{graded['identified']}"),
+        ("Direct snippet-only", f"{graded['direct_snippet_only']}/{graded['identified']}"),
+        ("Partial or indirect", f"{graded['partial_or_indirect']}/{graded['identified']}"),
+        ("Historical/context only", f"{graded['historical_context_only']}/{graded['identified']}"),
+        ("Missing", f"{graded['missing']}/{graded['identified']}"),
         ("High-weight source count", assessment["high_weight_sources"]),
         ("Quantified facts", assessment["number_of_quantified_facts_extracted"]),
         ("Score support summary", readout.get("score_support_summary", assessment["evidence_strength_summary"])),
@@ -161,23 +175,109 @@ def _quantified_evidence_summary(evidence_pack):
     return "\n".join(f"- {label}: {value}" for label, value in rows)
 
 
+def _provenance_limits(evidence_pack):
+    evidence = evidence_pack.get("evidence", [])
+    if not evidence:
+        return "- No extracted evidence rows available."
+    rows = [
+        "| Source ID | Evidence mode | Fetch status | Inference strength | Extraction confidence | Human review | Limitation |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for item in evidence:
+        rows.append(
+            "| {source_id} | {mode} | {fetch_status} | {strength} | {confidence} | {review} | {limit} |".format(
+                source_id=_cell(item.get("source_id", "")),
+                mode=_cell(item.get("evidence_source_mode", "")),
+                fetch_status=_cell(item.get("fetch_status", "")),
+                strength=_cell(item.get("inference_strength", "")),
+                confidence=_cell(item.get("extraction_confidence", "")),
+                review=_cell(str(item.get("requires_human_review", False)).lower()),
+                limit=_cell(item.get("source_limitations", "")),
+            )
+        )
+    return "\n".join(rows)
+
+
+def _scoring_traceability(evidence_pack):
+    traceable = evidence_pack.get("traceable_scores", {})
+    if not traceable:
+        return "- Traceable score object not available for this pack."
+    rows = [
+        "| Dimension | Score | Label | Confidence | Supporting Evidence | Contrary Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |",
+        "| --- | ---: | --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for dimension, item in traceable.items():
+        rows.append(
+            "| {dimension} | {score} | {label} | {confidence} | {supporting} | {contrary} | {quality} | {missing} | {cap} |".format(
+                dimension=_cell(dimension),
+                score=_cell(item.get("score", "")),
+                label=_cell(item.get("score_label", "")),
+                confidence=_cell(item.get("confidence", "")),
+                supporting=_cell(", ".join(_ref_ids(item.get("supporting_evidence", item.get("evidence_supporting_score", [])))) or "None"),
+                contrary=_cell(", ".join(_ref_ids(item.get("contrary_evidence", item.get("evidence_weakening_score", [])))) or "None"),
+                quality=_cell(", ".join(_ref_ids(item.get("evidence_quality_limits", []))) or "None"),
+                missing=_cell(", ".join(item.get("missing_evidence", [])) or "None"),
+                cap=_cell(item.get("reason_score_is_capped", "")),
+            )
+        )
+    return "\n".join(rows)
+
+
+def _ref_ids(rows):
+    return [row.get("source_id", "") for row in rows if row.get("source_id")]
+
+
 def _requirement_coverage(evidence_pack):
     rows = [
-        "| Requirement | Why Required | Covered By | Evidence Weight | Decision Questions Supported | Remaining Gap |",
+        _graded_coverage_summary(evidence_pack),
+        "",
+        "| Requirement | Coverage Grade | Supporting Sources | Reason For Grade | Remaining Gap | Gap Affects Confidence |",
         "| --- | --- | --- | --- | --- | --- |",
     ]
     for item in evidence_pack.get("requirement_coverage", []):
         rows.append(
-            "| {requirement} | {why} | {covered_by} | {weight} | {questions} | {gap} |".format(
+            "| {requirement} | {grade} | {covered_by} | {reason} | {gap} | {confidence} |".format(
                 requirement=_cell(item["requirement_name"]),
-                why=_cell(item["why_required"]),
+                grade=_cell(item.get("coverage_grade", item.get("evidence_weight", ""))),
                 covered_by=_cell(", ".join(item["covered_by"]) or "None"),
-                weight=_cell(item["evidence_weight"]),
-                questions=_cell("; ".join(item["decision_questions_supported"])),
+                reason=_cell(item.get("coverage_grade_reason", item["why_required"])),
                 gap=_cell(item["remaining_gap"]),
+                confidence=_cell(str(item.get("gap_affects_confidence", item.get("covered_by_count", 0) == 0)).lower()),
             )
         )
-    return "\n".join(rows) if len(rows) > 2 else "No source requirements available."
+    return "\n".join(rows) if len(rows) > 4 else "No source requirements available."
+
+
+def _coverage_grade_counts(evidence_pack):
+    coverage = evidence_pack.get("requirement_coverage", [])
+    counts = {
+        "identified": len(coverage),
+        "strong_direct_full_text": 0,
+        "direct_snippet_only": 0,
+        "partial_or_indirect": 0,
+        "historical_context_only": 0,
+        "missing": 0,
+    }
+    for item in coverage:
+        grade = item.get("coverage_grade") or ("missing" if item.get("covered_by_count", 0) == 0 else "partial_or_indirect")
+        if grade in counts:
+            counts[grade] += 1
+    return counts
+
+
+def _graded_coverage_summary(evidence_pack):
+    counts = _coverage_grade_counts(evidence_pack)
+    total = counts["identified"]
+    return "\n".join(
+        [
+            f"- Requirements identified: {total}/{total}",
+            f"- Strongly covered: {counts['strong_direct_full_text']}/{total}",
+            f"- Direct snippet-only: {counts['direct_snippet_only']}/{total}",
+            f"- Partial or indirect: {counts['partial_or_indirect']}/{total}",
+            f"- Historical/context only: {counts['historical_context_only']}/{total}",
+            f"- Missing: {counts['missing']}/{total}",
+        ]
+    )
 
 
 def _route_cost_assumptions(evidence_pack):
@@ -191,7 +291,15 @@ def _route_cost_assumptions(evidence_pack):
                     "- Treat the continuity gap as a client-type decision aid, not a company-specific production forecast.",
                 ]
             )
-        return "- Route-cost assumptions are case-specific and were not foregrounded in this business-user path."
+        if domain == "uk_fiscal_procurement_risk":
+            return "\n".join(
+                [
+                    "- Public evidence screens fiscal, procurement and payment-risk exposure; it does not measure a contractor-specific order book.",
+                    "- Replace public evidence with customer mix, bid pipeline, payment terms, margin and working-capital data before operational use.",
+                    "- Treat procurement-delay and payment-risk scoring as decision-support, not a forecast of any individual contract award or payment.",
+                ]
+            )
+        return "- Scenario assumptions are case-specific and were not foregrounded in this business-user path."
     domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
     if domain == "regulatory_carbon_shipping":
         return "\n".join(
@@ -242,10 +350,20 @@ def _refresh_triggers(evidence_pack):
                 "- Relax from hold or reroute only after official guidance, insurer appetite and vessel-flow recovery improve together.",
             ]
         )
+    if domain == "uk_fiscal_procurement_risk":
+        return "\n".join(
+            [
+                "- Refresh OBR outlook and ONS public-finance data after new releases.",
+                "- Refresh HM Treasury spending, Budget or Spending Review material after fiscal-policy updates.",
+                "- Refresh Bank of England and market-confidence evidence if gilt yields or financial-stability signals move materially.",
+                "- Refresh procurement and infrastructure-pipeline evidence before changing bid/no-bid or project-delay controls.",
+                "- Replace public evidence with contractor order book, customer mix, payment terms, margin and working-capital data before operational use.",
+            ]
+        )
     triggers = [
-        item.get("refresh_trigger", "")
+        item.get("refresh_trigger", "") if isinstance(item, dict) else str(item)
         for item in evidence_pack.get("refresh_priorities", [])
-        if item.get("refresh_trigger")
+        if (item.get("refresh_trigger") if isinstance(item, dict) else item)
     ]
     if not triggers:
         return "- Refresh before major commercial decisions."
@@ -364,6 +482,17 @@ def _analyst_review_controls(domain):
                 "- Check de-escalation reporting against practical vessel-flow recovery before relaxing controls.",
             ]
         )
+    if domain == "uk_fiscal_procurement_risk":
+        return "\n".join(
+            [
+                "- Verify publication dates and current fiscal-policy context.",
+                "- Verify snippet-only sources against full source text before operational use.",
+                "- Refresh OBR, ONS, HM Treasury and Bank of England evidence after material releases.",
+                "- Check procurement pipeline and department-specific programme exposure before bid decisions.",
+                "- Validate payment terms, retentions, aged receivables, margins and working-capital exposure with company data.",
+                "- Escalate concentrated public-sector exposure to finance, commercial and board review before changing controls.",
+            ]
+        )
     return "\n".join(
         [
             "- Verify publication dates.",
@@ -375,6 +504,14 @@ def _analyst_review_controls(domain):
             "- Check sanctions/legal implications.",
         ]
     )
+
+
+def _assumption_section_title(domain):
+    if domain == "critical_minerals_supply_chain":
+        return "Production Continuity Assumptions"
+    if domain == "uk_fiscal_procurement_risk":
+        return "Scenario And Exposure Limits"
+    return "Illustrative Route-Cost Scenario"
 
 
 def _cell(value):

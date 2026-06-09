@@ -53,7 +53,17 @@ Each requirement should specify:
 - decision use
 - caveat or gap risk
 
-Source requirement coverage should show what was required, which sources covered it, the strongest available source and the remaining gap or refresh need.
+Source requirement coverage should be graded, not merely binary. It should show what was required, which sources covered it, the strongest available source, why the coverage grade was assigned and the remaining gap or refresh need.
+
+Use coverage grades such as:
+
+- `strong_direct_full_text`
+- `direct_snippet_only`
+- `partial_or_indirect`
+- `historical_context_only`
+- `missing`
+
+The audit should distinguish a requirement being identified from a requirement being operationally sufficient. Snippet-only, stale, indirect or historical evidence may support a screening judgement, but it should still cap confidence and trigger human review before operational use.
 
 ## Source Ranking And Role Discipline
 
@@ -97,6 +107,15 @@ Likelihood, impact, immediacy and confidence should be traceable to evidence.
 - `impact`: commercial severity if the risk affects the client-type user
 - `immediacy`: timing pressure or urgency
 - `confidence`: source quality, coverage, freshness, contradiction and missing company data
+
+Traceable scoring should separate:
+
+- supporting evidence
+- contrary or stabilising evidence
+- evidence-quality limits
+- missing evidence
+
+Do not label snippet-only, weak or review-required evidence as contrary evidence merely because it limits confidence.
 
 Scores are transparent rule-based decision support. They are not statistical forecasts or legal, insurance, cyber, sanctions or investment determinations.
 

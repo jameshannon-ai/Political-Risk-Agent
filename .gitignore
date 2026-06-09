@@ -8,6 +8,7 @@ htmlcov/
 .venv/
 venv/
 env/
+outputs/**
 outputs/*.md
 outputs/*.json
 !outputs/.gitkeep

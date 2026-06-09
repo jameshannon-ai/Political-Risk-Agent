@@ -1,6 +1,8 @@
 from pathlib import Path
+import argparse
 
 from agent.brief_generator import generate_brief, save_brief
+from agent.core.workflow import run_topic_workflow
 from agent.evidence_pack_builder import build_evidence_pack, save_evidence_pack
 from agent.exposure_mapping import VALID_BUSINESS_USERS
 from agent.live_search import run_live_searches
@@ -18,6 +20,45 @@ except ImportError:
 
 def parse_concerns(raw_concerns):
     return [concern.strip() for concern in raw_concerns.split(",") if concern.strip()]
+
+
+def build_arg_parser():
+    parser = argparse.ArgumentParser(description="Political Risk Agent")
+    subparsers = parser.add_subparsers(dest="command")
+
+    run_topic = subparsers.add_parser("run-topic", help="Generate artefacts for a fresh topic.")
+    run_topic.add_argument("--topic", required=True)
+    run_topic.add_argument("--business-user", required=True)
+    run_topic.add_argument("--decision-context", default="")
+    run_topic.add_argument("--domain", default=None)
+    run_topic.add_argument("--region", default="")
+    run_topic.add_argument("--time-horizon", default="")
+    run_topic.add_argument("--concerns", default="")
+    run_topic.add_argument("--output-dir", default="outputs")
+    run_topic.add_argument("--source-notes-file", default="")
+    run_topic.add_argument("--live", action="store_true", help="Use live retrieval deliberately. Default is manual/offline input.")
+    return parser
+
+
+def run_topic_command(args):
+    source_notes = ""
+    if args.source_notes_file:
+        source_notes = Path(args.source_notes_file).read_text(encoding="utf-8")
+    result = run_topic_workflow(
+        topic=args.topic,
+        business_user=args.business_user,
+        decision_context=args.decision_context,
+        region=args.region,
+        time_horizon=args.time_horizon,
+        concerns=parse_concerns(args.concerns),
+        domain=args.domain,
+        output_dir=args.output_dir,
+        source_notes=source_notes,
+        live=args.live,
+    )
+    print(f"Evidence pack saved to: {result['evidence_pack_path']}")
+    print(f"Source audit saved to: {result['source_audit_path']}")
+    print(f"Brief saved to: {result['brief_path']}")
 
 
 def prompt_for_business_user():
@@ -155,6 +196,12 @@ def run_live_search_mode(output_dir):
 def main():
     if load_dotenv:
         load_dotenv()
+
+    parser = build_arg_parser()
+    args = parser.parse_args()
+    if args.command == "run-topic":
+        run_topic_command(args)
+        return
 
     print("Marine & Trade Risk Agent")
     print("-------------------------")

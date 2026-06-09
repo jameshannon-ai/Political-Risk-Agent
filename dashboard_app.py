@@ -1,7 +1,41 @@
 from pathlib import Path
 
 import pandas as pd
-import streamlit as st
+
+try:
+    import streamlit as st
+except ImportError:
+    class _StreamlitUnavailable:
+        def __getattr__(self, name):
+            if name == "sidebar":
+                return self
+            return self._noop
+
+        def _noop(self, *args, **kwargs):
+            if args and name_is_tabs(args):
+                return [_NullContext() for _ in args[0]]
+            return None
+
+        def radio(self, label, options):
+            return list(options)[0]
+
+        def tabs(self, labels):
+            return [_NullContext() for _ in labels]
+
+        def expander(self, *args, **kwargs):
+            return _NullContext()
+
+    class _NullContext:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    def name_is_tabs(args):
+        return isinstance(args[0], (list, tuple))
+
+    st = _StreamlitUnavailable()
 
 from dashboard_helpers import (
     build_selected_source_rows,

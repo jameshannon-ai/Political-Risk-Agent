@@ -52,9 +52,15 @@ def _parse_source_block(source_number, block):
 
     return {
         "source_id": fields.get("source", f"S{source_number}") if fields.get("source", "").startswith("S") else f"S{source_number}",
+        "title": fields.get("title", fields.get("source title", "")),
         "publisher": publisher,
+        "url": fields.get("url", fields.get("source_url", "")),
         "date": fields.get("date", ""),
+        "publication_date": fields.get("publication_date", fields.get("date", "")),
         "raw_type": raw_type,
+        "source_type": fields.get("source_type", ""),
+        "source_role": fields.get("source_role", ""),
+        "evidence_weight": fields.get("evidence_weight", ""),
         "inferred_source_type": infer_source_type(publisher, raw_type, summary),
         "summary": summary,
     }

@@ -1,10 +1,17 @@
+from datetime import datetime
+
+from agent.core.provenance import content_hash, evidence_source_mode, source_limitations
+
+
 def fetch_selected_sources(selected_sources, fallback_demo_data_used=False):
     fetched = []
     failures = []
+    retrieval_timestamp = datetime.now().isoformat(timespec="seconds")
 
     for source in selected_sources:
         if fallback_demo_data_used:
-            fetched.append({**source, "content": source.get("claim_supported") or source.get("snippet", ""), "fetch_status": "demo"})
+            content = source.get("claim_supported") or source.get("snippet", "")
+            fetched.append(_with_fetch_provenance(source, content, "demo", retrieval_timestamp, fallback_demo_data_used=True))
             continue
 
         try:
@@ -20,15 +27,29 @@ def fetch_selected_sources(selected_sources, fallback_demo_data_used=False):
             if _is_pdf(source.get("url", ""), content_type):
                 pdf_text, status = _pdf_to_text(response.content)
                 content, final_status = _usable_content(pdf_text, source, status)
-                fetched.append({**source, "content": content, "fetch_status": final_status})
+                fetched.append(_with_fetch_provenance(source, content, final_status, retrieval_timestamp))
             else:
                 content, status = _usable_content(_html_to_text(response.text), source, "ok")
-                fetched.append({**source, "content": content, "fetch_status": status})
+                fetched.append(_with_fetch_provenance(source, content, status, retrieval_timestamp))
         except Exception as exc:
-            fetched.append({**source, "content": source.get("snippet", ""), "fetch_status": "failed"})
+            fetched.append(_with_fetch_provenance(source, source.get("snippet", ""), "failed", retrieval_timestamp))
             failures.append({"url": source.get("url", ""), "error": str(exc)})
 
     return {"fetched_sources": fetched, "fetch_failures": failures}
+
+
+def _with_fetch_provenance(source, content, fetch_status, retrieval_timestamp, fallback_demo_data_used=False):
+    mode = evidence_source_mode(fetch_status, fallback_demo_data_used=fallback_demo_data_used)
+    return {
+        **source,
+        "content": content,
+        "fetch_status": fetch_status,
+        "retrieval_timestamp": retrieval_timestamp,
+        "evidence_source_mode": mode,
+        "content_hash": content_hash(content) if content else "",
+        "source_excerpt_character_count": len(content or ""),
+        "source_limitations": source_limitations(fetch_status, mode),
+    }
 
 
 def _is_pdf(url, content_type=""):

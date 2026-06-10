@@ -129,100 +129,12 @@ The values below are illustrative scenario inputs used to show how the decision 
 
 ## 10. Evidence-To-Score Bridge
 
-
-
-
-### Likelihood: 5/5
-
-Evidence used:
-- [L1] al-monitor.com — not_recorded
-  Claim: Transit-control mechanism: Reuters reported on 5 May 2026 that Iran had set up a new mechanism to manage vessel transit through the Strait of Hormuz.
-  Commercial relevance: Shows whether passage is subject to Iranian coordination demands, constabulary controls or detention risk.
-  Confidence effect: supports_score
-- [L2] indexbox.io — not_recorded
-  Claim: Safe-passage fee signal: specialist reporting said Iran planned a Strait of Hormuz vessel-traffic system with charges for specialised services, creating sanctions escalation risk if payments, offsets or guarantees are demanded.
-  Commercial relevance: Defines whether tolls, safe-passage payments, swaps, offsets or guarantees create sanctions exposure.
-  Confidence effect: supports_score
-- [L3] insurancebusinessmag.com — not_recorded
-  Claim: War-risk pricing: Howden Re reported marine war-risk pricing up to 12x pre-crisis levels, with tanker premiums around $7.5m at a 3% rate.
-  Commercial relevance: Shows whether war-risk cover remains available and whether repricing changes voyage economics.
-  Confidence effect: supports_score
-- [L5] worldoil.com — not_recorded
-  Claim: Chokepoint exposure: World Oil reported that the U.S. EIA would publish new strategic petroleum reserve and shipping-flow datasets as Hormuz disruption continued to reshape oil and LNG trade routes.
-  Commercial relevance: Quantifies why Hormuz matters commercially for oil, LNG and time-sensitive cargoes.
-  Confidence effect: supports_score
-- [L6] reuters.com — not_recorded
-  Claim: Freight cost signal: Reuters reported Gulf-linked oil and gas shipping costs surged, with Mideast-China VLCC rates above $400,000 per day.
-  Commercial relevance: Compares direct transit, delay and reroute economics using voyage days, bunker burn, insurance and hold costs.
-  Confidence effect: supports_score
-- [L7] stl.news — not_recorded
-  Claim: De-escalation signal: reopening claims point to some recovery in commercial passage, but they do not justify relaxing controls without matching insurer, official and vessel-flow confirmation.
-  Commercial relevance: Identifies whether de-escalation has turned into practical reopening rather than headline-only improvement.
-  Confidence effect: supports_score
-- [L4] lloydslist.com — not_recorded
-  Claim: AIS and vessel-flow stress: Lloyd's List maintained a dedicated Strait of Hormuz crisis tracker, supporting the view that route conditions remained under active disruption review rather than full normalisation.
-  Commercial relevance: Shows whether vessel behaviour confirms constrained transit, AIS suppression or practical recovery.
-  Confidence effect: supports_score
-
-Cap reason: Capped because one or more source requirements or company-data inputs remain missing or weak.
-
-### Impact: 5/5
-
-Evidence used:
-- [L1] al-monitor.com — not_recorded
-  Claim: Transit-control mechanism: Reuters reported on 5 May 2026 that Iran had set up a new mechanism to manage vessel transit through the Strait of Hormuz.
-  Commercial relevance: Shows whether passage is subject to Iranian coordination demands, constabulary controls or detention risk.
-  Confidence effect: supports_score
-- [L2] indexbox.io — not_recorded
-  Claim: Safe-passage fee signal: specialist reporting said Iran planned a Strait of Hormuz vessel-traffic system with charges for specialised services, creating sanctions escalation risk if payments, offsets or guarantees are demanded.
-  Commercial relevance: Defines whether tolls, safe-passage payments, swaps, offsets or guarantees create sanctions exposure.
-  Confidence effect: supports_score
-- [L3] insurancebusinessmag.com — not_recorded
-  Claim: War-risk pricing: Howden Re reported marine war-risk pricing up to 12x pre-crisis levels, with tanker premiums around $7.5m at a 3% rate.
-  Commercial relevance: Shows whether war-risk cover remains available and whether repricing changes voyage economics.
-  Confidence effect: supports_score
-- [L4] lloydslist.com — not_recorded
-  Claim: AIS and vessel-flow stress: Lloyd's List maintained a dedicated Strait of Hormuz crisis tracker, supporting the view that route conditions remained under active disruption review rather than full normalisation.
-  Commercial relevance: Shows whether vessel behaviour confirms constrained transit, AIS suppression or practical recovery.
-  Confidence effect: supports_score
-- [L5] worldoil.com — not_recorded
-  Claim: Chokepoint exposure: World Oil reported that the U.S. EIA would publish new strategic petroleum reserve and shipping-flow datasets as Hormuz disruption continued to reshape oil and LNG trade routes.
-  Commercial relevance: Quantifies why Hormuz matters commercially for oil, LNG and time-sensitive cargoes.
-  Confidence effect: supports_score
-- [L6] reuters.com — not_recorded
-  Claim: Freight cost signal: Reuters reported Gulf-linked oil and gas shipping costs surged, with Mideast-China VLCC rates above $400,000 per day.
-  Commercial relevance: Compares direct transit, delay and reroute economics using voyage days, bunker burn, insurance and hold costs.
-  Confidence effect: supports_score
-
-Cap reason: Capped because one or more source requirements or company-data inputs remain missing or weak.
-
-### Immediacy: 5/5
-
-Evidence used:
-- [L4] lloydslist.com — not_recorded
-  Claim: AIS and vessel-flow stress: Lloyd's List maintained a dedicated Strait of Hormuz crisis tracker, supporting the view that route conditions remained under active disruption review rather than full normalisation.
-  Commercial relevance: Shows whether vessel behaviour confirms constrained transit, AIS suppression or practical recovery.
-  Confidence effect: supports_score
-
-Cap reason: Capped because one or more source requirements or company-data inputs remain missing or weak.
-
-### Confidence: 3/5
-
-Evidence used:
-- [L1] al-monitor.com — not_recorded
-  Claim: Transit-control mechanism: Reuters reported on 5 May 2026 that Iran had set up a new mechanism to manage vessel transit through the Strait of Hormuz.
-  Commercial relevance: Shows whether passage is subject to Iranian coordination demands, constabulary controls or detention risk.
-  Confidence effect: supports_score
-- [L5] worldoil.com — not_recorded
-  Claim: Chokepoint exposure: World Oil reported that the U.S. EIA would publish new strategic petroleum reserve and shipping-flow datasets as Hormuz disruption continued to reshape oil and LNG trade routes.
-  Commercial relevance: Quantifies why Hormuz matters commercially for oil, LNG and time-sensitive cargoes.
-  Confidence effect: supports_score
-- [L7] stl.news — not_recorded
-  Claim: De-escalation signal: reopening claims point to some recovery in commercial passage, but they do not justify relaxing controls without matching insurer, official and vessel-flow confirmation.
-  Commercial relevance: Identifies whether de-escalation has turned into practical reopening rather than headline-only improvement.
-  Confidence effect: supports_score
-
-Cap reason: Capped because company-required or missing evidence caps confidence at 3; Confidence capped because one or more source requirements are not covered; one or more source requirements or company-data inputs remain missing or weak.
+| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
+| --- | --- | --- | --- | --- |
+| Likelihood | 5/5 | Transit-control, sanctions/legal and reputable reporting indicate constrained transit, security risk and active route-level controls around Hormuz. Supporting sources: L1, L2, L3, L4. Key facts: Transit-control mechanism reported: 5 May 2026; Safe-passage fee system reported with sanctions implications; Official or quasi-official transit controls remain active. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if official, company, regulator or credible contrary evidence changes the risk direction. |
+| Impact | 5/5 | Energy chokepoint, insurance-market and vessel-flow evidence show material exposure for tanker flows, cargo values, energy markets and marine war-risk pricing. Supporting sources: L2, L3, L5, L6. Key facts: War-risk pricing: up to 12x pre-crisis levels; Illustrative tanker premium: about $7.5m at a 3% rate; VLCC shipping rate signal: above $400,000/day. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes. |
+| Immediacy | 5/5 | The time horizon is 1-3 months and current transit-control, insurance and vessel-flow evidence describe conditions that require active monitoring now. Supporting sources: L4. Key facts: AIS and vessel-flow disruption remains active; Detention and transit-control risk remains live; Recovery evidence is partial rather than normalised. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if new operational, market, licensing or payment evidence changes the near-term picture. |
+| Confidence | 3/5 | Evidence is diverse, but confidence is capped because conditions, diplomatic signals, vessel-flow data and war-risk pricing are fast-moving. Supporting sources: L7. Key facts: De-escalation evidence exists but remains conditional; One fetch fell back to snippet-only evidence; Insurance, sanctions and flow signals are still fast-moving. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh live sources or resolve missing requirements before increasing confidence. |
 
 ## 11. Source Requirement Coverage
 

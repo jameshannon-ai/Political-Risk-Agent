@@ -4386,200 +4386,77 @@
   },
   "evidence_to_score_bridge": {
     "likelihood": {
-      "dimension": "likelihood",
       "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
       "evidence_basis": "Likelihood is based on UK cyber threat level, ransomware prevalence, sector exposure, state-linked/supplier risk and live incident patterns.",
       "supporting_sources": [
         "L1",
         "L2",
-        "L3",
-        "L6"
+        "L4",
+        "L7"
       ],
       "quantified_facts_used": [
-        "Publisher: NCSC",
-        "Threat type: ransomware",
-        "Decision signal: heightened readiness",
         "Survey year: 2025/2026",
-        "Evidence type: UK breach prevalence",
-        "Publisher: GOV.UK"
+        "Threat type: ransomware",
+        "Sector: UK retail"
       ],
-      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction.",
-      "supporting_evidence": [
-        "L1",
-        "L2",
-        "L3",
-        "L6"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Likelihood is based on UK cyber threat level, ransomware prevalence, sector exposure, state-linked/supplier risk and live incident patterns.",
-      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "confidence_cap_applied": true,
-      "confidence_cap_reason": "Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L1",
-        "L2",
-        "L3",
-        "L6"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
+      "why_score_not_higher": "Higher would require operator-specific threat exposure, control maturity and current incident indicators.",
+      "why_score_not_lower": "Official NCSC evidence, UK prevalence data and live retail incident reporting support a heightened likelihood screen.",
+      "review_trigger": "Refresh NCSC/GOV.UK threat and breach prevalence evidence before implementation or when sector-peer incidents change exposure."
     },
     "impact": {
-      "dimension": "impact",
       "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
       "evidence_basis": "Impact is based on downtime, revenue at risk, operational dependency, customer harm, regulatory exposure and insurance uncertainty.",
       "supporting_sources": [
+        "L4",
         "L5",
+        "L6",
         "L7"
       ],
       "quantified_facts_used": [
-        "Publisher: NCSC",
-        "Threat type: ransomware",
-        "Decision signal: heightened readiness",
-        "Survey year: 2025/2026",
-        "Evidence type: UK breach prevalence",
-        "Publisher: GOV.UK"
+        "Expected outage: 5 days",
+        "Daily revenue at risk: GBP2m",
+        "Business interruption exposure: GBP10m",
+        "Notification timeline: 72 hours"
       ],
-      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes.",
-      "supporting_evidence": [
-        "L5",
-        "L7"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Impact is based on downtime, revenue at risk, operational dependency, customer harm, regulatory exposure and insurance uncertainty.",
-      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "confidence_cap_applied": true,
-      "confidence_cap_reason": "Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L5",
-        "L7"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
+      "why_score_not_higher": "Higher would require confirmed service outage, actual customer harm, uninsured loss or policy exclusion.",
+      "why_score_not_lower": "The illustrative model shows a material revenue-at-risk exposure and a negative resilience gap.",
+      "review_trigger": "Refresh when company revenue, service criticality, policy wording or customer impact data becomes available."
     },
     "immediacy": {
-      "dimension": "immediacy",
       "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
       "evidence_basis": "Immediacy is based on current threat indicators, incident prevalence, the resilience gap and dependency on exposed systems/suppliers.",
       "supporting_sources": [
         "L1",
         "L3",
         "L4",
-        "L7"
+        "L7",
+        "L8"
       ],
       "quantified_facts_used": [
-        "Publisher: NCSC",
-        "Threat type: ransomware",
-        "Decision signal: heightened readiness",
-        "Survey year: 2025/2026",
-        "Evidence type: UK breach prevalence",
-        "Publisher: GOV.UK"
+        "Expected outage: 5 days",
+        "Maximum tolerable downtime: 2 days",
+        "Resilience gap: -3 days"
       ],
-      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture.",
-      "supporting_evidence": [
-        "L1",
-        "L3",
-        "L4",
-        "L7"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Immediacy is based on current threat indicators, incident prevalence, the resilience gap and dependency on exposed systems/suppliers.",
-      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "confidence_cap_applied": true,
-      "confidence_cap_reason": "Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L1",
-        "L3",
-        "L4",
-        "L7"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
+      "why_score_not_higher": "Higher would require a confirmed active incident or imminent operational outage.",
+      "why_score_not_lower": "A negative resilience gap makes incident response, manual fallback and insurance notification near-term decisions.",
+      "review_trigger": "Refresh if incident facts, recovery estimates, supplier status or live ransomware reporting changes."
     },
     "confidence": {
-      "dimension": "confidence",
       "score": 3,
-      "score_label": "Moderate",
-      "score_type": "analyst_assumption",
       "evidence_basis": "Confidence is capped because public sources do not include company-specific systems, revenue, policy wording, supplier dependency or recovery data.",
       "supporting_sources": [
         "L1",
         "L2",
-        "L3",
-        "L4"
+        "L5",
+        "L6",
+        "L9"
       ],
       "quantified_facts_used": [
-        "Publisher: NCSC",
-        "Threat type: ransomware",
-        "Decision signal: heightened readiness",
-        "Survey year: 2025/2026",
-        "Evidence type: UK breach prevalence",
-        "Publisher: GOV.UK"
+        "Company data needed: RTO/RPO, systems and continuity facts"
       ],
-      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence.",
-      "supporting_evidence": [],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Confidence is capped because public sources do not include company-specific systems, revenue, policy wording, supplier dependency or recovery data.",
-      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
-      "confidence_cap_applied": true,
-      "confidence_cap_reason": "Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [],
-      "evidence_weakening_score": [
-        "L8"
-      ]
+      "why_score_not_higher": "Cannot determine actual outage loss, notification duty or insurance coverage without company and incident data.",
+      "why_score_not_lower": "Source coverage is broad and includes official NCSC/GOV.UK/ICO/FCA evidence plus insurance-market evidence.",
+      "review_trigger": "Increase confidence only after systems map, revenue-at-risk, policy wording, supplier dependency and incident facts are supplied."
     }
   },
   "quantified_facts_by_source": {
@@ -5215,208 +5092,5 @@
       "value": "RTO/RPO, systems map, backup capability, supplier dependency and incident facts required",
       "label": "company-provided"
     }
-  },
-  "traceable_scores": {
-    "likelihood": {
-      "dimension": "likelihood",
-      "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L2",
-        "L4",
-        "L5",
-        "L6",
-        "L8"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Likelihood is based on UK cyber threat level, ransomware prevalence, sector exposure, state-linked/supplier risk and live incident patterns.",
-      "reason_score_is_capped": "",
-      "confidence_cap_applied": false,
-      "confidence_cap_reason": "",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L2",
-        "L4",
-        "L5",
-        "L6",
-        "L8"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    },
-    "impact": {
-      "dimension": "impact",
-      "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L2",
-        "L4",
-        "L6"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Impact is based on downtime, revenue at risk, operational dependency, customer harm, regulatory exposure and insurance uncertainty.",
-      "reason_score_is_capped": "",
-      "confidence_cap_applied": false,
-      "confidence_cap_reason": "",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L2",
-        "L4",
-        "L6"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    },
-    "immediacy": {
-      "dimension": "immediacy",
-      "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L1",
-        "L2",
-        "L3"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Immediacy is based on current threat indicators, incident prevalence, the resilience gap and dependency on exposed systems/suppliers.",
-      "reason_score_is_capped": "",
-      "confidence_cap_applied": false,
-      "confidence_cap_reason": "",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L1",
-        "L2",
-        "L3"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    },
-    "exposure": {
-      "dimension": "exposure",
-      "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L4",
-        "L6",
-        "L7"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Exposure is proxied from impact where no separate exposure model is available.",
-      "reason_score_is_capped": "",
-      "confidence_cap_applied": false,
-      "confidence_cap_reason": "",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L4",
-        "L6",
-        "L7"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    },
-    "confidence": {
-      "dimension": "confidence",
-      "score": 3,
-      "score_label": "Moderate",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L2",
-        "L6"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Confidence is capped because public sources do not include company-specific systems, revenue, policy wording, supplier dependency or recovery data.",
-      "reason_score_is_capped": "Capped because Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence_cap_applied": true,
-      "confidence_cap_reason": "Capped because Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.",
-      "confidence": "high",
-      "review_required": true,
-      "evidence_supporting_score": [
-        "L2",
-        "L6"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    },
-    "decision_urgency": {
-      "dimension": "decision_urgency",
-      "score": 4,
-      "score_label": "High",
-      "score_type": "analyst_assumption",
-      "supporting_evidence": [
-        "L1",
-        "L2",
-        "L3"
-      ],
-      "weakening_evidence": [
-        "L8"
-      ],
-      "contrary_evidence": [
-        "L8"
-      ],
-      "evidence_quality_limits": [],
-      "missing_evidence": [],
-      "reason_for_score": "Decision urgency is proxied from immediacy where no separate urgency model is available.",
-      "reason_score_is_capped": "",
-      "confidence_cap_applied": false,
-      "confidence_cap_reason": "",
-      "confidence": "high",
-      "review_required": false,
-      "evidence_supporting_score": [
-        "L1",
-        "L2",
-        "L3"
-      ],
-      "evidence_weakening_score": [
-        "L8"
-      ]
-    }
-  },
-  "scoring_method_note": "Structured analyst score with traceable evidence support; score_type distinguishes evidence-backed, analyst-assumption and illustrative-fallback scoring."
+  }
 }

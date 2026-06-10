@@ -133,100 +133,12 @@ The output does not claim that any named borrower, buyer, vessel, bank, commodit
 
 ## 12. Evidence-To-Score Bridge
 
-
-
-
-### Likelihood: 4/5
-
-Evidence used:
-- [L1] GOV.UK — not_recorded
-  Claim: GOV.UK guidance confirms that sanctions end-use controls can make goods, technology, destination, end user and licence status decisive for whether a transaction may proceed.
-  Commercial relevance: Anchors UK sanctions and OFSI relevance for transaction approval, escalation, legal hold or rejection.
-  Confidence effect: supports_score
-- [L2] GOV.UK / Export Control Joint Unit — not_recorded
-  Claim: GOV.UK exporter notices provide an official channel for export-control and licence updates that can affect controlled goods, dual-use items and end-use review.
-  Commercial relevance: Identifies controlled goods, dual-use technology, licence and end-use red flags.
-  Confidence effect: supports_score
-- [L3] GOV.UK / OFSI — not_recorded
-  Claim: OFSI financial sanctions guidance highlights designated-person exposure, ownership/control issues, reporting obligations, licence conditions and offences relevant to transaction approval.
-  Commercial relevance: Tests buyer, seller, consignee, bank, intermediary and beneficial ownership exposure.
-  Confidence effect: supports_score
-- [L5] ICC Academy — not_recorded
-  Claim: ICC Academy trade-finance guidance links sanctions risk to letters of credit, bank document review and the need to identify sanctions problems before payment or honouring obligations.
-  Commercial relevance: Defines the documents needed to test goods, end-use, ownership, route and payment claims.
-  Confidence effect: supports_score
-- [L6] Office of Financial Sanctions Implementation — not_recorded
-  Claim: OFSI strategy emphasises licensing, enforcement, suspected breach reporting, practical guidance and stronger financial-sanctions compliance controls.
-  Commercial relevance: Shows regulator expectations and consequences when sanctions controls fail.
-  Confidence effect: supports_score
-- [L4] Reuters Practical Law — not_recorded
-  Claim: Reuters Practical Law describes sanctions and export-control compliance as requiring structured risk assessment across counterparties, jurisdictions, goods, screening and documentation.
-  Commercial relevance: Identifies route, port, transshipment, diversion and jurisdiction indicators.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because live public evidence is strong enough for a client-type screen, but transaction-specific goods, counterparty, ownership, route, payment, licence and document data are missing.
-
-### Impact: 4/5
-
-Evidence used:
-- [L3] GOV.UK / OFSI — not_recorded
-  Claim: OFSI financial sanctions guidance highlights designated-person exposure, ownership/control issues, reporting obligations, licence conditions and offences relevant to transaction approval.
-  Commercial relevance: Tests buyer, seller, consignee, bank, intermediary and beneficial ownership exposure.
-  Confidence effect: supports_score
-- [L7] BAFT — not_recorded
-  Claim: BAFT trade-finance resources point to bank operating controls, KYC expectations and documentation discipline as core parts of transaction risk management.
-  Commercial relevance: Translates sanctions exposure into facility, drawdown, payment, credit and insurance controls.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because live public evidence is strong enough for a client-type screen, but transaction-specific goods, counterparty, ownership, route, payment, licence and document data are missing.
-
-### Immediacy: 4/5
-
-Evidence used:
-- [L1] GOV.UK — not_recorded
-  Claim: GOV.UK guidance confirms that sanctions end-use controls can make goods, technology, destination, end user and licence status decisive for whether a transaction may proceed.
-  Commercial relevance: Anchors UK sanctions and OFSI relevance for transaction approval, escalation, legal hold or rejection.
-  Confidence effect: supports_score
-- [L2] GOV.UK / Export Control Joint Unit — not_recorded
-  Claim: GOV.UK exporter notices provide an official channel for export-control and licence updates that can affect controlled goods, dual-use items and end-use review.
-  Commercial relevance: Identifies controlled goods, dual-use technology, licence and end-use red flags.
-  Confidence effect: supports_score
-- [L3] GOV.UK / OFSI — not_recorded
-  Claim: OFSI financial sanctions guidance highlights designated-person exposure, ownership/control issues, reporting obligations, licence conditions and offences relevant to transaction approval.
-  Commercial relevance: Tests buyer, seller, consignee, bank, intermediary and beneficial ownership exposure.
-  Confidence effect: supports_score
-- [L7] BAFT — not_recorded
-  Claim: BAFT trade-finance resources point to bank operating controls, KYC expectations and documentation discipline as core parts of transaction risk management.
-  Commercial relevance: Translates sanctions exposure into facility, drawdown, payment, credit and insurance controls.
-  Confidence effect: supports_score
-- [L8] GOV.UK — not_recorded
-  Claim: GOV.UK guidance explains that exceptions and licences may permit certain transactions, goods or services, but only after checking the relevant sanctions measure and licence conditions.
-  Commercial relevance: Identifies evidence that could support approval or de-escalation, such as clean screening, licence evidence or exemptions.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because live public evidence is strong enough for a client-type screen, but transaction-specific goods, counterparty, ownership, route, payment, licence and document data are missing.
-
-### Confidence: 3/5
-
-Evidence used:
-- [L1] GOV.UK — not_recorded
-  Claim: GOV.UK guidance confirms that sanctions end-use controls can make goods, technology, destination, end user and licence status decisive for whether a transaction may proceed.
-  Commercial relevance: Anchors UK sanctions and OFSI relevance for transaction approval, escalation, legal hold or rejection.
-  Confidence effect: supports_score
-- [L2] GOV.UK / Export Control Joint Unit — not_recorded
-  Claim: GOV.UK exporter notices provide an official channel for export-control and licence updates that can affect controlled goods, dual-use items and end-use review.
-  Commercial relevance: Identifies controlled goods, dual-use technology, licence and end-use red flags.
-  Confidence effect: supports_score
-- [L7] BAFT — not_recorded
-  Claim: BAFT trade-finance resources point to bank operating controls, KYC expectations and documentation discipline as core parts of transaction risk management.
-  Commercial relevance: Translates sanctions exposure into facility, drawdown, payment, credit and insurance controls.
-  Confidence effect: supports_score
-- [L8] GOV.UK — not_recorded
-  Claim: GOV.UK guidance explains that exceptions and licences may permit certain transactions, goods or services, but only after checking the relevant sanctions measure and licence conditions.
-  Commercial relevance: Identifies evidence that could support approval or de-escalation, such as clean screening, licence evidence or exemptions.
-  Confidence effect: supports_score
-
-Cap reason: Capped because Confidence capped at 3/5 because live public evidence is strong enough for a client-type screen, but transaction-specific goods, counterparty, ownership, route, payment, licence and document data are missing.
+| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
+| --- | --- | --- | --- | --- |
+| Likelihood | 4/5 | Likelihood is driven by official UK sanctions/end-use guidance, controlled-goods risk, ownership/counterparty exposure and live route/diversion indicators. | Higher only with current transaction screening and licence data; lower would understate official/legal control evidence. | Refresh if sanctions designations, guidance or export-control rules change. |
+| Impact | 4/5 | Impact is driven by legal hold/rejection risk, payment blockage, documentation failure, credit exposure, insurance/underwriting exclusion and regulatory penalty consequences. | Higher if a sanctioned party/prohibited end-use is confirmed; lower if clean documents and licences resolve red flags. | Refresh when payment, credit, insurance or document risk changes. |
+| Immediacy | 4/5 | Immediacy is high because checks must be resolved before approval, drawdown, document honouring or payment execution. | Higher if drawdown/payment is imminent; lower if transaction is only early-stage pipeline. | Refresh before approval, drawdown or payment execution. |
+| Confidence | 3/5 | Confidence is capped because public evidence does not include transaction-specific goods, ownership, screening, route, payment, licence or document data. | Public sources support a screen, not transaction clearance. | Increase only after BOM/goods, counterparty, ownership, route, payment and document data are supplied. |
 
 ## 13. Source Requirement Coverage
 

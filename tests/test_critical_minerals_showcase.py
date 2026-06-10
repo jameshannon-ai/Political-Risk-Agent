@@ -42,7 +42,11 @@ class CriticalMineralsShowcaseTests(unittest.TestCase):
             "This is a client-type exposure screen, not a company-specific operational assessment.",
             "bill of materials / input classification",
             "supplier country and ownership data",
-            "Likelihood is based on export-control direction",
+            "### Likelihood: 4/5",
+            "Evidence used:",
+            "Claim:",
+            "Commercial relevance:",
+            "Confidence effect:",
         ]:
             self.assertIn(phrase, brief)
         for phrase in ["cargo", "collateral", "underwriting", "demurrage", "voyage", "We use some essential"]:
@@ -52,8 +56,8 @@ class CriticalMineralsShowcaseTests(unittest.TestCase):
         brief = self.brief_path.read_text(encoding="utf-8")
         self.assertIn("licensing friction", brief)
         self.assertIn("supplier concentration", brief)
-        self.assertIn("inventory runway versus alternative supplier qualification time", brief)
-        self.assertIn("missing company-specific BOM, supplier-country, ownership, purchase-order, inventory, contract and qualification data", brief)
+        self.assertIn("Inventory runway is materially shorter than illustrative supplier qualification time", brief)
+        self.assertIn("lacks company-specific BOM, supplier, inventory, contract and qualification data", brief)
 
     def test_audit_contains_source_quality_notes_and_refresh_controls(self):
         audit = self.audit_path.read_text(encoding="utf-8")

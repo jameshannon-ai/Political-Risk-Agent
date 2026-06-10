@@ -101,17 +101,21 @@ class GovernedWorkflowTests(unittest.TestCase):
                 "score",
                 "score_label",
                 "score_type",
+                "dimension",
                 "supporting_evidence",
+                "weakening_evidence",
                 "contrary_evidence",
                 "evidence_quality_limits",
                 "missing_evidence",
                 "reason_for_score",
                 "reason_score_is_capped",
+                "confidence_cap_applied",
+                "confidence_cap_reason",
                 "confidence",
                 "review_required",
             ]:
                 self.assertIn(field, score, dimension)
-        self.assertEqual(pack["traceable_scores"]["likelihood"]["score_type"], "Evidence-backed decision-support score")
+        self.assertIn(pack["traceable_scores"]["likelihood"]["score_type"], {"evidence_backed", "analyst_assumption", "illustrative_fallback"})
 
     def test_fresh_topic_workflow_generates_core_artefacts(self):
         notes = "\n".join(

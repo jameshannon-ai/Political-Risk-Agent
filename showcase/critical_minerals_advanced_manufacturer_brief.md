@@ -115,14 +115,120 @@ The continuity gap is positive where alternative supplier qualification takes lo
 
 ## 11. Evidence-To-Score Bridge
 
-Likelihood is based on export-control direction, licensing friction, supplier concentration and rare earth magnet dependency.
 
-| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
-| --- | --- | --- | --- | --- |
-| Likelihood | 4/5 | Likelihood is driven by export-control direction, licensing friction, supplier concentration and rare earth magnet dependency. Supporting sources: L2, L3, L4. Key facts: Import sources (2019-22): China 72%; Net import reliance: 100%; licensing-control friction still requires monitoring. | Higher: A direct official export-control notice and company-specific supplier mapping are still missing from the saved pack. Lower: Live reporting and maintained commodity evidence both support a credible disruption pathway. | Refresh if export-control rules or licensing practice changes. |
-| Impact | 5/5 | Impact is driven by product criticality, the continuity gap, substitution difficulty, customer delivery exposure and illustrative exposed revenue. Supporting sources: L1, L4, L5. Key facts: Production continuity gap: 135 days; Exposed product-line revenue: £50m illustrative; substitution difficulty: high. | Higher: Already at maximum score for an illustrative continuity screen. Lower: The gap between runway and qualification time makes the continuity issue material even before company-specific exposure is loaded. | Refresh when company BOM, supplier, inventory or contract data becomes available. |
-| Immediacy | 5/5 | Immediacy is driven by inventory runway versus alternative supplier qualification time. Supporting sources: L2, L5, L9. Key facts: Inventory runway: 45 days; Alternative supplier qualification time: 180 days; continuity gap: 135 days. | Higher: Already at maximum score for the illustrative scenario. Lower: A positive continuity gap means management action may be needed before alternative supply is ready. | Refresh if alternative supplier qualification assumptions change. |
-| Confidence | 3/5 | Confidence is capped by missing company-specific BOM, supplier-country, ownership, purchase-order, inventory, contract and qualification data. Supporting sources: L3, L9. Key facts: client-type exposure screen only; BOM and supplier-chain validation still required; inventory and contract data not yet loaded. | Higher: The saved pack lacks company data and some selected sources are only snippet or report-summary quality. Lower: The live source run still provides enough policy, concentration and trigger evidence to support a screened client-type recommendation. | Refresh when company BOM, supplier, inventory or contract data becomes available. |
+
+
+### Likelihood: 4/5
+
+Evidence used:
+- [L1] gov.uk — not_recorded
+  Claim: UK critical minerals policy treats resilient and diversified supply chains as a prerequisite for future British industrial capability.
+  Commercial relevance: Anchors why a UK advanced manufacturer should treat rare earth magnet disruption as a board-level continuity issue.
+  Confidence effect: supports_score
+- [L2] reuters.com — not_recorded
+  Claim: Export licence approvals for a Chinese rare earth magnet producer show that trade can continue, but only within an active licensing-control framework.
+  Commercial relevance: Shows why a manufacturer cannot assume uninterrupted shipment flow even when trade has not fully stopped.
+  Confidence effect: supports_score
+- [L3] pubs.usgs.gov — not_recorded
+  Claim: USGS rare earth commodity data helps define whether the bottleneck sits in magnets, oxides, alloys or another magnet-related input.
+  Commercial relevance: Prevents the manufacturer from applying a mitigation plan to the wrong input class.
+  Confidence effect: supports_score
+- [L7] reuters.com — not_recorded
+  Claim: Reported premium pricing for ex-China rare earth magnet supply suggests shortage pressure, but this saved source is a weak market signal.
+  Commercial relevance: Supports whether management should treat scarcity as real enough to justify stockpiling or allocation review.
+  Confidence effect: supports_score
+- [L8] reuters.com — not_recorded
+  Claim: Continuity risk can remain elevated through licensing friction and trade-policy complexity even without a full supply cutoff.
+  Commercial relevance: Helps management avoid relaxing controls too early on the basis of one positive licence headline.
+  Confidence effect: supports_score
+- [L4] pubs.usgs.gov — not_recorded
+  Claim: USGS heavy rare earth data points to continued import dependence and tighter Chinese controls on heavy rare earth inputs relevant to magnets.
+  Commercial relevance: Shows that concentration risk is not abstract and can affect both availability and cost.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.
+
+### Impact: 5/5
+
+Evidence used:
+- [L1] gov.uk — not_recorded
+  Claim: UK critical minerals policy treats resilient and diversified supply chains as a prerequisite for future British industrial capability.
+  Commercial relevance: Anchors why a UK advanced manufacturer should treat rare earth magnet disruption as a board-level continuity issue.
+  Confidence effect: supports_score
+- [L3] pubs.usgs.gov — not_recorded
+  Claim: USGS rare earth commodity data helps define whether the bottleneck sits in magnets, oxides, alloys or another magnet-related input.
+  Commercial relevance: Prevents the manufacturer from applying a mitigation plan to the wrong input class.
+  Confidence effect: supports_score
+- [L4] pubs.usgs.gov — not_recorded
+  Claim: USGS heavy rare earth data points to continued import dependence and tighter Chinese controls on heavy rare earth inputs relevant to magnets.
+  Commercial relevance: Shows that concentration risk is not abstract and can affect both availability and cost.
+  Confidence effect: supports_score
+- [L5] advancedelectricmachines.com — not_recorded
+  Claim: A UK industry perspective argues that rare earth dependency remains material for advanced manufacturing and cannot be unwound quickly.
+  Commercial relevance: Makes the case relevant to a UK manufacturer deciding whether to protect production rather than wait for policy comfort.
+  Confidence effect: supports_score
+- [L7] reuters.com — not_recorded
+  Claim: Reported premium pricing for ex-China rare earth magnet supply suggests shortage pressure, but this saved source is a weak market signal.
+  Commercial relevance: Supports whether management should treat scarcity as real enough to justify stockpiling or allocation review.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.
+
+### Immediacy: 5/5
+
+Evidence used:
+- [L1] gov.uk — not_recorded
+  Claim: UK critical minerals policy treats resilient and diversified supply chains as a prerequisite for future British industrial capability.
+  Commercial relevance: Anchors why a UK advanced manufacturer should treat rare earth magnet disruption as a board-level continuity issue.
+  Confidence effect: supports_score
+- [L2] reuters.com — not_recorded
+  Claim: Export licence approvals for a Chinese rare earth magnet producer show that trade can continue, but only within an active licensing-control framework.
+  Commercial relevance: Shows why a manufacturer cannot assume uninterrupted shipment flow even when trade has not fully stopped.
+  Confidence effect: supports_score
+- [L3] pubs.usgs.gov — not_recorded
+  Claim: USGS rare earth commodity data helps define whether the bottleneck sits in magnets, oxides, alloys or another magnet-related input.
+  Commercial relevance: Prevents the manufacturer from applying a mitigation plan to the wrong input class.
+  Confidence effect: supports_score
+- [L4] pubs.usgs.gov — not_recorded
+  Claim: USGS heavy rare earth data points to continued import dependence and tighter Chinese controls on heavy rare earth inputs relevant to magnets.
+  Commercial relevance: Shows that concentration risk is not abstract and can affect both availability and cost.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.
+
+### Confidence: 3/5
+
+Evidence used:
+- [L3] pubs.usgs.gov — not_recorded
+  Claim: USGS rare earth commodity data helps define whether the bottleneck sits in magnets, oxides, alloys or another magnet-related input.
+  Commercial relevance: Prevents the manufacturer from applying a mitigation plan to the wrong input class.
+  Confidence effect: supports_score
+- [L4] pubs.usgs.gov — not_recorded
+  Claim: USGS heavy rare earth data points to continued import dependence and tighter Chinese controls on heavy rare earth inputs relevant to magnets.
+  Commercial relevance: Shows that concentration risk is not abstract and can affect both availability and cost.
+  Confidence effect: supports_score
+- [L5] advancedelectricmachines.com — not_recorded
+  Claim: A UK industry perspective argues that rare earth dependency remains material for advanced manufacturing and cannot be unwound quickly.
+  Commercial relevance: Makes the case relevant to a UK manufacturer deciding whether to protect production rather than wait for policy comfort.
+  Confidence effect: supports_score
+- [L6] aerospace.csis.org — not_recorded
+  Claim: This source is only weakly supportive for substitution feasibility and should be treated as a placeholder pending stronger magnet-specific engineering evidence.
+  Commercial relevance: Useful mainly as a reminder that redesign assumptions should not be overclaimed from thin public evidence.
+  Confidence effect: supports_score
+- [L7] reuters.com — not_recorded
+  Claim: Reported premium pricing for ex-China rare earth magnet supply suggests shortage pressure, but this saved source is a weak market signal.
+  Commercial relevance: Supports whether management should treat scarcity as real enough to justify stockpiling or allocation review.
+  Confidence effect: supports_score
+- [L8] reuters.com — not_recorded
+  Claim: Continuity risk can remain elevated through licensing friction and trade-policy complexity even without a full supply cutoff.
+  Commercial relevance: Helps management avoid relaxing controls too early on the basis of one positive licence headline.
+  Confidence effect: supports_score
+- [L9] idtechex.com — not_recorded
+  Claim: This source is useful as a market-context summary, but it is not strong standalone evidence for qualification timing or company-specific exposure sizing.
+  Commercial relevance: Helps frame why missing BOM, supplier and inventory data matter so much to the decision.
+  Confidence effect: supports_score
+
+Cap reason: Capped because Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.
 
 ## 12. Source Requirement Coverage
 

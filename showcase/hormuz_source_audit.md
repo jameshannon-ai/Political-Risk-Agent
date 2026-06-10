@@ -177,24 +177,75 @@
 ## Quantified Evidence Summary
 
 - Source count: 7
-- Source coverage: 88%
+- Requirements identified: 8/8
+- Strongly covered: 0/8
+- Direct snippet-only: 0/8
+- Partial or indirect: 7/8
+- Historical/context only: 0/8
+- Missing: 1/8
 - High-weight source count: 1
 - Quantified facts: 14
 - Score support summary: Scores are supported by 7 selected sources, 88% requirement coverage and 14 extracted quantified facts.
 - Confidence cap reason: Confidence capped because one or more source requirements are not covered.
 
+## Provenance And Extraction Limits
+
+| Source ID | Evidence mode | Fetch status | Inference strength | Extraction confidence | Human review | Limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| L1 |  | ok |  |  | false |  |
+| L2 |  | ok |  |  | false |  |
+| L3 |  | ok |  |  | false |  |
+| L4 |  | ok |  |  | false |  |
+| L5 |  | ok |  |  | false |  |
+| L6 |  | snippet_used |  |  | false |  |
+| L7 |  | ok |  |  | false |  |
+
+## Scoring Traceability
+
+| Dimension | Score | Label | Score Type | Confidence | Supporting Evidence | Weakening Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |
+| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| likelihood | 5 | Severe | analyst_assumption | medium | L1, L2, L3, L5, L6, L7 | L2, L4, L7 | None | REQ-HSO-A | Capped because one or more source requirements or company-data inputs remain missing or weak. |
+| impact | 5 | Severe | analyst_assumption | medium | L1, L2, L3, L4, L5, L6 | L2, L4, L7 | None | REQ-HSO-A | Capped because one or more source requirements or company-data inputs remain missing or weak. |
+| immediacy | 5 | Severe | analyst_assumption | medium | L4 | L2, L4, L7 | None | REQ-HSO-A | Capped because one or more source requirements or company-data inputs remain missing or weak. |
+| exposure | 5 | Severe | analyst_assumption | medium | L1, L2, L3, L4, L5, L6 | L2, L4, L7 | None | REQ-HSO-A | Capped because one or more source requirements or company-data inputs remain missing or weak. |
+| confidence | 3 | Moderate | analyst_assumption | low | L1, L5, L7 | L2, L4, L7 | None | REQ-HSO-A, energy_chokepoint_data, official_primary | Capped because company-required or missing evidence caps confidence at 3; Confidence capped because one or more source requirements are not covered; one or more source requirements or company-data inputs remain missing or weak. |
+| decision_urgency | 5 | Severe | analyst_assumption | medium | L2 | L2, L4, L7 | None | REQ-HSO-A | Capped because one or more source requirements or company-data inputs remain missing or weak. |
+
+## Evidence-To-Score Bridge
+
+| Dimension | Score | Evidence Basis | Confidence Effect | Cap Reason |
+| --- | ---: | --- | --- | --- |
+| likelihood | 5 | Supported by current source coverage and source relevance. |  | Confidence capped because one or more source requirements are not covered. |
+| impact | 5 | Supported by source claims on commercial exposure and risk-driver severity. |  | Confidence capped because one or more source requirements are not covered. |
+| immediacy | 5 | Supported by source recency and time-horizon alignment. |  | Confidence capped because one or more source requirements are not covered. |
+| confidence | 3 | Supported by source diversity, coverage and confidence caps. |  | Confidence capped because one or more source requirements are not covered. |
+
 ## Source Requirement Coverage
 
-| Requirement | Why Required | Covered By | Evidence Weight | Decision Questions Supported | Remaining Gap |
+- Requirements identified: 8/8
+- Strongly covered: 0/8
+- Direct snippet-only: 0/8
+- Partial or indirect: 7/8
+- Historical/context only: 0/8
+- Missing: 1/8
+
+| Requirement | Coverage Grade | Supporting Sources | Reason For Grade | Remaining Gap | Gap Affects Confidence |
 | --- | --- | --- | --- | --- | --- |
-| official_maritime_security | Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk. | None | low | Should the operator transit, delay, reroute or place the voyage on legal hold? | Requires UKMTO, IMO, ICS, BIMCO, INTERTANKO, OCIMF or government advisory refresh before operational use. |
-| transit_control_or_constabulary_actions | Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims. | L1, L2 | high | Should the operator transit, delay, reroute or place the voyage on legal hold? | No immediate coverage gap; analyst should still verify recency and source content. |
-| sanctions_and_safe_passage_payment_risk | Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure. | L1, L2 | high | Is there a sanctions red flag from tolls, safe-passage demands, offsets, swaps, guarantees, in-kind arrangements or Iranian coordination? | No immediate coverage gap; analyst should still verify recency and source content. |
-| war_risk_insurance_pricing | Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions. | L1, L3, L6 | high | Is war-risk cover available and economically viable? | No immediate coverage gap; analyst should still verify recency and source content. |
-| vessel_flow_and_AIS_behaviour | Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening. | L1, L4 | high | Do AIS/vessel-flow indicators show route normalisation or continuing operating stress? | No immediate coverage gap; analyst should still verify recency and source content. |
-| energy_cargo_and_chokepoint_exposure | Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure. | L5 | high | How do direct transit, delay and reroute compare once insurance, sanctions and delay costs are included? | Current evidence is secondary reporting of EIA-linked data; refresh with direct EIA or equivalent official dataset before operational use. |
-| route_cost_and_arbitrage_inputs | Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure. | L1, L3, L6 | medium | How do direct transit, delay and reroute compare once insurance, sanctions and delay costs are included? | No immediate coverage gap; analyst should still verify recency and source content. |
-| contrary_or_de_escalation_evidence | Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again. | L1, L2, L7 | medium | What evidence would justify relaxing controls? | Current contrary signal is weak secondary reporting; refresh with Reuters, AP or official recovery evidence before treating relaxation as credible. |
+| official_maritime_security | low | None | Establishes whether transit conditions create live security, detention, crew-safety or voyage-approval risk. | Requires UKMTO, IMO, ICS, BIMCO, INTERTANKO, OCIMF or government advisory refresh before operational use. | true |
+| transit_control_or_constabulary_actions | high | L1, L2 | Captures Iranian transit-control mechanisms, vessel coordination requirements, detention risk, naval warnings or expanded control claims. | No immediate coverage gap; analyst should still verify recency and source content. | false |
+| sanctions_and_safe_passage_payment_risk | high | L1, L2 | Identifies whether tolls, safe-passage payments, digital asset payments, offsets, swaps, guarantees or in-kind arrangements could create sanctions exposure. | No immediate coverage gap; analyst should still verify recency and source content. | false |
+| war_risk_insurance_pricing | high | L1, L3, L6 | Measures how insurance repricing affects voyage economics and whether insurance cost changes route decisions. | No immediate coverage gap; analyst should still verify recency and source content. | false |
+| vessel_flow_and_AIS_behaviour | high | L1, L4 | Shows whether actual vessel behaviour confirms constrained transit, AIS suppression, trapped vessels, traffic collapse or partial reopening. | No immediate coverage gap; analyst should still verify recency and source content. | false |
+| energy_cargo_and_chokepoint_exposure | high | L5 | Quantifies why Hormuz disruption matters for oil, LNG, tanker cargoes and UK-linked energy/shipping exposure. | Current evidence is secondary reporting of EIA-linked data; refresh with direct EIA or equivalent official dataset before operational use. | false |
+| route_cost_and_arbitrage_inputs | medium | L1, L3, L6 | Supports comparison of transit, delay and rerouting options through fuel cost, voyage days, insurance premium, demurrage and charter exposure. | No immediate coverage gap; analyst should still verify recency and source content. | false |
+| contrary_or_de_escalation_evidence | medium | L1, L2, L7 | Prevents one-way escalation analysis and defines conditions under which direct transit may become acceptable again. | Current contrary signal is weak secondary reporting; refresh with Reuters, AP or official recovery evidence before treating relaxation as credible. | false |
+
+## Source Quality Notes
+
+| Evidence area | Current source quality | Action before operational use |
+| --- | --- | --- |
+| Source coverage | Selected sources support a client-type risk screen. | Refresh before operational use. |
+| Company data | Public evidence does not provide transaction- or company-specific exposure. | Validate with private data and human review. |
 
 ## Selected Sources
 

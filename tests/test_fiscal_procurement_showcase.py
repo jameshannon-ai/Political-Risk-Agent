@@ -75,9 +75,9 @@ class FiscalProcurementShowcaseTests(unittest.TestCase):
             self.assertTrue(score["reason_for_score"], dimension)
             self.assertTrue(score["reason_score_is_capped"], dimension)
             for ref in score["supporting_evidence"]:
-                self.assertRegex(ref.get("source_id", ""), r"^L\d+")
-        quality_ids = {row["source_id"] for row in traceable["likelihood"]["evidence_quality_limits"]}
-        contrary_ids = {row["source_id"] for row in traceable["likelihood"]["contrary_evidence"]}
+                self.assertRegex(ref, r"^L\d+")
+        quality_ids = set(traceable["likelihood"]["evidence_quality_limits"])
+        contrary_ids = set(traceable["likelihood"]["contrary_evidence"])
         self.assertIn("L8", contrary_ids)
         self.assertNotEqual(quality_ids, contrary_ids)
         self.assertLessEqual(traceable["confidence"]["score"], 3)

@@ -51,12 +51,100 @@ The recommended stance is heightened monitoring: review bid pipeline exposure by
 
 ## Evidence-To-Score Bridge
 
-| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
-| --- | --- | --- | --- | --- |
-| Likelihood | 4/5 | Fiscal pressure, gilt-market sensitivity and departmental budget uncertainty create a credible pathway to continued procurement caution. Supporting sources: L2. Key facts: Fiscal pressure indicator: OBR / ONS / HMT evidence required; Market confidence indicator: gilt-market or fiscal credibility evidence required; Political economy trigger: fiscal rules, tax/spending trade-offs and departmental budgets. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if official fiscal evidence, market confidence signals or credible stabilising evidence changes the risk direction. |
-| Impact | 4/5 | Impact can be material for infrastructure contractors because public-sector awards, project timing, payment assumptions, bid pricing and working capital can all be affected. Supporting sources: L1, L2, L3, L4. Key facts: Commercial channels: contract awards, procurement delays, deferrals and repricing; Contractor exposure: public-sector customer mix and order book required; Working-capital channel: payment terms and cash conversion require company data. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if procurement pipeline, project deferral, payment-risk or contract-pricing evidence changes. |
-| Immediacy | 3/5 | Timing pressure is moderate-high: procurement and payment effects may not be immediate across all departments, but bid pipeline and board monitoring should be refreshed near-term. Supporting sources: L9. Key facts: Decision horizon: bid pipeline and board reporting should be refreshed near-term; Procurement timing: department and programme evidence required; Payment-risk monitoring: customer-level exposure required. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if fiscal statements, OBR/ONS releases, gilt-market stress or departmental budget signals change the near-term picture. |
-| Confidence | 3/5 | Confidence is capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. Supporting sources: L8. Key facts: Company data missing: order book, departmental exposure, margins and payment terms; Source coverage must include official fiscal, market and procurement evidence; Snippet-only evidence triggers human review. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh live sources and add contractor order book, customer mix, payment terms and working-capital data before increasing confidence. |
+
+
+
+### Likelihood: 4/5
+
+Evidence used:
+- [L1] obr.uk — full_text
+  Claim: The OBR provides the official fiscal outlook used to assess UK borrowing, debt and fiscal headroom.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L2] ons.gov.uk — snippet_only (review required)
+  Claim: ONS public sector finances data provides the official statistical basis for tracking UK borrowing, deficit and debt.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L4] bankofengland.co.uk — snippet_only (review required)
+  Claim: Bank of England analysis links UK long-term government bond yields to market conditions relevant to fiscal sensitivity.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L5] ifs.org.uk — snippet_only (review required)
+  Claim: IFS analysis provides specialist interpretation of debt-interest pressure and fiscal-framework credibility.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L8] assets.publishing.service.gov.uk — snippet_only (review required)
+  Claim: The UK 10 Year Infrastructure Strategy provides stabilising policy evidence by setting out a longer-term infrastructure plan.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+
+Cap reason: Capped because at least one selected source used snippet-only evidence.
+
+### Impact: 4/5
+
+Evidence used:
+- [L1] obr.uk — full_text
+  Claim: The OBR provides the official fiscal outlook used to assess UK borrowing, debt and fiscal headroom.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L3] gov.uk — snippet_only (review required)
+  Claim: Spending Review 2025 sets departmental day-to-day and capital spending plans across the relevant forecast period.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L6] nao.org.uk — snippet_only (review required)
+  Claim: NAO programme evidence shows that major public infrastructure programmes can undergo changes to scope, timetable and funding.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L9] builduk.org — snippet_only (review required)
+  Claim: Build UK / CECA material connects retentions reform to working capital and construction supply-chain payment conditions.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L2] ons.gov.uk — snippet_only (review required)
+  Claim: ONS public sector finances data provides the official statistical basis for tracking UK borrowing, deficit and debt.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L4] bankofengland.co.uk — snippet_only (review required)
+  Claim: Bank of England analysis links UK long-term government bond yields to market conditions relevant to fiscal sensitivity.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+
+Cap reason: Capped because at least one selected source used snippet-only evidence.
+
+### Immediacy: 3/5
+
+Evidence used:
+- [L4] bankofengland.co.uk — snippet_only (review required)
+  Claim: Bank of England analysis links UK long-term government bond yields to market conditions relevant to fiscal sensitivity.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L9] builduk.org — snippet_only (review required)
+  Claim: Build UK / CECA material connects retentions reform to working capital and construction supply-chain payment conditions.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+
+Cap reason: Capped because at least one selected source used snippet-only evidence.
+
+### Confidence: 3/5
+
+Evidence used:
+- [L1] obr.uk — full_text
+  Claim: The OBR provides the official fiscal outlook used to assess UK borrowing, debt and fiscal headroom.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L2] ons.gov.uk — snippet_only (review required)
+  Claim: ONS public sector finances data provides the official statistical basis for tracking UK borrowing, deficit and debt.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L8] assets.publishing.service.gov.uk — snippet_only (review required)
+  Claim: The UK 10 Year Infrastructure Strategy provides stabilising policy evidence by setting out a longer-term infrastructure plan.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+- [L9] builduk.org — snippet_only (review required)
+  Claim: Build UK / CECA material connects retentions reform to working capital and construction supply-chain payment conditions.
+  Commercial relevance: Translates UK political-economy evidence into bid pipeline, procurement timing, repricing, payment-risk and board-monitoring decisions.
+  Confidence effect: supports_score
+
+Cap reason: Capped because most supporting evidence is snippet-only; Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions; one or more source requirements or company-data inputs remain missing or weak; at least one selected source used snippet-only evidence.
 
 ## Scoring Traceability
 

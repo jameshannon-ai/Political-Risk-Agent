@@ -21,7 +21,11 @@ DEESCALATION_TERMS = [
 ]
 
 
+from agent.cases.registry import normalize_business_user
+
+
 def extract_live_evidence(fetched_sources, business_user):
+    business_user = normalize_business_user(business_user)
     return [
         _extract_source(source, index + 1, business_user)
         for index, source in enumerate(fetched_sources)
@@ -178,7 +182,8 @@ def _commercial_relevance(text, source_type):
 
 
 def _business_user_relevance(business_user, text):
-    if business_user in {"UK infrastructure contractor", "uk_infrastructure_contractor", "infrastructure_contractor"}:
+    business_user = normalize_business_user(business_user)
+    if business_user == "infrastructure_contractor":
         return "Relevant to public-sector bid pipeline, contract-award timing, payment risk, repricing assumptions, working-capital exposure and board monitoring."
     if business_user == "customer_facing_operator":
         return "Relevant to downtime tolerance, revenue-at-risk, regulatory notification, customer harm, insurance claim readiness and recovery controls."
@@ -234,7 +239,8 @@ def _caveat(source_type, fetch_status):
 
 
 def _decision_profile(requirement_name, source_type, business_user):
-    if business_user in {"UK infrastructure contractor", "uk_infrastructure_contractor", "infrastructure_contractor"} or requirement_name.startswith(("obr_", "ons_", "hm_treasury", "bank_of_england", "credible_market_analysis", "public_procurement", "contractor_industry", "contrary_or_stabilising_fiscal", "company_data_requirements_for_contractor")):
+    business_user = normalize_business_user(business_user)
+    if business_user == "infrastructure_contractor" or requirement_name.startswith(("obr_", "ons_", "hm_treasury", "bank_of_england", "credible_market_analysis", "public_procurement", "contractor_industry", "contrary_or_stabilising_fiscal", "company_data_requirements_for_contractor")):
         return _uk_fiscal_procurement_decision_profile(requirement_name, source_type)
     if business_user == "customer_facing_operator" or requirement_name.startswith("uk_official_cyber") or requirement_name.startswith("cyber_") or requirement_name in {
         "uk_cyber_breach_prevalence_data",

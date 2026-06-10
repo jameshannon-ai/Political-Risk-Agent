@@ -53,18 +53,22 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
         return {
             "likelihood": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "Export-control direction, source concentration and live geopolitical triggers create a credible disruption pathway for rare earth magnet inputs.",
             },
             "impact": {
                 "score": 5,
+                "score_type": "analyst_assumption",
                 "rationale": "Product criticality, supplier concentration, high substitution difficulty and a large production continuity gap can make the exposure severe for affected lines.",
             },
             "immediacy": {
                 "score": 5,
+                "score_type": "analyst_assumption",
                 "rationale": "A short inventory runway relative to supplier qualification time makes continuity risk near-term if shipments or licences are disrupted.",
             },
             "confidence": {
                 "score": 3,
+                "score_type": "analyst_assumption",
                 "rationale": "Public evidence can screen client-type exposure, but BOM, supplier, inventory and contract data are still required for company-specific precision.",
             },
         }
@@ -73,26 +77,32 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
         return {
             "likelihood": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "Fiscal pressure, gilt-market sensitivity and departmental budget uncertainty create a credible pathway to continued procurement caution.",
             },
             "impact": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "Impact can be material for infrastructure contractors because public-sector awards, project timing, payment assumptions, bid pricing and working capital can all be affected.",
             },
             "immediacy": {
                 "score": 3,
+                "score_type": "analyst_assumption",
                 "rationale": "Timing pressure is moderate-high: procurement and payment effects may not be immediate across all departments, but bid pipeline and board monitoring should be refreshed near-term.",
             },
             "exposure": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "Exposure is potentially high for contractors with concentrated public-sector order books, but cannot be finalised without customer mix, backlog, payment terms and margin data.",
             },
             "decision_urgency": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "The issue warrants bid-pipeline review, payment-risk monitoring, contract repricing checks and board-level exposure reporting rather than passive monitoring.",
             },
             "confidence": {
                 "score": 3,
+                "score_type": "analyst_assumption",
                 "rationale": "Confidence is capped because public evidence can screen political-economy risk, but contractor-specific order book, departmental exposure, payment terms and working-capital data are missing.",
             },
         }
@@ -101,18 +111,22 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
         return {
             "likelihood": {
                 "score": 5,
+                "score_type": "analyst_assumption",
                 "rationale": "Confirmed policy implementation, not speculative risk.",
             },
             "impact": {
                 "score": 4 if _has_material_uk_ets_cost_context(combined_text) else 3,
+                "score_type": "analyst_assumption",
                 "rationale": "Material for in-scope domestic routes, but not universal across all UK or international voyages.",
             },
             "immediacy": {
                 "score": 5,
+                "score_type": "analyst_assumption",
                 "rationale": "Reporting, monitoring and allowance preparation need near-term action before or during implementation.",
             },
             "confidence": {
                 "score": 4,
+                "score_type": "analyst_assumption",
                 "rationale": "Capped below 5 because official policy evidence is strong, but UKA price and operator fuel assumptions are not transaction-specific live inputs.",
             },
         }
@@ -153,18 +167,26 @@ def score_risk(topic, concerns=None, region="", time_horizon="", sources=None):
     return {
         "likelihood": {
             "score": _clamp(likelihood),
+            "score_type": "evidence_backed" if sources else "illustrative_fallback",
+            "derived_from_evidence": bool(sources),
             "rationale": "Higher when the topic or region includes active disruption, conflict, sanctions, or strategic chokepoints.",
         },
         "impact": {
             "score": _clamp(impact),
+            "score_type": "evidence_backed" if sources else "illustrative_fallback",
+            "derived_from_evidence": bool(sources),
             "rationale": "Higher when concerns point to costs, access constraints, claims, freight, payment, or collateral effects.",
         },
         "immediacy": {
             "score": _clamp(immediacy),
+            "score_type": "evidence_backed" if sources else "illustrative_fallback",
+            "derived_from_evidence": bool(sources),
             "rationale": "Higher when the time horizon signals current or near-term exposure.",
         },
         "confidence": {
             "score": _clamp(confidence),
+            "score_type": "evidence_backed" if sources else "illustrative_fallback",
+            "derived_from_evidence": bool(sources),
             "rationale": confidence_rationale,
         },
     }

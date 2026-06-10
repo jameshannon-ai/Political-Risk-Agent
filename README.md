@@ -53,6 +53,16 @@ The portfolio is expandable. Future cases can follow the same saved-showcase pat
 
 The UK fiscal instability case is useful for reviewing the fresh-topic workflow because it was generated through `main.py run-topic`, refreshed with a targeted Tavily run, then polished offline to improve source quality, graded requirement coverage, provenance, evidence separation and scoring traceability.
 
+## Current Evidence Status
+
+The active showcase cases remain curated saved outputs. They are the artefacts the dashboard reads from `showcase/`, and they should be treated as the public-facing portfolio layer.
+
+The regenerated Tavily outputs are staged for source-quality review in `outputs/`. They are not automatically promoted into the active showcase because some regenerated sources can be weak, mismatched, snippet-only or not specific enough for the source requirement they appear to satisfy.
+
+The weak sources are downgraded or rejected rather than promoted as strong evidence. Candidate promoted evidence packs, source-promotion reports and review material are available locally in `outputs/` after running the source QA workflow; `outputs/` is ignored by Git so unreviewed generated material is not published by default.
+
+Source quality affects confidence caps and review-required flags. Snippet-only, metadata-only, fallback or manual-input evidence should remain visible as limited evidence until a human reviewer verifies it or a stronger source replaces it.
+
 ## How The Workflow Works
 
 1. Define the business decision.
@@ -139,6 +149,22 @@ It does not call Tavily, run `live_search_mode`, require `.env`, or spend live-s
 
 Each case starts with the business decision, then shows the model output, evidence base, source caveats and company-data needed for operational use.
 
+## Recent Improvements
+
+- Evidence Trace tabs for all active dashboard cases.
+- Decision Panel sections that surface recommendation, confidence, evidence quality, missing evidence and company-data needs.
+- Evidence Quality Summary sections showing full-text, snippet-only, weak/rejected and review-required evidence counts.
+- Key Judgements / Evidence Cards that connect decisions to visible source evidence.
+- Source Requirement Coverage views that show coverage, confidence impact and source-quality status.
+- Expanded Traceable Scorecard fields, including score type, supporting evidence, missing evidence and confidence-cap reasons.
+- Source-promotion workflow for reviewing regenerated Tavily evidence before any active showcase replacement.
+- Source-quality statuses for promoted, review-required, downgraded and rejected candidate evidence.
+- Confidence caps tied to weak evidence, missing source requirements or missing company-specific data.
+- Case registry refactor so active cases are registered consistently instead of scattered across ad hoc conditionals.
+- Business-user normalisation using stable snake_case internal IDs.
+- Trusted domains moved to config for easier source-ranking governance.
+- 164 passing tests in the latest local run of `python3 -m unittest discover tests`.
+
 ## Active Showcase Files
 
 Saved showcase artefacts live in `showcase/`.
@@ -182,13 +208,17 @@ python3 main.py run-topic \
 
 Add `--live` only when deliberately running a live source generation pass.
 
-## How Reviewers Should Evaluate This Project
+## How To Review This Project
 
 Start in plain English:
 
+- Start with the Streamlit dashboard.
 - Does each case begin with a clear business decision?
 - Are political-risk triggers explicit?
 - Are selected sources visible with URLs?
+- Is the Evidence Quality Summary honest about weak, snippet-only or review-required material?
+- Does the Evidence Trace show claims, source modes, confidence effects and review flags?
+- Does Source Requirement Coverage show where evidence is covered, partial, missing or company-data-dependent?
 - Are source roles and caveats shown?
 - Is the evidence-to-score bridge clear?
 - Are assumptions labelled?
@@ -215,7 +245,7 @@ The fiscal case can be regenerated deliberately with:
 ```bash
 python3 main.py run-topic \
   --topic "UK fiscal instability and public-sector procurement delay risk" \
-  --business-user "UK infrastructure contractor" \
+  --business-user infrastructure_contractor \
   --decision-context "Assess whether fiscal pressure, gilt-market sensitivity, political instability and departmental budget uncertainty should trigger bid pipeline review, payment-risk monitoring, contract repricing, project-delay contingency planning and board-level exposure reporting" \
   --domain uk_fiscal_procurement_risk \
   --output-dir outputs/showcase/uk_fiscal_instability_procurement_risk \
@@ -223,6 +253,13 @@ python3 main.py run-topic \
 ```
 
 Only run this command when a live source refresh is intentional and a valid API key is available.
+
+## Workflow Modes
+
+- `validated_showcase`: the saved, source-audited portfolio cases displayed by the dashboard.
+- `experimental_generic`: unfamiliar or fresh topics generated through `main.py run-topic`; these outputs require analyst review before operational use.
+
+The generic CLI path prints: “This output uses experimental generic intake and requires analyst review before operational use.”
 
 ## Architecture
 
@@ -295,14 +332,19 @@ In `live_search_mode`, each run saves three files to `outputs/`:
 
 The source audit is the analyst trail. It shows what the agent searched for, why each requirement matters, which sources were selected, which were rejected, what evidence categories are covered or missing, and what still requires human review.
 
-## Limitations
+## Known Limitations
 
+- This is a portfolio prototype, not an operational risk tool.
 - This is not legal, insurance, cybersecurity, sanctions, operational or investment advice.
+- Some source evidence remains snippet-only or otherwise limited, even where the surrounding case structure is polished.
+- Some regenerated Tavily sources were rejected, downgraded or kept in review rather than promoted to active showcase evidence.
 - Company-specific use requires internal data and human review.
+- Confidence is capped where evidence is incomplete, indirect, stale, snippet-only or missing company-specific exposure data.
 - Live retrieval quality depends on available sources, page accessibility and search-provider results.
-- Scores are transparent, rule-based decision support rather than predictive truth.
+- Scores are transparent, evidence-backed decision support rather than predictive truth.
 - Market pricing, sanctions, regulatory and operating-condition signals can change quickly.
 - The dashboard is intentionally offline and displays saved artefacts rather than live retrieval.
+- Generic topic intake is experimental and requires analyst review before operational use.
 
 ## Run Tests
 

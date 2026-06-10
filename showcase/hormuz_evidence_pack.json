@@ -3685,7 +3685,10 @@
   },
   "evidence_to_score_bridge": {
     "likelihood": {
+      "dimension": "likelihood",
       "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
       "evidence_basis": "Supported by current source coverage and source relevance.",
       "supporting_sources": [
         "L1",
@@ -3700,10 +3703,40 @@
       ],
       "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
       "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction."
+      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction.",
+      "supporting_evidence": [],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by current source coverage and source relevance.",
+      "reason_score_is_capped": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped because one or more source requirements are not covered.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
     },
     "impact": {
+      "dimension": "impact",
       "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
       "evidence_basis": "Supported by source claims on commercial exposure and risk-driver severity.",
       "supporting_sources": [
         "L2",
@@ -3718,10 +3751,50 @@
       ],
       "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
       "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes."
+      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes.",
+      "supporting_evidence": [
+        "L2",
+        "L3",
+        "L5",
+        "L6"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by source claims on commercial exposure and risk-driver severity.",
+      "reason_score_is_capped": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped because one or more source requirements are not covered.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L2",
+        "L3",
+        "L5",
+        "L6"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
     },
     "immediacy": {
+      "dimension": "immediacy",
       "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
       "evidence_basis": "Supported by source recency and time-horizon alignment.",
       "supporting_sources": [
         "L4"
@@ -3733,10 +3806,44 @@
       ],
       "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
       "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture."
+      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture.",
+      "supporting_evidence": [
+        "L4"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by source recency and time-horizon alignment.",
+      "reason_score_is_capped": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped because one or more source requirements are not covered.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L4"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
     },
     "confidence": {
-      "score": 4,
+      "dimension": "confidence",
+      "score": 3,
+      "score_label": "Moderate",
+      "score_type": "analyst_assumption",
       "evidence_basis": "Supported by source diversity, coverage and confidence caps.",
       "supporting_sources": [
         "L7"
@@ -3748,7 +3855,38 @@
       ],
       "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
       "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
-      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence."
+      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence.",
+      "supporting_evidence": [
+        "L7"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by source diversity, coverage and confidence caps.",
+      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped because one or more source requirements are not covered.",
+      "confidence": "low",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L7"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
     }
   },
   "quantified_facts_by_source": {
@@ -4247,5 +4385,266 @@
     "demurrage_or_delay_cost_per_day": 35000,
     "compliance_hold_days": 5,
     "caveat": "Illustrative voyage assumptions requiring operator validation."
-  }
+  },
+  "traceable_scores": {
+    "likelihood": {
+      "dimension": "likelihood",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L2",
+        "L3",
+        "L5",
+        "L6",
+        "L7"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by current source coverage and source relevance.",
+      "reason_score_is_capped": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L1",
+        "L2",
+        "L3",
+        "L5",
+        "L6",
+        "L7"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    },
+    "impact": {
+      "dimension": "impact",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by source claims on commercial exposure and risk-driver severity.",
+      "reason_score_is_capped": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    },
+    "immediacy": {
+      "dimension": "immediacy",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L4"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Supported by source recency and time-horizon alignment.",
+      "reason_score_is_capped": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L4"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    },
+    "exposure": {
+      "dimension": "exposure",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Exposure is proxied from impact where no separate exposure model is available.",
+      "reason_score_is_capped": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    },
+    "confidence": {
+      "dimension": "confidence",
+      "score": 3,
+      "score_label": "Moderate",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L5",
+        "L7"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A",
+        "energy_chokepoint_data",
+        "official_primary"
+      ],
+      "reason_for_score": "Supported by source diversity, coverage and confidence caps.",
+      "reason_score_is_capped": "Capped because company-required or missing evidence caps confidence at 3; Confidence capped because one or more source requirements are not covered; one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because company-required or missing evidence caps confidence at 3; Confidence capped because one or more source requirements are not covered; one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "low",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L1",
+        "L5",
+        "L7"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    },
+    "decision_urgency": {
+      "dimension": "decision_urgency",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L2"
+      ],
+      "weakening_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "contrary_evidence": [
+        "L2",
+        "L4",
+        "L7"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [
+        "REQ-HSO-A"
+      ],
+      "reason_for_score": "Decision urgency is proxied from immediacy where no separate urgency model is available.",
+      "reason_score_is_capped": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because one or more source requirements or company-data inputs remain missing or weak.",
+      "confidence": "medium",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L2"
+      ],
+      "evidence_weakening_score": [
+        "L2",
+        "L4",
+        "L7"
+      ]
+    }
+  },
+  "scoring_method_note": "Structured analyst score with traceable evidence support; score_type distinguishes evidence-backed, analyst-assumption and illustrative-fallback scoring."
 }

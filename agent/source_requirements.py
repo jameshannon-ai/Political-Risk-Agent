@@ -1,20 +1,15 @@
+from agent.cases.registry import match_case, normalize_business_user
+
+
 def generate_source_requirements(topic, business_user, region, time_horizon, concerns, domain_pack=None):
-    if _is_uk_fiscal_procurement_risk(topic, business_user, domain_pack):
-        return _uk_fiscal_procurement_requirements()
-    if _is_cyber_business_interruption(topic, business_user, domain_pack):
-        return _cyber_business_interruption_requirements()
-    if _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
-        return _critical_minerals_advanced_manufacturer_requirements()
-    if _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
-        return _uk_ets_shipping_operator_requirements()
-    if "hormuz" in topic.lower() and business_user == "shipping_operator":
-        return _hormuz_shipping_operator_requirements()
+    business_user = normalize_business_user(business_user)
+    domain_pack = domain_pack or {}
     if "hormuz" in topic.lower() and business_user == "marine_insurer":
         return _hormuz_marine_insurer_requirements()
-    if _is_sanctions_trade_finance(topic, business_user, domain_pack):
-        return _sanctions_trade_finance_requirements()
+    case = match_case(topic=topic, business_user=business_user, domain=domain_pack.get("domain"))
+    if case:
+        return case.source_requirements_fn()
 
-    domain_pack = domain_pack or {}
     categories = domain_pack.get("source_requirements") or domain_pack.get("default_source_categories") or ["official_primary", "reputable_news", "specialist_analysis"]
     requirements = []
     for index, category in enumerate(categories, start=1):
@@ -34,18 +29,6 @@ def generate_source_requirements(topic, business_user, region, time_horizon, con
             }
         )
     return requirements
-
-
-def _is_uk_fiscal_procurement_risk(topic, business_user, domain_pack):
-    lowered = f"{topic} {business_user}".lower()
-    return (
-        "uk_fiscal_procurement_risk" == (domain_pack or {}).get("domain")
-        or "fiscal instability" in lowered
-        or "public-sector procurement" in lowered
-        or "public sector procurement" in lowered
-        or "gilt" in lowered and "procurement" in lowered
-        or "infrastructure contractor" in lowered
-    )
 
 
 def _uk_fiscal_procurement_requirements():
@@ -168,45 +151,6 @@ def _uk_fiscal_procurement_requirements():
             "strength_threshold": "high",
         },
     ]
-
-
-def _is_sanctions_trade_finance(topic, business_user, domain_pack):
-    return (
-        business_user == "trade_finance_lender"
-        and ("sanctions" in topic.lower() or (domain_pack or {}).get("domain") == "sanctions_trade_finance")
-    )
-
-
-def _is_cyber_business_interruption(topic, business_user, domain_pack):
-    lowered = f"{topic} {business_user}".lower()
-    return (
-        "cyber business interruption" in lowered
-        or "operational resilience" in lowered and "cyber" in lowered
-        or "ransomware" in lowered and "business" in lowered
-        or (domain_pack or {}).get("domain") == "cyber_business_interruption"
-        or business_user in {"customer_facing_operator", "uk_retailer", "critical_services_operator"}
-    )
-
-
-def _is_uk_ets_shipping_operator(topic, business_user, domain_pack):
-    return (
-        business_user == "shipping_operator"
-        and (
-            "uk ets" in topic.lower()
-            or "maritime expansion" in topic.lower()
-            or (domain_pack or {}).get("domain") == "regulatory_carbon_shipping"
-        )
-    )
-
-
-def _is_critical_minerals_advanced_manufacturer(topic, business_user, domain_pack):
-    lowered = topic.lower()
-    return business_user == "advanced_manufacturer" and (
-        "critical minerals" in lowered
-        or "rare earth" in lowered
-        or "magnet supply" in lowered
-        or (domain_pack or {}).get("domain") == "critical_minerals_supply_chain"
-    )
 
 
 def _cyber_business_interruption_requirements():

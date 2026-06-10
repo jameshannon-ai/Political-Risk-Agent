@@ -2,7 +2,7 @@ from pathlib import Path
 import argparse
 
 from agent.brief_generator import generate_brief, save_brief
-from agent.core.workflow import run_topic_workflow
+from agent.core.workflow import EXPERIMENTAL_GENERIC_WARNING, run_topic_workflow
 from agent.evidence_pack_builder import build_evidence_pack, save_evidence_pack
 from agent.exposure_mapping import VALID_BUSINESS_USERS
 from agent.live_search import run_live_searches
@@ -41,6 +41,7 @@ def build_arg_parser():
 
 
 def run_topic_command(args):
+    print(EXPERIMENTAL_GENERIC_WARNING)
     source_notes = ""
     if args.source_notes_file:
         source_notes = Path(args.source_notes_file).read_text(encoding="utf-8")

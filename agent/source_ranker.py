@@ -1,61 +1,19 @@
+import json
 from datetime import datetime
+from pathlib import Path
 from urllib.parse import urlparse
 
-TRUSTED_DOMAINS = [
-    "ukmto.org",
-    "imo.org",
-    "maersk.com",
-    "hapag-lloyd.com",
-    "cma-cgm.com",
-    "eia.gov",
-    "iea.org",
-    "reuters.com",
-    "apnews.com",
-    "gov.uk",
-    "parliament.uk",
-    "bgs.ac.uk",
-    "oecd.org",
-    "usgs.gov",
-    "csis.org",
-    "rusi.org",
-    "css.ethz.ch",
-    "hvm.catapult.org.uk",
-    "lloydslist.com",
-    "gibsons.co.uk",
-    "kpler.com",
-    "thesignalgroup.com",
-    "howdenre.com",
-    "spglobal.com",
-    "axios.com",
-    "ofsi.blog.gov.uk",
-    "ofac.treasury.gov",
-    "treasury.gov",
-    "fca.org.uk",
-    "fatf-gafi.org",
-    "wolfsberg-principles.com",
-    "iccwbo.org",
-    "baft.org",
-    "ncsc.gov.uk",
-    "ico.org.uk",
-    "bankofengland.co.uk",
-    "obr.uk",
-    "ons.gov.uk",
-    "nao.org.uk",
-    "ipa.gov.uk",
-    "ifs.org.uk",
-    "resolutionfoundation.org",
-    "niesr.ac.uk",
-    "builduk.org",
-    "constructionleadershipcouncil.co.uk",
-    "civilengineeringcontractors.com",
-    "ice.org.uk",
-    "icaew.com",
-    "marsh.com",
-    "aon.com",
-    "wtwco.com",
-    "allianz.com",
-    "howdengroup.com",
-]
+TRUSTED_DOMAINS_PATH = Path("config/trusted_domains.json")
+
+
+def _load_trusted_domains():
+    if TRUSTED_DOMAINS_PATH.exists():
+        data = json.loads(TRUSTED_DOMAINS_PATH.read_text(encoding="utf-8"))
+        return data.get("trusted_domains", [])
+    return ["gov.uk", "reuters.com", "apnews.com", "bankofengland.co.uk", "obr.uk", "ons.gov.uk"]
+
+
+TRUSTED_DOMAINS = _load_trusted_domains()
 
 USEFUL_TERMS = [
     "hormuz",

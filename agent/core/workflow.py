@@ -10,6 +10,16 @@ from agent.source_ranker import rank_candidate_sources
 from agent.source_strategy import SOURCE_CATEGORIES, create_source_strategy
 
 
+WORKFLOW_MODES = {
+    "validated_showcase": "Six saved showcase cases with source-audited artefacts.",
+    "experimental_generic": "Fresh or unfamiliar topics requiring analyst review before operational use.",
+}
+
+EXPERIMENTAL_GENERIC_WARNING = (
+    "This output uses experimental generic intake and requires analyst review before operational use."
+)
+
+
 def run_topic_workflow(
     topic,
     business_user,
@@ -152,4 +162,3 @@ def _manual_search_result(selected_sources):
         "candidates_by_query": {"manual_input": selected_sources},
         "search_failures": [],
     }
-

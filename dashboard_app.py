@@ -38,7 +38,13 @@ except ImportError:
     st = _StreamlitUnavailable()
 
 from dashboard_helpers import (
+    build_decision_panel_rows,
+    build_evidence_card_rows,
+    build_evidence_quality_rows,
+    build_evidence_trace_rows,
+    build_requirement_coverage_quality_rows,
     build_selected_source_rows,
+    build_traceable_score_rows,
     extract_markdown_section,
     extract_markdown_table,
     get_nested_value,
@@ -193,9 +199,10 @@ def _render_uk_ets(pack, brief, audit):
     overview = _build_uk_ets_overview_metrics(pack, brief, carbon_cost)
     _render_metrics(overview)
     _render_first_reader_summary("uk_ets")
+    _render_decision_panel(pack)
 
-    tab1, tab2, tab3, tab4 = st.tabs(
-        ["Operator Decision", "Carbon Cost", "Evidence & Scores", "Source Audit"]
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        ["Operator Decision", "Carbon Cost", "Evidence & Scores", "Evidence Trace", "Source Audit"]
     )
 
     with tab1:
@@ -220,6 +227,9 @@ def _render_uk_ets(pack, brief, audit):
 
     with tab3:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
+        _render_traceable_scorecard(pack)
         for heading in [
             "5. Risk Scorecard",
             "6. Quantified Evidence Readout",
@@ -229,6 +239,9 @@ def _render_uk_ets(pack, brief, audit):
             _render_markdown_table_section(brief, heading)
 
     with tab4:
+        _render_evidence_trace(pack)
+
+    with tab5:
         _render_source_audit_metrics(pack)
         _render_evidence_category_guide()
         _render_markdown_table_section(brief, "15. Source Quality Notes")
@@ -243,9 +256,10 @@ def _render_hormuz(pack, brief, audit):
     overview = _build_hormuz_overview_metrics(pack, brief)
     _render_metrics(overview)
     _render_first_reader_summary("hormuz")
+    _render_decision_panel(pack)
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["Decision", "Route-Cost and Insurance", "Sanctions and Vessel Signals", "Evidence and Sources", "Full Brief / Source Audit"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+        ["Decision", "Route-Cost and Insurance", "Sanctions and Vessel Signals", "Evidence and Sources", "Evidence Trace", "Full Brief / Source Audit"]
     )
 
     with tab1:
@@ -271,7 +285,10 @@ def _render_hormuz(pack, brief, audit):
 
     with tab4:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
         _render_hormuz_source_governance_summary()
+        _render_traceable_scorecard(pack)
         _render_markdown_table_section(brief, "9. Risk Scorecard")
         _render_markdown_table_section(brief, "10. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "11. Source Requirement Coverage")
@@ -283,6 +300,9 @@ def _render_hormuz(pack, brief, audit):
             st.markdown(audit)
 
     with tab5:
+        _render_evidence_trace(pack)
+
+    with tab6:
         with st.expander("Full brief markdown", expanded=False):
             st.markdown(brief)
         _render_audit_detail_expanders(audit)
@@ -294,9 +314,10 @@ def _render_critical_minerals(pack, brief, audit):
     overview = _build_critical_minerals_overview_metrics(pack, brief)
     _render_metrics(overview)
     _render_first_reader_summary("critical_minerals")
+    _render_decision_panel(pack)
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["Decision", "Production Continuity", "Mitigation Options", "Evidence and Sources", "Full Brief / Source Audit"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+        ["Decision", "Production Continuity", "Mitigation Options", "Evidence and Sources", "Evidence Trace", "Full Brief / Source Audit"]
     )
 
     with tab1:
@@ -321,6 +342,9 @@ def _render_critical_minerals(pack, brief, audit):
 
     with tab4:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
+        _render_traceable_scorecard(pack)
         _render_markdown_table_section(brief, "10. Risk Scorecard")
         _render_markdown_table_section(brief, "11. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "12. Source Requirement Coverage")
@@ -335,6 +359,9 @@ def _render_critical_minerals(pack, brief, audit):
             _render_markdown_table_section(brief, "14. Evidence Appendix")
 
     with tab5:
+        _render_evidence_trace(pack)
+
+    with tab6:
         with st.expander("Full brief markdown", expanded=False):
             st.markdown(brief)
         _render_audit_detail_expanders(audit)
@@ -346,9 +373,10 @@ def _render_sanctions(pack, brief, audit):
     overview = _build_sanctions_overview_metrics(pack, brief)
     _render_metrics(overview)
     _render_first_reader_summary("sanctions")
+    _render_decision_panel(pack)
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["Decision", "Transaction Risk", "Decision Engine", "Evidence and Sources", "Full Brief / Source Audit"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+        ["Decision", "Transaction Risk", "Decision Engine", "Evidence and Sources", "Evidence Trace", "Full Brief / Source Audit"]
     )
 
     with tab1:
@@ -371,6 +399,9 @@ def _render_sanctions(pack, brief, audit):
 
     with tab4:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
+        _render_traceable_scorecard(pack)
         _render_markdown_table_section(brief, "11. Risk Scorecard")
         _render_markdown_table_section(brief, "12. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "13. Source Requirement Coverage")
@@ -380,6 +411,9 @@ def _render_sanctions(pack, brief, audit):
             _render_markdown_table_section(brief, "16. Evidence Appendix")
 
     with tab5:
+        _render_evidence_trace(pack)
+
+    with tab6:
         with st.expander("Full brief markdown", expanded=False):
             st.markdown(brief)
         _render_audit_detail_expanders(audit)
@@ -391,12 +425,13 @@ def _render_cyber(pack, brief, audit):
     overview = _build_cyber_overview_metrics(pack, brief)
     _render_metrics(overview)
     _render_first_reader_summary("cyber")
+    _render_decision_panel(pack)
     st.info(
         "This is a client-type cyber business interruption exposure screen, not technical cybersecurity advice, legal advice or an insurance coverage determination."
     )
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["Decision", "Business Interruption", "Notification, Insurance and Recovery", "Evidence and Sources", "Full Brief / Source Audit"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+        ["Decision", "Business Interruption", "Notification, Insurance and Recovery", "Evidence and Sources", "Evidence Trace", "Full Brief / Source Audit"]
     )
 
     with tab1:
@@ -420,6 +455,9 @@ def _render_cyber(pack, brief, audit):
 
     with tab4:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
+        _render_traceable_scorecard(pack)
         _render_markdown_table_section(brief, "12. Risk Scorecard")
         _render_markdown_table_section(brief, "13. Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "14. Source Requirement Coverage")
@@ -429,6 +467,9 @@ def _render_cyber(pack, brief, audit):
             _render_markdown_table_section(brief, "17. Evidence Appendix")
 
     with tab5:
+        _render_evidence_trace(pack)
+
+    with tab6:
         with st.expander("Full brief markdown", expanded=False):
             st.markdown(brief)
         _render_audit_detail_expanders(audit)
@@ -440,12 +481,13 @@ def _render_fiscal_procurement(pack, brief, audit):
     overview = _build_fiscal_overview_metrics(pack, brief)
     _render_metrics(overview)
     _render_first_reader_summary("fiscal_procurement")
+    _render_decision_panel(pack)
     st.info(
         "This is a client-type political economy and procurement exposure screen, not a contract-specific payment, bid or legal determination."
     )
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["Decision", "Procurement Exposure", "Scores & Traceability", "Evidence and Sources", "Full Brief / Source Audit"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+        ["Decision", "Procurement Exposure", "Scores & Traceability", "Evidence and Sources", "Evidence Trace", "Full Brief / Source Audit"]
     )
 
     with tab1:
@@ -462,12 +504,17 @@ def _render_fiscal_procurement(pack, brief, audit):
 
     with tab3:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
+        _render_traceable_scorecard(pack)
         _render_markdown_table_section(brief, "Risk Scorecard")
         _render_markdown_table_section(brief, "Evidence-To-Score Bridge")
         _render_markdown_table_section(brief, "Scoring Traceability")
 
     with tab4:
         _render_evidence_category_guide()
+        _render_evidence_quality_summary(pack)
+        _render_key_judgement_cards(pack)
         _render_markdown_table_section(brief, "Source Governance")
         _render_markdown_table_section(brief, "Source Requirement Coverage")
         _render_selected_sources(pack)
@@ -475,6 +522,9 @@ def _render_fiscal_procurement(pack, brief, audit):
             _render_markdown_table_section(brief, "Evidence Appendix")
 
     with tab5:
+        _render_evidence_trace(pack)
+
+    with tab6:
         with st.expander("Full brief markdown", expanded=False):
             st.markdown(brief)
         _render_audit_detail_expanders(audit)
@@ -545,6 +595,84 @@ def _render_selected_sources(pack):
         hide_index=True,
         column_config={"URL": st.column_config.LinkColumn("URL")},
     )
+
+
+def _render_decision_panel(pack):
+    rows = build_decision_panel_rows(pack)
+    if not rows:
+        return
+    st.markdown("### Decision Panel")
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+
+
+def _render_evidence_quality_summary(pack):
+    rows = build_evidence_quality_rows(pack)
+    if not rows:
+        return
+    st.markdown("### Evidence Quality Summary")
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    coverage = build_requirement_coverage_quality_rows(pack)
+    if coverage:
+        st.markdown("### Source Requirement Coverage")
+        st.dataframe(pd.DataFrame(coverage), use_container_width=True, hide_index=True)
+
+
+def _render_key_judgement_cards(pack):
+    rows = build_evidence_card_rows(pack)
+    if not rows:
+        return
+    st.markdown("### Key Judgements / Evidence Cards")
+    st.dataframe(
+        pd.DataFrame(rows),
+        use_container_width=True,
+        hide_index=True,
+        column_config={"URL": st.column_config.LinkColumn("URL")},
+    )
+
+
+def _render_evidence_trace(pack):
+    rows = build_evidence_trace_rows(pack)
+    if not rows:
+        st.info("No evidence trace rows are available in the saved evidence pack.")
+        return
+    st.markdown("### Evidence Trace")
+    st.caption(
+        "This table renders stored evidence-pack fields only: source claim fallback, business relevance, source mode and review flag."
+    )
+    df = pd.DataFrame(rows)
+    modes = sorted(value for value in df.get("evidence_source_mode", pd.Series(dtype=str)).dropna().unique())
+    roles = sorted(value for value in df.get("source_role", pd.Series(dtype=str)).dropna().unique())
+    statuses = sorted(value for value in df.get("source_quality_status", pd.Series(dtype=str)).dropna().unique())
+    cols = st.columns(3)
+    with cols[0]:
+        selected_modes = st.multiselect("Evidence mode", modes, default=modes)
+    with cols[1]:
+        selected_roles = st.multiselect("Source role", roles, default=roles)
+    with cols[2]:
+        selected_statuses = st.multiselect("Source quality", statuses, default=statuses)
+    if selected_modes:
+        df = df[df["evidence_source_mode"].isin(selected_modes)]
+    if selected_roles and "source_role" in df:
+        df = df[df["source_role"].isin(selected_roles)]
+    if selected_statuses and "source_quality_status" in df:
+        df = df[df["source_quality_status"].isin(selected_statuses)]
+    review_only = st.checkbox("Review required only", value=False)
+    if review_only and "review_required" in df:
+        df = df[df["review_required"] == True]
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True,
+        column_config={"url": st.column_config.LinkColumn("url")},
+    )
+
+
+def _render_traceable_scorecard(pack):
+    rows = build_traceable_score_rows(pack)
+    if not rows:
+        return
+    st.markdown("### Traceable Scorecard")
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
 
 def _render_critical_minerals_company_data_controls(brief):

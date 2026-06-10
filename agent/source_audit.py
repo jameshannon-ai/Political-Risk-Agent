@@ -63,9 +63,17 @@ def generate_source_audit(evidence_pack):
 
 {_scoring_traceability(evidence_pack)}
 
+## Evidence-To-Score Bridge
+
+{_evidence_to_score_bridge(evidence_pack)}
+
 ## Source Requirement Coverage
 
 {_requirement_coverage(evidence_pack)}
+
+## Source Quality Notes
+
+{_source_quality_notes(evidence_pack)}
 
 ## Selected Sources
 
@@ -203,28 +211,58 @@ def _scoring_traceability(evidence_pack):
     if not traceable:
         return "- Traceable score object not available for this pack."
     rows = [
-        "| Dimension | Score | Label | Confidence | Supporting Evidence | Contrary Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |",
-        "| --- | ---: | --- | --- | --- | --- | --- | --- | --- |",
+        "| Dimension | Score | Label | Score Type | Confidence | Supporting Evidence | Weakening Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |",
+        "| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |",
     ]
     for dimension, item in traceable.items():
         rows.append(
-            "| {dimension} | {score} | {label} | {confidence} | {supporting} | {contrary} | {quality} | {missing} | {cap} |".format(
+            "| {dimension} | {score} | {label} | {score_type} | {confidence} | {supporting} | {contrary} | {quality} | {missing} | {cap} |".format(
                 dimension=_cell(dimension),
                 score=_cell(item.get("score", "")),
                 label=_cell(item.get("score_label", "")),
+                score_type=_cell(item.get("score_type", "")),
                 confidence=_cell(item.get("confidence", "")),
                 supporting=_cell(", ".join(_ref_ids(item.get("supporting_evidence", item.get("evidence_supporting_score", [])))) or "None"),
-                contrary=_cell(", ".join(_ref_ids(item.get("contrary_evidence", item.get("evidence_weakening_score", [])))) or "None"),
+                contrary=_cell(", ".join(_ref_ids(item.get("weakening_evidence", item.get("contrary_evidence", item.get("evidence_weakening_score", []))))) or "None"),
                 quality=_cell(", ".join(_ref_ids(item.get("evidence_quality_limits", []))) or "None"),
                 missing=_cell(", ".join(item.get("missing_evidence", [])) or "None"),
-                cap=_cell(item.get("reason_score_is_capped", "")),
+                cap=_cell(item.get("confidence_cap_reason", item.get("reason_score_is_capped", ""))),
             )
         )
     return "\n".join(rows)
 
 
+def _evidence_to_score_bridge(evidence_pack):
+    bridge = evidence_pack.get("evidence_to_score_bridge", {})
+    if not bridge:
+        return "- Evidence-to-score bridge not available for this pack."
+    rows = [
+        "| Dimension | Score | Evidence Basis | Confidence Effect | Cap Reason |",
+        "| --- | ---: | --- | --- | --- |",
+    ]
+    for dimension, item in bridge.items():
+        if not isinstance(item, dict):
+            continue
+        rows.append(
+            "| {dimension} | {score} | {basis} | {effect} | {cap} |".format(
+                dimension=_cell(dimension),
+                score=_cell(item.get("score", "")),
+                basis=_cell(item.get("evidence_basis", item.get("reason_for_score", ""))),
+                effect=_cell(item.get("confidence_effect", "")),
+                cap=_cell(item.get("confidence_cap_reason", item.get("reason_score_is_capped", ""))),
+            )
+        )
+    return "\n".join(rows) if len(rows) > 2 else "- Evidence-to-score bridge not available for this pack."
+
+
 def _ref_ids(rows):
-    return [row.get("source_id", "") for row in rows if row.get("source_id")]
+    ids = []
+    for row in rows:
+        if isinstance(row, str) and row:
+            ids.append(row)
+        elif isinstance(row, dict) and row.get("source_id"):
+            ids.append(row["source_id"])
+    return ids
 
 
 def _requirement_coverage(evidence_pack):
@@ -324,10 +362,11 @@ def _refresh_triggers(evidence_pack):
     if domain == "critical_minerals_supply_chain":
         return "\n".join(
             [
-                "- Refresh if new export-control, licensing or trade-restriction announcements affect rare earth magnets or controlled inputs.",
-                "- Refresh if supplier concentration, alternative capacity or easing evidence materially changes.",
-                "- Refresh before commercial use if inventory runway, qualification timeline, substitution feasibility or customer-priority assumptions change.",
-                "- Validate BOM, supplier-country and inventory data before using the continuity gap as an operational decision tool.",
+                "- Refresh if export-control rules or licensing practice changes.",
+                "- Refresh if China-linked export licences tighten or ease.",
+                "- Refresh if rare earth magnet shortage or price signals change.",
+                "- Refresh if alternative supplier qualification assumptions change.",
+                "- Refresh when company BOM, supplier, inventory or contract data becomes available.",
             ]
         )
     if domain == "regulatory_carbon_shipping":
@@ -358,6 +397,26 @@ def _refresh_triggers(evidence_pack):
                 "- Refresh Bank of England and market-confidence evidence if gilt yields or financial-stability signals move materially.",
                 "- Refresh procurement and infrastructure-pipeline evidence before changing bid/no-bid or project-delay controls.",
                 "- Replace public evidence with contractor order book, customer mix, payment terms, margin and working-capital data before operational use.",
+            ]
+        )
+    if domain == "sanctions_trade_finance":
+        return "\n".join(
+            [
+                "- Refresh if sanctions designations, OFSI guidance or export-control rules change.",
+                "- Refresh if goods classification, licence, authorisation or end-use status changes.",
+                "- Refresh if sanctions screening, beneficial ownership, bank or intermediary data changes.",
+                "- Refresh when invoices, bills of lading, contracts, end-use statements or payment instructions change.",
+                "- Refresh before moving from legal hold or escalation back to approval.",
+            ]
+        )
+    if domain == "cyber_business_interruption":
+        return "\n".join(
+            [
+                "- Refresh if NCSC threat posture or ransomware reporting changes.",
+                "- Refresh if a major UK retail / critical services cyber incident occurs.",
+                "- Refresh if ICO / FCA / PRA / sector notification guidance changes.",
+                "- Refresh if cyber insurance waiting periods, exclusions or claims conditions change.",
+                "- Refresh when company systems map, revenue exposure, policy wording, recovery time or supplier/MSP dependency data becomes available.",
             ]
         )
     triggers = [
@@ -493,6 +552,36 @@ def _analyst_review_controls(domain):
                 "- Escalate concentrated public-sector exposure to finance, commercial and board review before changing controls.",
             ]
         )
+    if domain == "critical_minerals_supply_chain":
+        return "\n".join(
+            [
+                "- Verify publication dates and current export-control context.",
+                "- Refresh rare earth magnet licensing, shortage and price evidence before operational sourcing decisions.",
+                "- Validate BOM, supplier ownership/country, inventory, contracts and qualification status with company data.",
+                "- Treat substitution and redesign evidence as engineering input requiring technical review.",
+                "- Keep contrary/easing evidence secondary until confirmed by official or high-quality market sources.",
+            ]
+        )
+    if domain == "sanctions_trade_finance":
+        return "\n".join(
+            [
+                "- Verify current OFSI, UK sanctions and export-control guidance before transaction approval.",
+                "- Confirm goods classification, end-use, counterparty, ownership, route and payment data.",
+                "- Escalate unresolved red flags to sanctions/export-control legal review.",
+                "- Treat source evidence as a client-type exposure screen, not a transaction clearance decision.",
+                "- Require internal risk appetite and legal/compliance sign-off before approval or release.",
+            ]
+        )
+    if domain == "cyber_business_interruption":
+        return "\n".join(
+            [
+                "- Verify NCSC, ICO and sector-regulator guidance before operational use.",
+                "- Validate affected systems, revenue exposure, RTO/RPO, backup capability and supplier/MSP dependencies.",
+                "- Review cyber insurance policy wording, waiting periods, retentions and exclusions with broker/legal teams.",
+                "- Treat the resilience gap and business interruption exposure as illustrative until incident facts and company data are supplied.",
+                "- Keep the analysis focused on interruption, notification, claims and recovery decisions rather than technical cybersecurity advice.",
+            ]
+        )
     return "\n".join(
         [
             "- Verify publication dates.",
@@ -512,6 +601,61 @@ def _assumption_section_title(domain):
     if domain == "uk_fiscal_procurement_risk":
         return "Scenario And Exposure Limits"
     return "Illustrative Route-Cost Scenario"
+
+
+def _source_quality_notes(evidence_pack):
+    domain = ((evidence_pack or {}).get("source_strategy") or {}).get("domain", "")
+    if domain == "regulatory_carbon_shipping":
+        rows = [
+            ("Official / policy scope", "Strong where GOV.UK or UK ETS Authority evidence is present.", "Refresh official maritime scope, reporting and surrender guidance before operational reliance."),
+            ("Legal / compliance interpretation", "Specialist analysis only; not official policy.", "Validate with counsel, verifier and responsible-entity analysis."),
+            ("Carbon cost inputs", "Illustrative until operator fuel burn, verifier methodology and current UKA price are confirmed.", "Manual fallback UKA price should be refreshed before pricing or contracting."),
+            ("International route exposure", "Scenario-only unless confirmed by official evidence.", "Keep future-scope assumptions separate from confirmed domestic coverage."),
+        ]
+    elif domain == "critical_minerals_supply_chain":
+        rows = [
+            ("UK policy anchor", "Useful official policy context; not a company-specific supply assurance.", "Refresh if UK critical minerals or manufacturing resilience policy changes."),
+            ("Export-control trigger", "Live reporting supports licensing friction, but operational exposure depends on exact inputs.", "Refresh if export-control rules or licensing practice changes."),
+            ("Supply concentration", "Good directional evidence; map to the manufacturer BOM before operational use.", "Refresh if China-linked export licences tighten or ease."),
+            ("Substitution feasibility", "Medium evidence quality; magnet-specific engineering qualification remains weak.", "Refresh if alternative supplier qualification assumptions change."),
+            ("Market/pricing shortage signal", "Directional rather than a robust pricing benchmark.", "Refresh if rare earth magnet shortage or price signals change."),
+            ("Company-specific data requirements", "Public evidence cannot measure actual inventory runway or contract exposure.", "Refresh when company BOM, supplier, inventory or contract data becomes available."),
+        ]
+    elif domain == "sanctions_trade_finance":
+        rows = [
+            ("UK sanctions / OFSI anchor", "Official guidance supports legal and compliance relevance.", "Refresh if sanctions designations, OFSI guidance or export-control rules change."),
+            ("End-use and controlled goods", "Regulatory guidance supports hold/escalation triggers but not transaction clearance.", "Confirm goods classification, licence and end-use data."),
+            ("Counterparty and ownership", "Official ownership/control guidance is strong, but named-party screening is private.", "Refresh screening and beneficial ownership data before approval."),
+            ("Documentation quality", "Trade finance guidance supports document controls.", "Transaction-specific use requires invoices, bills of lading, contracts, payment instructions and end-user statements."),
+            ("Clearance / contrary evidence", "Licences or exceptions can reduce risk only where exact conditions are met.", "Treat exceptions as conditional, not an all-clear."),
+        ]
+    elif domain == "cyber_business_interruption":
+        rows = [
+            ("UK official cyber threat / NCSC evidence", "Official threat framing supports likelihood but not a company-specific incident forecast.", "Refresh if NCSC threat posture or ransomware reporting changes."),
+            ("UK breach prevalence data", "Useful prevalence context; sector and company exposure need validation.", "Refresh after new breach survey or sector incident reporting."),
+            ("Board governance / resilience expectations", "Regulatory and governance material supports escalation expectations.", "Refresh if ICO / FCA / PRA / sector notification guidance changes."),
+            ("Cyber insurance / business interruption evidence", "Insurance-market evidence is useful but not coverage advice.", "Refresh if cyber insurance waiting periods, exclusions or claims conditions change."),
+            ("Business interruption exposure", "Illustrative model output, not company-specific loss calculation.", "Refresh when revenue exposure, recovery time and policy wording are available."),
+            ("Resilience gap", "Decision trigger is useful only after company RTO/RPO and recovery assumptions are confirmed.", "Refresh when company systems map, recovery time or supplier/MSP dependency data becomes available."),
+        ]
+    elif domain == "uk_fiscal_procurement_risk":
+        rows = [
+            ("Fiscal baseline", "Official fiscal evidence anchors public-finance pressure.", "Refresh OBR outlook and ONS public-finance data after new releases."),
+            ("Market confidence", "Bank and market evidence informs gilt-sensitivity but is not contractor-specific.", "Refresh if gilt yields or financial-stability signals move materially."),
+            ("Procurement delay", "Public procurement evidence is indicative, not a contract-award forecast.", "Refresh pipeline and department-specific evidence before bid/no-bid decisions."),
+            ("Company exposure", "Public evidence cannot measure order book, payment terms or working-capital exposure.", "Replace public evidence with contractor data before operational use."),
+        ]
+    else:
+        rows = [
+            ("Source coverage", "Selected sources support a client-type risk screen.", "Refresh before operational use."),
+            ("Company data", "Public evidence does not provide transaction- or company-specific exposure.", "Validate with private data and human review."),
+        ]
+    table = [
+        "| Evidence area | Current source quality | Action before operational use |",
+        "| --- | --- | --- |",
+    ]
+    table.extend(f"| {_cell(area)} | {_cell(quality)} | {_cell(action)} |" for area, quality, action in rows)
+    return "\n".join(table)
 
 
 def _cell(value):

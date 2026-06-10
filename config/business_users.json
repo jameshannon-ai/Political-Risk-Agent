@@ -1,10 +1,28 @@
 {
   "business_users": [
-    "shipping_operator",
-    "marine_insurer",
-    "importer_exporter",
-    "trade_finance_lender",
-    "consultant",
-    "advanced_manufacturer"
+    {
+      "id": "shipping_operator",
+      "display_label": "Shipping operator"
+    },
+    {
+      "id": "marine_insurer",
+      "display_label": "Marine insurer"
+    },
+    {
+      "id": "trade_finance_lender",
+      "display_label": "Trade finance lender / bank / credit insurer"
+    },
+    {
+      "id": "advanced_manufacturer",
+      "display_label": "UK advanced manufacturer"
+    },
+    {
+      "id": "infrastructure_contractor",
+      "display_label": "UK infrastructure contractor"
+    },
+    {
+      "id": "customer_facing_operator",
+      "display_label": "UK customer-facing operator / retailer / critical services operator"
+    }
   ]
 }

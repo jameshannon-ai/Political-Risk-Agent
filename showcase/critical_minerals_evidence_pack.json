@@ -4403,71 +4403,166 @@
   },
   "evidence_to_score_bridge": {
     "likelihood": {
+      "dimension": "likelihood",
       "score": 4,
-      "evidence_basis": "Likelihood is driven by export-control direction, licensing friction, supplier concentration and rare earth magnet dependency.",
+      "score_label": "High",
+      "score_type": "analyst_assumption",
+      "evidence_basis": "Likelihood is based on export-control direction, source concentration and live geopolitical or licensing triggers affecting rare earth magnet inputs.",
       "supporting_sources": [
+        "L1",
         "L2",
         "L3",
         "L4"
       ],
       "quantified_facts_used": [
-        "Import sources (2019-22): China 72%",
-        "Net import reliance: 100%",
-        "Licensing-control friction still requires monitoring"
+        "China-linked supply share: 70%",
+        "Controlled rare earth magnet input identified",
+        "Live export-control trigger evidence requires monitoring"
       ],
-      "why_score_not_higher": "A direct official export-control notice and company-specific supplier mapping are still missing from the saved pack.",
-      "why_score_not_lower": "Live reporting and maintained commodity evidence both support a credible disruption pathway.",
-      "review_trigger": "Refresh if export-control rules or licensing practice changes."
+      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if official, company, regulator or credible contrary evidence changes the risk direction.",
+      "supporting_evidence": [],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Likelihood is based on export-control direction, source concentration and live geopolitical or licensing triggers affecting rare earth magnet inputs.",
+      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [],
+      "evidence_weakening_score": [
+        "L8"
+      ]
     },
     "impact": {
+      "dimension": "impact",
       "score": 5,
-      "evidence_basis": "Impact is driven by product criticality, the continuity gap, substitution difficulty, customer delivery exposure and illustrative exposed revenue.",
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "evidence_basis": "Impact is based on product criticality, revenue exposure, substitution difficulty, supplier concentration and the production continuity gap between inventory runway and qualification time.",
       "supporting_sources": [
-        "L1",
-        "L4",
-        "L5"
+        "L7"
       ],
       "quantified_facts_used": [
-        "Production continuity gap: 135 days",
         "Exposed product-line revenue: \u00a350m illustrative",
-        "Substitution difficulty: high"
+        "Substitution difficulty: high",
+        "Production continuity gap: 135 days"
       ],
-      "why_score_not_higher": "Already at maximum score for an illustrative continuity screen.",
-      "why_score_not_lower": "The gap between runway and qualification time makes the continuity issue material even before company-specific exposure is loaded.",
-      "review_trigger": "Refresh when company BOM, supplier, inventory or contract data becomes available."
+      "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes.",
+      "supporting_evidence": [
+        "L7"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Impact is based on product criticality, revenue exposure, substitution difficulty, supplier concentration and the production continuity gap between inventory runway and qualification time.",
+      "reason_score_is_capped": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L7"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
     },
     "immediacy": {
+      "dimension": "immediacy",
       "score": 5,
-      "evidence_basis": "Immediacy is driven by inventory runway versus alternative supplier qualification time.",
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "evidence_basis": "Immediacy is based on inventory runway versus alternative supplier qualification time and any evidence of shipment, licensing or procurement delay.",
       "supporting_sources": [
+        "L1",
         "L2",
-        "L5",
-        "L9"
+        "L3",
+        "L4"
       ],
       "quantified_facts_used": [
         "Inventory runway: 45 days",
         "Alternative supplier qualification time: 180 days",
-        "Continuity gap: 135 days"
+        "Qualification lag exceeds current runway"
       ],
-      "why_score_not_higher": "Already at maximum score for the illustrative scenario.",
-      "why_score_not_lower": "A positive continuity gap means management action may be needed before alternative supply is ready.",
-      "review_trigger": "Refresh if alternative supplier qualification assumptions change."
+      "why_score_not_higher": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh if new operational, market, licensing or payment evidence changes the near-term picture.",
+      "supporting_evidence": [],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Immediacy is based on inventory runway versus alternative supplier qualification time and any evidence of shipment, licensing or procurement delay.",
+      "reason_score_is_capped": "Already at maximum score; review only if evidence improves the confidence basis.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [],
+      "evidence_weakening_score": [
+        "L8"
+      ]
     },
     "confidence": {
+      "dimension": "confidence",
       "score": 3,
-      "evidence_basis": "Confidence is capped by missing company-specific BOM, supplier-country, ownership, purchase-order, inventory, contract and qualification data.",
+      "score_label": "Moderate",
+      "score_type": "analyst_assumption",
+      "evidence_basis": "Confidence is based on source coverage, but capped by missing company-specific BOM, supplier, inventory and contract data.",
       "supporting_sources": [
-        "L3",
-        "L9"
+        "L8"
       ],
       "quantified_facts_used": [
         "Client-type exposure screen only",
-        "BOM and supplier-chain validation still required",
-        "Inventory and contract data not yet loaded"
+        "BOM / supplier / inventory data still required",
+        "Customer delivery commitments still need validation"
       ],
-      "why_score_not_higher": "The saved pack lacks company data and some selected sources are only snippet or report-summary quality.",
-      "why_score_not_lower": "The live source run still provides enough policy, concentration and trigger evidence to support a screened client-type recommendation.",
-      "review_trigger": "Refresh when company BOM, supplier, inventory or contract data becomes available."
+      "why_score_not_higher": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "why_score_not_lower": "Broad requirement coverage and weighted source evidence support the current score.",
+      "review_trigger": "Refresh live sources or resolve missing requirements before increasing confidence.",
+      "supporting_evidence": [
+        "L8"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Confidence is based on source coverage, but capped by missing company-specific BOM, supplier, inventory and contract data.",
+      "reason_score_is_capped": "Score is capped by remaining uncertainty, source freshness and transaction-specific facts.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L8"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
     }
   },
   "quantified_facts_by_source": {
@@ -5047,5 +5142,224 @@
       "value": 135,
       "label": "derived"
     }
-  }
+  },
+  "traceable_scores": {
+    "likelihood": {
+      "dimension": "likelihood",
+      "score": 4,
+      "score_label": "High",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L2",
+        "L3",
+        "L7",
+        "L8"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Likelihood is driven by export-control direction, licensing friction, supplier concentration and rare earth magnet dependency.",
+      "reason_score_is_capped": "",
+      "confidence_cap_applied": false,
+      "confidence_cap_reason": "",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L1",
+        "L2",
+        "L3",
+        "L7",
+        "L8"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    },
+    "impact": {
+      "dimension": "impact",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L7"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Impact is driven by product criticality, the continuity gap, substitution difficulty, customer delivery exposure and illustrative exposed revenue.",
+      "reason_score_is_capped": "",
+      "confidence_cap_applied": false,
+      "confidence_cap_reason": "",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L7"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    },
+    "immediacy": {
+      "dimension": "immediacy",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L2"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Immediacy is driven by inventory runway versus alternative supplier qualification time.",
+      "reason_score_is_capped": "",
+      "confidence_cap_applied": false,
+      "confidence_cap_reason": "",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L1",
+        "L2"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    },
+    "exposure": {
+      "dimension": "exposure",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L9"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Exposure is proxied from impact where no separate exposure model is available.",
+      "reason_score_is_capped": "",
+      "confidence_cap_applied": false,
+      "confidence_cap_reason": "",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L1",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L9"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    },
+    "confidence": {
+      "dimension": "confidence",
+      "score": 3,
+      "score_label": "Moderate",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Confidence is capped by missing company-specific BOM, supplier-country, ownership, purchase-order, inventory, contract and qualification data.",
+      "reason_score_is_capped": "Capped because Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence_cap_applied": true,
+      "confidence_cap_reason": "Capped because Confidence capped below 5 because the run is live-source backed but still relies on illustrative continuity inputs and lacks company-specific BOM, supplier, inventory, contract and qualification data.",
+      "confidence": "high",
+      "review_required": true,
+      "evidence_supporting_score": [
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    },
+    "decision_urgency": {
+      "dimension": "decision_urgency",
+      "score": 5,
+      "score_label": "Severe",
+      "score_type": "analyst_assumption",
+      "supporting_evidence": [
+        "L2",
+        "L8"
+      ],
+      "weakening_evidence": [
+        "L8"
+      ],
+      "contrary_evidence": [
+        "L8"
+      ],
+      "evidence_quality_limits": [],
+      "missing_evidence": [],
+      "reason_for_score": "Decision urgency is proxied from immediacy where no separate urgency model is available.",
+      "reason_score_is_capped": "",
+      "confidence_cap_applied": false,
+      "confidence_cap_reason": "",
+      "confidence": "high",
+      "review_required": false,
+      "evidence_supporting_score": [
+        "L2",
+        "L8"
+      ],
+      "evidence_weakening_score": [
+        "L8"
+      ]
+    }
+  },
+  "scoring_method_note": "Structured analyst score with traceable evidence support; score_type distinguishes evidence-backed, analyst-assumption and illustrative-fallback scoring."
 }

@@ -241,14 +241,23 @@
 
 ## Scoring Traceability
 
-| Dimension | Score | Label | Confidence | Supporting Evidence | Contrary Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |
-| --- | ---: | --- | --- | --- | --- | --- | --- | --- |
-| likelihood | 4 | High | medium | L1, L2, L4, L5, L8 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
-| impact | 4 | High | medium | L1, L3, L6, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
-| immediacy | 3 | Moderate | medium | L4 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
-| exposure | 4 | High | medium | L2, L3, L6, L7, L8, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
-| confidence | 3 | Moderate | low | L1, L2, L8, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | contractor order book by public-sector customer, departmental bid pipeline and award timing, margin and working-capital sensitivity, payment terms, retentions and aged receivables | Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. |
-| decision_urgency | 4 | High | medium | L1, L2, L3 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+| Dimension | Score | Label | Score Type | Confidence | Supporting Evidence | Weakening Evidence | Evidence Quality Limits | Missing Evidence | Cap / Review Reason |
+| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| likelihood | 4 | High | analyst_assumption | medium | L1, L2, L4, L5, L8 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+| impact | 4 | High | analyst_assumption | medium | L1, L3, L6, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+| immediacy | 3 | Moderate | analyst_assumption | medium | L4 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+| exposure | 4 | High | analyst_assumption | medium | L2, L3, L6, L7, L8, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+| confidence | 3 | Moderate | analyst_assumption | low | L1, L2, L8, L9 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | contractor order book by public-sector customer, departmental bid pipeline and award timing, margin and working-capital sensitivity, payment terms, retentions and aged receivables | Capped because most supporting evidence is snippet-only; Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions; one or more source requirements or company-data inputs remain missing or weak; at least one selected source used snippet-only evidence. |
+| decision_urgency | 4 | High | analyst_assumption | medium | L1, L2, L3 | L8 | L2, L3, L4, L5, L6, L7, L8, L9 | None | Capped because at least one selected source used snippet-only evidence. |
+
+## Evidence-To-Score Bridge
+
+| Dimension | Score | Evidence Basis | Confidence Effect | Cap Reason |
+| --- | ---: | --- | --- | --- |
+| likelihood | 4 | Fiscal pressure, gilt-market sensitivity and departmental budget uncertainty create a credible pathway to continued procurement caution. |  | Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. |
+| impact | 4 | Impact can be material for infrastructure contractors because public-sector awards, project timing, payment assumptions, bid pricing and working capital can all be affected. |  | Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. |
+| immediacy | 3 | Timing pressure is moderate-high: procurement and payment effects may not be immediate across all departments, but bid pipeline and board monitoring should be refreshed near-term. |  | Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. |
+| confidence | 3 | Confidence is capped because public evidence can screen political-economy risk, but contractor-specific order book, departmental exposure, payment terms and working-capital data are missing. |  | Confidence capped because public evidence can screen fiscal/procurement risk, but contractor order book, department exposure, payment terms, margins and working-capital data are required for operational decisions. |
 
 ## Source Requirement Coverage
 
@@ -270,6 +279,15 @@
 | contractor_industry_working_capital_and_payment_risk | direct_snippet_only | L7 | L7 is mapped to the requirement but only snippet/metadata evidence is available. | Mapped source is snippet-only; verify full source text before using this requirement operationally. | true |
 | contrary_or_stabilising_fiscal_evidence | direct_snippet_only | L8 | L8 is mapped to the requirement but only snippet/metadata evidence is available. | Mapped source is snippet-only; verify full source text before using this requirement operationally. | true |
 | company_data_requirements_for_contractor_exposure | direct_snippet_only | L9 | L9 is mapped to the requirement but only snippet/metadata evidence is available. | Mapped source is snippet-only; verify full source text before using this requirement operationally. | true |
+
+## Source Quality Notes
+
+| Evidence area | Current source quality | Action before operational use |
+| --- | --- | --- |
+| Fiscal baseline | Official fiscal evidence anchors public-finance pressure. | Refresh OBR outlook and ONS public-finance data after new releases. |
+| Market confidence | Bank and market evidence informs gilt-sensitivity but is not contractor-specific. | Refresh if gilt yields or financial-stability signals move materially. |
+| Procurement delay | Public procurement evidence is indicative, not a contract-award forecast. | Refresh pipeline and department-specific evidence before bid/no-bid decisions. |
+| Company exposure | Public evidence cannot measure order book, payment terms or working-capital exposure. | Replace public evidence with contractor data before operational use. |
 
 ## Selected Sources
 

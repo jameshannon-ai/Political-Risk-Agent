@@ -39,9 +39,11 @@
 
 UK ETS maritime expansion creates a near-term compliance and margin risk for UK shipping operators with in-scope domestic voyages. The rule is confirmed for domestic maritime emissions from vessels of 5,000 GT and above from 1 July 2026, making carbon cost a route-level operating input rather than a long-term policy abstraction.
 
-For the illustrative Liverpool-Belfast Ro-Ro profile, the model estimates a carbon allowance cost of 2,770 per voyage and approximately 866,562 annualised, based on stated fuel, emissions factor and UKA price assumptions. These figures should be treated as decision-support estimates, not final compliance values, until operator-specific fuel burn, verifier methodology and current UKA pricing are confirmed.
+For the illustrative Liverpool-Belfast Ro-Ro profile, the model estimates a carbon allowance cost of £2,770 per voyage and approximately £866,562 annualised, based on stated fuel, emissions factor and UKA price assumptions. These figures should be treated as decision-support estimates, not final compliance values, until operator-specific fuel burn, verifier methodology and current UKA pricing are confirmed.
 
 ## 4. Carbon Cost Estimate
+
+Labelled facts: Start date: 1 July 2026; Vessel threshold: 5,000 GT; Estimated cost: £2,770 per voyage.
 
 ### A. Source-confirmed policy inputs
 
@@ -109,12 +111,104 @@ For the illustrative Liverpool-Belfast Ro-Ro profile, the model estimates a carb
 
 ## 7. Evidence-To-Score Bridge
 
-| Score dimension | Score | Evidence basis | Why not higher / lower | Review trigger |
-| --- | --- | --- | --- | --- |
-| Likelihood | 5/5 | Official UK ETS policy sources confirm domestic maritime expansion from 1 July 2026 for covered vessels and routes. Supporting sources: L6. Key facts: Start date: 1 July 2026; Vessel threshold: 5,000 GT; Coverage: domestic UK voyages and at-berth emissions. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if official, company, regulator or credible contrary evidence changes the risk direction. |
-| Impact | 4/5 | Impact is material for in-scope domestic routes because allowance cost becomes a recurring voyage-level cost, but the score is limited because UK-international routes remain scenario-only and operator-specific fuel burn must be validated. Supporting sources: L3. Key facts: Estimated cost: £2,770 per voyage; Annualised estimate: £866,562; Manual UKA input: £48/t. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if pricing, exposure, cargo, collateral or regulatory-penalty evidence changes. |
-| Immediacy | 5/5 | Immediacy is high because operators need to prepare MRV, reporting, verification, allowance procurement and pricing/pass-through processes before the scheme date. Supporting sources: L8. Key facts: Preparation window: within 12 months; Reporting timeline: verified emissions report due by 31 March; Surrender timing: transitional 30 April 2028 double-surrender window applies. | Higher: Already at maximum score; review only if evidence improves the confidence basis. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh if new operational, market, licensing or payment evidence changes the near-term picture. |
-| Confidence | 4/5 | Confidence is capped at 4/5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed. Supporting sources: L1, L8. Key facts: Pricing basis: manual UKA fallback; Fuel-burn basis: 18 tonnes MGO per voyage (illustrative); Methodology caveat: emissions factor requires verifier review. | Higher: Score is capped by remaining uncertainty, source freshness and transaction-specific facts. Lower: Broad requirement coverage and weighted source evidence support the current score. | Refresh live sources or resolve missing requirements before increasing confidence. |
+
+
+
+### Likelihood: 5/5
+
+Evidence used:
+- [L1] theicct.org — not_recorded
+  Claim: ICCT says the UK ETS is moving beyond its original sectors and that domestic shipping enters scope from 2026 while international maritime treatment remains a later policy question.
+  Commercial relevance: Defines whether the vessel, route and emissions category are in confirmed scope or only future scenario exposure.
+  Confidence effect: supports_score
+- [L2] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says the confirmed maritime design includes a 5,000 GT threshold, no de minimis emissions threshold and simplified monitoring for ships making more than 300 similar domestic voyages a year.
+  Commercial relevance: Sets the reporting calendar, surrender timing and first-cycle compliance burden.
+  Confidence effect: supports_score
+- [L4] azolla.sg — not_recorded
+  Claim: Azolla summarises the July 2026 maritime start date, the domestic scope and the need to plan for compliance costs beyond the raw allowance purchase.
+  Commercial relevance: Converts fuel burn into estimated tCO2e exposure per voyage.
+  Confidence effect: supports_score
+- [L5] lloydslist.com — not_recorded
+  Claim: Lloyd's List highlights that UK shipping operators are being drawn into the ETS policy process, which raises pass-through, competitiveness and implementation questions for domestic services.
+  Commercial relevance: Shows how operators and advisers are preparing for reporting, procurement and cost pass-through.
+  Confidence effect: supports_score
+- [L6] hfw.com — not_recorded
+  Claim: HFW explains that domestic maritime inclusion creates compliance responsibilities from 2026 and that operators still need clarity on accountable entities, MRV process and cost recovery.
+  Commercial relevance: Clarifies the responsible entity, documentation, MRV process and practical compliance approach.
+  Confidence effect: supports_score
+- [L7] gov.uk — not_recorded
+  Claim: GOV.UK says the final domestic maritime policy detail is being set ahead of July 2026 inclusion, while international-voyage expansion remains under separate consultation.
+  Commercial relevance: Shows how future policy may extend the exposure to wider route sets.
+  Confidence effect: supports_score
+- [L8] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says vessels sailing to, from and between UK ports could face new emissions costs from 1 July 2026, while international-voyage inclusion remains a future policy issue.
+  Commercial relevance: Prevents the operator from applying current carbon cost assumptions to routes or vessels outside confirmed scope.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed.
+
+### Impact: 4/5
+
+Evidence used:
+- [L3] lloydslist.com — not_recorded
+  Claim: Lloyd's List reports that the UK government consulted on expanding the ETS to domestic shipping, reinforcing that operators may face carbon-cost exposure before a live UKA market feed is embedded in this model.
+  Commercial relevance: Provides the allowance price used to convert emissions into route-level cost.
+  Confidence effect: supports_score
+- [L4] azolla.sg — not_recorded
+  Claim: Azolla summarises the July 2026 maritime start date, the domestic scope and the need to plan for compliance costs beyond the raw allowance purchase.
+  Commercial relevance: Converts fuel burn into estimated tCO2e exposure per voyage.
+  Confidence effect: supports_score
+- [L5] lloydslist.com — not_recorded
+  Claim: Lloyd's List highlights that UK shipping operators are being drawn into the ETS policy process, which raises pass-through, competitiveness and implementation questions for domestic services.
+  Commercial relevance: Shows how operators and advisers are preparing for reporting, procurement and cost pass-through.
+  Confidence effect: supports_score
+- [L6] hfw.com — not_recorded
+  Claim: HFW explains that domestic maritime inclusion creates compliance responsibilities from 2026 and that operators still need clarity on accountable entities, MRV process and cost recovery.
+  Commercial relevance: Clarifies the responsible entity, documentation, MRV process and practical compliance approach.
+  Confidence effect: supports_score
+- [L8] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says vessels sailing to, from and between UK ports could face new emissions costs from 1 July 2026, while international-voyage inclusion remains a future policy issue.
+  Commercial relevance: Prevents the operator from applying current carbon cost assumptions to routes or vessels outside confirmed scope.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed.
+
+### Immediacy: 5/5
+
+Evidence used:
+- [L1] theicct.org — not_recorded
+  Claim: ICCT says the UK ETS is moving beyond its original sectors and that domestic shipping enters scope from 2026 while international maritime treatment remains a later policy question.
+  Commercial relevance: Defines whether the vessel, route and emissions category are in confirmed scope or only future scenario exposure.
+  Confidence effect: supports_score
+- [L2] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says the confirmed maritime design includes a 5,000 GT threshold, no de minimis emissions threshold and simplified monitoring for ships making more than 300 similar domestic voyages a year.
+  Commercial relevance: Sets the reporting calendar, surrender timing and first-cycle compliance burden.
+  Confidence effect: supports_score
+- [L3] lloydslist.com — not_recorded
+  Claim: Lloyd's List reports that the UK government consulted on expanding the ETS to domestic shipping, reinforcing that operators may face carbon-cost exposure before a live UKA market feed is embedded in this model.
+  Commercial relevance: Provides the allowance price used to convert emissions into route-level cost.
+  Confidence effect: supports_score
+- [L8] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says vessels sailing to, from and between UK ports could face new emissions costs from 1 July 2026, while international-voyage inclusion remains a future policy issue.
+  Commercial relevance: Prevents the operator from applying current carbon cost assumptions to routes or vessels outside confirmed scope.
+  Confidence effect: supports_score
+
+Cap reason: Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed.
+
+### Confidence: 4/5
+
+Evidence used:
+- [L8] stephensonharwood.com — not_recorded
+  Claim: Stephenson Harwood says vessels sailing to, from and between UK ports could face new emissions costs from 1 July 2026, while international-voyage inclusion remains a future policy issue.
+  Commercial relevance: Prevents the operator from applying current carbon cost assumptions to routes or vessels outside confirmed scope.
+  Confidence effect: supports_score
+- [L1] theicct.org — not_recorded
+  Claim: ICCT says the UK ETS is moving beyond its original sectors and that domestic shipping enters scope from 2026 while international maritime treatment remains a later policy question.
+  Commercial relevance: Defines whether the vessel, route and emissions category are in confirmed scope or only future scenario exposure.
+  Confidence effect: supports_score
+
+Cap reason: Capped because Confidence capped below 5 because official policy evidence is strong, but the calculation uses illustrative voyage assumptions and a manual UKA price rather than an embedded live price feed.
 
 ## 8. Decision Implications
 

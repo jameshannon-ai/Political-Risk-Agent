@@ -4,6 +4,11 @@ import subprocess
 from pathlib import Path
 
 from dashboard_helpers import (
+    build_decision_panel_rows,
+    build_evidence_card_rows,
+    build_evidence_quality_rows,
+    build_evidence_trace_rows,
+    build_requirement_coverage_quality_rows,
     build_selected_source_rows,
     extract_markdown_section,
     extract_markdown_table,
@@ -173,7 +178,12 @@ class DashboardHelperTests(unittest.TestCase):
         ]:
             section = extract_markdown_section(brief, heading)
             self.assertTrue(section, f"Expected section to be extractable: {heading}")
-            if heading not in {"Decision Question", "Executive Judgement", "Human Review And Company Data Required"}:
+            if heading not in {
+                "Decision Question",
+                "Executive Judgement",
+                "Evidence-To-Score Bridge",
+                "Human Review And Company Data Required",
+            }:
                 self.assertTrue(extract_markdown_table(section), f"Expected table in section: {heading}")
 
     def test_helpers_work_for_all_active_case_briefs(self):
@@ -237,6 +247,8 @@ class DashboardHelperTests(unittest.TestCase):
             "Cyber Business Interruption Engine",
             "UK Fiscal Instability & Procurement Delay Risk",
             "Political economy risk for a UK infrastructure contractor bidding for government-funded transport and energy projects.",
+            "Evidence Trace",
+            "build_evidence_trace_rows",
             "Activate controls",
             "£2,770 per voyage",
             "£866,562 annualised",
@@ -349,6 +361,7 @@ class DashboardHelperTests(unittest.TestCase):
             "Requirement",
             "Weight",
             "Decision use",
+            "Source quality",
             "URL",
         }
         for pack_path in [
@@ -368,6 +381,36 @@ class DashboardHelperTests(unittest.TestCase):
                 self.assertNotEqual(row["Source role"], "source_role_unclassified")
                 self.assertTrue(row["Source type"], f"Expected source type for {row['Source ID']} in {pack_path}")
 
+    def test_evidence_trace_rows_build_for_all_active_cases(self):
+        required_columns = {
+            "source_id",
+            "source_title",
+            "publisher",
+            "evidence_source_mode",
+            "source_role",
+            "source_quality_status",
+            "extracted_claim",
+            "commercial_relevance",
+            "confidence_effect",
+            "review_required",
+            "url",
+        }
+        for pack_path in [
+            self.uk_ets_pack,
+            self.hormuz_pack,
+            self.critical_minerals_pack,
+            self.sanctions_pack,
+            self.cyber_pack,
+            self.fiscal_pack,
+        ]:
+            rows = build_evidence_trace_rows(load_json(pack_path))
+            self.assertTrue(rows, f"Expected evidence trace rows for {pack_path}")
+            for row in rows:
+                self.assertEqual(required_columns, set(row))
+                self.assertTrue(row["source_id"], f"Expected source_id in {pack_path}")
+                self.assertTrue(row["extracted_claim"], f"Expected claim fallback in {pack_path}")
+                self.assertTrue(row["commercial_relevance"], f"Expected relevance fallback in {pack_path}")
+
     def test_uk_ets_source_taxonomy_is_conservative_in_dashboard_rows(self):
         rows = build_selected_source_rows(load_json(self.uk_ets_pack))
         by_title = {row["Title"]: row for row in rows}
@@ -380,6 +423,25 @@ class DashboardHelperTests(unittest.TestCase):
         self.assertTrue(gov_rows)
         self.assertEqual(gov_rows[0]["Source type"], "official_primary")
         self.assertEqual(gov_rows[0]["Source role"], "official_anchor")
+
+    def test_dashboard_evidence_quality_sections_build_for_all_active_cases(self):
+        for pack_path in [
+            self.uk_ets_pack,
+            self.hormuz_pack,
+            self.critical_minerals_pack,
+            self.sanctions_pack,
+            self.cyber_pack,
+            self.fiscal_pack,
+        ]:
+            pack = load_json(pack_path)
+            self.assertTrue(build_decision_panel_rows(pack), pack_path)
+            quality_rows = build_evidence_quality_rows(pack)
+            self.assertTrue(quality_rows, pack_path)
+            self.assertIn("Company-data gaps", {row["Metric"] for row in quality_rows})
+            self.assertTrue(build_evidence_card_rows(pack), pack_path)
+            coverage_rows = build_requirement_coverage_quality_rows(pack)
+            self.assertTrue(coverage_rows, pack_path)
+            self.assertIn("Coverage status", coverage_rows[0])
 
     def test_source_quality_notes_are_visible_for_active_cases(self):
         self.assertIn("Source Quality Notes", load_markdown(self.uk_ets_brief))

@@ -52,9 +52,10 @@ def build_evidence_to_score_bridge(evidence_pack, risk_scores):
         score_data = risk_scores.get(dimension, {})
         score = score_data.get("score", "")
         bridge[dimension] = {
+            "dimension": dimension,
             "score": score,
             "score_label": _score_label(score),
-            "score_type": "Evidence-backed decision-support score",
+            "score_type": score_data.get("score_type", "analyst_assumption" if evidence else "illustrative_fallback"),
             "evidence_basis": _dimension_basis(dimension, evidence_pack, score_data, domain),
             "supporting_sources": _supporting_sources_for_dimension(dimension, evidence),
             "quantified_facts_used": _bridge_quantified_facts(evidence_pack, dimension),
@@ -62,11 +63,14 @@ def build_evidence_to_score_bridge(evidence_pack, risk_scores):
             "why_score_not_lower": _why_not_lower(dimension, score, evidence_pack),
             "review_trigger": _review_trigger(dimension, evidence_pack),
             "supporting_evidence": _evidence_refs(_supporting_sources_for_dimension(dimension, evidence), evidence),
+            "weakening_evidence": _contrary_refs(evidence),
             "contrary_evidence": _contrary_refs(evidence),
             "evidence_quality_limits": _quality_limit_refs(evidence),
             "missing_evidence": evidence_pack.get("requirements_missing", []),
             "reason_for_score": _dimension_basis(dimension, evidence_pack, score_data, domain),
             "reason_score_is_capped": _why_not_higher(dimension, score, fallback),
+            "confidence_cap_applied": bool(evidence_pack.get("confidence_cap_reason") or fallback or evidence_pack.get("requirements_missing")),
+            "confidence_cap_reason": evidence_pack.get("confidence_cap_reason") or (_why_not_higher(dimension, score, fallback) if fallback else ""),
             "confidence": _bridge_confidence(dimension, evidence_pack),
             "review_required": bool(evidence_pack.get("requirements_missing") or fallback),
         }
@@ -88,14 +92,7 @@ def _evidence_refs(source_ids, evidence):
     for source_id in source_ids:
         item = by_id.get(source_id)
         if item:
-            refs.append(
-                {
-                    "source_id": source_id,
-                    "source_title": item.get("source_title") or item.get("title", ""),
-                    "claim": item.get("source_claim") or item.get("claim_supported", ""),
-                    "inference_strength": item.get("inference_strength", ""),
-                }
-            )
+            refs.append(source_id)
     return refs
 
 
@@ -105,25 +102,21 @@ def _weakening_refs(evidence):
 
 def _contrary_refs(evidence):
     return [
-        {
-            "source_id": item.get("source_id", ""),
-            "source_title": item.get("source_title") or item.get("title", ""),
-            "reason": item.get("caveat", "") or "Contrary or stabilising evidence.",
-        }
+        item.get("source_id", "")
         for item in evidence
-        if item.get("contrary_signal") or item.get("source_type") in {"contrary_or_stabilising_evidence", "contrary_scope_limit"}
+        if (
+            item.get("contrary_signal")
+            or item.get("source_type") in {"contrary_or_stabilising_evidence", "contrary_scope_limit"}
+            or item.get("source_role") == "contrary_scope_limit"
+        )
     ][:5]
 
 
 def _quality_limit_refs(evidence):
     return [
-        {
-            "source_id": item.get("source_id", ""),
-            "source_title": item.get("source_title") or item.get("title", ""),
-            "reason": item.get("source_limitations", "") or item.get("caveat", "") or "Evidence quality limit.",
-        }
+        item.get("source_id", "")
         for item in evidence
-        if item.get("evidence_source_mode") in {"snippet_only", "fallback", "manual_input"}
+        if item.get("evidence_source_mode") in {"snippet_only", "metadata_only", "fallback", "manual_input"}
         or item.get("requires_human_review")
         or item.get("inference_strength") == "weak"
         or item.get("extraction_confidence") == "low"

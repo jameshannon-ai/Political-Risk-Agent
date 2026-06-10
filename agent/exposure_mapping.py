@@ -1,3 +1,12 @@
+import json
+from pathlib import Path
+
+from agent.cases.registry import normalize_business_user
+
+
+CONFIG_PATH = Path("config/business_users.json")
+
+
 EXPOSURE_MAPPINGS = {
     "shipping_operator": [
         "route disruption",
@@ -13,17 +22,10 @@ EXPOSURE_MAPPINGS = {
         "policy wording",
         "sanctions exclusions",
     ],
-    "importer_exporter": [
-        "lead times",
-        "freight rates",
-        "inventory risk",
-        "supplier concentration",
-        "customs disruption",
-    ],
     "trade_finance_lender": [
         "sanctions exposure",
         "counterparty risk",
-        "cargo documentation",
+        "transaction documentation",
         "payment disruption",
         "collateral risk",
     ],
@@ -34,33 +36,6 @@ EXPOSURE_MAPPINGS = {
         "input substitution difficulty",
         "customer delivery criticality",
     ],
-    "UK infrastructure contractor": [
-        "public-sector bid pipeline",
-        "contract award timing",
-        "procurement delay",
-        "payment risk",
-        "contract repricing",
-        "working-capital exposure",
-        "board-level exposure reporting",
-    ],
-    "UK infrastructure contractor bidding for government-funded transport and energy projects": [
-        "public-sector bid pipeline",
-        "transport and energy project award timing",
-        "procurement delay",
-        "project-delay contingency planning",
-        "payment risk",
-        "contract repricing",
-        "working-capital stress testing",
-        "board-level exposure reporting",
-    ],
-    "uk_infrastructure_contractor": [
-        "public-sector bid pipeline",
-        "contract award timing",
-        "procurement delay",
-        "payment risk",
-        "contract repricing",
-        "working-capital exposure",
-    ],
     "infrastructure_contractor": [
         "public-sector bid pipeline",
         "contract award timing",
@@ -68,21 +43,45 @@ EXPOSURE_MAPPINGS = {
         "payment risk",
         "contract repricing",
         "working-capital exposure",
+        "board-level exposure reporting",
     ],
-    "consultant": [
-        "client exposure",
-        "scenario planning",
-        "mitigation options",
-        "board-level communication",
-        "market opportunity",
+    "customer_facing_operator": [
+        "digital trading interruption",
+        "service downtime",
+        "customer harm",
+        "regulatory notification",
+        "insurance claim readiness",
+        "supplier / MSP dependency",
     ],
 }
 
-VALID_BUSINESS_USERS = tuple(EXPOSURE_MAPPINGS.keys())
+
+GENERIC_EXPOSURE_MAP = [
+    "client exposure",
+    "scenario planning",
+    "mitigation options",
+    "board-level communication",
+    "market opportunity",
+]
+
+
+def _configured_business_user_ids():
+    if not CONFIG_PATH.exists():
+        return tuple(EXPOSURE_MAPPINGS)
+    data = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    ids = []
+    for item in data.get("business_users", []):
+        if isinstance(item, str):
+            ids.append(normalize_business_user(item))
+        elif item.get("id"):
+            ids.append(normalize_business_user(item["id"]))
+    return tuple(dict.fromkeys(ids))
+
+
+VALID_BUSINESS_USERS = _configured_business_user_ids()
 
 
 def get_exposure_map(business_user):
-    if business_user not in EXPOSURE_MAPPINGS:
-        raise ValueError(f"Unsupported business user: {business_user}")
+    canonical = normalize_business_user(business_user)
+    return EXPOSURE_MAPPINGS.get(canonical, GENERIC_EXPOSURE_MAP)
 
-    return EXPOSURE_MAPPINGS[business_user]

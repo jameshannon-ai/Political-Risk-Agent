@@ -311,10 +311,7 @@
       "supplier dependency"
     ],
     "likely_business_users": [
-      "customer_facing_operator",
-      "uk_retailer",
-      "critical_services_operator",
-      "insurer"
+      "customer_facing_operator"
     ],
     "example_watchlist_indicators": [
       "NCSC threat updates",
@@ -911,10 +908,7 @@
       "payment_risk"
     ],
     "likely_business_users": [
-      "UK infrastructure contractor",
-      "uk_infrastructure_contractor",
-      "infrastructure_contractor",
-      "consultant"
+      "infrastructure_contractor"
     ],
     "example_watchlist_indicators": [
       "gilt-yield movement",

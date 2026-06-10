@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from agent.cases.registry import match_case, normalize_business_user
 from agent.source_requirements import generate_source_requirements
 
 
@@ -8,6 +9,7 @@ DOMAIN_PACKS_PATH = Path("config/domain_packs.json")
 
 
 def create_source_plan(topic, domain, business_user, region, time_horizon, concerns):
+    business_user = normalize_business_user(business_user)
     domain_pack = _load_domain_pack(domain)
     requirements = generate_source_requirements(
         topic=topic,
@@ -38,19 +40,11 @@ def create_source_plan(topic, domain, business_user, region, time_horizon, conce
 def infer_domain(topic, business_user, domain=None):
     if domain:
         return domain
-    text = f"{topic} {business_user}".lower()
-    if (
-        "fiscal instability" in text
-        or "public-sector procurement" in text
-        or "public sector procurement" in text
-        or "gilt" in text
-        or business_user in {"uk_infrastructure_contractor", "infrastructure_contractor", "UK infrastructure contractor"}
-    ):
-        return "uk_fiscal_procurement_risk"
-    if "cyber business interruption" in text or ("cyber" in text and "operational resilience" in text) or business_user in {"customer_facing_operator", "uk_retailer", "critical_services_operator"}:
-        return "cyber_business_interruption"
-    if "critical minerals" in text or "rare earth" in text or "magnet supply" in text or business_user == "advanced_manufacturer":
-        return "critical_minerals_supply_chain"
+    normalized_user = normalize_business_user(business_user)
+    case = match_case(topic=topic, business_user=normalized_user)
+    if case:
+        return case.domain
+    text = f"{topic} {normalized_user}".lower()
     if "hormuz" in text or "maritime" in text or "shipping" in text:
         if "uk ets" in text or "carbon" in text or "emissions trading" in text:
             return "regulatory_carbon_shipping"

@@ -128,120 +128,12 @@ The resilience gap is negative where expected recovery takes longer than maximum
 
 ## 13. Evidence-To-Score Bridge
 
-
-
-
-### Likelihood: 4/5
-
-Evidence used:
-- [L2] GOV.UK / Department for Science, Innovation and Technology — not_recorded
-  Claim: GOV.UK Cyber Security Breaches Survey 2025/2026 provides official UK evidence on cyber breach prevalence and organisational exposure.
-  Commercial relevance: Official UK survey evidence quantifying cyber breach prevalence for UK organisations.
-  Confidence effect: supports_score
-- [L4] Reuters — not_recorded
-  Claim: Reuters reported that M&S said customer information was taken in a cyber attack while stores remained open, illustrating customer-data and operational disruption exposure for UK retail.
-  Commercial relevance: Current reputable reporting connecting UK retail cyber incidents to customer data and operating pressure.
-  Confidence effect: supports_score
-- [L5] Marsh — not_recorded
-  Claim: Marsh explains that cyber insurance can be relevant when technology outages disrupt business operations, with coverage depending on policy terms and incident facts.
-  Commercial relevance: Broker evidence explaining how cyber insurance responds to technology outages and business interruption.
-  Confidence effect: supports_score
-- [L6] Information Commissioner’s Office — not_recorded
-  Claim: ICO guidance requires organisations to assess personal data breaches and report notifiable breaches without undue delay and, where feasible, within 72 hours.
-  Commercial relevance: Official UK data-protection regulator guidance anchoring breach notification review.
-  Confidence effect: supports_score
-- [L8] National Cyber Security Centre — not_recorded
-  Claim: NCSC guidance on severe cyber threats emphasises integrating recovery plans with wider organisational planning to withstand and recover from disruption.
-  Commercial relevance: Official mitigation evidence showing how integrated recovery planning can reduce interruption impact.
-  Confidence effect: supports_score
-- [L1] National Cyber Security Centre — not_recorded
-  Claim: NCSC warns that ransomware remains a serious threat and that AI is expected to increase the scale and effectiveness of cyber operations.
-  Commercial relevance: Official UK cyber authority evidence anchoring ransomware and state-linked threat relevance.
-  Confidence effect: supports_score
-- [L3] National Cyber Security Centre — not_recorded
-  Claim: NCSC board guidance states that incident response planning helps organisations plan, manage and recover from cyber security incidents.
-  Commercial relevance: Official NCSC governance material translating cyber incidents into board-level incident planning and recovery expectations.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.
-
-### Impact: 4/5
-
-Evidence used:
-- [L2] GOV.UK / Department for Science, Innovation and Technology — not_recorded
-  Claim: GOV.UK Cyber Security Breaches Survey 2025/2026 provides official UK evidence on cyber breach prevalence and organisational exposure.
-  Commercial relevance: Official UK survey evidence quantifying cyber breach prevalence for UK organisations.
-  Confidence effect: supports_score
-- [L4] Reuters — not_recorded
-  Claim: Reuters reported that M&S said customer information was taken in a cyber attack while stores remained open, illustrating customer-data and operational disruption exposure for UK retail.
-  Commercial relevance: Current reputable reporting connecting UK retail cyber incidents to customer data and operating pressure.
-  Confidence effect: supports_score
-- [L6] Information Commissioner’s Office — not_recorded
-  Claim: ICO guidance requires organisations to assess personal data breaches and report notifiable breaches without undue delay and, where feasible, within 72 hours.
-  Commercial relevance: Official UK data-protection regulator guidance anchoring breach notification review.
-  Confidence effect: supports_score
-- [L5] Marsh — not_recorded
-  Claim: Marsh explains that cyber insurance can be relevant when technology outages disrupt business operations, with coverage depending on policy terms and incident facts.
-  Commercial relevance: Broker evidence explaining how cyber insurance responds to technology outages and business interruption.
-  Confidence effect: supports_score
-- [L7] Financial Conduct Authority — not_recorded
-  Claim: FCA operational resilience material on the CrowdStrike outage highlights the need to understand third-party dependencies and disruption impacts.
-  Commercial relevance: UK regulator evidence showing how third-party technology outages create operational resilience lessons.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.
-
-### Immediacy: 4/5
-
-Evidence used:
-- [L1] National Cyber Security Centre — not_recorded
-  Claim: NCSC warns that ransomware remains a serious threat and that AI is expected to increase the scale and effectiveness of cyber operations.
-  Commercial relevance: Official UK cyber authority evidence anchoring ransomware and state-linked threat relevance.
-  Confidence effect: supports_score
-- [L2] GOV.UK / Department for Science, Innovation and Technology — not_recorded
-  Claim: GOV.UK Cyber Security Breaches Survey 2025/2026 provides official UK evidence on cyber breach prevalence and organisational exposure.
-  Commercial relevance: Official UK survey evidence quantifying cyber breach prevalence for UK organisations.
-  Confidence effect: supports_score
-- [L3] National Cyber Security Centre — not_recorded
-  Claim: NCSC board guidance states that incident response planning helps organisations plan, manage and recover from cyber security incidents.
-  Commercial relevance: Official NCSC governance material translating cyber incidents into board-level incident planning and recovery expectations.
-  Confidence effect: supports_score
-- [L4] Reuters — not_recorded
-  Claim: Reuters reported that M&S said customer information was taken in a cyber attack while stores remained open, illustrating customer-data and operational disruption exposure for UK retail.
-  Commercial relevance: Current reputable reporting connecting UK retail cyber incidents to customer data and operating pressure.
-  Confidence effect: supports_score
-- [L7] Financial Conduct Authority — not_recorded
-  Claim: FCA operational resilience material on the CrowdStrike outage highlights the need to understand third-party dependencies and disruption impacts.
-  Commercial relevance: UK regulator evidence showing how third-party technology outages create operational resilience lessons.
-  Confidence effect: supports_score
-
-Cap reason: Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.
-
-### Confidence: 3/5
-
-Evidence used:
-- [L2] GOV.UK / Department for Science, Innovation and Technology — not_recorded
-  Claim: GOV.UK Cyber Security Breaches Survey 2025/2026 provides official UK evidence on cyber breach prevalence and organisational exposure.
-  Commercial relevance: Official UK survey evidence quantifying cyber breach prevalence for UK organisations.
-  Confidence effect: supports_score
-- [L6] Information Commissioner’s Office — not_recorded
-  Claim: ICO guidance requires organisations to assess personal data breaches and report notifiable breaches without undue delay and, where feasible, within 72 hours.
-  Commercial relevance: Official UK data-protection regulator guidance anchoring breach notification review.
-  Confidence effect: supports_score
-- [L1] National Cyber Security Centre — not_recorded
-  Claim: NCSC warns that ransomware remains a serious threat and that AI is expected to increase the scale and effectiveness of cyber operations.
-  Commercial relevance: Official UK cyber authority evidence anchoring ransomware and state-linked threat relevance.
-  Confidence effect: supports_score
-- [L3] National Cyber Security Centre — not_recorded
-  Claim: NCSC board guidance states that incident response planning helps organisations plan, manage and recover from cyber security incidents.
-  Commercial relevance: Official NCSC governance material translating cyber incidents into board-level incident planning and recovery expectations.
-  Confidence effect: supports_score
-- [L4] Reuters — not_recorded
-  Claim: Reuters reported that M&S said customer information was taken in a cyber attack while stores remained open, illustrating customer-data and operational disruption exposure for UK retail.
-  Commercial relevance: Current reputable reporting connecting UK retail cyber incidents to customer data and operating pressure.
-  Confidence effect: supports_score
-
-Cap reason: Capped because Confidence capped at 3/5 because company-specific systems, revenue, RTO/RPO, insurance wording, supplier dependency and incident facts are missing.
+| Judgement | Evidence basis | Concrete signal | Client relevance |
+| --- | --- | --- | --- |
+| Likelihood | Likelihood is based on UK cyber threat level, ransomware prevalence, sector exposure, state-linked/supplier risk and live incident patterns. | Survey year: 2025/2026; Threat type: ransomware; Sector: UK retail | Supports whether cyber disruption should be treated as a live business-interruption risk. |
+| Impact | Impact is based on downtime, revenue at risk, operational dependency, customer harm, regulatory exposure and insurance uncertainty. | Expected outage: 5 days; Daily revenue at risk: GBP2m; Business interruption exposure: GBP10m; Notification timeline: 72 hours | Supports revenue-at-risk, notification and claims-readiness decisions. |
+| Immediacy | Immediacy is based on current threat indicators, incident prevalence, the resilience gap and dependency on exposed systems/suppliers. | Expected outage: 5 days; Maximum tolerable downtime: 2 days; Resilience gap: -3 days | Supports immediate incident response, manual fallback and supplier escalation planning. |
+| Confidence | Confidence is capped because public sources do not include company-specific systems, revenue, policy wording, supplier dependency or recovery data. | Company data needed: RTO/RPO, systems and continuity facts | Caps confidence until operator systems, revenue, supplier and policy data are supplied. |
 
 ## 14. Source Requirement Coverage
 

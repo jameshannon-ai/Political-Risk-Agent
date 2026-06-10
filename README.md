@@ -151,18 +151,16 @@ Each case starts with the business decision, then shows the model output, eviden
 
 ## Recent Improvements
 
-- Evidence Trace tabs for all active dashboard cases.
-- Decision Panel sections that surface recommendation, confidence, evidence quality, missing evidence and company-data needs.
-- Evidence Quality Summary sections showing full-text, snippet-only, weak/rejected and review-required evidence counts.
-- Key Judgements / Evidence Cards that connect decisions to visible source evidence.
-- Source Requirement Coverage views that show coverage, confidence impact and source-quality status.
-- Expanded Traceable Scorecard fields, including score type, supporting evidence, missing evidence and confidence-cap reasons.
-- Source-promotion workflow for reviewing regenerated Tavily evidence before any active showcase replacement.
-- Source-quality statuses for promoted, review-required, downgraded and rejected candidate evidence.
-- Confidence caps tied to weak evidence, missing source requirements or missing company-specific data.
+- Public dashboard remains a curated saved-showcase view for quickly reviewing the portfolio cases.
 - Case registry refactor so active cases are registered consistently instead of scattered across ad hoc conditionals.
+- Source QA and promotion workflow added as internal tooling for reviewing regenerated Tavily evidence before any active showcase replacement.
+- Source-quality statuses added to the review workflow for promoted, review-required, downgraded and rejected candidate evidence.
+- Internal review prototypes include Evidence Trace tabs and Decision Panel concepts; the public dashboard remains the cleaner curated saved-showcase view rather than a guarantee that every review section is visible for every case.
+- Traceable scoring and confidence-cap checks strengthened in evidence packs, tests and quality checks.
+- Confidence-cap checks tied to weak evidence, missing source requirements or missing company-specific data.
 - Business-user normalisation using stable snake_case internal IDs.
 - Trusted domains moved to config for easier source-ranking governance.
+- README and publication-readiness checks improved so public docs distinguish the curated dashboard from internal source QA tooling.
 - 164 passing tests in the latest local run of `python3 -m unittest discover tests`.
 
 ## Active Showcase Files
@@ -212,13 +210,11 @@ Add `--live` only when deliberately running a live source generation pass.
 
 Start in plain English:
 
-- Start with the Streamlit dashboard.
+- Start with the Streamlit dashboard for the curated showcase view.
 - Does each case begin with a clear business decision?
 - Are political-risk triggers explicit?
 - Are selected sources visible with URLs?
-- Is the Evidence Quality Summary honest about weak, snippet-only or review-required material?
-- Does the Evidence Trace show claims, source modes, confidence effects and review flags?
-- Does Source Requirement Coverage show where evidence is covered, partial, missing or company-data-dependent?
+- Do the dashboard tabs make the decision, model output, caveats and source audit easy to inspect?
 - Are source roles and caveats shown?
 - Is the evidence-to-score bridge clear?
 - Are assumptions labelled?
@@ -235,10 +231,13 @@ Then inspect the implementation:
 - saved outputs: `showcase/`
 - dashboard: `dashboard_app.py` and `dashboard_helpers.py`
 - quality and export checks: `scripts/quality_check.py`, `scripts/check_dashboard_files.py` and `scripts/create_clean_project_zip.py`
+- source QA workflow: `scripts/promote_regenerated_evidence.py`, candidate outputs under ignored `outputs/`, and any generated source-promotion reports
 
 To evaluate the newer fresh-topic workflow, inspect the UK Fiscal Instability And Procurement Delay Risk files in `showcase/`. A reviewer should check the evidence pack JSON for `source_claim`, `extracted_evidence`, `analyst_inference`, provenance fields, snippet-only review flags and `traceable_scores`; then compare the source audit and brief to see whether the scoring, caveats and company-data limits remain readable.
 
 For this fiscal case, also check requirement coverage grades in the source audit. A good review should ask how many requirements are strongly covered by direct full text, how many are snippet-only, and which gaps affect confidence.
+
+If reviewing the newer source QA workflow rather than the public dashboard itself, inspect the source-promotion scripts and staged reports to see which regenerated Tavily sources were promoted, downgraded, rejected or kept for review.
 
 The fiscal case can be regenerated deliberately with:
 

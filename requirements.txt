@@ -5,3 +5,4 @@ pypdf
 tavily-python
 streamlit
 pandas
+nicegui
